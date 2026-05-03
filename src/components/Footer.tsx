@@ -1,32 +1,40 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Phone } from 'lucide-react'
+import { ArrowRight, Mail } from 'lucide-react'
 import { BrandMark } from '@/components/BrandMark'
+import { SIGN_UP_URL } from '@/lib/marketing'
 
 export default function Footer() {
   return (
     <footer aria-label="Site footer" className="border-t border-[#27272A] bg-[#0F0F12]">
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-5 gap-10">
+      <div className="container mx-auto max-w-6xl px-6 py-14">
+        <div className="grid gap-10 md:grid-cols-12">
           {/* Brand */}
-          <div>
+          <div className="md:col-span-4">
             <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
               <BrandMark
-                size={28}
+                size={30}
                 className="group-hover:scale-105 transition-transform duration-150"
               />
               <span className="text-sm font-semibold text-text-primary tracking-[-0.01em]">
                 EdPilot
               </span>
             </Link>
-            <p className="text-text-secondary text-xs leading-relaxed max-w-[180px]">
-              AI-powered tools for professors and students.
+            <p className="text-text-secondary text-sm leading-6 max-w-[260px]">
+              Course-grounded AI infrastructure for universities that want control, clarity, and trust.
             </p>
+            <a
+              href={SIGN_UP_URL}
+              className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-accent transition-colors hover:text-[#A78BFA]"
+            >
+              Get Started
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
           </div>
 
           {/* Product */}
-          <div>
+          <div className="md:col-span-2">
             <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
               Product
             </h3>
@@ -50,33 +58,41 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Learn */}
-          <div>
+          {/* Compare */}
+          <div className="md:col-span-2">
             <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
-              Learn
+              Compare
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/learn"
+                  href="/compare"
                   className="text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
                 >
-                  All Courses
+                  All Comparisons
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/learn/statistics-101"
+                  href="/compare/chatgpt"
                   className="text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
                 >
-                  Statistics 101
+                  vs. ChatGPT
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/compare/lms-native"
+                  className="text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
+                >
+                  vs. LMS AI
                 </Link>
               </li>
             </ul>
           </div>
 
           {/* Company */}
-          <div>
+          <div className="md:col-span-2">
             <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
               Company
             </h3>
@@ -100,27 +116,18 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="md:col-span-2">
             <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
               Get in Touch
             </h3>
             <ul className="space-y-2">
               <li>
                 <a
-                  href="mailto:support@empowered.ai"
+                  href="mailto:support@edpilot.ai"
                   className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
                 >
                   <Mail className="w-3 h-3 flex-shrink-0" aria-hidden="true" />
-                  support@empowered.ai
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:+15551234567"
-                  className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
-                >
-                  <Phone className="w-3 h-3 flex-shrink-0" aria-hidden="true" />
-                  (555) 123-4567
+                  support@edpilot.ai
                 </a>
               </li>
             </ul>

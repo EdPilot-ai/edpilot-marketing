@@ -1,17 +1,16 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { m, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { ArrowRight, BookOpen, Search, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import Footer from '@/components/Footer'
-import { blogPosts, getFeaturedPost, ALL_CATEGORIES } from '@/lib/blog-data'
-import type { BlogCategory } from '@/lib/blog-data'
+import { Button } from '@/components/ui/button'
+import { Container, Hero, PageShell, Section, SectionHeader } from '@/components/marketing'
+import { ALL_CATEGORIES, blogPosts, getFeaturedPost } from '@/lib/blog-data'
+import type { BlogCategory, BlogPost } from '@/lib/blog-data'
 
-// ─── Sub-components ──────────────────────────────────────────────────────────
-
-function CategoryPill({
+function CategoryButton({
   label,
   count,
   active,
@@ -24,18 +23,19 @@ function CategoryPill({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border transition-all duration-150 whitespace-nowrap ${
+      className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
         active
-          ? 'bg-accent text-white border-accent'
-          : 'bg-transparent text-text-secondary border-border-gray hover:border-accent/50 hover:text-text-primary'
+          ? 'border-accent bg-accent text-white'
+          : 'border-border-gray bg-[#0F0F12] text-text-secondary hover:border-border-strong hover:text-text-primary'
       }`}
     >
       {label}
       <span
-        className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full transition-colors duration-150 ${
-          active ? 'bg-white/20 text-white' : 'bg-border-gray text-text-secondary'
+        className={`rounded-md px-1.5 py-0.5 text-[10px] ${
+          active ? 'bg-white/20 text-white' : 'bg-bg-surface text-text-tertiary'
         }`}
       >
         {count}
@@ -44,209 +44,192 @@ function CategoryPill({
   )
 }
 
-function AuthorAvatar({ name, size = 'sm' }: { name: string; size?: 'sm' | 'md' }) {
-  const dim = size === 'sm' ? 'w-6 h-6 text-[10px]' : 'w-8 h-8 text-xs'
+function AuthorBadge({ post }: { post: BlogPost }) {
   return (
-    <div
-      className={`${dim} bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0`}
-    >
-      <span className="text-accent font-semibold">{name.charAt(0)}</span>
+    <div className="flex min-w-0 items-center gap-2">
+      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-xs font-semibold text-accent">
+        {post.author.name.charAt(0)}
+      </div>
+      <div className="min-w-0">
+        <p className="truncate text-xs font-medium text-text-primary">{post.author.name}</p>
+        <p className="text-[11px] text-text-tertiary">{post.readingTime} min read</p>
+      </div>
     </div>
   )
 }
 
-// ─── Page ────────────────────────────────────────────────────────────────────
+function ArticleCard({ post }: { post: BlogPost }) {
+  return (
+    <Link href={`/blog/${post.slug}`} className="group block h-full">
+      <article className="flex h-full flex-col rounded-lg border border-border-gray bg-bg-surface p-5 transition duration-200 hover:border-accent/35 hover:bg-[#1d1d22]">
+        <span className="mb-4 w-fit rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
+          {post.category}
+        </span>
+        <h3 className="line-clamp-2 text-base font-semibold leading-6 tracking-[-0.015em] text-text-primary transition-colors group-hover:text-accent">
+          {post.title}
+        </h3>
+        <p className="mt-3 line-clamp-3 flex-1 text-sm leading-7 text-text-secondary">
+          {post.excerpt}
+        </p>
+        <div className="mt-5 flex items-center justify-between border-t border-border-gray pt-4">
+          <AuthorBadge post={post} />
+          <ArrowRight
+            className="h-4 w-4 text-accent opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100"
+            aria-hidden="true"
+          />
+        </div>
+      </article>
+    </Link>
+  )
+}
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState<BlogCategory | 'All'>('All')
   const [query, setQuery] = useState('')
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
-
   const featuredPost = getFeaturedPost()
 
-  // Article counts per category (excluding featured)
   const categoryCounts = useMemo(() => {
-    const nonFeatured = blogPosts.filter(p => !p.featured)
+    const nonFeatured = blogPosts.filter((post) => !post.featured)
     const counts: Record<string, number> = { All: nonFeatured.length }
-    for (const cat of ALL_CATEGORIES) {
-      counts[cat] = nonFeatured.filter(p => p.category === cat).length
+    for (const category of ALL_CATEGORIES) {
+      counts[category] = nonFeatured.filter((post) => post.category === category).length
     }
     return counts
   }, [])
 
-  // Filtered posts
   const filteredPosts = useMemo(() => {
-    return blogPosts.filter(post => {
+    const normalizedQuery = query.trim().toLowerCase()
+
+    return blogPosts.filter((post) => {
       if (post.featured) return false
       const matchesCategory = activeCategory === 'All' || post.category === activeCategory
-      const q = query.trim().toLowerCase()
       const matchesSearch =
-        !q ||
-        post.title.toLowerCase().includes(q) ||
-        post.excerpt.toLowerCase().includes(q) ||
-        post.author.name.toLowerCase().includes(q)
+        !normalizedQuery ||
+        post.title.toLowerCase().includes(normalizedQuery) ||
+        post.excerpt.toLowerCase().includes(normalizedQuery) ||
+        post.author.name.toLowerCase().includes(normalizedQuery)
+
       return matchesCategory && matchesSearch
     })
   }, [activeCategory, query])
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (email.trim()) {
-      setSubscribed(true)
-      setEmail('')
-    }
+  const handleSubscribe = (event: React.FormEvent) => {
+    event.preventDefault()
+    if (!email.trim()) return
+    setSubscribed(true)
+    setEmail('')
   }
 
   return (
-    <div className="min-h-screen bg-bg-page">
-      {/* ── Hero ── */}
-      <section className="relative overflow-hidden pt-24 pb-20">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-violet-600/7 rounded-full blur-[130px] pointer-events-none" />
-        <div className="absolute top-28 left-[15%] w-[280px] h-[280px] bg-indigo-500/4 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute top-28 right-[15%] w-[280px] h-[280px] bg-purple-500/4 rounded-full blur-[100px] pointer-events-none" />
-        <div className="container relative z-10 mx-auto px-6">
-          <div className="text-center max-w-[720px] mx-auto">
-            <h1 className="text-5xl md:text-[3.5rem] font-bold mb-5 leading-[1.1] tracking-[-0.03em]">
-              <span className="text-text-primary">Insights on AI in </span>
-              <span className="text-[#8B5CF6]">Higher Education.</span>
-            </h1>
-            <p className="text-[1.0625rem] text-text-secondary leading-[1.7] max-w-[480px] mx-auto">
-              Perspectives on AI governance, curriculum intelligence, academic integrity, and the
-              evolving role of faculty.
-            </p>
-          </div>
-        </div>
-      </section>
+    <PageShell>
+      <Hero
+        eyebrow="Insights"
+        title="AI in higher education,"
+        accent="without the noise."
+        description="Perspectives on AI governance, curriculum intelligence, academic integrity, and the evolving role of faculty."
+        className="pb-14 md:pb-20"
+      />
 
-      {/* ── Sticky filter bar ── */}
-      <div className="sticky top-[56px] z-40 bg-bg-page/90 backdrop-blur-xl border-b border-border-gray">
-        <div className="container mx-auto px-6 py-3">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-            {/* Search */}
-            <div className="relative flex-shrink-0 w-full sm:w-56">
+      <Section className="sticky top-16 z-30 py-3 backdrop-blur-xl" surface="deep">
+        <Container size="wide">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center">
+            <div className="relative w-full md:w-72">
               <Search
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-secondary pointer-events-none"
+                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-tertiary"
                 aria-hidden="true"
               />
               <input
                 type="search"
                 value={query}
-                onChange={e => setQuery(e.target.value)}
-                placeholder="Search articles…"
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search articles"
                 aria-label="Search articles"
-                className="w-full pl-8 pr-8 py-1.5 rounded-lg bg-bg-surface border border-border-gray text-text-primary text-xs placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-150"
+                className="h-10 w-full rounded-lg border border-border-gray bg-bg-surface px-9 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none"
               />
               {query && (
                 <button
+                  type="button"
                   onClick={() => setQuery('')}
                   aria-label="Clear search"
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary transition-colors hover:text-text-primary"
                 >
-                  <X className="w-3 h-3" />
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               )}
             </div>
-
-            {/* Category pills */}
             <div
-              className="flex items-center gap-2 overflow-x-auto pb-0.5 scrollbar-none flex-1"
+              className="flex flex-1 items-center gap-2 overflow-x-auto pb-0.5"
               role="group"
               aria-label="Filter articles by category"
             >
-              <CategoryPill
+              <CategoryButton
                 label="All"
-                count={categoryCounts['All'] ?? 0}
+                count={categoryCounts.All ?? 0}
                 active={activeCategory === 'All'}
                 onClick={() => setActiveCategory('All')}
               />
-              {ALL_CATEGORIES.map(cat => (
-                <CategoryPill
-                  key={cat}
-                  label={cat}
-                  count={categoryCounts[cat] ?? 0}
-                  active={activeCategory === cat}
-                  onClick={() => setActiveCategory(cat)}
+              {ALL_CATEGORIES.map((category) => (
+                <CategoryButton
+                  key={category}
+                  label={category}
+                  count={categoryCounts[category] ?? 0}
+                  active={activeCategory === category}
+                  onClick={() => setActiveCategory(category)}
                 />
               ))}
             </div>
           </div>
-        </div>
-      </div>
+        </Container>
+      </Section>
 
-      {/* ── Content ── */}
-      <div className="container mx-auto px-6 max-w-5xl py-14">
-        {/* ── Featured Article ── */}
-        {activeCategory === 'All' && !query && (
-          <div className="mb-14">
-            <p className="text-accent text-xs font-semibold uppercase tracking-widest mb-5">
-              Featured
-            </p>
-            <Link href={`/blog/${featuredPost.slug}`} className="group block">
-              <article className="relative p-7 md:p-9 rounded-2xl border border-border-gray bg-bg-surface hover:border-accent/40 transition-all duration-200 hover:shadow-[0_0_50px_rgba(139,92,246,0.07)] overflow-hidden">
-                {/* Subtle accent glow in corner */}
-                <div
-                  className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[60px] pointer-events-none"
-                  aria-hidden="true"
-                />
-
-                <div className="relative flex flex-col md:flex-row md:gap-10 md:items-start">
-                  {/* Left: content */}
-                  <div className="flex-1 min-w-0">
-                    <span className="inline-block text-[10px] font-semibold uppercase tracking-widest text-accent bg-accent/10 rounded-md px-2.5 py-1 mb-4">
-                      {featuredPost.category}
-                    </span>
-                    <h2 className="text-xl md:text-2xl font-bold text-text-primary mb-3 leading-snug tracking-tight group-hover:text-accent transition-colors duration-150">
-                      {featuredPost.title}
-                    </h2>
-                    <p className="text-text-secondary text-sm leading-relaxed mb-6 max-w-xl">
-                      {featuredPost.excerpt}
-                    </p>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <AuthorAvatar name={featuredPost.author.name} size="md" />
-                      <div>
-                        <p className="text-text-primary text-sm font-medium leading-none">
-                          {featuredPost.author.name}
-                        </p>
-                        <p className="text-text-secondary text-xs mt-0.5">
-                          {featuredPost.author.title}
-                        </p>
+      <Section className="py-16 md:py-20">
+        <Container size="wide">
+          {activeCategory === 'All' && !query && (
+            <div className="mb-14">
+              <SectionHeader align="left" eyebrow="Featured" title="Start here" />
+              <Link href={`/blog/${featuredPost.slug}`} className="group block">
+                <article className="rounded-lg border border-border-gray bg-[linear-gradient(135deg,rgba(139,92,246,0.12),rgba(24,24,27,0.96)_42%,rgba(15,15,18,1))] p-6 transition duration-200 hover:border-accent/45 md:p-8">
+                  <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+                    <div>
+                      <span className="mb-4 inline-flex rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
+                        {featuredPost.category}
+                      </span>
+                      <h2 className="max-w-3xl text-2xl font-semibold leading-tight tracking-[-0.025em] text-text-primary transition-colors group-hover:text-accent md:text-3xl">
+                        {featuredPost.title}
+                      </h2>
+                      <p className="mt-4 max-w-2xl text-sm leading-7 text-text-secondary md:text-base">
+                        {featuredPost.excerpt}
+                      </p>
+                      <div className="mt-6">
+                        <AuthorBadge post={featuredPost} />
                       </div>
-                      <span className="text-border-gray text-xs" aria-hidden="true">
-                        ·
-                      </span>
-                      <span className="text-text-secondary text-xs">
-                        {featuredPost.readingTime} min read
-                      </span>
                     </div>
-                  </div>
-
-                  {/* Right: CTA */}
-                  <div className="mt-7 md:mt-0 md:flex-shrink-0 flex items-center">
-                    <Button className="bg-accent hover:bg-accent-hover text-white">
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent">
                       Read Article
-                      <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
-                    </Button>
+                      <ArrowRight
+                        className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                        aria-hidden="true"
+                      />
+                    </span>
                   </div>
-                </div>
-              </article>
-            </Link>
-          </div>
-        )}
+                </article>
+              </Link>
+            </div>
+          )}
 
-        {/* ── Article Grid ── */}
-        <div>
-          {/* Grid header */}
-          <div className="flex items-center justify-between mb-6">
-            <p className="text-text-secondary text-xs">
+          <div className="mb-6 flex items-center justify-between">
+            <p className="text-sm text-text-secondary">
               {filteredPosts.length === 0
                 ? 'No articles found'
                 : filteredPosts.length === 1
                   ? '1 article'
                   : `${filteredPosts.length} articles`}
               {query && (
-                <span className="ml-1">
-                  for <span className="text-text-primary font-medium">&ldquo;{query}&rdquo;</span>
+                <span>
+                  {' '}
+                  for <span className="font-medium text-text-primary">&ldquo;{query}&rdquo;</span>
                 </span>
               )}
             </p>
@@ -259,49 +242,11 @@ export default function BlogPage() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.25 }}
-                className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+                transition={{ duration: 0.2 }}
+                className="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
               >
-                {filteredPosts.map(post => (
-                  <div key={post.slug}>
-                    <Link href={`/blog/${post.slug}`} className="group block h-full">
-                      <article className="h-full flex flex-col p-5 rounded-xl border border-border-gray bg-bg-surface hover:border-accent/35 transition-all duration-200 hover:shadow-[0_4px_20px_rgba(139,92,246,0.06)]">
-                        {/* Category tag */}
-                        <div className="mb-3.5">
-                          <span className="inline-block text-[10px] font-semibold uppercase tracking-widest text-accent bg-accent/10 rounded-md px-2 py-0.5">
-                            {post.category}
-                          </span>
-                        </div>
-
-                        {/* Title */}
-                        <h3 className="text-[15px] font-semibold text-text-primary mb-2.5 leading-snug tracking-tight group-hover:text-accent transition-colors duration-150 line-clamp-2">
-                          {post.title}
-                        </h3>
-
-                        {/* Excerpt */}
-                        <p className="text-text-secondary text-sm leading-relaxed line-clamp-3 flex-1 mb-4">
-                          {post.excerpt}
-                        </p>
-
-                        {/* Footer: author + read time */}
-                        <div className="mt-auto flex items-center justify-between pt-3.5 border-t border-border-gray">
-                          <div className="flex items-center gap-2 min-w-0">
-                            <AuthorAvatar name={post.author.name} />
-                            <span className="text-text-primary text-xs font-medium truncate">
-                              {post.author.name.split(' ')[0]}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1.5 text-text-secondary text-xs flex-shrink-0">
-                            <span>{post.readingTime} min</span>
-                            <ArrowRight
-                              className="w-3 h-3 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-                              aria-hidden="true"
-                            />
-                          </div>
-                        </div>
-                      </article>
-                    </Link>
-                  </div>
+                {filteredPosts.map((post) => (
+                  <ArticleCard key={post.slug} post={post} />
                 ))}
               </m.div>
             ) : (
@@ -310,25 +255,25 @@ export default function BlogPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="flex flex-col items-center justify-center py-24 text-center"
+                className="rounded-lg border border-border-gray bg-bg-surface px-6 py-20 text-center"
               >
-                <div className="w-11 h-11 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <BookOpen className="w-5 h-5 text-accent" aria-hidden="true" />
+                <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-lg border border-accent/20 bg-accent/10">
+                  <BookOpen className="h-5 w-5 text-accent" aria-hidden="true" />
                 </div>
-                <p className="text-text-primary font-semibold mb-1.5">No articles found</p>
-                <p className="text-text-secondary text-sm max-w-xs">
+                <p className="font-semibold text-text-primary">No articles found</p>
+                <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-text-secondary">
                   {query
                     ? `No results for "${query}". Try a different search or clear the filter.`
                     : 'Articles in this category are coming soon.'}
                 </p>
                 {(query || activeCategory !== 'All') && (
                   <button
+                    type="button"
                     onClick={() => {
                       setQuery('')
                       setActiveCategory('All')
                     }}
-                    className="mt-4 text-accent text-sm font-medium hover:underline"
+                    className="mt-5 text-sm font-semibold text-accent hover:text-[#A78BFA]"
                   >
                     Clear filters
                   </button>
@@ -336,34 +281,29 @@ export default function BlogPage() {
               </m.div>
             )}
           </AnimatePresence>
-        </div>
-      </div>
+        </Container>
+      </Section>
 
-      {/* ── Newsletter ── */}
-      <section className="py-16 border-t border-border-gray">
-        <div className="container mx-auto px-6 max-w-xl">
+      <Section className="py-16 md:py-20" surface="panel">
+        <Container size="narrow">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-text-primary mb-3 tracking-tight">
-              Stay Ahead of AI in Higher Education
-            </h2>
-            <p className="text-text-secondary text-sm leading-relaxed mb-7 max-w-sm mx-auto">
-              New perspectives delivered to professors and administrators shaping institutional AI
-              policy.
-            </p>
-
+            <SectionHeader
+              eyebrow="Newsletter"
+              title="Stay ahead of AI in higher education."
+              description="New perspectives delivered to professors and administrators shaping institutional AI policy."
+            />
             {subscribed ? (
               <m.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.25 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent/10 border border-accent/20 text-accent text-sm font-medium"
+                className="inline-flex rounded-lg border border-accent/20 bg-accent/10 px-5 py-3 text-sm font-medium text-accent"
               >
-                You&apos;re subscribed — thank you.
+                You&apos;re subscribed. Thank you.
               </m.div>
             ) : (
               <form
                 onSubmit={handleSubscribe}
-                className="flex flex-col sm:flex-row gap-2.5 max-w-sm mx-auto"
+                className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row"
                 aria-label="Newsletter subscription"
               >
                 <label htmlFor="newsletter-email" className="sr-only">
@@ -373,27 +313,24 @@ export default function BlogPage() {
                   id="newsletter-email"
                   type="email"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(event) => setEmail(event.target.value)}
                   placeholder="your@university.edu"
                   required
                   autoComplete="email"
-                  className="flex-1 px-4 py-2.5 rounded-lg bg-bg-surface border border-border-gray text-text-primary text-sm placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-150"
+                  className="h-11 flex-1 rounded-lg border border-border-gray bg-[#0F0F12] px-4 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none"
                 />
-                <Button
-                  type="submit"
-                  className="bg-accent hover:bg-accent-hover text-white whitespace-nowrap flex-shrink-0"
-                >
+                <Button type="submit" className="h-11 px-6">
                   Subscribe
                 </Button>
               </form>
             )}
-
-            <p className="text-text-secondary text-xs mt-4">No spam. Unsubscribe at any time.</p>
+            <p className="mt-4 text-xs text-text-tertiary">No spam. Unsubscribe at any time.</p>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
       <Footer />
-    </div>
+    </PageShell>
   )
 }
+

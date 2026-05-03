@@ -120,13 +120,13 @@ export default function ContactPage() {
               </p>
 
               <a
-                href="mailto:support@empowered.ai"
+                href="mailto:support@edpilot.ai"
                 className="flex items-center gap-3 text-text-secondary hover:text-[#8B5CF6] transition-colors text-[13px] group"
               >
                 <div className="w-8 h-8 bg-[#7C3AED]/12 rounded-lg flex items-center justify-center flex-shrink-0 ring-1 ring-[#7C3AED]/25 group-hover:bg-[#7C3AED]/20 transition-colors">
                   <Mail className="w-4 h-4 text-[#8B5CF6]" aria-hidden="true" />
                 </div>
-                support@empowered.ai
+                support@edpilot.ai
               </a>
             </div>
 

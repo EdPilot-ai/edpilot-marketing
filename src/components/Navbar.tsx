@@ -6,40 +6,46 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { BrandMark } from "@/components/BrandMark";
 import { Button } from "@/components/ui/button";
+import { SIGN_IN_URL, SIGN_UP_URL } from "@/lib/marketing";
 
 const NAV_LINKS = [
-  { href: "/about", label: "About" },
   { href: "/products", label: "Products" },
+  { href: "/compare", label: "Compare" },
   { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
 ];
-
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://app.edpilot.com";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#27272A] bg-[#0F0F12]/80 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-[#27272A]/80 bg-[#0F0F12]/78 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0F0F12]/68">
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6"
+        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6"
       >
-        <Link href="/" className="flex items-center gap-2" aria-label="EdPilot home">
-          <BrandMark />
+        <Link
+          href="/"
+          className="group flex items-center gap-2.5 rounded-lg focus-ring"
+          aria-label="EdPilot home"
+        >
+          <BrandMark size={30} className="transition-transform duration-200 group-hover:scale-[1.04]" />
+          <span className="text-sm font-semibold tracking-[-0.01em] text-text-primary">EdPilot</span>
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-1 rounded-lg border border-white/[0.06] bg-white/[0.03] p-1 md:flex">
           {NAV_LINKS.map((link) => {
-            const active = pathname === link.href;
+            const active = pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`));
             return (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`text-sm transition-colors ${
-                    active ? "text-text-primary" : "text-text-secondary hover:text-text-primary"
+                  className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                    active
+                      ? "bg-white/[0.07] text-text-primary"
+                      : "text-text-secondary hover:bg-white/[0.04] hover:text-text-primary"
                   }`}
                 >
                   {link.label}
@@ -51,19 +57,19 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href={`${APP_URL}/signin`}
-            className="text-sm text-text-secondary hover:text-text-primary"
+            href={SIGN_IN_URL}
+            className="rounded-lg px-2 py-1 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary focus-ring"
           >
             Sign in
           </a>
-          <a href={`${APP_URL}/register`}>
-            <Button size="sm">Get Started</Button>
-          </a>
+          <Button asChild size="sm">
+            <a href={SIGN_UP_URL}>Get Started</a>
+          </Button>
         </div>
 
         <button
           type="button"
-          className="md:hidden text-text-primary"
+          className="rounded-lg border border-border-gray bg-bg-surface p-2 text-text-primary transition-colors hover:border-border-strong md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -73,29 +79,38 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-[#27272A] bg-[#0F0F12] md:hidden">
+        <div className="border-t border-[#27272A] bg-[#0F0F12]/95 backdrop-blur-xl md:hidden">
           <ul className="space-y-1 px-6 py-4">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block py-2 text-sm text-text-secondary hover:text-text-primary"
+                  className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-white/[0.04] hover:text-text-primary"
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-white/[0.04] hover:text-text-primary"
+              >
+                Contact
+              </Link>
+            </li>
             <li className="pt-2">
               <a
-                href={`${APP_URL}/signin`}
-                className="block py-2 text-sm text-text-secondary hover:text-text-primary"
+                href={SIGN_IN_URL}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-white/[0.04] hover:text-text-primary"
               >
                 Sign in
               </a>
             </li>
             <li>
-              <a href={`${APP_URL}/register`} className="block pt-2">
+              <a href={SIGN_UP_URL} className="block pt-2">
                 <Button size="sm" className="w-full">
                   Get Started
                 </Button>

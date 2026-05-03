@@ -24,7 +24,7 @@ module.exports = {
         'border-strong': '#3d3d45',
         'text-primary': '#EDEDEF',
         'text-secondary': '#9D9DA8',
-        'text-tertiary': '#9494A0',
+        'text-tertiary': '#6c6c78',
         'accent-hover': '#7C3AED',
         'accent-press': '#6D28D9',
 

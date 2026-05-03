@@ -298,7 +298,7 @@ function AuthorAvatar({ name, size = 'md' }: { name: string; size?: 'sm' | 'md' 
   }[size]
   return (
     <div
-      className={`${cls} bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0`}
+      className={`${cls} bg-accent/10 rounded-lg border border-accent/20 flex items-center justify-center flex-shrink-0`}
     >
       <span className="text-accent font-semibold">{name.charAt(0)}</span>
     </div>
@@ -380,13 +380,11 @@ function ArticleBody({
       </div>
 
       {/* ── Article header ── */}
-      <header className="relative overflow-hidden pt-12 pb-10">
+      <header className="relative overflow-hidden border-b border-border-gray pt-16 pb-12">
         <div
-          className="absolute inset-0 overflow-hidden pointer-events-none"
+          className="absolute inset-x-0 top-0 h-[360px] bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.14),rgba(20,20,22,0)_62%)] pointer-events-none"
           aria-hidden="true"
-        >
-          <div className="absolute -top-20 left-1/3 w-[380px] h-[380px] bg-accent/6 rounded-full blur-[100px]" />
-        </div>
+        />
 
         <div className="container mx-auto px-6 max-w-3xl relative z-10">
           <div
@@ -477,7 +475,7 @@ function ArticleBody({
                   key={related.slug}
                 >
                   <Link href={`/blog/${related.slug}`} className="group block">
-                    <article className="flex items-start gap-4 p-5 rounded-xl border border-border-gray bg-bg-page hover:border-accent/30 transition-all duration-200">
+                    <article className="flex items-start gap-4 p-5 rounded-lg border border-border-gray bg-bg-page hover:border-accent/30 transition-all duration-200">
                       {/* Color swatch accent */}
                       <div className="w-1 self-stretch rounded-full bg-accent/30 flex-shrink-0 group-hover:bg-accent transition-colors duration-150" />
 
