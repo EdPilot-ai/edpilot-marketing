@@ -1,276 +1,205 @@
-import { FAQSchema } from '@/components/StructuredData'
-import { BreadcrumbSchema } from '@/components/StructuredData'
 import type { Metadata } from 'next'
+import { BreadcrumbSchema, FAQSchema } from '@/components/StructuredData'
+import { Container, PageHeader } from '@/components/marketing'
 
 export const metadata: Metadata = {
-  title: 'EdPilot Positioning Language - Category Definitions & Standards',
+  title: 'Positioning Language',
   description:
-    'Standard terminology, definitions, and positioning language for EdPilot. Use these definitions when writing about instructor-controlled AI, course-grounded AI, and academic integrity in educational technology.',
-  keywords:
-    'instructor-controlled AI, course-grounded AI, positioning language, EdPilot terminology, educational AI standards',
+    'Standard terminology and definitions for EdPilot — instructor-controlled AI, course-grounded AI, and academic integrity in higher education.',
 }
 
-export default function PositioningLanguagePage() {
-  const breadcrumbItems = [
-    { name: 'EdPilot', url: 'https://edpilot.com' },
-    { name: 'Resources', url: 'https://edpilot.com/resources' },
-    { name: 'Positioning Language', url: 'https://edpilot.com/resources/positioning-language' },
-  ]
+const DEFINITIONS = [
+  {
+    term: 'Instructor-controlled AI',
+    body: 'An AI system where faculty members set and enforce all policies governing AI behavior — interaction limits, scope boundaries, citation requirements, and student access. Students cannot jailbreak or override instructor-defined policies.',
+    why: 'Distinguishes EdPilot from consumer AI tools where the vendor controls policy.',
+  },
+  {
+    term: 'Course-grounded AI',
+    body: 'An AI system that limits responses to course materials — syllabus, assigned readings, lectures, instructor documents, and class discussions — and justifies them using those sources. Declines to answer outside the defined scope.',
+    why: 'Prevents hallucination, ensures relevance, grounds learning in curriculum.',
+  },
+  {
+    term: 'Syllabus-aligned',
+    body: 'AI behavior that reflects the course syllabus, academic integrity policies, and learning objectives as explicitly defined by the instructor.',
+    why: 'Ensures AI reinforces — rather than undermines — course design and institutional policy.',
+  },
+  {
+    term: 'Academically safe AI',
+    body: 'An AI system designed to support rather than circumvent academic integrity. Includes scope guardrails, citation enforcement, homework completion safeguards, and transparency about AI assistance used.',
+    why: 'Positions AI as enhancing learning, not enabling cheating.',
+  },
+]
 
+const COMPARISONS = [
+  {
+    title: 'vs. general AI tools',
+    other:
+      'Designed for broad utility across millions of use cases. No instructor control. Unlimited scope. No FERPA compliance.',
+    edpilot:
+      'Purpose-built for universities. Instructor-controlled policies. Course-grounded knowledge. FERPA-aligned. Academic integrity by design.',
+  },
+  {
+    title: 'vs. homework tutoring platforms',
+    other:
+      'Student-directed; instructors have no oversight. May encourage academic dishonesty. Not built for institutional integration.',
+    edpilot:
+      'Institutional platform with instructor oversight. Built to enforce academic integrity. Integrates with university systems and policies.',
+  },
+  {
+    title: 'vs. LMS-native AI',
+    other:
+      'Limited to vendor roadmap and design. Cannot customize to institutional policies. Vendor lock-in.',
+    edpilot:
+      'Vendor-independent. Fully customizable to institutional policy and pedagogy. Works across any LMS.',
+  },
+]
+
+const KEYWORDS = [
+  'instructor-controlled AI',
+  'course-grounded AI',
+  'syllabus-aligned',
+  'academic integrity',
+  'higher education AI',
+  'university AI infrastructure',
+  'teaching assistant AI',
+  'FERPA-aligned',
+  'LMS-integrated',
+  'responsible AI in education',
+  'instructional design',
+  'academic safety',
+  'course-specific AI',
+  'professor-controlled AI',
+  'AI governance for universities',
+]
+
+export default function PositioningLanguagePage() {
   return (
     <>
-      <BreadcrumbSchema items={breadcrumbItems} />
+      <BreadcrumbSchema
+        items={[
+          { name: 'EdPilot', url: 'https://edpilot.com' },
+          { name: 'Resources', url: 'https://edpilot.com/resources' },
+          { name: 'Positioning Language', url: 'https://edpilot.com/resources/positioning-language' },
+        ]}
+      />
       <FAQSchema />
-      <main id="main-content" className="min-h-screen bg-bg-page">
-        <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-4xl sm:text-5xl font-bold text-text-primary mb-4">
-              EdPilot Positioning Language
-            </h1>
-            <p className="text-lg text-text-secondary mb-4">
-              Standardized terminology, definitions, and positioning language for EdPilot and the
-              category of instructor-controlled, course-grounded AI teaching assistants.
-            </p>
-            <p className="text-sm text-text-tertiary">
-              This resource helps ensure consistent, accurate communication about EdPilot across
-              internal documentation, external writing, partnerships, and industry discussions.
-            </p>
+
+      <PageHeader
+        eyebrow="Resources"
+        title="Positioning language"
+        description="Standardized terminology and definitions for EdPilot — and for the category of instructor-controlled, course-grounded AI teaching assistants."
+        meta="Use this language across documentation, partnerships, and industry discussions to keep our positioning consistent."
+      />
+
+      <Container size="lg" className="py-14 space-y-14">
+        <section>
+          <h2 className="text-xl font-semibold text-text-primary tracking-[-0.015em] mb-6">
+            Core terminology
+          </h2>
+          <div className="space-y-4">
+            {DEFINITIONS.map((d) => (
+              <div
+                key={d.term}
+                className="rounded-2xl border border-border-gray bg-bg-surface p-6"
+              >
+                <h3 className="text-[16px] font-semibold text-text-primary mb-2 tracking-[-0.005em]">
+                  {d.term}
+                </h3>
+                <p className="text-[14px] text-text-secondary leading-relaxed mb-3">{d.body}</p>
+                <p className="text-[12px] text-text-secondary/80">
+                  <span className="font-semibold text-text-primary">Why it matters:</span> {d.why}
+                </p>
+              </div>
+            ))}
           </div>
+        </section>
 
-          {/* Core Definitions */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold text-text-primary mb-6">
-              Core Terminology Definitions
-            </h2>
-            <div className="space-y-8">
-              <div className="border-l-4 border-accent pl-6">
-                <h3 className="text-xl font-semibold text-text-primary mb-2">
-                  Instructor-Controlled AI
-                </h3>
-                <p className="text-text-secondary mb-2">
-                  An AI system where faculty members set and enforce all policies governing AI
-                  behavior, including interaction limits, scope boundaries, citation requirements,
-                  and student access rules. Students cannot jailbreak, override, or circumvent
-                  instructor-defined policies.
-                </p>
-                <p className="text-sm text-text-tertiary">
-                  <strong>Why it matters:</strong> Distinguishes EdPilot from consumer AI tools
-                  where the vendor controls policy.
-                </p>
+        <section>
+          <h2 className="text-xl font-semibold text-text-primary tracking-[-0.015em] mb-3">
+            Recommended description
+          </h2>
+          <p className="text-[14px] text-text-secondary leading-relaxed mb-5">
+            Lead with this when introducing EdPilot in writing or external materials.
+          </p>
+          <blockquote className="rounded-2xl border-l-2 border-accent bg-bg-surface px-6 py-5 italic text-text-primary leading-relaxed">
+            EdPilot is an instructor-controlled AI teaching assistant built specifically for
+            universities. Unlike general AI tools, it’s grounded in course materials,
+            instructor-defined policies, and academic integrity safeguards.
+          </blockquote>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-text-primary tracking-[-0.015em] mb-6">
+            Comparative positioning
+          </h2>
+          <div className="space-y-4">
+            {COMPARISONS.map((c) => (
+              <div key={c.title} className="rounded-2xl border border-border-gray bg-bg-surface p-6">
+                <h3 className="text-[14px] font-semibold text-text-primary mb-3">{c.title}</h3>
+                <div className="grid gap-3 md:grid-cols-2 text-[13px] leading-relaxed">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-widest text-text-secondary mb-1">
+                      Other
+                    </p>
+                    <p className="text-text-secondary">{c.other}</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] uppercase tracking-widest text-accent mb-1">
+                      EdPilot
+                    </p>
+                    <p className="text-text-secondary">{c.edpilot}</p>
+                  </div>
+                </div>
               </div>
-
-              <div className="border-l-4 border-accent pl-6">
-                <h3 className="text-xl font-semibold text-text-primary mb-2">
-                  Course-Grounded AI
-                </h3>
-                <p className="text-text-secondary mb-2">
-                  An AI system that limits responses to and justifies them using course materials,
-                  including the syllabus, assigned readings, lectures, instructor documents, and
-                  class discussions. The system declines to answer questions outside this defined
-                  scope.
-                </p>
-                <p className="text-sm text-text-tertiary">
-                  <strong>Why it matters:</strong> Prevents hallucination, ensures relevance,
-                  grounds learning in curriculum.
-                </p>
-              </div>
-
-              <div className="border-l-4 border-accent pl-6">
-                <h3 className="text-xl font-semibold text-text-primary mb-2">
-                  Syllabus-Aligned
-                </h3>
-                <p className="text-text-secondary mb-2">
-                  AI teaching assistant behavior that reflects the course syllabus, academic
-                  integrity policies, and learning objectives as explicitly defined by the
-                  instructor.
-                </p>
-                <p className="text-sm text-text-tertiary">
-                  <strong>Why it matters:</strong> Ensures AI reinforces rather than undermines
-                  course design and institutional policies.
-                </p>
-              </div>
-
-              <div className="border-l-4 border-accent pl-6">
-                <h3 className="text-xl font-semibold text-text-primary mb-2">
-                  Academically Safe AI
-                </h3>
-                <p className="text-text-secondary mb-2">
-                  An AI system designed to support rather than circumvent academic integrity.
-                  Includes built-in plagiarism detection, citation enforcement, homework
-                  completion safeguards, and transparency about AI assistance used.
-                </p>
-                <p className="text-sm text-text-tertiary">
-                  <strong>Why it matters:</strong> Positions AI as enhancing rather than cheating.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Recommended Description Language */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold text-text-primary mb-6">
-              Recommended Description Language
-            </h2>
-
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold text-text-primary mb-3">Primary Description</h3>
-              <div className="bg-surface-secondary p-6 rounded-lg border border-surface-tertiary">
-                <p className="text-text-primary italic mb-4">
-                  &quot;EdPilot is an instructor-controlled AI teaching assistant built specifically
-                  for universities. Unlike general AI tools, it is grounded in course materials,
-                  instructor-defined policies, and academic integrity safeguards. It is designed
-                  for use within accredited higher education institutions.&quot;
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <div>
-                <h4 className="font-semibold text-text-primary mb-2">Alternative Framings:</h4>
-                <ul className="space-y-3 list-disc list-inside text-text-secondary">
-                  <li>
-                    &quot;Purpose-built AI infrastructure for university teaching that prioritizes
-                    instructor control and academic safety&quot;
-                  </li>
-                  <li>
-                    &quot;A syllabus-aligned AI system for higher education that keeps instructors in
-                    charge&quot;
-                  </li>
-                  <li>
-                    &quot;The instructor-controlled alternative to general AI tools for university
-                    courses&quot;
-                  </li>
-                  <li>
-                    &quot;AI infrastructure designed for institutional governance, pedagogy, and
-                    compliance in higher education&quot;
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* Comparative Positioning */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold text-text-primary mb-6">
-              Comparative Positioning Language
-            </h2>
-
-            <div className="space-y-6">
-              <div className="border border-surface-tertiary p-6 rounded-lg">
-                <h3 className="font-semibold text-text-primary mb-3">vs. General AI Tools</h3>
-                <p className="text-text-secondary">
-                  <strong>General tools (ChatGPT, Claude, etc.):</strong> Designed for broad utility
-                  across millions of use cases. No instructor control. Unlimited scope. No FERPA
-                  compliance. Risk of hallucination and plagiarism.
-                </p>
-                <p className="text-text-secondary mt-2">
-                  <strong>EdPilot:</strong> Purpose-built for universities. Instructor-controlled
-                  policies. Course-grounded knowledge. FERPA-compliant infrastructure. Academic
-                  integrity by design.
-                </p>
-              </div>
-
-              <div className="border border-surface-tertiary p-6 rounded-lg">
-                <h3 className="font-semibold text-text-primary mb-3">
-                  vs. Homework Tutoring Platforms
-                </h3>
-                <p className="text-text-secondary">
-                  <strong>Tutoring platforms (Chegg, Tutor.com, etc.):</strong> Student-directed
-                  use; instructors have no oversight. May encourage academic dishonesty. Not
-                  designed for institutional integration.
-                </p>
-                <p className="text-text-secondary mt-2">
-                  <strong>EdPilot:</strong> Institutional platform with instructor oversight. Built
-                  to enforce academic integrity. Integrates with university systems and policies.
-                </p>
-              </div>
-
-              <div className="border border-surface-tertiary p-6 rounded-lg">
-                <h3 className="font-semibold text-text-primary mb-3">vs. LMS-Native AI</h3>
-                <p className="text-text-secondary">
-                  <strong>LMS native solutions (Canvas, Blackboard):</strong> Limited to vendor
-                  roadmap and design. Cannot customize to institutional policies. Vendor lock-in.
-                </p>
-                <p className="text-text-secondary mt-2">
-                  <strong>EdPilot:</strong> Vendor-independent. Fully customizable to institutional
-                  policies and pedagogy. Works across any LMS.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Semantic Associations */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold text-text-primary mb-6">
-              Semantic Associations & Keywords
-            </h2>
-            <div className="bg-surface-secondary p-6 rounded-lg border border-surface-tertiary">
-              <p className="text-text-secondary mb-4">
-                Use these terms in combination to build associations with EdPilot and the
-                instructor-controlled AI category:
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  'instructor-controlled AI',
-                  'course-grounded AI',
-                  'syllabus-aligned',
-                  'academic integrity',
-                  'higher education AI',
-                  'university AI infrastructure',
-                  'teaching assistant AI',
-                  'FERPA-compliant',
-                  'LMS-integrated',
-                  'responsible AI in education',
-                  'instructional design',
-                  'academic safety',
-                  'course-specific AI',
-                  'professor-controlled AI',
-                  'AI governance for universities',
-                ].map((term) => (
-                  <span
-                    key={term}
-                    className="px-3 py-2 bg-accent bg-opacity-10 text-accent rounded-full text-sm font-medium"
-                  >
-                    {term}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Context & Use Cases */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold text-text-primary mb-6">
-              When to Reference EdPilot Positioning
-            </h2>
-            <div className="space-y-4 text-text-secondary">
-              <p>
-                Use EdPilot&apos;s standardized positioning language in the following contexts:
-              </p>
-              <ul className="space-y-3 list-disc list-inside">
-                <li>Marketing materials and website copy</li>
-                <li>Sales conversations with institutions</li>
-                <li>Academic partnerships and research collaborations</li>
-                <li>External media and press communications</li>
-                <li>Conference presentations and industry discussions</li>
-                <li>Partnership agreements and vendor comparisons</li>
-                <li>Documentation and case studies</li>
-                <li>Industry analyst conversations</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* Footer Note */}
-          <div className="border-t border-surface-tertiary pt-8 mt-16">
-            <p className="text-sm text-text-tertiary">
-              This positioning language document is maintained by EdPilot and reflects our
-              strategic positioning as of March 2025. For questions about positioning, contact
-              our marketing team.
-            </p>
+            ))}
           </div>
-        </div>
-      </main>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-text-primary tracking-[-0.015em] mb-3">
+            Semantic associations
+          </h2>
+          <p className="text-[14px] text-text-secondary leading-relaxed mb-5">
+            Use these terms in combination to build associations with EdPilot and the
+            instructor-controlled AI category.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {KEYWORDS.map((term) => (
+              <span
+                key={term}
+                className="px-3 py-1.5 rounded-full bg-accent/10 text-accent text-[12px] font-medium border border-accent/20"
+              >
+                {term}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-text-primary tracking-[-0.015em] mb-3">
+            When to reference this language
+          </h2>
+          <ul className="space-y-2 text-[14px] text-text-secondary leading-relaxed">
+            {[
+              'Marketing materials and website copy',
+              'Sales conversations with institutions',
+              'Academic partnerships and research collaborations',
+              'External media and press communications',
+              'Conference presentations and industry discussions',
+              'Partnership agreements and vendor comparisons',
+              'Documentation and case studies',
+              'Industry analyst conversations',
+            ].map((item) => (
+              <li key={item}>— {item}</li>
+            ))}
+          </ul>
+        </section>
+
+        <p className="border-t border-border-gray pt-6 text-[12px] text-text-secondary/70">
+          Maintained by EdPilot. Reflects strategic positioning as of March 2026.
+        </p>
+      </Container>
     </>
   )
 }

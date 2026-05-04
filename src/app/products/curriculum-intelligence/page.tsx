@@ -1,157 +1,175 @@
-'use client'
-
 import Link from 'next/link'
 import {
-  ChevronLeft,
-  Brain,
+  ArrowLeft,
   ArrowRight,
-  FileEdit,
   BarChart3,
-  Video,
-  ClipboardCheck,
-  Target,
-  Shield,
-  Users,
   BookOpen,
+  Brain,
+  ClipboardCheck,
+  FileEdit,
   Lock,
   Plug,
+  Shield,
+  Target,
+  Users,
+  Video,
 } from 'lucide-react'
+import type { Metadata } from 'next'
 import { Button } from '@/components/ui/button'
-import Footer from '@/components/Footer'
+import {
+  Container,
+  Section,
+  SectionHeader,
+  Hero,
+  FeatureCard,
+  CTASection,
+} from '@/components/marketing'
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-xs font-semibold uppercase tracking-widest text-[#8B5CF6] mb-3">
-      {children}
-    </p>
-  )
+export const metadata: Metadata = {
+  title: 'Curriculum Intelligence',
+  description:
+    'Five tools that all run from the same course model: AI Teaching Assistant, content generation, performance analytics, multimedia generation, and rubric-enforced grading.',
 }
 
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://app.edpilot.com'
+
+const PRODUCTS = [
+  {
+    icon: Brain,
+    title: 'AI Teaching Assistant',
+    subtitle: 'Course-trained student support',
+    description:
+      'A tutor that knows your course cold. Students ask questions and get answers sourced from your uploaded materials, with citations — never guesses. Adapts to each student’s performance, generates practice questions tied to your objectives, and hard-stops on anything it shouldn’t touch.',
+  },
+  {
+    icon: FileEdit,
+    title: 'Content Generation',
+    subtitle: 'Curriculum-aligned material creation',
+    description:
+      'Drafts syllabi, quizzes, exams, assignments, and rubrics from your existing materials. Outputs are aligned to your learning objectives and Bloom’s Taxonomy levels — not generic templates. You review and edit everything before it reaches a single student.',
+  },
+  {
+    icon: BarChart3,
+    title: 'Student Performance Insights',
+    subtitle: 'Learning-objective-level analytics',
+    description:
+      'Grade distributions tell you who failed. This tells you why. See exactly which learning objectives aren’t landing, identify students heading toward failure before the exam, and walk into your next lecture knowing where the class is actually confused.',
+  },
+  {
+    icon: Video,
+    title: 'Multimedia Generation',
+    subtitle: 'Structured visual teaching materials',
+    description:
+      'Turn lecture notes into slide decks, visual explainers, and short concept videos. Structured to reinforce your lecture, not replace it. Every output is editable and requires your sign-off before students see it.',
+  },
+  {
+    icon: ClipboardCheck,
+    title: 'AI Grader',
+    subtitle: 'Rubric-enforced, instructor-controlled grading',
+    description:
+      'Grades every submission against your rubric — the same rubric, applied the same way, every time. Per-criterion feedback tells students exactly where they lost points and why. You review, edit, or override any grade. Nothing is final until you say so.',
+  },
+]
+
+const HIGHLIGHTS = [
+  {
+    icon: Target,
+    title: 'Course-aware',
+    description:
+      'Trained on your syllabus, readings, and rubrics. Every answer is grounded in what you assigned.',
+  },
+  {
+    icon: Shield,
+    title: 'No hallucinations',
+    description: 'Refuses to answer from memory or the internet. If it’s not in your materials, it says so.',
+  },
+  {
+    icon: BookOpen,
+    title: 'Built for higher ed',
+    description:
+      'Designed around Bloom’s Taxonomy, learning objectives, and rubrics — not repurposed from a consumer chatbot.',
+  },
+  {
+    icon: Users,
+    title: 'Cuts repetitive work',
+    description:
+      'The same question for the 40th time. Grading 120 papers to a rubric. All reduced.',
+  },
+]
+
+const STEPS = [
+  { step: '01', title: 'Upload', description: 'Syllabus, readings, assignments, rubrics.', icon: FileEdit },
+  {
+    step: '02',
+    title: 'Generate & support',
+    description: 'Create aligned materials. Provide grounded student help.',
+    icon: Brain,
+  },
+  {
+    step: '03',
+    title: 'Assess & analyze',
+    description: 'Grade consistently. Track mastery at the objective level.',
+    icon: ClipboardCheck,
+  },
+  {
+    step: '04',
+    title: 'Refine',
+    description: 'Use performance data to fix lectures, assignments, and assessments.',
+    icon: BarChart3,
+  },
+]
+
 export default function CurriculumIntelligencePage() {
-  const products = [
-    {
-      id: 'ai-teaching-assistant',
-      title: 'AI Teaching Assistant',
-      subtitle: 'Course-trained student support',
-      icon: Brain,
-      description:
-        "A tutor that knows your course cold. Students ask questions and get answers sourced from your uploaded materials, with citations, never guesses. It adapts to each student's demonstrated performance, generates practice questions tied to your objectives, and hard-stops on anything it shouldn't touch.",
-    },
-    {
-      id: 'content-generation',
-      title: 'Content Generation',
-      subtitle: 'Curriculum-aligned material creation',
-      icon: FileEdit,
-      description:
-        "Drafts syllabi, quizzes, exams, assignments, and rubrics from your existing materials. Outputs are aligned to your learning objectives and Bloom's Taxonomy levels, not generic templates. You review and edit everything before it reaches a single student.",
-    },
-    {
-      id: 'student-insights',
-      title: 'Student Performance Insights',
-      subtitle: 'Learning-objective-level analytics',
-      icon: BarChart3,
-      description:
-        "Grade distributions tell you who failed. This tells you why. See exactly which learning objectives aren't landing, identify students heading toward failure before the exam, and walk into your next lecture knowing where the class is actually confused.",
-    },
-    {
-      id: 'multimedia-generation',
-      title: 'Multimedia Generation',
-      subtitle: 'Structured visual teaching materials',
-      icon: Video,
-      description:
-        'Turn lecture notes into slide decks, visual explainers, and short concept videos. Structured to reinforce your lecture, not replace it. Every output is editable and requires your sign-off before students see it.',
-    },
-    {
-      id: 'ai-grader',
-      title: 'AI Grader',
-      subtitle: 'Rubric-enforced, instructor-controlled grading',
-      icon: ClipboardCheck,
-      description:
-        'Grades every submission against your rubric: the same rubric, applied the same way, every time. Per-criterion feedback tells students exactly where they lost points and why. You review, edit, or override any grade. Nothing is final until you say so.',
-    },
-  ]
-
-  const highlights = [
-    {
-      icon: Target,
-      title: 'Course-Aware',
-      description:
-        'Trained on your syllabus, readings, and rubrics. Every answer is grounded in what you actually assigned.',
-    },
-    {
-      icon: Shield,
-      title: 'No Hallucinations',
-      description:
-        "Refuses to answer from memory or the internet. If it's not in your materials, it says so.",
-    },
-    {
-      icon: BookOpen,
-      title: 'Built for Higher Ed',
-      description:
-        "Designed around Bloom's Taxonomy, learning objectives, and rubrics. Not repurposed from a consumer chatbot.",
-    },
-    {
-      icon: Users,
-      title: 'Cuts Repetitive Work',
-      description:
-        'The same question for the 40th time. Grading 120 papers to a rubric. Rebuilding materials every semester. All reduced.',
-    },
-  ]
-
   return (
-    <div className="min-h-screen bg-bg-page">
-      {/* ── Hero ── */}
-      <section className="relative overflow-hidden pt-20 pb-20">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-violet-600/7 rounded-full blur-[130px] pointer-events-none" />
-        <div className="absolute top-28 left-[15%] w-[280px] h-[280px] bg-indigo-500/4 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute top-28 right-[15%] w-[280px] h-[280px] bg-purple-500/4 rounded-full blur-[100px] pointer-events-none" />
-        <div className="container relative z-10 mx-auto px-6">
-          <div>
-            <Link
-              href="/products"
-              className="inline-flex items-center text-text-secondary hover:text-[#8B5CF6] transition-colors mb-8 text-[13px] group"
-            >
-              <ChevronLeft className="w-4 h-4 mr-1 group-hover:-translate-x-0.5 transition-transform" />
-              Back to Products
+    <>
+      <Hero
+        eyebrow="Product suite"
+        titleNode={
+          <>
+            <span className="text-text-primary">Curriculum </span>
+            <span className="text-accent">Intelligence</span>
+            <span className="text-text-primary">.</span>
+          </>
+        }
+        description="Five tools that all run from the same course model. Upload your materials once. The AI tutor, the grader, the content generator — every one of them reflects what you actually teach."
+        actions={
+          <>
+            <Link href={`${APP_URL}/register`} className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto px-8 h-11 shadow-[0_0_28px_rgba(139,92,246,0.4)]"
+              >
+                Get started free
+                <ArrowRight className="w-4 h-4" />
+              </Button>
             </Link>
-          </div>
+            <Link href="/contact" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto px-8 h-11">
+                Contact sales
+              </Button>
+            </Link>
+          </>
+        }
+      />
 
-          <div className="text-center max-w-[720px] mx-auto">
-            <SectionLabel>Product Suite</SectionLabel>
-            <h1 className="text-5xl md:text-[3.5rem] font-bold mb-5 leading-[1.1] tracking-[-0.03em]">
-              <span className="text-text-primary">Curriculum </span>
-              <span className="text-[#8B5CF6]">Intelligence</span>
-              <span className="text-text-primary"> Suite.</span>
-            </h1>
-            <p className="text-[1.0625rem] text-text-secondary leading-[1.7] max-w-[520px] mx-auto mb-9">
-              Five tools that all run from the same course model. Upload your materials once. The AI
-              tutor, the grader, the content generator: all of them reflect what you actually teach.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link href="/auth/register">
-                <Button size="lg" className="w-full sm:w-auto px-8 h-11">
-                  Get Started Free
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto px-8 h-11">
-                  Contact Sales
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Container size="lg" className="-mt-8">
+        <Link
+          href="/products"
+          className="inline-flex items-center gap-1 text-text-secondary hover:text-accent text-[13px] transition-colors group"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
+          Back to products
+        </Link>
+      </Container>
 
-      {/* ── Highlights Bar ── */}
-      <section className="py-12 border-y border-[#27272A] bg-[#18181B]">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {highlights.map((h, i) => (
+      {/* Highlights */}
+      <Section surface="raised" spacing="md">
+        <Container size="lg">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {HIGHLIGHTS.map((h) => (
               <div key={h.title} className="text-center">
-                <div className="w-8 h-8 bg-[#7C3AED]/12 rounded-lg flex items-center justify-center mx-auto mb-3 ring-1 ring-[#7C3AED]/25">
-                  <h.icon className="w-4 h-4 text-[#8B5CF6]" aria-hidden="true" />
+                <div className="w-9 h-9 bg-accent/[0.12] rounded-lg flex items-center justify-center mx-auto mb-3 ring-1 ring-accent/25">
+                  <h.icon className="w-4 h-4 text-accent" aria-hidden="true" />
                 </div>
                 <h3 className="text-[13px] font-semibold text-text-primary mb-1 tracking-[-0.005em]">
                   {h.title}
@@ -160,44 +178,37 @@ export default function CurriculumIntelligencePage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* ── Products ── */}
-      <section className="py-20 md:py-24">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-12">
-            <SectionLabel>Five Tools</SectionLabel>
-            <h2 className="text-[1.875rem] font-bold text-text-primary mb-3 tracking-[-0.025em]">
-              One course model.
-            </h2>
-            <p className="text-text-secondary text-sm max-w-md mx-auto leading-relaxed">
-              Every tool draws from the same uploaded course model. Update your syllabus and all
-              five tools update with it, no re-configuration.
-            </p>
-          </div>
+      {/* Five tools */}
+      <Section spacing="lg">
+        <Container size="lg">
+          <SectionHeader
+            eyebrow="Five tools"
+            title="One course model."
+            description="Every tool draws from the same uploaded course model. Update your syllabus and all five tools update with it — no re-configuration."
+          />
 
           <div className="space-y-3">
-            {products.map((product, index) => {
+            {PRODUCTS.map((product) => {
               const Icon = product.icon
               return (
                 <div
-                  key={product.id}
-                  className="flex flex-col md:flex-row items-start gap-5 p-5 rounded-xl border border-[#27272A] bg-[#18181B] hover:border-[#3f3f46] hover:bg-[#1d1d21] transition-all duration-200"
+                  key={product.title}
+                  className="flex flex-col md:flex-row items-start gap-5 rounded-2xl border border-border-gray bg-bg-surface p-6 transition-all hover:border-[#3f3f46] hover:bg-[#1d1d21]"
                 >
-                  <div className="w-8 h-8 bg-[#7C3AED]/12 rounded-lg flex items-center justify-center flex-shrink-0 ring-1 ring-[#7C3AED]/25">
-                    <Icon className="w-4 h-4 text-[#8B5CF6]" aria-hidden="true" />
+                  <div className="w-10 h-10 bg-accent/[0.12] rounded-lg flex items-center justify-center flex-shrink-0 ring-1 ring-accent/25">
+                    <Icon className="w-[18px] h-[18px] text-accent" aria-hidden="true" />
                   </div>
-                  <div className="flex-1 pt-px">
-                    <div className="flex items-baseline gap-3 mb-1">
-                      <h3 className="text-[13px] font-semibold text-text-primary tracking-[-0.005em]">
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1.5">
+                      <h3 className="text-[15px] font-semibold text-text-primary tracking-[-0.005em]">
                         {product.title}
                       </h3>
-                      <span className="text-[11px] text-text-secondary hidden md:inline">
-                        {product.subtitle}
-                      </span>
+                      <span className="text-[12px] text-text-secondary">{product.subtitle}</span>
                     </div>
-                    <p className="text-text-secondary text-[13px] leading-relaxed">
+                    <p className="text-text-secondary text-[14px] leading-relaxed">
                       {product.description}
                     </p>
                   </div>
@@ -205,168 +216,100 @@ export default function CurriculumIntelligencePage() {
               )
             })}
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* ── How It Works ── */}
-      <section className="py-20 md:py-24 border-y border-[#27272A] bg-[#18181B]">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-12">
-            <SectionLabel>How It Works</SectionLabel>
-            <h2 className="text-[1.875rem] font-bold text-text-primary mb-3 tracking-[-0.025em]">
-              Four steps. No custom dev work.
-            </h2>
-          </div>
-
+      {/* How it works */}
+      <Section surface="sunken" spacing="lg">
+        <Container size="lg">
+          <SectionHeader
+            eyebrow="How it works"
+            title="Four steps. No custom dev work."
+          />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              {
-                step: '01',
-                title: 'Upload',
-                description: 'Syllabus, readings, assignments, rubrics.',
-                icon: FileEdit,
-              },
-              {
-                step: '02',
-                title: 'Generate & Support',
-                description: 'Create aligned materials. Provide grounded student help.',
-                icon: Brain,
-              },
-              {
-                step: '03',
-                title: 'Assess & Analyze',
-                description: 'Grade consistently. Track mastery at the objective level.',
-                icon: ClipboardCheck,
-              },
-              {
-                step: '04',
-                title: 'Refine',
-                description: 'Use performance data to fix lectures, assignments, and assessments.',
-                icon: BarChart3,
-              },
-            ].map((item, index) => (
-              <div
-                key={item.step}
-                className="relative p-5 rounded-xl border border-[#27272A] bg-[#0F0F12] text-center"
-              >
-                <span className="absolute top-4 right-4 text-[11px] font-mono font-bold text-[#3a3a44] tabular-nums">
-                  {item.step}
-                </span>
-                <div className="w-8 h-8 bg-[#7C3AED]/12 rounded-lg flex items-center justify-center mx-auto mb-3 ring-1 ring-[#7C3AED]/25">
-                  <item.icon className="w-4 h-4 text-[#8B5CF6]" aria-hidden="true" />
-                </div>
-                <h3 className="text-[13px] font-semibold text-text-primary mb-1 tracking-[-0.005em]">
-                  {item.title}
-                </h3>
-                <p className="text-text-secondary text-[12px] leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
+            {STEPS.map((s) => (
+              <FeatureCard
+                key={s.step}
+                icon={s.icon}
+                step={s.step}
+                title={s.title}
+                description={s.description}
+              />
             ))}
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* ── Built for Institutions ── */}
-      <section className="py-20 md:py-24">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-12">
-            <SectionLabel>Compliance & Integrations</SectionLabel>
-            <h2 className="text-[1.875rem] font-bold text-text-primary mb-3 tracking-[-0.025em]">
-              Built for Institutions.
-            </h2>
-            <p className="text-text-secondary text-sm max-w-md mx-auto leading-relaxed">
-              Most AI tools in education are consumer tools with an edu discount. This one was built
-              for procurement, IT, and legal from the start.
-            </p>
-          </div>
+      {/* Built for institutions */}
+      <Section spacing="lg">
+        <Container size="lg">
+          <SectionHeader
+            eyebrow="Compliance & integrations"
+            title="Built for institutions."
+            description="Most AI tools in education are consumer tools with an edu discount. This one was built for procurement, IT, and legal from the start."
+          />
 
-          <div className="grid md:grid-cols-2 gap-3">
-            <div className="p-5 rounded-xl border border-[#27272A] bg-[#18181B] hover:border-[#3f3f46] hover:bg-[#1d1d21] transition-all duration-200">
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-border-gray bg-bg-surface p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-[#7C3AED]/12 rounded-lg flex items-center justify-center flex-shrink-0 ring-1 ring-[#7C3AED]/25">
-                  <Lock className="w-4 h-4 text-[#8B5CF6]" aria-hidden="true" />
+                <div className="w-9 h-9 bg-accent/[0.12] rounded-lg flex items-center justify-center ring-1 ring-accent/25">
+                  <Lock className="w-4 h-4 text-accent" aria-hidden="true" />
                 </div>
-                <h3 className="text-[13px] font-semibold text-text-primary tracking-[-0.005em]">
-                  Compliance & Security
+                <h3 className="text-[14px] font-semibold text-text-primary tracking-[-0.005em]">
+                  Compliance & security
                 </h3>
               </div>
               <ul className="space-y-2 text-[13px] text-text-secondary">
-                <li>FERPA-compliant data handling</li>
-                <li>Student data is never used to train public models</li>
-                <li>Course data remains institution-bound</li>
-                <li>Encrypted storage and transmission</li>
-                <li>Instructors retain full ownership of all content</li>
+                {[
+                  'FERPA-compliant data handling',
+                  'Student data is never used to train public models',
+                  'Course data remains institution-bound',
+                  'Encrypted storage and transmission',
+                  'Instructors retain full ownership of all content',
+                ].map((item) => (
+                  <li key={item} className="leading-relaxed">— {item}</li>
+                ))}
               </ul>
             </div>
 
-            <div className="p-5 rounded-xl border border-[#27272A] bg-[#18181B] hover:border-[#3f3f46] hover:bg-[#1d1d21] transition-all duration-200">
+            <div className="rounded-2xl border border-border-gray bg-bg-surface p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-[#7C3AED]/12 rounded-lg flex items-center justify-center flex-shrink-0 ring-1 ring-[#7C3AED]/25">
-                  <Plug className="w-4 h-4 text-[#8B5CF6]" aria-hidden="true" />
+                <div className="w-9 h-9 bg-accent/[0.12] rounded-lg flex items-center justify-center ring-1 ring-accent/25">
+                  <Plug className="w-4 h-4 text-accent" aria-hidden="true" />
                 </div>
-                <h3 className="text-[13px] font-semibold text-text-primary tracking-[-0.005em]">
+                <h3 className="text-[14px] font-semibold text-text-primary tracking-[-0.005em]">
                   Integrations
                 </h3>
               </div>
               <ul className="space-y-2 text-[13px] text-text-secondary">
-                <li>
-                  Canvas{' '}
-                  <span className="text-[11px] text-text-secondary/50 ml-1">Coming Soon</span>
-                </li>
-                <li>
-                  Blackboard{' '}
-                  <span className="text-[11px] text-text-secondary/50 ml-1">Coming Soon</span>
-                </li>
-                <li>
-                  Moodle{' '}
-                  <span className="text-[11px] text-text-secondary/50 ml-1">Coming Soon</span>
-                </li>
-                <li>
-                  Google Drive{' '}
-                  <span className="text-[11px] text-text-secondary/50 ml-1">Coming Soon</span>
-                </li>
-                <li>Direct file upload, available now</li>
+                {[
+                  { name: 'Direct file upload', status: 'Available now' },
+                  { name: 'Canvas', status: 'Coming soon' },
+                  { name: 'Blackboard', status: 'Coming soon' },
+                  { name: 'Moodle', status: 'Coming soon' },
+                  { name: 'Google Drive', status: 'Coming soon' },
+                ].map((item) => (
+                  <li key={item.name} className="flex items-baseline justify-between gap-2 leading-relaxed">
+                    <span>{item.name}</span>
+                    <span className="text-[11px] uppercase tracking-widest text-text-secondary/60">
+                      {item.status}
+                    </span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* ── CTA ── */}
-      <section className="relative overflow-hidden py-24">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0F0F12] via-[#130d1f] to-[#0F0F12] pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] bg-violet-700/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="container relative z-10 mx-auto px-6 max-w-2xl">
-          <div className="border border-[#27272A] bg-[#18181B]/80 rounded-2xl px-8 py-14 md:px-14 text-center">
-            <h2 className="text-[1.875rem] font-bold text-text-primary mb-3 tracking-[-0.025em]">
-              See it running on your course materials.
-            </h2>
-            <p className="text-text-secondary text-sm mb-8 max-w-sm mx-auto leading-relaxed">
-              We&apos;ll build a live demo from your syllabus. No generic demo. Your course, your
-              content.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link href="/contact">
-                <Button
-                  size="lg"
-                  className="w-full sm:w-auto px-8 h-11 shadow-[0_0_28px_rgba(139,92,246,0.4)]"
-                >
-                  Contact Sales
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/auth/register">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto px-8 h-11">
-                  Get Started Free
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </div>
+      <CTASection
+        title="See it running on your course materials."
+        description="We’ll build a live demo from your syllabus. No generic demo — your course, your content."
+        primaryHref="/contact"
+        primaryLabel="Contact sales"
+        secondaryHref={`${APP_URL}/register`}
+        secondaryLabel="Get started free"
+      />
+    </>
   )
 }

@@ -1,213 +1,187 @@
 import Link from 'next/link'
-import { BreadcrumbSchema } from '@/components/StructuredData'
+import { ArrowLeft } from 'lucide-react'
 import type { Metadata } from 'next'
+import { BreadcrumbSchema } from '@/components/StructuredData'
+import {
+  Container,
+  Section,
+  Hero,
+  SectionHeader,
+  CompareChecklist,
+  CTASection,
+} from '@/components/marketing'
 
 export const metadata: Metadata = {
-  title: 'EdPilot vs. Custom In-House Solutions - Comparison',
+  title: 'EdPilot vs. custom in-house solutions',
   description:
-    'EdPilot vs building your own AI infrastructure. Compare costs, time-to-market, expertise, and ongoing maintenance for university AI.',
-  keywords: 'EdPilot vs custom AI, build vs buy, AI infrastructure costs, institutional AI',
+    'Building your own AI infrastructure sounds appealing but carries hidden costs in time, money, expertise, and ongoing maintenance.',
 }
 
-export default function CustomSolutionsPage() {
-  const breadcrumbItems = [
-    { name: 'EdPilot', url: 'https://edpilot.com' },
-    { name: 'Compare', url: 'https://edpilot.com/compare' },
-    { name: 'vs. Custom Solutions', url: 'https://edpilot.com/compare/custom-solutions' },
-  ]
+const COSTS = {
+  build: [
+    { label: 'Initial development', value: '$500k–$2M+' },
+    { label: 'Time to launch', value: '6–18 months' },
+    { label: 'Team size', value: '3–8 engineers (ML, backend, security)' },
+    { label: 'Annual maintenance', value: '$300k–$800k' },
+    { label: 'Infrastructure', value: '$50k–$200k / year' },
+    { label: 'Compliance & security', value: '$100k+ initial, ongoing' },
+    { label: '5-year cost', value: '$2.5M–$6M+' },
+  ],
+  edpilot: [
+    { label: 'Setup', value: '$0' },
+    { label: 'Time to launch', value: '4–8 weeks' },
+    { label: 'Team required', value: '1–2 admins; no ML experts needed' },
+    { label: 'Annual cost', value: '$50k–$300k' },
+    { label: 'Infrastructure', value: 'Included' },
+    { label: 'Compliance & security', value: 'Included' },
+    { label: '5-year cost', value: '$250k–$1.5M, all-inclusive' },
+  ],
+}
 
+export default function CustomComparePage() {
   return (
     <>
-      <BreadcrumbSchema items={breadcrumbItems} />
-      <main id="main-content" className="min-h-screen bg-bg-page">
-        <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-          <Link href="/compare" className="text-accent font-medium hover:underline mb-4 inline-block">
-            ← Back to Comparisons
-          </Link>
+      <BreadcrumbSchema
+        items={[
+          { name: 'EdPilot', url: 'https://edpilot.com' },
+          { name: 'Compare', url: 'https://edpilot.com/compare' },
+          { name: 'vs. Custom Solutions', url: 'https://edpilot.com/compare/custom-solutions' },
+        ]}
+      />
 
-          <h1 className="text-4xl sm:text-5xl font-bold text-text-primary mb-4">
-            EdPilot vs. Custom In-House Solutions
-          </h1>
-          <p className="text-lg text-text-secondary mb-12">
-            Building your own AI infrastructure sounds appealing but carries hidden costs in time,
-            money, expertise, and ongoing maintenance.
-          </p>
+      <Hero
+        eyebrow="Compare"
+        titleNode={
+          <>
+            <span className="text-text-primary">EdPilot vs. </span>
+            <span className="text-accent">building it yourself.</span>
+          </>
+        }
+        description="Building your own AI infrastructure sounds appealing — until the bill, the timeline, and the maintenance burden show up."
+      />
 
-          {/* Quick Comparison */}
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            <div className="p-6 bg-surface-secondary rounded-lg border border-surface-tertiary">
-              <h3 className="font-bold text-text-primary mb-4">Build Custom</h3>
-              <ul className="space-y-2 text-sm text-text-secondary">
-                <li>✓ Complete control over design</li>
-                <li>✓ Customized to your exact needs</li>
-                <li>✗ 6-18 months to launch</li>
-                <li>✗ $500k-$2M+ development cost</li>
-                <li>✗ Requires specialized ML/AI team</li>
-                <li>✗ Ongoing maintenance burden</li>
-                <li>✗ Compliance and security on you</li>
+      <Container size="lg" className="-mt-8">
+        <Link
+          href="/compare"
+          className="inline-flex items-center gap-1 text-text-secondary hover:text-accent text-[13px] transition-colors group"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
+          All comparisons
+        </Link>
+      </Container>
+
+      <Section spacing="lg">
+        <Container size="lg">
+          <SectionHeader title="At a glance." />
+          <div className="grid gap-4 md:grid-cols-2">
+            <CompareChecklist
+              variant="other"
+              title="Build custom"
+              items={[
+                { text: 'Complete control over design', positive: true },
+                { text: 'Customized to your exact needs', positive: true },
+                { text: '6–18 months to launch', positive: false },
+                { text: '$500k–$2M+ development cost', positive: false },
+                { text: 'Requires specialized ML/AI team', positive: false },
+                { text: 'Ongoing maintenance burden on you', positive: false },
+              ]}
+            />
+            <CompareChecklist
+              variant="edpilot"
+              title="EdPilot"
+              items={[
+                { text: '4–8 weeks to implementation', positive: true },
+                { text: 'Institutional licensing model', positive: true },
+                { text: 'No ML/AI team required', positive: true },
+                { text: 'Continuous product improvements', positive: true },
+                { text: 'FERPA, security, compliance built in', positive: true },
+                { text: 'Ongoing support and training included', positive: true },
+              ]}
+            />
+          </div>
+        </Container>
+      </Section>
+
+      <Section surface="sunken" spacing="lg">
+        <Container size="lg">
+          <SectionHeader title="Total cost of ownership." />
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-border-gray bg-bg-surface overflow-hidden">
+              <div className="border-b border-border-gray px-6 py-4 bg-[#0F0F12]">
+                <h3 className="text-[14px] font-semibold text-text-primary">Build custom</h3>
+              </div>
+              <ul className="divide-y divide-border-gray">
+                {COSTS.build.map((row) => (
+                  <li key={row.label} className="flex items-baseline justify-between gap-4 px-6 py-3">
+                    <span className="text-[12px] uppercase tracking-wider text-text-secondary">
+                      {row.label}
+                    </span>
+                    <span className="text-[14px] font-medium text-text-primary text-right">
+                      {row.value}
+                    </span>
+                  </li>
+                ))}
               </ul>
             </div>
-            <div className="p-6 bg-accent bg-opacity-10 border border-accent rounded-lg">
-              <h3 className="font-bold text-accent mb-4">EdPilot</h3>
-              <ul className="space-y-2 text-sm text-accent">
-                <li>✓ 4-8 weeks to implementation</li>
-                <li>✓ Institutional licensing model</li>
-                <li>✓ No ML/AI team required</li>
-                <li>✓ Continuous product improvements</li>
-                <li>✓ FER PA, security, compliance built in</li>
-                <li>✓ Ongoing support and training</li>
-                <li>✓ Institutional partnerships advantage</li>
+            <div className="rounded-2xl border border-accent/30 bg-accent/[0.04] overflow-hidden">
+              <div className="border-b border-accent/20 px-6 py-4 bg-accent/[0.06]">
+                <h3 className="text-[14px] font-semibold text-accent">EdPilot</h3>
+              </div>
+              <ul className="divide-y divide-accent/15">
+                {COSTS.edpilot.map((row) => (
+                  <li key={row.label} className="flex items-baseline justify-between gap-4 px-6 py-3">
+                    <span className="text-[12px] uppercase tracking-wider text-text-secondary">
+                      {row.label}
+                    </span>
+                    <span className="text-[14px] font-medium text-text-primary text-right">
+                      {row.value}
+                    </span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
+        </Container>
+      </Section>
 
-          {/* Cost Analysis */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold text-text-primary mb-6">Total Cost of Ownership</h2>
-            <div className="space-y-6">
-              <div className="border-l-4 border-accent pl-6">
-                <h3 className="font-semibold text-text-primary mb-3">Building Custom</h3>
-                <div className="space-y-3 text-sm text-text-secondary">
-                  <p>
-                    <strong>Initial Development:</strong> $500k-$2M+ depending on complexity,
-                    features, and team location
-                  </p>
-                  <p>
-                    <strong>Timeline:</strong> 6-18 months before first users see it
-                  </p>
-                  <p>
-                    <strong>Team:</strong> 3-8 engineers (ML specialists, backend, frontend, DevOps,
-                    security)
-                  </p>
-                  <p>
-                    <strong>Annual Maintenance:</strong> $300k-$800k for ongoing development, bug
-                    fixes, model improvements
-                  </p>
-                  <p>
-                    <strong>Infrastructure:</strong> $50k-$200k/year for hosting, model serving,
-                    vector databases
-                  </p>
-                  <p>
-                    <strong>Compliance & Security:</strong> $100k+ for initial audit, FERPA/HIPAA
-                    implementation, ongoing compliance
-                  </p>
-                  <p>
-                    <strong>5-Year Cost:</strong> $2.5M-$6M+ including team opportunity cost
-                  </p>
-                </div>
-              </div>
+      <Section spacing="lg">
+        <Container size="md">
+          <SectionHeader title="Hidden risks of building custom." align="left" />
+          <ul className="space-y-4 text-text-secondary text-[14px] leading-relaxed">
+            <li>
+              <span className="font-semibold text-text-primary">Timeline overruns.</span> ML projects
+              commonly run 50–100% over plan. An 8-month project becomes 18.
+            </li>
+            <li>
+              <span className="font-semibold text-text-primary">Team turnover.</span> Specialized ML
+              engineers are in high demand. If your lead leaves mid-project, you’re rebuilding
+              expertise.
+            </li>
+            <li>
+              <span className="font-semibold text-text-primary">Model obsolescence.</span> LLMs
+              improve fast. A model you ship in 2025 may be outdated by 2026. Continuous retraining
+              is expensive.
+            </li>
+            <li>
+              <span className="font-semibold text-text-primary">Compliance complexity.</span> FERPA,
+              GDPR, accessibility — each adds months. Missing any one means legal exposure.
+            </li>
+            <li>
+              <span className="font-semibold text-text-primary">Support burden.</span> You become the
+              support team. Faculty issues, bugs, feature requests all land on you.
+            </li>
+          </ul>
+        </Container>
+      </Section>
 
-              <div className="border-l-4 border-accent pl-6">
-                <h3 className="font-semibold text-text-primary mb-3">EdPilot</h3>
-                <div className="space-y-3 text-sm text-accent">
-                  <p>
-                    <strong>Implementation:</strong> $0 setup fee. Institutional licensing based on
-                    student/faculty count
-                  </p>
-                  <p>
-                    <strong>Timeline:</strong> 4-8 weeks to full implementation
-                  </p>
-                  <p>
-                    <strong>Team Required:</strong> 1-2 admins to configure; no ML experts needed
-                  </p>
-                  <p>
-                    <strong>Annual Cost:</strong> $50k-$300k depending on institution size
-                  </p>
-                  <p>
-                    <strong>Included:</strong> Hosting, model improvements, compliance, support,
-                    training
-                  </p>
-                  <p>
-                    <strong>5-Year Cost:</strong> $250k-$1.5M all-inclusive
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Risk Analysis */}
-          <section className="mb-16 p-8 bg-surface-secondary rounded-lg border border-surface-tertiary">
-            <h2 className="text-2xl font-bold text-text-primary mb-4">Hidden Risks of Building Custom</h2>
-            <div className="space-y-4 text-text-secondary text-sm">
-              <p>
-                <strong>Timeline Overruns:</strong> ML projects commonly overrun by 50-100%. What
-                seemed like an 8-month project becomes 18 months.
-              </p>
-              <p>
-                <strong>Team Turnover:</strong> Specialized ML engineers are in high demand. If your
-                lead engineer leaves mid-project, you&apos;re rebuilding expertise.
-              </p>
-              <p>
-                <strong>Model Obsolescence:</strong> LLMs improve rapidly. A model you build in
-                2025 might be outdated by 2026. Continuous retraining is expensive.
-              </p>
-              <p>
-                <strong>Compliance Complexity:</strong> FERPA, GDPR, accessibility, plagiarism
-                detection—each adds months to development. Missing one means legal liability.
-              </p>
-              <p>
-                <strong>Scale Challenges:</strong> Works fine with 1,000 students; breaks at 10,000.
-                Scaling infrastructure is non-trivial and expensive.
-              </p>
-              <p>
-                <strong>Support Burden:</strong> You&apos;re the support team. Faculty issues, bugs,
-                feature requests—all land on your team.
-              </p>
-            </div>
-          </section>
-
-          {/* When Custom Makes Sense */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold text-text-primary mb-6">When Custom Makes Sense</h2>
-            <div className="space-y-4 text-text-secondary text-sm">
-              <p>
-                Building custom AI infrastructure makes sense only if:
-              </p>
-              <ul className="space-y-2 list-disc list-inside">
-                <li>Your requirements are so specialized that no vendor can meet them</li>
-                <li>You have in-house ML expertise and capacity dedicated to this</li>
-                <li>You have $2M+ and 2+ years to invest</li>
-                <li>You&apos;re willing to accept security and compliance risk</li>
-                <li>You have a dedicated team to maintain it indefinitely</li>
-              </ul>
-              <p className="mt-4">
-                For most institutions, EdPilot&apos;s highly customizable platform meets specialized
-                needs at a fraction of the cost and timeline.
-              </p>
-            </div>
-          </section>
-
-          {/* The Real Comparison */}
-          <section className="mb-16 p-8 bg-accent bg-opacity-10 border border-accent rounded-lg">
-            <h2 className="text-2xl font-bold text-accent mb-4">The Real Decision</h2>
-            <p className="text-text-secondary mb-4">
-              This isn&apos;t really &quot;build vs. buy.&quot; It&apos;s &quot;do you want to build and maintain AI
-              infrastructure, or do you want to deploy AI-assisted teaching?&quot;
-            </p>
-            <p className="text-text-secondary">
-              If your goal is improving education, EdPilot gets you there in weeks. If your goal
-              is building AI infrastructure for its own sake, custom is an option—but be prepared
-              for the cost and complexity.
-            </p>
-          </section>
-
-          {/* CTA */}
-          <section className="p-8 bg-surface-secondary border border-surface-tertiary rounded-lg">
-            <h3 className="text-xl font-bold text-text-primary mb-3">
-              See institutional AI done right
-            </h3>
-            <p className="text-text-secondary mb-6">
-              Deploy AI teaching assistance in weeks, not months. No ML team required.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-opacity-90 transition-all"
-            >
-              Request Demo
-            </Link>
-          </section>
-        </div>
-      </main>
+      <CTASection
+        title="Deploy AI teaching assistance in weeks, not years."
+        description="Same level of control. None of the build cost. None of the maintenance burden."
+        primaryHref="/contact"
+        primaryLabel="Request a demo"
+        secondaryHref="/products/curriculum-intelligence"
+        secondaryLabel="See the product"
+      />
     </>
   )
 }

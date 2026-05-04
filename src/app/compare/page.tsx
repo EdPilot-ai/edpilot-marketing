@@ -1,43 +1,72 @@
 import Link from 'next/link'
-import { BreadcrumbSchema } from '@/components/StructuredData'
+import { ArrowRight } from 'lucide-react'
 import type { Metadata } from 'next'
+import { BreadcrumbSchema } from '@/components/StructuredData'
+import {
+  Container,
+  Section,
+  Hero,
+  SectionHeader,
+  CTASection,
+} from '@/components/marketing'
 
 export const metadata: Metadata = {
-  title: 'EdPilot Comparisons - How We Compare to Alternatives',
+  title: 'Compare',
   description:
     'See how EdPilot compares to general AI tools, tutoring platforms, LMS-native solutions, and custom in-house implementations for higher education.',
-  keywords:
-    'EdPilot vs ChatGPT, instructor-controlled AI comparison, course-grounded AI, educational AI',
 }
 
-const comparisons = [
+const COMPARISONS = [
   {
     slug: 'chatgpt',
-    title: 'EdPilot vs. ChatGPT for Education',
+    title: 'EdPilot vs. ChatGPT',
     subtitle: 'Purpose-built university AI vs. general-purpose conversational tool',
     description:
-      'Understand how EdPilot is specifically designed for universities with instructor control, course grounding, and academic integrity safeguards.',
+      'See how EdPilot is purpose-built for higher education with instructor control, course grounding, and academic integrity safeguards.',
   },
   {
     slug: 'tutoring-platforms',
-    title: 'EdPilot vs. Tutoring Platforms',
+    title: 'EdPilot vs. tutoring platforms',
     subtitle: 'Institutional platform with oversight vs. student-directed services',
     description:
       'Compare EdPilot to homework tutoring services like Chegg and Tutor.com.',
   },
   {
     slug: 'lms-native',
-    title: 'EdPilot vs. LMS-Native AI',
+    title: 'EdPilot vs. LMS-native AI',
     subtitle: 'Vendor-independent solution vs. built-in LMS alternatives',
     description:
       'See how EdPilot compares to AI built into Canvas, Blackboard, and other learning management systems.',
   },
   {
     slug: 'custom-solutions',
-    title: 'EdPilot vs. Custom In-House Solutions',
+    title: 'EdPilot vs. custom in-house',
     subtitle: 'Institutional-grade platform vs. build-from-scratch approaches',
     description:
       'Compare the cost, time, and complexity of EdPilot versus building your own AI infrastructure.',
+  },
+]
+
+const DIFFERENTIATORS = [
+  {
+    title: 'Purpose-built for universities',
+    description:
+      'Not adapted from consumer tools. Designed for higher education institutions with instructor control and pedagogical alignment.',
+  },
+  {
+    title: 'Instructor authority',
+    description:
+      'Faculty set all policies. Students cannot override or jailbreak the system. Institutional control, not vendor control.',
+  },
+  {
+    title: 'Course-specific grounding',
+    description:
+      'AI responds only about course materials. Prevents hallucination and keeps learning focused on what students need to know.',
+  },
+  {
+    title: 'Academic integrity built in',
+    description:
+      'Citation enforcement, scope guardrails, and full audit trails are core features — not afterthoughts.',
   },
 ]
 
@@ -50,92 +79,76 @@ export default function ComparePage() {
   return (
     <>
       <BreadcrumbSchema items={breadcrumbItems} />
-      <main id="main-content" className="min-h-screen bg-bg-page">
-        <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-4xl sm:text-5xl font-bold text-text-primary mb-4">
-              How EdPilot Compares
-            </h1>
-            <p className="text-lg text-text-secondary">
-              Transparent comparisons of EdPilot to other solutions in the market.
-            </p>
-          </div>
 
-          {/* Comparison Grid */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {comparisons.map((comparison) => (
+      <Hero
+        eyebrow="Compare"
+        titleNode={
+          <>
+            <span className="text-text-primary">How EdPilot </span>
+            <span className="text-accent">compares.</span>
+          </>
+        }
+        description="Transparent comparisons of EdPilot to other solutions in the market. We tell you when each option makes sense — including the ones that aren’t us."
+      />
+
+      <Section spacing="lg">
+        <Container size="lg">
+          <div className="grid gap-4 md:grid-cols-2">
+            {COMPARISONS.map((c) => (
               <Link
-                key={comparison.slug}
-                href={`/compare/${comparison.slug}`}
-                className="group block p-6 border border-surface-tertiary rounded-lg hover:border-accent hover:shadow-lg transition-all duration-200"
+                key={c.slug}
+                href={`/compare/${c.slug}`}
+                className="group block rounded-2xl border border-border-gray bg-bg-surface p-7 transition-all hover:border-accent/40 hover:bg-[#1d1d21]"
               >
-                <h2 className="text-xl font-bold text-text-primary mb-2 group-hover:text-accent transition-colors">
-                  {comparison.title}
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent mb-3">
+                  {c.subtitle}
+                </p>
+                <h2 className="text-lg font-semibold text-text-primary tracking-[-0.01em] mb-2 group-hover:text-accent transition-colors">
+                  {c.title}
                 </h2>
-                <p className="text-sm font-medium text-accent mb-3">{comparison.subtitle}</p>
-                <p className="text-text-secondary">{comparison.description}</p>
-                <div className="mt-4 flex items-center text-accent text-sm font-medium">
+                <p className="text-text-secondary text-[13px] leading-relaxed mb-5">
+                  {c.description}
+                </p>
+                <span className="inline-flex items-center gap-1.5 text-accent text-[13px] font-medium">
                   Read comparison
-                  <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-                </div>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </span>
               </Link>
             ))}
           </div>
+        </Container>
+      </Section>
 
-          {/* Why These Comparisons */}
-          <section className="mt-16 pt-12 border-t border-surface-tertiary">
-            <h2 className="text-2xl font-bold text-text-primary mb-6">
-              Why EdPilot is Different
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold text-text-primary mb-2">Purpose-Built for Universities</h3>
-                <p className="text-text-secondary text-sm">
-                  Not adapted from consumer tools. Designed specifically for accredited higher
-                  education institutions with instructor control and pedagogical alignment.
-                </p>
+      <Section surface="sunken" spacing="lg">
+        <Container size="lg">
+          <SectionHeader
+            eyebrow="Why we’re different"
+            title="The four things every comparison comes back to."
+          />
+          <div className="grid gap-3 md:grid-cols-2">
+            {DIFFERENTIATORS.map((d) => (
+              <div
+                key={d.title}
+                className="rounded-2xl border border-border-gray bg-bg-surface p-6"
+              >
+                <h3 className="text-[14px] font-semibold text-text-primary mb-1.5 tracking-[-0.005em]">
+                  {d.title}
+                </h3>
+                <p className="text-text-secondary text-[13px] leading-relaxed">{d.description}</p>
               </div>
-              <div>
-                <h3 className="font-semibold text-text-primary mb-2">Instructor Authority</h3>
-                <p className="text-text-secondary text-sm">
-                  Faculty set all policies. Students cannot override or jailbreak the system. This
-                  is institutional control, not vendor control.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-text-primary mb-2">Course-Specific Grounding</h3>
-                <p className="text-text-secondary text-sm">
-                  AI responds only about course materials. Prevents hallucination and keeps learning
-                  focused on what students should know.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-text-primary mb-2">Academic Integrity Built In</h3>
-                <p className="text-text-secondary text-sm">
-                  Plagiarism detection, citation enforcement, and transparency about AI use are
-                  core features, not afterthoughts.
-                </p>
-              </div>
-            </div>
-          </section>
+            ))}
+          </div>
+        </Container>
+      </Section>
 
-          {/* CTA */}
-          <section className="mt-16 p-8 bg-surface-secondary border border-surface-tertiary rounded-lg">
-            <h3 className="text-xl font-bold text-text-primary mb-3">Ready to see EdPilot in action?</h3>
-            <p className="text-text-secondary mb-6">
-              Schedule a demo with one of our specialists to understand how EdPilot can transform
-              teaching at your institution.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-opacity-90 transition-all"
-            >
-              Schedule a Demo
-            </Link>
-          </section>
-        </div>
-      </main>
+      <CTASection
+        title="Ready to see EdPilot in action?"
+        description="Schedule a demo with our team to understand how EdPilot can transform teaching at your institution."
+        primaryHref="/contact"
+        primaryLabel="Schedule a demo"
+        secondaryHref="/products/curriculum-intelligence"
+        secondaryLabel="See the product"
+      />
     </>
   )
 }
