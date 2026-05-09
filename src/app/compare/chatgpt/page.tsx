@@ -22,7 +22,7 @@ export default function ChatGPTComparisonPage() {
       />
       <ComparisonDetail
         title="EdPilot vs. ChatGPT for Education"
-        description="ChatGPT is a powerful general-purpose tool. EdPilot is built for university teaching, where instructor control, course grounding, and integrity safeguards matter."
+        description="ChatGPT is impressive. It is also a stranger to your syllabus. EdPilot is the course-aware option for universities that need answers, boundaries, and receipts."
         competitorName="ChatGPT"
         competitorItems={[
           'Broad knowledge across domains',
@@ -40,21 +40,38 @@ export default function ChatGPTComparisonPage() {
           'Course-level visibility for faculty',
           'Purpose-built for higher education',
         ]}
+        scenarios={[
+          {
+            setup: 'A student asks, “What will be on the midterm?”',
+            oldWay: 'ChatGPT invents a confident study plan from thin air.',
+            edpilot: 'EdPilot points to the actual review sheet, covered topics, and faculty-approved limits.',
+          },
+          {
+            setup: 'A student asks for help on a graded assignment.',
+            oldWay: 'The line between coaching and completion gets blurry fast.',
+            edpilot: 'EdPilot nudges, questions, and explains without handing over the submission.',
+          },
+          {
+            setup: 'A professor asks, “Where did that answer come from?”',
+            oldWay: 'Good luck reverse-engineering the magic.',
+            edpilot: 'The answer cites course materials by design.',
+          },
+        ]}
         sections={[
           {
             title: 'The fundamental difference',
             body:
-              'ChatGPT is broad: useful for many users and many tasks. EdPilot is deep: optimized for a governed university course where faculty define scope, tone, policy, and acceptable use.',
+              'ChatGPT is broad: great for brainstorming, less great as the official learning layer of a course. EdPilot is deep: scoped to course materials, tuned by faculty, and built for the rules universities actually live with.',
           },
           {
             title: 'Academic integrity risk',
             body:
-              'General AI can produce finished-looking work without faculty visibility. EdPilot is configured to guide learning, cite course sources, and decline requests that bypass understanding.',
+              'General AI can produce finished-looking work without faculty visibility. EdPilot is designed to make the useful path the honest path: guide the student, cite the course, and stop before it becomes outsourcing.',
           },
           {
             title: 'Data privacy and governance',
             body:
-              'Universities need a controlled learning environment, not disconnected individual accounts. EdPilot keeps course data institution-bound and gives faculty visibility into usage patterns.',
+              'Universities need a governed learning environment, not a patchwork of personal accounts. EdPilot keeps course data institution-bound and gives faculty visibility into what students are actually struggling with.',
           },
         ]}
       />
@@ -62,4 +79,3 @@ export default function ChatGPTComparisonPage() {
     </>
   )
 }
-

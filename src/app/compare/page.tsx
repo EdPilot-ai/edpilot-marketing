@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Bot, GraduationCap, Layers, Wrench } from 'lucide-react'
+import { ArrowRight, Bot, Building2, GraduationCap, Layers, ShieldCheck, Wrench } from 'lucide-react'
 import { BreadcrumbSchema } from '@/components/StructuredData'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -27,28 +27,28 @@ const comparisons = [
     title: 'EdPilot vs. ChatGPT for Education',
     subtitle: 'Purpose-built university AI vs. general-purpose conversational AI',
     description:
-      'Instructor control, course grounding, academic integrity, and institutional governance.',
+      'When a student asks at midnight, does the answer know your course or just sound confident?',
     icon: Bot,
   },
   {
     slug: 'tutoring-platforms',
     title: 'EdPilot vs. Tutoring Platforms',
     subtitle: 'Institutional oversight vs. student-directed support',
-    description: 'Compare EdPilot to homework tutoring services like Chegg and Tutor.com.',
+    description: 'Tutoring can help. Invisible tutoring that ignores your syllabus? Less charming.',
     icon: GraduationCap,
   },
   {
     slug: 'lms-native',
     title: 'EdPilot vs. LMS-Native AI',
     subtitle: 'Vendor-independent AI vs. built-in LMS alternatives',
-    description: 'See how EdPilot compares to AI built into Canvas, Blackboard, and other LMSs.',
+    description: 'Your AI strategy should not wait politely for an LMS roadmap update.',
     icon: Layers,
   },
   {
     slug: 'custom-solutions',
     title: 'EdPilot vs. Custom In-House Solutions',
     subtitle: 'Deployable platform vs. build-from-scratch infrastructure',
-    description: 'Compare the cost, time, and complexity of EdPilot versus building your own AI.',
+    description: 'A prototype is easy. Governance, citations, audits, and support are the fun part.',
     icon: Wrench,
   },
 ]
@@ -65,9 +65,9 @@ export default function ComparePage() {
       <PageShell>
         <Hero
           eyebrow="Compare"
-          title="How EdPilot compares"
-          accent="to alternatives."
-          description="Transparent comparisons for university buyers evaluating general AI, tutoring services, LMS-native tools, and custom builds."
+          title="Pick the AI that knows"
+          accent="the assignment."
+          description="Most AI tools can answer. EdPilot knows when it should answer, what it can cite, and which professor set the rules."
         />
 
         <Section className="py-20 md:py-28">
@@ -103,18 +103,43 @@ export default function ComparePage() {
         <Section className="py-20 md:py-28" surface="panel">
           <Container>
             <SectionHeader
-              eyebrow="Why EdPilot"
-              title="Designed for institutional AI governance."
-              description="Universities need more than a chatbot. EdPilot keeps faculty in control, grounds answers in course materials, and gives institutions a governed path to AI adoption."
+              eyebrow="The Short Version"
+              title="EdPilot wins when stakes are real."
+              description="The moment a student, professor, or IT team asks a practical question, generic AI starts leaking context. EdPilot was built for those moments."
             />
             <div className="grid gap-4 md:grid-cols-2">
               {[
-                ['Purpose-built for universities', 'Not adapted from consumer tools. Designed for accredited higher education.'],
-                ['Instructor authority', 'Faculty set policy, knowledge boundaries, and student access.'],
-                ['Course-specific grounding', 'AI responds from course materials instead of broad model memory.'],
-                ['Academic integrity built in', 'Safeguards and visibility are core product requirements.'],
-              ].map(([title, description]) => (
-                <FeatureCard key={title} title={title} description={description} />
+                {
+                  icon: GraduationCap,
+                  title: 'Student asks before the exam',
+                  description:
+                    'Generic AI gives a polished guess. EdPilot answers from Week 4 slides and points back to the exact source.',
+                },
+                {
+                  icon: Bot,
+                  title: 'Professor changes the rubric',
+                  description:
+                    'A chatbot shrugs. EdPilot updates the course model so support follows the new standard.',
+                },
+                {
+                  icon: ShieldCheck,
+                  title: 'IT asks who owns the data',
+                  description:
+                    'EdPilot has the grown-up answer: institution-bound data, governance, and clear boundaries.',
+                },
+                {
+                  icon: Building2,
+                  title: 'The dean asks if this scales',
+                  description:
+                    'One-off tools multiply risk. EdPilot gives departments a repeatable way to deploy course-aware AI.',
+                },
+              ].map((item) => (
+                <FeatureCard
+                  key={item.title}
+                  icon={item.icon}
+                  title={item.title}
+                  description={item.description}
+                />
               ))}
             </div>
           </Container>
@@ -131,4 +156,3 @@ export default function ComparePage() {
     </>
   )
 }
-

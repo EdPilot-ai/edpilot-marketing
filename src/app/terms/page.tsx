@@ -14,6 +14,7 @@ import {
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
+import { SUPPORT_EMAIL } from '@/lib/marketing'
 
 const LAST_UPDATED = 'March 21, 2026'
 
@@ -299,7 +300,7 @@ export default function TermsOfServicePage() {
               <h3 className="text-sm font-semibold text-text-primary mb-2">By you</h3>
               <p className="leading-relaxed">
                 You may close your account at any time by emailing{' '}
-                <a href="mailto:support@edpilot.ai" className="text-accent hover:underline">support@edpilot.ai</a>.
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="text-accent hover:underline">{SUPPORT_EMAIL}</a>.
                 Your data will be deleted per our Privacy Policy.
               </p>
             </div>
@@ -351,11 +352,11 @@ export default function TermsOfServicePage() {
           <div className="text-sm text-text-secondary space-y-2 mb-6">
             <p>
               <span className="font-medium text-text-primary">Legal inquiries:</span>{' '}
-              <a href="mailto:legal@edpilot.ai" className="text-accent hover:underline">legal@edpilot.ai</a>
+              <a href={`mailto:${SUPPORT_EMAIL}`} className="text-accent hover:underline">{SUPPORT_EMAIL}</a>
             </p>
             <p>
               <span className="font-medium text-text-primary">General support:</span>{' '}
-              <a href="mailto:support@edpilot.ai" className="text-accent hover:underline">support@edpilot.ai</a>
+              <a href={`mailto:${SUPPORT_EMAIL}`} className="text-accent hover:underline">{SUPPORT_EMAIL}</a>
             </p>
           </div>
           <Link href="/contact">

@@ -22,7 +22,7 @@ export default function CustomSolutionsPage() {
       />
       <ComparisonDetail
         title="EdPilot vs. Custom In-House Solutions"
-        description="Building AI infrastructure can sound appealing, but the hidden cost is time, talent, compliance, maintenance, and long-term product ownership."
+        description="Building your own AI stack sounds powerful until the prototype becomes a product, a support queue, a compliance project, and someone’s weekend."
         competitorName="Build Custom"
         competitorItems={[
           'Complete control over design',
@@ -39,6 +39,23 @@ export default function CustomSolutionsPage() {
           'Compliance, support, and improvements included',
           'Course-grounded architecture already built',
           'Faculty governance workflows included',
+        ]}
+        scenarios={[
+          {
+            setup: 'Your prototype works in the demo.',
+            oldWay: 'Now it needs permissions, citations, logging, audits, support, onboarding, and a roadmap.',
+            edpilot: 'Those unglamorous-but-critical pieces are already part of the product.',
+          },
+          {
+            setup: 'The lead AI engineer leaves.',
+            oldWay: 'The institutional strategy goes with their laptop stickers.',
+            edpilot: 'The platform, support, and product improvements keep moving.',
+          },
+          {
+            setup: 'Legal asks about student data.',
+            oldWay: 'The team opens twelve tabs and starts a spreadsheet.',
+            edpilot: 'You start from an education-specific governance model.',
+          },
         ]}
         sections={[
           {
@@ -62,4 +79,3 @@ export default function CustomSolutionsPage() {
     </>
   )
 }
-

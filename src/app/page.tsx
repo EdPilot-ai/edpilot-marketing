@@ -4,10 +4,12 @@ import {
   BarChart3,
   BookOpen,
   Building2,
+  CheckCircle2,
   Database,
   Eye,
   FileText,
   Lock,
+  MessageSquare,
   Quote,
   Shield,
   Sparkles,
@@ -31,51 +33,119 @@ import { SIGN_UP_URL } from '@/lib/marketing'
 
 function ProductPreview() {
   return (
-    <div className="mx-auto mt-14 max-w-4xl">
+    <div className="mx-auto mt-14 max-w-5xl">
       <div className="overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12] shadow-[0_34px_100px_rgba(0,0,0,0.45)]">
-        <div className="flex items-center justify-between border-b border-border-gray bg-bg-surface px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-gray bg-bg-surface px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
           </div>
-          <span className="hidden text-[11px] font-medium text-text-tertiary sm:block">
-            EdPilot: Intro to Statistics
-          </span>
+          <div className="flex items-center gap-2 text-[11px] font-medium text-text-tertiary">
+            <span className="rounded-md border border-border-gray bg-[#0F0F12] px-2 py-1">
+              STAT 201
+            </span>
+            <span>Intro to Statistics</span>
+          </div>
         </div>
-        <div className="grid gap-0 md:grid-cols-[1fr_320px]">
-          <div className="p-5 md:p-7">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-md border border-accent/20 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
-              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-              Course-trained AI Teaching Assistant
-            </div>
-            <div className="space-y-4">
-              <div className="ml-auto max-w-sm rounded-lg border border-accent/20 bg-accent/15 px-4 py-3 text-sm text-text-primary">
-                Can you explain the central limit theorem using our Week 4 example?
+        <div className="grid md:grid-cols-[230px_1fr_270px]">
+          <aside className="border-b border-border-gray bg-bg-surface/70 p-4 md:border-b-0 md:border-r">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+              My Classes
+            </p>
+            <div className="space-y-3">
+              <div className="rounded-lg border border-accent/25 bg-accent/10 p-3">
+                <div className="flex items-center gap-2">
+                  <BookOpen className="h-4 w-4 text-accent" aria-hidden="true" />
+                  <p className="text-sm font-semibold text-text-primary">STAT 201</p>
+                </div>
+                <p className="mt-1 text-xs text-text-secondary">Intro to Statistics</p>
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="rounded-md bg-green-500/10 px-2 py-1 text-[11px] font-medium text-green-300">
+                    Active
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-md border border-border-gray bg-[#0F0F12] px-2 py-1 text-[11px] text-text-secondary">
+                    <MessageSquare className="h-3 w-3" aria-hidden="true" />
+                    14
+                  </span>
+                </div>
               </div>
-              <div className="flex max-w-xl gap-3">
+              <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-3 opacity-80">
+                <p className="text-sm font-semibold text-text-primary">BIO 110</p>
+                <p className="mt-1 text-xs text-text-secondary">Cell Biology</p>
+              </div>
+            </div>
+          </aside>
+
+          <main className="p-4 md:p-6">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                  AI Teaching Assistant
+                </p>
+                <h3 className="mt-1 text-lg font-semibold tracking-[-0.02em] text-text-primary">
+                  Ask with the course in the room.
+                </h3>
+              </div>
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-green-500/20 bg-green-500/10 px-2.5 py-1 text-[11px] font-medium text-green-300">
+                <CheckCircle2 className="h-3 w-3" aria-hidden="true" />
+                Cites sources
+              </span>
+            </div>
+
+            <div className="space-y-4">
+              <div className="ml-auto max-w-md rounded-lg border border-accent/25 bg-accent/15 px-4 py-3 text-sm leading-6 text-text-primary">
+                I keep mixing up standard error and standard deviation. Can you explain it using
+                our Week 4 materials?
+              </div>
+              <div className="flex gap-3">
                 <IconChip icon={Sparkles} className="mt-1 h-8 w-8" />
                 <div className="rounded-lg border border-border-gray bg-bg-surface px-4 py-4 text-sm leading-7 text-text-secondary">
-                  The CLT says that as sample size grows, the sampling distribution of the mean
-                  approaches normal. In Professor Chen&apos;s coin-flip simulation, each larger sample
-                  makes the average more stable around the expected value.
-                  <div className="mt-3 inline-flex items-center gap-2 rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1 text-[11px] font-medium text-accent">
-                    <FileText className="h-3 w-3" aria-hidden="true" />
-                    Week 4 lecture notes, slide 14
+                  Standard deviation describes how spread out individual data points are. Standard
+                  error describes how much a sample mean would vary if we repeated the sampling
+                  process. In Professor Chen&apos;s coin-flip simulation, larger samples made the mean
+                  more stable, which is why the standard error shrinks.
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {['Week 4 Lecture Notes, slide 14', 'Sampling Lab Handout, p. 2'].map(
+                      (source) => (
+                        <span
+                          key={source}
+                          className="inline-flex items-center gap-1.5 rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1 text-[11px] font-medium text-accent"
+                        >
+                          <FileText className="h-3 w-3" aria-hidden="true" />
+                          {source}
+                        </span>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
+              <div className="flex flex-wrap gap-2 pl-11">
+                {['Give me a practice question', 'Show the formula', 'Explain it simpler'].map(
+                  (chip) => (
+                    <button
+                      key={chip}
+                      type="button"
+                      className="rounded-md border border-border-gray bg-[#0F0F12] px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors hover:border-accent/40 hover:text-text-primary"
+                    >
+                      {chip}
+                    </button>
+                  )
+                )}
+              </div>
             </div>
-          </div>
-          <div className="border-t border-border-gray bg-bg-surface p-5 md:border-l md:border-t-0">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-text-tertiary">
-              Instructor View
+          </main>
+
+          <aside className="border-t border-border-gray bg-bg-surface p-4 md:border-l md:border-t-0">
+            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+              Professor Guardrails
             </p>
             <div className="space-y-3">
               {[
-                ['Course boundary', 'Syllabus, lectures, readings'],
+                ['Course boundary', 'Syllabus, lectures, labs'],
                 ['Integrity mode', 'Guide, do not complete'],
-                ['Citation policy', 'Required on every answer'],
+                ['Citation policy', 'Required'],
+                ['Outside knowledge', 'Disabled'],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-lg border border-border-gray bg-[#0F0F12] p-3">
                   <p className="text-[11px] text-text-tertiary">{label}</p>
@@ -83,7 +153,7 @@ function ProductPreview() {
                 </div>
               ))}
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>
@@ -279,4 +349,3 @@ export default function HomePage() {
     </PageShell>
   )
 }
-

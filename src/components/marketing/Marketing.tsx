@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { ElementType, ReactNode } from 'react'
-import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, CheckCircle2, ChevronLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { SIGN_UP_URL } from '@/lib/marketing'
@@ -231,16 +231,22 @@ export function FeatureCard({
   return (
     <div
       className={cn(
-        'group relative overflow-hidden rounded-lg border border-border-gray bg-bg-surface p-5 transition duration-200 hover:border-border-strong hover:bg-[#1d1d22]',
+        'group relative overflow-hidden rounded-lg border border-border-gray bg-bg-surface p-4 transition duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:bg-[#1d1d22] hover:shadow-[0_18px_50px_rgba(0,0,0,0.24)] md:p-5',
         featured && 'border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.14),rgba(24,24,27,0.96)_48%,rgba(15,15,18,1))]',
         className
       )}
     >
-      {icon && <IconChip icon={icon} className="mb-5" />}
-      <h3 className="text-sm font-semibold leading-6 tracking-[-0.01em] text-text-primary">
-        {title}
-      </h3>
-      {description && <p className="mt-2 text-[13px] leading-6 text-text-secondary">{description}</p>}
+      <div className={cn('flex items-start gap-3', !icon && 'block')}>
+        {icon && <IconChip icon={icon} className="h-9 w-9" />}
+        <div className="min-w-0 flex-1">
+          <h3 className="text-sm font-semibold leading-6 tracking-[-0.01em] text-text-primary">
+            {title}
+          </h3>
+          {description && (
+            <p className="mt-1.5 text-[13px] leading-6 text-text-secondary">{description}</p>
+          )}
+        </div>
+      </div>
       {children}
     </div>
   )
@@ -271,13 +277,17 @@ export function TrustBar({
       {items.map((item) => (
         <div
           key={item.label}
-          className="rounded-lg border border-border-gray bg-[#0F0F12] p-5 text-center"
+          className="rounded-lg border border-border-gray bg-[#0F0F12] p-4 transition-colors hover:border-border-strong md:p-5"
         >
-          {item.icon && <IconChip icon={item.icon} className="mx-auto mb-4 h-9 w-9" />}
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-primary">
-            {item.label}
-          </p>
-          <p className="mt-2 text-xs leading-5 text-text-secondary">{item.detail}</p>
+          <div className="flex items-start gap-3">
+            {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
+            <div className={cn('min-w-0 flex-1', !item.icon && 'text-center')}>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-primary">
+                {item.label}
+              </p>
+              <p className="mt-2 text-xs leading-5 text-text-secondary">{item.detail}</p>
+            </div>
+          </div>
         </div>
       ))}
     </div>
@@ -362,6 +372,18 @@ export function ComparisonGrid({
   )
 }
 
+export function BackLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex items-center gap-2 rounded-lg border border-border-gray bg-bg-surface px-3.5 py-2 text-sm font-medium text-text-secondary transition-all hover:border-accent/45 hover:bg-accent/10 hover:text-text-primary focus-ring"
+    >
+      <ChevronLeft className="h-4 w-4 text-accent" aria-hidden="true" />
+      {children}
+    </Link>
+  )
+}
+
 export function ComparisonDetail({
   eyebrow = 'Comparison',
   title,
@@ -370,6 +392,7 @@ export function ComparisonDetail({
   competitorItems,
   edpilotItems,
   sections,
+  scenarios,
 }: {
   eyebrow?: string
   title: string
@@ -378,6 +401,7 @@ export function ComparisonDetail({
   competitorItems: string[]
   edpilotItems: string[]
   sections: Array<{ title: string; body: ReactNode }>
+  scenarios?: Array<{ setup: string; oldWay: string; edpilot: string }>
 }) {
   return (
     <PageShell>
@@ -392,14 +416,43 @@ export function ComparisonDetail({
         className="pb-14 md:pb-20"
       >
         <div className="mt-8 text-center">
-          <Link
-            href="/compare"
-            className="inline-flex items-center text-sm font-medium text-text-secondary transition-colors hover:text-accent"
-          >
-            Back to comparisons
-          </Link>
+          <BackLink href="/compare">Back to comparisons</BackLink>
         </div>
       </Hero>
+
+      {scenarios && scenarios.length > 0 && (
+        <Section className="py-16">
+          <Container>
+            <SectionHeader
+              eyebrow="Real Moments"
+              title="Where the difference becomes obvious."
+              description="The best comparison is not a feature checklist. It is what happens on a Tuesday night before an exam."
+            />
+            <div className="grid gap-4 md:grid-cols-3">
+              {scenarios.map((scenario) => (
+                <div
+                  key={scenario.setup}
+                  className="rounded-lg border border-border-gray bg-bg-surface p-5"
+                >
+                  <p className="text-sm font-semibold leading-6 text-text-primary">
+                    {scenario.setup}
+                  </p>
+                  <div className="mt-4 space-y-3 text-[13px] leading-6">
+                    <p className="rounded-lg border border-border-gray bg-[#0F0F12] p-3 text-text-secondary">
+                      <span className="font-semibold text-text-tertiary">Old way:</span>{' '}
+                      {scenario.oldWay}
+                    </p>
+                    <p className="rounded-lg border border-accent/25 bg-accent/10 p-3 text-text-primary">
+                      <span className="font-semibold text-accent">EdPilot:</span>{' '}
+                      {scenario.edpilot}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </Section>
+      )}
 
       <Section className="py-16" surface="panel">
         <Container>

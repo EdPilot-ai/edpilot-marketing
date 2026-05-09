@@ -22,7 +22,7 @@ export default function LMSNativePage() {
       />
       <ComparisonDetail
         title="EdPilot vs. LMS-Native AI"
-        description="LMS-native AI is convenient, but it is constrained by a vendor roadmap. EdPilot is vendor-independent and built around institutional policy."
+        description="LMS-native AI is convenient. Convenience is lovely until your policy, pedagogy, or timeline does not fit the vendor roadmap."
         competitorName="LMS-Native AI"
         competitorItems={[
           'Integrated into one existing system',
@@ -39,6 +39,23 @@ export default function LMSNativePage() {
           'Survives LMS changes',
           'Central governance across courses',
           'Purpose-built AI teaching workflows',
+        ]}
+        scenarios={[
+          {
+            setup: 'Faculty wants course-specific guardrails.',
+            oldWay: 'The LMS setting is either too broad, too rigid, or “coming soon.”',
+            edpilot: 'The course model follows the professor’s materials and boundaries.',
+          },
+          {
+            setup: 'Your institution changes LMS vendors.',
+            oldWay: 'The AI strategy packs a tiny suitcase and starts over.',
+            edpilot: 'EdPilot stays as the governed AI layer across systems.',
+          },
+          {
+            setup: 'A department needs a pilot this semester.',
+            oldWay: 'The roadmap nods sympathetically from next year.',
+            edpilot: 'Start with file upload now, deepen integrations as rollout grows.',
+          },
         ]}
         sections={[
           {
@@ -62,4 +79,3 @@ export default function LMSNativePage() {
     </>
   )
 }
-

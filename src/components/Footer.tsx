@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ArrowRight, Mail } from 'lucide-react'
 import { BrandMark } from '@/components/BrandMark'
-import { SIGN_UP_URL } from '@/lib/marketing'
+import { SIGN_UP_URL, SUPPORT_EMAIL } from '@/lib/marketing'
 
 export default function Footer() {
   return (
@@ -123,11 +123,11 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="mailto:support@edpilot.ai"
+                  href={`mailto:${SUPPORT_EMAIL}`}
                   className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
                 >
                   <Mail className="w-3 h-3 flex-shrink-0" aria-hidden="true" />
-                  support@edpilot.ai
+                  {SUPPORT_EMAIL}
                 </a>
               </li>
             </ul>

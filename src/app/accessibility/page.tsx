@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
+import { SUPPORT_EMAIL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
   title: 'Accessibility Statement | EdPilot',
@@ -367,10 +368,10 @@ export default function AccessibilityPage() {
               <p>
                 <strong>Email:</strong>{' '}
                 <a
-                  href="mailto:accessibility@empowered.ai"
+                  href={`mailto:${SUPPORT_EMAIL}`}
                   className="text-accent hover:text-accent-hover underline underline-offset-2"
                 >
-                  accessibility@empowered.ai
+                  {SUPPORT_EMAIL}
                 </a>
               </p>
               <p>

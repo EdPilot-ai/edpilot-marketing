@@ -22,7 +22,7 @@ export default function TutoringPlatformsPage() {
       />
       <ComparisonDetail
         title="EdPilot vs. Tutoring Platforms"
-        description="Tutoring platforms are student-directed services. EdPilot is an institutional AI layer that keeps instructors and universities in control."
+        description="Tutoring platforms help individual students. EdPilot helps the course get smarter while keeping instructors in the loop."
         competitorName="Tutoring Platforms"
         competitorItems={[
           'One-on-one help can be available',
@@ -39,6 +39,23 @@ export default function TutoringPlatformsPage() {
           'LMS and university workflow alignment',
           'Academic integrity safeguards',
           'Audit trails and learning visibility',
+        ]}
+        scenarios={[
+          {
+            setup: 'A student gets stuck at 11:42pm.',
+            oldWay: 'They leave the course environment and hope outside help matches the professor’s expectations.',
+            edpilot: 'They get support grounded in the actual syllabus, readings, and lecture framing.',
+          },
+          {
+            setup: 'The same misconception appears 80 times.',
+            oldWay: 'Tutoring platforms see isolated sessions. The professor sees nothing.',
+            edpilot: 'EdPilot turns repeated confusion into an instructional signal.',
+          },
+          {
+            setup: 'A department wants accountability.',
+            oldWay: 'Consumer-style help is hard to govern.',
+            edpilot: 'Policies, usage patterns, and course boundaries live inside the institutional layer.',
+          },
         ]}
         sections={[
           {
@@ -62,4 +79,3 @@ export default function TutoringPlatformsPage() {
     </>
   )
 }
-

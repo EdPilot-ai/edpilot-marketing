@@ -1,10 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
-import Link from 'next/link'
 import {
-  ArrowRight,
   ChevronDown,
   CreditCard,
   GraduationCap,
@@ -24,7 +21,7 @@ import {
   Section,
   SectionHeader,
 } from '@/components/marketing'
-import { SIGN_UP_URL } from '@/lib/marketing'
+import { SIGN_UP_URL, SUPPORT_EMAIL } from '@/lib/marketing'
 
 interface FAQItem {
   question: string
@@ -153,7 +150,7 @@ const faqs: FAQItem[] = [
     category: 'technical',
     question: 'What if I hit a technical issue?',
     answer:
-      'Email support@edpilot.ai or use the Contact page. We typically respond within one business day.',
+      `Email ${SUPPORT_EMAIL} or use the Contact page. We typically respond within one business day.`,
   },
   {
     category: 'technical',
@@ -236,37 +233,33 @@ export default function FAQPage() {
                         }`}
                       >
                         <button
+                          id={`faq-question-${globalIndex}`}
                           type="button"
                           onClick={() => setOpenIndex(isOpen ? null : globalIndex)}
-                          className="flex w-full items-center justify-between gap-5 px-5 py-4 text-left"
+                          className="flex w-full items-center justify-between gap-5 rounded-lg px-5 py-4 text-left focus-ring"
                           aria-expanded={isOpen}
+                          aria-controls={`faq-answer-${globalIndex}`}
                         >
                           <span className="text-sm font-semibold leading-6 text-text-primary">
                             {faq.question}
                           </span>
-                          <m.span
-                            animate={{ rotate: isOpen ? 180 : 0 }}
-                            transition={{ duration: 0.18 }}
-                            className="shrink-0 text-text-secondary"
-                          >
-                            <ChevronDown className="h-4 w-4" aria-hidden="true" />
-                          </m.span>
+                          <ChevronDown
+                            className={`h-4 w-4 shrink-0 text-text-secondary transition-transform duration-200 ${
+                              isOpen ? 'rotate-180 text-accent' : ''
+                            }`}
+                            aria-hidden="true"
+                          />
                         </button>
-                        <AnimatePresence initial={false}>
-                          {isOpen && (
-                            <m.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.18, ease: 'easeInOut' }}
-                              className="overflow-hidden"
-                            >
-                              <div className="border-t border-border-gray px-5 py-4">
-                                <p className="text-sm leading-7 text-text-secondary">{faq.answer}</p>
-                              </div>
-                            </m.div>
-                          )}
-                        </AnimatePresence>
+                        {isOpen && (
+                          <div
+                            id={`faq-answer-${globalIndex}`}
+                            role="region"
+                            aria-labelledby={`faq-question-${globalIndex}`}
+                            className="border-t border-border-gray px-5 py-4"
+                          >
+                            <p className="text-sm leading-7 text-text-secondary">{faq.answer}</p>
+                          </div>
+                        )}
                       </div>
                     )
                   })}
@@ -290,4 +283,3 @@ export default function FAQPage() {
     </PageShell>
   )
 }
-

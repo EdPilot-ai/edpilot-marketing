@@ -14,6 +14,7 @@ const NAV_LINKS = [
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -24,11 +25,11 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 border-b border-[#27272A]/80 bg-[#0F0F12]/78 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0F0F12]/68">
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6"
+        className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-6"
       >
         <Link
           href="/"
-          className="group flex items-center gap-2.5 rounded-lg focus-ring"
+          className="group flex w-fit items-center gap-2.5 rounded-lg focus-ring"
           aria-label="EdPilot home"
         >
           <BrandMark size={30} className="transition-transform duration-200 group-hover:scale-[1.04]" />
@@ -55,7 +56,7 @@ export default function Navbar() {
           })}
         </ul>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center justify-end gap-3 md:flex">
           <a
             href={SIGN_IN_URL}
             className="rounded-lg px-2 py-1 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary focus-ring"
@@ -69,7 +70,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="rounded-lg border border-border-gray bg-bg-surface p-2 text-text-primary transition-colors hover:border-border-strong md:hidden"
+          className="col-start-3 justify-self-end rounded-lg border border-border-gray bg-bg-surface p-2 text-text-primary transition-colors hover:border-border-strong md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -92,15 +93,6 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link
-                href="/contact"
-                onClick={() => setOpen(false)}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-white/[0.04] hover:text-text-primary"
-              >
-                Contact
-              </Link>
-            </li>
             <li className="pt-2">
               <a
                 href={SIGN_IN_URL}

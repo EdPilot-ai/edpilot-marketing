@@ -14,6 +14,7 @@ import {
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
+import { SUPPORT_EMAIL } from '@/lib/marketing'
 
 const LAST_UPDATED = 'March 21, 2026'
 
@@ -296,11 +297,11 @@ export default function PrivacyPolicyPage() {
               },
               {
                 title: 'Delete your account',
-                desc: 'Email privacy@edpilot.ai to request account deletion. All personal data is permanently removed within 30 days.',
+                desc: `Email ${SUPPORT_EMAIL} to request account deletion. All personal data is permanently removed within 30 days.`,
               },
               {
                 title: 'Export your data',
-                desc: 'Request a copy of your data in JSON or CSV format by contacting support@edpilot.ai.',
+                desc: `Request a copy of your data in JSON or CSV format by contacting ${SUPPORT_EMAIL}.`,
               },
               {
                 title: 'Opt out of emails',
@@ -365,11 +366,11 @@ export default function PrivacyPolicyPage() {
           <div className="text-sm text-text-secondary space-y-2 mb-6">
             <p>
               <span className="font-medium text-text-primary">Privacy inquiries:</span>{' '}
-              <a href="mailto:privacy@edpilot.ai" className="text-accent hover:underline">privacy@edpilot.ai</a>
+              <a href={`mailto:${SUPPORT_EMAIL}`} className="text-accent hover:underline">{SUPPORT_EMAIL}</a>
             </p>
             <p>
               <span className="font-medium text-text-primary">General support:</span>{' '}
-              <a href="mailto:support@edpilot.ai" className="text-accent hover:underline">support@edpilot.ai</a>
+              <a href={`mailto:${SUPPORT_EMAIL}`} className="text-accent hover:underline">{SUPPORT_EMAIL}</a>
             </p>
           </div>
           <Link href="/contact">
