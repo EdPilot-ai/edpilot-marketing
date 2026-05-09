@@ -1,6 +1,6 @@
 # edpilot-marketing
 
-Public marketing site at **edpilot.com**.
+Public marketing site at **edpilot.ai**.
 
 ## Scope
 
