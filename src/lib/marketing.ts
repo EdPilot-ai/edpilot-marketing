@@ -5,3 +5,4 @@ export const SIGN_UP_URL = `${APP_URL}/register`;
 export const SUPPORT_EMAIL = "support@edpilot.ai";
 export const LEGAL_EMAIL = "legal@edpilot.ai";
 export const SECURITY_EMAIL = "security@edpilot.ai";
+export const ACCESSIBILITY_EMAIL = "accessibility@edpilot.ai";

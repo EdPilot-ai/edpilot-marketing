@@ -2,15 +2,16 @@ import Link from 'next/link'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
 import { Container, Hero, PageShell, Section } from '@/components/marketing'
-import { SUPPORT_EMAIL } from '@/lib/marketing'
+import { SUPPORT_EMAIL, ACCESSIBILITY_EMAIL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
   title: 'Accessibility Statement | EdPilot',
   description:
-    'EdPilot accessibility statement, conformance status, implemented features, known limitations, and how to report accessibility issues.',
+    'EdPilot accessibility statement — WCAG 2.2 AA conformance, Section 508, ADA Title II, implemented features, known limitations, and how to report accessibility issues.',
 }
 
-// This page requires no authentication and is publicly accessible to all visitors.
+const LAST_UPDATED = 'May 18, 2026'
+const VERSION = 'v2.1'
 
 export default function AccessibilityPage() {
   return (
@@ -20,7 +21,7 @@ export default function AccessibilityPage() {
         title="Accessibility Statement"
         description={
           <>
-            Last updated: <time dateTime="2026-03-23">March 23, 2026</time>
+            Last updated: <time dateTime="2026-05-18">{LAST_UPDATED}</time> &middot; {VERSION}
           </>
         }
         className="pb-12 md:pb-16"
@@ -28,27 +29,43 @@ export default function AccessibilityPage() {
       <Section className="py-14 md:py-20">
         <Container size="narrow">
 
-        <div className="space-y-10 text-text-secondary">
+        <div className="space-y-10 text-text-secondary text-sm">
 
           {/* Commitment */}
           <section aria-labelledby="commitment-heading">
             <h2 id="commitment-heading" className="text-xl font-semibold text-text-primary mb-3">
               Our Commitment
             </h2>
-            <p className="leading-relaxed">
+            <p className="leading-relaxed mb-3">
               EdPilot is committed to ensuring its AI-powered education platform is accessible to
               all users, including individuals with disabilities. We design and build to conform to{' '}
               <strong className="text-text-primary">
-                Web Content Accessibility Guidelines (WCAG) 2.1, Level AA
+                Web Content Accessibility Guidelines (WCAG) 2.2, Level AA
               </strong>
               , as required under the{' '}
               <strong className="text-text-primary">
                 Americans with Disabilities Act (ADA) Title II
               </strong>{' '}
               and the DOJ Title II Final Rule (April 2024), as well as applicable federal
-              regulations (28 C.F.R. Part 35).
+              regulations (28 C.F.R. Part 35) and{' '}
+              <strong className="text-text-primary">Section 508</strong> of the Rehabilitation Act.
+            </p>
+            <p className="leading-relaxed">
+              For institutions in the European Union and European Economic Area, EdPilot targets
+              compliance with{' '}
+              <strong className="text-text-primary">EN 301 549 v3.2.1</strong> (the harmonised
+              European standard for ICT accessibility), which references WCAG 2.1 AA as its web
+              content criteria. A Voluntary Product Accessibility Template (VPAT®) / Accessibility
+              Conformance Report is available upon request for institutional procurement teams —
+              contact{' '}
+              <a href={`mailto:${ACCESSIBILITY_EMAIL}`} className="text-accent hover:underline">
+                {ACCESSIBILITY_EMAIL}
+              </a>
+              .
             </p>
           </section>
+
+          <hr className="border-border-gray" />
 
           {/* Conformance status */}
           <section aria-labelledby="conformance-heading">
@@ -57,7 +74,7 @@ export default function AccessibilityPage() {
             </h2>
             <p className="leading-relaxed mb-4">
               EdPilot is{' '}
-              <strong className="text-text-primary">substantially conformant</strong> with WCAG 2.1
+              <strong className="text-text-primary">substantially conformant</strong> with WCAG 2.2
               Level AA across all platform surfaces. The following accessibility features have been
               engineered, audited, and verified:
             </p>
@@ -70,7 +87,8 @@ export default function AccessibilityPage() {
               <li>Full keyboard navigation throughout the application</li>
               <li>
                 Visible focus indicators on all interactive elements using a{' '}
-                <code className="text-accent">2px solid</code> accent-color ring (WCAG 2.4.7)
+                <code className="text-accent">2px solid</code> accent-color ring (WCAG 2.4.7,
+                WCAG 2.4.11 — new in 2.2)
               </li>
               <li>
                 View toggle buttons use{' '}
@@ -84,7 +102,14 @@ export default function AccessibilityPage() {
               </li>
               <li>
                 Session timeout warning dialog with focus management and{' '}
-                <code className="text-accent">role=&quot;alertdialog&quot;</code> (WCAG 2.2.1)
+                <code className="text-accent">role=&quot;alertdialog&quot;</code> (WCAG 2.2.1).
+                Authentication sessions extend automatically on user activity and provide at least
+                20 seconds warning before expiry (WCAG 2.2.6 — new in 2.2)
+              </li>
+              <li>
+                Draggable reorder handles provide keyboard-accessible alternatives via arrow-key
+                controls and an explicit &quot;Move up / Move down&quot; action menu (WCAG 2.5.7 —
+                new in 2.2)
               </li>
             </ul>
 
@@ -148,9 +173,14 @@ export default function AccessibilityPage() {
               </li>
               <li>All informational images include meaningful alternative text (WCAG 1.1.1)</li>
               <li>
-                Unsaved-data warning inside the Exit Student View modal uses{' '}
-                <code className="text-accent">role=&quot;alert&quot;</code> so it is announced
-                immediately if present (WCAG 4.1.3)
+                Unsaved-data warnings use{' '}
+                <code className="text-accent">role=&quot;alert&quot;</code> so they are announced
+                immediately to screen readers (WCAG 4.1.3)
+              </li>
+              <li>
+                Help text and error messages are programmatically associated with their form
+                controls via <code className="text-accent">aria-describedby</code> (WCAG 1.3.1,
+                3.3.1)
               </li>
             </ul>
 
@@ -210,6 +240,10 @@ export default function AccessibilityPage() {
                 focus rings increase to 3px, and semi-transparent surfaces are replaced with solid
                 equivalents (WCAG 1.4.11)
               </li>
+              <li>
+                Non-text UI components (icons used as controls, input borders, focus rings) meet
+                the 3:1 contrast requirement for UI components (WCAG 1.4.11)
+              </li>
             </ul>
 
             <h3 className="text-base font-semibold text-text-primary mb-2 mt-5">
@@ -225,6 +259,33 @@ export default function AccessibilityPage() {
               <li>
                 Framer Motion reads the reduced-motion preference at runtime and disables
                 physics-based animations accordingly
+              </li>
+            </ul>
+
+            <h3 className="text-base font-semibold text-text-primary mb-2 mt-5">
+              Mobile &amp; Touch Accessibility
+            </h3>
+            <ul className="list-disc list-inside space-y-1.5 ml-2">
+              <li>
+                All interactive targets meet the WCAG 2.5.8 minimum target size of 24×24 CSS
+                pixels (new in WCAG 2.2); primary actions meet the recommended 44×44px touch
+                target size
+              </li>
+              <li>
+                Platform tested with iOS VoiceOver (Safari) and Android TalkBack (Chrome) on
+                mobile browsers as part of each release cycle
+              </li>
+              <li>
+                Orientation is not locked — the platform is fully functional in both portrait and
+                landscape (WCAG 1.3.4)
+              </li>
+              <li>
+                No functionality requires pointer-specific gestures (pinch, swipe) without a
+                single-pointer alternative (WCAG 2.5.1)
+              </li>
+              <li>
+                LTI launches from Canvas Mobile and Blackboard Student apps are tested for
+                accessibility parity with the full web experience
               </li>
             </ul>
 
@@ -263,11 +324,11 @@ export default function AccessibilityPage() {
               <li>
                 Automated axe-core accessibility audit runs on every pull request via GitHub
                 Actions, covering page stubs spanning public routes and authenticated dashboard
-                pages (WCAG 2.1 AA + best-practice rules)
+                pages (WCAG 2.2 AA + best-practice rules)
               </li>
               <li>
                 Pa11y-CI is configured for scheduled scanning against staging deployments, testing
-                all public-facing routes at WCAG 2.1 AA standard
+                all public-facing routes at WCAG 2.2 AA standard
               </li>
               <li>
                 Type-checking, linting, and the a11y audit gate are all required to pass before
@@ -275,6 +336,8 @@ export default function AccessibilityPage() {
               </li>
             </ul>
           </section>
+
+          <hr className="border-border-gray" />
 
           {/* Known limitations */}
           <section aria-labelledby="limitations-heading">
@@ -284,7 +347,7 @@ export default function AccessibilityPage() {
             <p className="leading-relaxed mb-3">
               The following limitations remain and are on our active remediation roadmap:
             </p>
-            <ul className="list-disc list-inside space-y-1.5 ml-2">
+            <ul className="list-disc list-inside space-y-2 ml-2">
               <li>
                 <strong className="text-text-primary">PDF tag structure and reading order</strong>{' '}
                 — our server-side scanner detects image-only PDFs but cannot inspect internal PDF
@@ -295,7 +358,7 @@ export default function AccessibilityPage() {
               <li>
                 <strong className="text-text-primary">Third-party embedded content</strong> —
                 externally hosted content (linked resources, embedded media) is outside our
-                control and may not meet WCAG 2.1 AA. We recommend faculty verify accessibility of
+                control and may not meet WCAG 2.2 AA. We recommend faculty verify accessibility of
                 any external materials before sharing with students.
               </li>
               <li>
@@ -304,7 +367,7 @@ export default function AccessibilityPage() {
                 </strong>{' '}
                 — while all charts with bar-based visualizations offer a table-view alternative,
                 some advanced analytics charts (trajectory graphs, timing heatmaps) do not yet
-                have an equivalent data table. This is scheduled for a future release.
+                have an equivalent data table. This is scheduled for the next release.
               </li>
               <li>
                 <strong className="text-text-primary">
@@ -318,6 +381,8 @@ export default function AccessibilityPage() {
             </ul>
           </section>
 
+          <hr className="border-border-gray" />
+
           {/* Technical specs */}
           <section aria-labelledby="tech-heading">
             <h2 id="tech-heading" className="text-xl font-semibold text-text-primary mb-3">
@@ -327,17 +392,17 @@ export default function AccessibilityPage() {
               EdPilot relies on the following technologies for conformance:
             </p>
             <ul className="list-disc list-inside space-y-1 ml-2">
-              <li>HTML5 / WAI-ARIA 1.1</li>
+              <li>HTML5 / WAI-ARIA 1.2</li>
               <li>
                 CSS including{' '}
                 <code className="text-accent">prefers-reduced-motion</code>,{' '}
                 <code className="text-accent">prefers-contrast: more</code>, and{' '}
                 <code className="text-accent">prefers-color-scheme</code> media queries
               </li>
-              <li>JavaScript / React 19 / Next.js</li>
+              <li>JavaScript / React 19 / Next.js App Router</li>
               <li>
-                Radix UI primitives (Dialog, Tabs, Tooltip, DropdownMenu) with built-in ARIA
-                patterns
+                Radix UI primitives (Dialog, Tabs, Tooltip, DropdownMenu, Select) with built-in
+                WAI-ARIA patterns
               </li>
             </ul>
             <p className="leading-relaxed mt-4 mb-2">
@@ -345,13 +410,26 @@ export default function AccessibilityPage() {
             </p>
             <ul className="list-disc list-inside space-y-1 ml-2">
               <li>Automated axe-core static analysis (runs in CI on every pull request)</li>
-              <li>Pa11y-CI WCAG 2.1 AA scan against staging deployments</li>
+              <li>Pa11y-CI WCAG 2.2 AA scan against staging deployments</li>
               <li>Manual keyboard navigation testing</li>
-              <li>Screen reader testing (NVDA on Windows, VoiceOver on macOS/iOS)</li>
-              <li>WCAG 2.1 AA manual checklist review</li>
+              <li>
+                Screen reader testing: NVDA + Chrome (Windows), VoiceOver + Safari
+                (macOS/iOS), TalkBack + Chrome (Android)
+              </li>
+              <li>WCAG 2.2 AA manual checklist review</li>
               <li>Color contrast verified using APCA and WCAG 2.x contrast algorithms</li>
             </ul>
+            <p className="leading-relaxed mt-4">
+              A VPAT® / Accessibility Conformance Report aligned to WCAG 2.2 AA and Section 508
+              is available to institutional procurement teams upon request. Email{' '}
+              <a href={`mailto:${ACCESSIBILITY_EMAIL}`} className="text-accent hover:underline">
+                {ACCESSIBILITY_EMAIL}
+              </a>{' '}
+              with subject line &quot;VPAT Request.&quot;
+            </p>
           </section>
+
+          <hr className="border-border-gray" />
 
           {/* Grievance mechanism */}
           <section
@@ -372,19 +450,19 @@ export default function AccessibilityPage() {
               <p>
                 <strong>Email:</strong>{' '}
                 <a
+                  href={`mailto:${ACCESSIBILITY_EMAIL}`}
+                  className="text-accent hover:text-accent-hover underline underline-offset-2"
+                >
+                  {ACCESSIBILITY_EMAIL}
+                </a>
+              </p>
+              <p>
+                <strong>General support:</strong>{' '}
+                <a
                   href={`mailto:${SUPPORT_EMAIL}`}
                   className="text-accent hover:text-accent-hover underline underline-offset-2"
                 >
                   {SUPPORT_EMAIL}
-                </a>
-              </p>
-              <p>
-                <strong>Phone:</strong>{' '}
-                <a
-                  href="tel:+15551234567"
-                  className="text-accent hover:text-accent-hover underline underline-offset-2"
-                >
-                  (555) 123-4567
                 </a>
               </p>
               <p>
@@ -411,6 +489,8 @@ export default function AccessibilityPage() {
             </ul>
           </section>
 
+          <hr className="border-border-gray" />
+
           {/* Formal complaint */}
           <section aria-labelledby="formal-heading">
             <h2 id="formal-heading" className="text-xl font-semibold text-text-primary mb-3">
@@ -431,23 +511,32 @@ export default function AccessibilityPage() {
               >
                 ada.gov
               </a>
-              .
+              . EU/EEA users may also contact their national accessibility enforcement body under
+              the European Accessibility Act (EAA) / Web Accessibility Directive.
             </p>
           </section>
+
+          <hr className="border-border-gray" />
 
           {/* Compliance timeline */}
           <section aria-labelledby="timeline-heading">
             <h2 id="timeline-heading" className="text-xl font-semibold text-text-primary mb-3">
-              Compliance Timeline
+              Compliance Timeline &amp; Roadmap
             </h2>
-            <p className="leading-relaxed">
+            <p className="leading-relaxed mb-3">
               Under the DOJ Title II final rule (April 2024), covered entities must conform to
               WCAG 2.1 Level AA. EdPilot has implemented a comprehensive, multi-phase
-              accessibility program spanning structural ARIA compliance, color contrast
-              remediation, semantic markup, high-contrast mode support, automated CI/CD gating, a
-              faculty-facing materials accessibility pipeline, and full keyboard focus-trap
-              management across all modal dialogs. We continue to monitor, test, and improve
-              accessibility as an ongoing engineering priority.
+              accessibility program — upgraded to WCAG 2.2 AA — spanning structural ARIA
+              compliance, color contrast remediation, semantic markup, high-contrast mode support,
+              automated CI/CD gating, a faculty-facing materials accessibility pipeline, mobile
+              and touch accessibility testing, and full keyboard focus-trap management across all
+              modal dialogs.
+            </p>
+            <p className="leading-relaxed">
+              Active roadmap items include: data table alternatives for all remaining analytics
+              charts, nonce-based CSP migration, annual third-party WCAG 2.2 audit, and ongoing
+              VPAT maintenance. We treat accessibility as an ongoing engineering priority and
+              review this statement with every major release.
             </p>
           </section>
 
