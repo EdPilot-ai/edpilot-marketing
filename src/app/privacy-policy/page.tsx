@@ -14,31 +14,26 @@ import {
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
+import { Container, Hero, PageShell, Section } from '@/components/marketing'
 import { SUPPORT_EMAIL } from '@/lib/marketing'
 
 const LAST_UPDATED = 'March 21, 2026'
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-bg-page">
+    <PageShell>
 
       {/* ── Page Header ── */}
-      <section className="pt-32 pb-12 border-b border-border-gray">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div
-          >
-            <h1 className="text-4xl font-bold text-text-primary mb-3">
-              Privacy Policy
-            </h1>
-            <p className="text-text-secondary text-sm">
-              Last updated: {LAST_UPDATED}
-            </p>
-          </div>
-        </div>
-      </section>
+      <Hero
+        eyebrow="Legal"
+        title="Privacy Policy"
+        description={`Last updated: ${LAST_UPDATED}`}
+        className="pb-12 md:pb-16"
+      />
 
       {/* ── Body ── */}
-      <div className="container mx-auto px-6 max-w-4xl py-14 space-y-10">
+      <Section className="py-14 md:py-20">
+        <Container size="narrow" className="space-y-10">
 
         {/* Introduction */}
         <section
@@ -373,16 +368,17 @@ export default function PrivacyPolicyPage() {
               <a href={`mailto:${SUPPORT_EMAIL}`} className="text-accent hover:underline">{SUPPORT_EMAIL}</a>
             </p>
           </div>
-          <Link href="/contact">
-            <Button className="bg-accent hover:bg-accent-hover text-white px-6">
+          <Button asChild className="bg-accent hover:bg-accent-hover text-white px-6">
+            <Link href="/contact">
               Contact Us
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </section>
 
-      </div>
+        </Container>
+      </Section>
 
       <Footer />
-    </div>
+    </PageShell>
   )
 }

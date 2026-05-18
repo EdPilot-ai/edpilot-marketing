@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-12">
           {/* Brand */}
           <div className="md:col-span-4">
-            <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
+            <Link href="/" className="group mb-4 inline-flex items-center gap-2.5 rounded-lg focus-ring">
               <BrandMark
                 size={30}
                 className="group-hover:scale-105 transition-transform duration-150"
@@ -26,7 +26,7 @@ export default function Footer() {
             </p>
             <a
               href={SIGN_UP_URL}
-              className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-accent transition-colors hover:text-[#A78BFA]"
+              className="mt-5 inline-flex items-center gap-2 rounded-md text-xs font-semibold text-accent transition-colors hover:text-[#A78BFA] focus-ring"
             >
               Get Started
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
@@ -42,7 +42,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/products"
-                  className="text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
+                  className="rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   All Products
                 </Link>
@@ -50,7 +50,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/products/curriculum-intelligence"
-                  className="text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
+                  className="rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   Curriculum Intelligence
                 </Link>
@@ -67,7 +67,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/compare"
-                  className="text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
+                  className="rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   All Comparisons
                 </Link>
@@ -75,7 +75,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/compare/chatgpt"
-                  className="text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
+                  className="rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   vs. ChatGPT
                 </Link>
@@ -106,7 +106,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
+                    className="rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                   >
                     {link.label}
                   </Link>
@@ -124,7 +124,7 @@ export default function Footer() {
               <li>
                 <a
                   href={`mailto:${SUPPORT_EMAIL}`}
-                  className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors duration-150 text-xs"
+                  className="flex items-center gap-2 rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   <Mail className="w-3 h-3 flex-shrink-0" aria-hidden="true" />
                   {SUPPORT_EMAIL}
@@ -148,7 +148,7 @@ export default function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[#9898A3] hover:text-text-primary transition-colors duration-150 text-xs"
+                className="rounded-md text-xs text-[#9898A3] transition-colors duration-150 hover:text-text-primary focus-ring"
               >
                 {link.label}
               </Link>

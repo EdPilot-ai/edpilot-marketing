@@ -6,8 +6,8 @@ import { OrganizationSchema, SoftwareApplicationSchema } from "@/components/Stru
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "EdPilot", template: "%s · EdPilot" },
-  description: "EdPilot — curriculum intelligence for higher education.",
+  title: { default: "EdPilot", template: "%s | EdPilot" },
+  description: "EdPilot: curriculum intelligence for higher education.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_MARKETING_URL ?? "https://edpilot.com"),
 };
 

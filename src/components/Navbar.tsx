@@ -36,14 +36,14 @@ export default function Navbar() {
           <span className="text-sm font-semibold tracking-[-0.01em] text-text-primary">EdPilot</span>
         </Link>
 
-        <ul className="hidden items-center gap-1 rounded-lg border border-white/[0.06] bg-white/[0.03] p-1 md:flex">
+        <ul className="hidden items-center gap-1 rounded-lg border border-white/[0.06] bg-white/[0.03] p-1 lg:flex">
           {NAV_LINKS.map((link) => {
             const active = pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`));
             return (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                  className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors focus-ring ${
                     active
                       ? "bg-white/[0.07] text-text-primary"
                       : "text-text-secondary hover:bg-white/[0.04] hover:text-text-primary"
@@ -56,7 +56,7 @@ export default function Navbar() {
           })}
         </ul>
 
-        <div className="hidden items-center justify-end gap-3 md:flex">
+        <div className="hidden items-center justify-end gap-3 lg:flex">
           <a
             href={SIGN_IN_URL}
             className="rounded-lg px-2 py-1 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary focus-ring"
@@ -70,7 +70,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="col-start-3 justify-self-end rounded-lg border border-border-gray bg-bg-surface p-2 text-text-primary transition-colors hover:border-border-strong md:hidden"
+          className="col-start-3 justify-self-end rounded-lg border border-border-gray bg-bg-surface p-2 text-text-primary transition-colors hover:border-border-strong focus-ring lg:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -80,14 +80,14 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-[#27272A] bg-[#0F0F12]/95 backdrop-blur-xl md:hidden">
+        <div className="border-t border-[#27272A] bg-[#0F0F12]/95 backdrop-blur-xl lg:hidden">
           <ul className="space-y-1 px-6 py-4">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-white/[0.04] hover:text-text-primary"
+                  className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-white/[0.04] hover:text-text-primary focus-ring"
                 >
                   {link.label}
                 </Link>
@@ -96,7 +96,7 @@ export default function Navbar() {
             <li className="pt-2">
               <a
                 href={SIGN_IN_URL}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-white/[0.04] hover:text-text-primary"
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-white/[0.04] hover:text-text-primary focus-ring"
               >
                 Sign in
               </a>

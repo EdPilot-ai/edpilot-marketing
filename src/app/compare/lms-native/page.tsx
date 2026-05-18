@@ -6,8 +6,8 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'EdPilot vs. LMS-Native AI - Comparison',
   description:
-    'EdPilot vs Canvas AI, Blackboard AI, and other LMS-native solutions. Compare vendor independence, customization, and institutional control.',
-  keywords: 'EdPilot vs Canvas AI, EdPilot vs Blackboard, LMS integration, vendor independence',
+    'Compare LMS-native AI approaches with EdPilot: vendor independence, customization, institutional control, and LMS workflow integration.',
+  keywords: 'LMS AI comparison, Canvas integration, Blackboard integration, vendor independence',
 }
 
 export default function LMSNativePage() {

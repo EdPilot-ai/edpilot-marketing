@@ -249,7 +249,7 @@ function ShareRow({ title }: { title: string }) {
   }
 
   const btnBase =
-    'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-gray text-text-secondary text-xs font-medium transition-all duration-150'
+    'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-gray text-text-secondary text-xs font-medium transition-all duration-150 focus-ring'
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
@@ -368,7 +368,7 @@ function ArticleBody({
         <div className="container mx-auto px-6 max-w-5xl h-11 flex items-center">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-text-secondary hover:text-accent text-xs font-medium transition-colors duration-150 group"
+            className="group inline-flex items-center gap-1.5 rounded-md text-xs font-medium text-text-secondary transition-colors duration-150 hover:text-accent focus-ring"
           >
             <ArrowLeft
               className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform duration-150"
@@ -470,11 +470,11 @@ function ArticleBody({
             </div>
 
             <div className="space-y-4">
-              {relatedPosts.map((related, index) => (
+              {relatedPosts.map((related) => (
                 <div
                   key={related.slug}
                 >
-                  <Link href={`/blog/${related.slug}`} className="group block">
+                  <Link href={`/blog/${related.slug}`} className="group block rounded-lg focus-ring">
                     <article className="flex items-start gap-4 p-5 rounded-lg border border-border-gray bg-bg-page hover:border-accent/30 transition-all duration-200">
                       {/* Color swatch accent */}
                       <div className="w-1 self-stretch rounded-full bg-accent/30 flex-shrink-0 group-hover:bg-accent transition-colors duration-150" />
@@ -508,12 +508,12 @@ function ArticleBody({
             <div
               className="mt-8"
             >
-              <Link href="/blog">
-                <Button variant="outline" className="border-border-gray hover:border-text-secondary">
+              <Button asChild variant="outline" className="border-border-gray hover:border-text-secondary">
+                <Link href="/blog">
                   View All Articles
                   <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </section>

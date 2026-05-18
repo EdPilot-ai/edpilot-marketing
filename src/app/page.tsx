@@ -48,8 +48,8 @@ function ProductPreview() {
             <span>Intro to Statistics</span>
           </div>
         </div>
-        <div className="grid md:grid-cols-[230px_1fr_270px]">
-          <aside className="border-b border-border-gray bg-bg-surface/70 p-4 md:border-b-0 md:border-r">
+        <div className="grid lg:grid-cols-[220px_minmax(0,1fr)_250px]">
+          <aside className="border-b border-border-gray bg-bg-surface/70 p-4 lg:border-b-0 lg:border-r">
             <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
               My Classes
             </p>
@@ -77,7 +77,7 @@ function ProductPreview() {
             </div>
           </aside>
 
-          <main className="p-4 md:p-6">
+          <main className="min-w-0 p-4 md:p-6">
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
@@ -100,7 +100,7 @@ function ProductPreview() {
               </div>
               <div className="flex gap-3">
                 <IconChip icon={Sparkles} className="mt-1 h-8 w-8" />
-                <div className="rounded-lg border border-border-gray bg-bg-surface px-4 py-4 text-sm leading-7 text-text-secondary">
+                <div className="min-w-0 rounded-lg border border-border-gray bg-bg-surface px-4 py-4 text-sm leading-7 text-text-secondary">
                   Standard deviation describes how spread out individual data points are. Standard
                   error describes how much a sample mean would vary if we repeated the sampling
                   process. In Professor Chen&apos;s coin-flip simulation, larger samples made the mean
@@ -110,10 +110,10 @@ function ProductPreview() {
                       (source) => (
                         <span
                           key={source}
-                          className="inline-flex items-center gap-1.5 rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1 text-[11px] font-medium text-accent"
+                          className="inline-flex max-w-full items-center gap-1.5 rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1 text-[11px] font-medium text-accent"
                         >
                           <FileText className="h-3 w-3" aria-hidden="true" />
-                          {source}
+                          <span className="truncate">{source}</span>
                         </span>
                       )
                     )}
@@ -136,7 +136,7 @@ function ProductPreview() {
             </div>
           </main>
 
-          <aside className="border-t border-border-gray bg-bg-surface p-4 md:border-l md:border-t-0">
+          <aside className="border-t border-border-gray bg-bg-surface p-4 lg:border-l lg:border-t-0">
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
               Professor Guardrails
             </p>
@@ -302,10 +302,10 @@ export default function HomePage() {
               },
             ].map((item) => (
               <FeatureCard key={item.step} icon={item.icon} title={item.title}>
-                <span className="absolute right-5 top-5 text-xs font-bold text-accent/45">
-                  {item.step}
-                </span>
-                <p className="mt-2 text-[13px] leading-6 text-text-secondary">{item.description}</p>
+                <div className="mt-4 flex gap-3 border-t border-border-gray pt-4">
+                  <span className="shrink-0 text-xs font-bold text-accent/55">{item.step}</span>
+                  <p className="text-[13px] leading-6 text-text-secondary">{item.description}</p>
+                </div>
               </FeatureCard>
             ))}
           </div>

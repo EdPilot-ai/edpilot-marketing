@@ -156,7 +156,7 @@ const faqs: FAQItem[] = [
     category: 'technical',
     question: 'How do I integrate with my LMS?',
     answer:
-      'Canvas, Blackboard, and Moodle integrations are in progress. Direct file upload is available now. Contact us for setup guidance and timeline.',
+      'Direct file upload is available now. Canvas developer access and deeper LMS workflows are in progress for institutional pilots. Contact us for setup guidance and timeline.',
   },
 ]
 

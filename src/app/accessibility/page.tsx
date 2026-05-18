@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
+import { Container, Hero, PageShell, Section } from '@/components/marketing'
 import { SUPPORT_EMAIL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
@@ -13,16 +14,19 @@ export const metadata: Metadata = {
 
 export default function AccessibilityPage() {
   return (
-    <div className="min-h-screen bg-bg-page">
-      <div className="container mx-auto px-6 max-w-3xl pt-36 pb-20">
-
-        {/* Page header */}
-        <header>
-          <h1 className="text-4xl font-bold text-text-primary mb-2">Accessibility Statement</h1>
-          <p className="text-text-secondary text-sm mb-8">
+    <PageShell>
+      <Hero
+        eyebrow="Accessibility"
+        title="Accessibility Statement"
+        description={
+          <>
             Last updated: <time dateTime="2026-03-23">March 23, 2026</time>
-          </p>
-        </header>
+          </>
+        }
+        className="pb-12 md:pb-16"
+      />
+      <Section className="py-14 md:py-20">
+        <Container size="narrow">
 
         <div className="space-y-10 text-text-secondary">
 
@@ -448,9 +452,10 @@ export default function AccessibilityPage() {
           </section>
 
         </div>
-      </div>
+        </Container>
+      </Section>
 
       <Footer />
-    </div>
+    </PageShell>
   )
 }

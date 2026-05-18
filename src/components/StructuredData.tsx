@@ -1,5 +1,7 @@
 'use client'
 
+import { SUPPORT_EMAIL } from '@/lib/marketing'
+
 /**
  * StructuredData component exports individual schema generators
  * for use throughout the application to improve LLM discoverability
@@ -26,8 +28,8 @@ export function OrganizationSchema() {
     ],
     contact: {
       '@type': 'ContactPoint',
-      contactType: 'Sales',
-      email: 'sales@edpilot.com',
+      contactType: 'Support',
+      email: SUPPORT_EMAIL,
       url: 'https://edpilot.com/contact',
     },
     foundingDate: '2024',
@@ -66,16 +68,10 @@ export function ProductSchema() {
     },
     offers: {
       '@type': 'Offer',
-      url: 'https://edpilot.com/pricing',
+      url: 'https://edpilot.com/contact',
       priceCurrency: 'USD',
       price: 'Contact for pricing',
       availability: 'https://schema.org/InStock',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '42',
-      reviewCount: '42',
     },
     hasFeature: [
       {
@@ -91,7 +87,7 @@ export function ProductSchema() {
       {
         '@type': 'PropertyValue',
         name: 'Academic Integrity Safeguards',
-        description: 'Built-in plagiarism detection and citation enforcement',
+        description: 'Course-bound guidance, citation requirements, and assessment guardrails',
       },
       {
         '@type': 'PropertyValue',
@@ -101,7 +97,7 @@ export function ProductSchema() {
       {
         '@type': 'PropertyValue',
         name: 'LMS Integration',
-        description: 'Native integration with Canvas, Blackboard, and others',
+        description: 'Designed to integrate with Canvas, Blackboard, and other LMS workflows',
       },
     ],
   }
@@ -208,9 +204,9 @@ export function SoftwareApplicationSchema() {
       'Syllabus-aligned responses',
       'Instructor control over AI behavior',
       'FERPA-compliant infrastructure',
-      'Plagiarism detection',
-      'LMS integration',
-      'Real-time monitoring',
+      'Academic integrity guardrails',
+      'LMS workflow integration',
+      'Course-level visibility',
       'Citation enforcement',
     ],
     audience: {

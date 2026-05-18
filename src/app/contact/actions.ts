@@ -1,5 +1,7 @@
 "use server";
 
+import { SUPPORT_EMAIL } from "@/lib/marketing";
+
 interface ContactFormData {
   firstName: string;
   lastName: string;
@@ -10,6 +12,7 @@ interface ContactFormData {
 
 const MAX_MESSAGE_LENGTH = 5000;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CONTACT_FORM_WEBHOOK_URL = process.env.CONTACT_FORM_WEBHOOK_URL;
 
 export async function sendContactMessage(data: ContactFormData) {
   try {
@@ -32,15 +35,27 @@ export async function sendContactMessage(data: ContactFormData) {
       return { success: false, error: `Message must be ${MAX_MESSAGE_LENGTH} characters or fewer` };
     }
 
-    // TODO: forward to CONTACT_FORM_WEBHOOK_URL or an email provider.
-
-    // Dev-only: surface submissions without logging PII to production stdout
-    if (process.env.NODE_ENV !== "production") {
-      console.log("[Contact] Form submission received", {
-        role,
-        messageLength: message.length,
-        timestamp: new Date().toISOString(),
+    if (CONTACT_FORM_WEBHOOK_URL) {
+      const response = await fetch(CONTACT_FORM_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          role,
+          message,
+          source: "edpilot-marketing",
+          submittedAt: new Date().toISOString(),
+        }),
       });
+
+      if (!response.ok) {
+        return {
+          success: false,
+          error: `We could not send the message. Please email ${SUPPORT_EMAIL}.`,
+        };
+      }
     }
 
     return {

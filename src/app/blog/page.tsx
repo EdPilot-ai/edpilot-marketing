@@ -26,7 +26,7 @@ function CategoryButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
+      className={`inline-flex min-w-max items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition-colors focus-ring ${
         active
           ? 'border-accent bg-accent text-white'
           : 'border-border-gray bg-[#0F0F12] text-text-secondary hover:border-border-strong hover:text-text-primary'
@@ -60,7 +60,7 @@ function AuthorBadge({ post }: { post: BlogPost }) {
 
 function ArticleCard({ post }: { post: BlogPost }) {
   return (
-    <Link href={`/blog/${post.slug}`} className="group block h-full">
+    <Link href={`/blog/${post.slug}`} className="group block h-full rounded-lg focus-ring">
       <article className="flex h-full flex-col rounded-lg border border-border-gray bg-bg-surface p-5 transition duration-200 hover:border-accent/35 hover:bg-[#1d1d22]">
         <span className="mb-4 w-fit rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
           {post.category}
@@ -153,7 +153,7 @@ export default function BlogPage() {
                   type="button"
                   onClick={() => setQuery('')}
                   aria-label="Clear search"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary transition-colors hover:text-text-primary"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md text-text-secondary transition-colors hover:text-text-primary focus-ring"
                 >
                   <X className="h-4 w-4" aria-hidden="true" />
                 </button>
@@ -189,7 +189,7 @@ export default function BlogPage() {
           {activeCategory === 'All' && !query && (
             <div className="mb-14">
               <SectionHeader align="left" eyebrow="Featured" title="Start here" />
-              <Link href={`/blog/${featuredPost.slug}`} className="group block">
+              <Link href={`/blog/${featuredPost.slug}`} className="group block rounded-lg focus-ring">
                 <article className="rounded-lg border border-border-gray bg-[linear-gradient(135deg,rgba(139,92,246,0.12),rgba(24,24,27,0.96)_42%,rgba(15,15,18,1))] p-6 transition duration-200 hover:border-accent/45 md:p-8">
                   <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
                     <div>
@@ -273,7 +273,7 @@ export default function BlogPage() {
                       setQuery('')
                       setActiveCategory('All')
                     }}
-                    className="mt-5 text-sm font-semibold text-accent hover:text-[#A78BFA]"
+                    className="mt-5 rounded-md text-sm font-semibold text-accent hover:text-[#A78BFA] focus-ring"
                   >
                     Clear filters
                   </button>
@@ -333,4 +333,3 @@ export default function BlogPage() {
     </PageShell>
   )
 }
-

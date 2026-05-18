@@ -84,7 +84,7 @@ export default function ContactPage() {
             <FeatureCard
               icon={Shield}
               title="University-ready questions welcome"
-              description="Ask about pilots, procurement, privacy, accessibility, LMS plans, or course setup."
+              description="Ask about pilots, procurement, privacy, accessibility, Canvas access, LMS plans, or course setup."
             />
             <FeatureCard
               icon={HelpCircle}
@@ -215,7 +215,7 @@ export default function ContactPage() {
                       value={formData.role}
                       onChange={handleChange}
                       required
-                      className={`${inputClass} appearance-none`}
+                      className={inputClass}
                     >
                       <option value="" disabled>
                         Select your role
@@ -245,7 +245,7 @@ export default function ContactPage() {
                       required
                       rows={5}
                       className="w-full resize-none rounded-lg border border-border-gray bg-[#0F0F12] px-3.5 py-3 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none"
-                      placeholder="What are you trying to solve? Course support, AI governance, a pilot, LMS rollout..."
+                      placeholder="What are you trying to solve? Course support, AI governance, a pilot, Canvas access, LMS rollout..."
                     />
                   </div>
 

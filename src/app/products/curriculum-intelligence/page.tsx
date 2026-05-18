@@ -174,12 +174,10 @@ export default function CurriculumIntelligencePage() {
               },
             ].map((item) => (
               <FeatureCard key={item.step} icon={item.icon} title={item.title}>
-                <span className="absolute right-5 top-5 text-xs font-bold text-accent/45">
-                  {item.step}
-                </span>
-                <p className="mt-2 text-[13px] leading-6 text-text-secondary">
-                  {item.description}
-                </p>
+                <div className="mt-4 flex gap-3 border-t border-border-gray pt-4">
+                  <span className="shrink-0 text-xs font-bold text-accent/55">{item.step}</span>
+                  <p className="text-[13px] leading-6 text-text-secondary">{item.description}</p>
+                </div>
               </FeatureCard>
             ))}
           </div>
@@ -206,8 +204,8 @@ export default function CurriculumIntelligencePage() {
             <FeatureCard icon={Plug} title="Integrations">
               <ul className="mt-4 space-y-2 text-sm leading-6 text-text-secondary">
                 <li>Direct file upload, available now</li>
-                <li>Canvas, Blackboard, Moodle, and Google Drive in progress</li>
-                <li>SSO and deeper LMS integration available for institutions</li>
+                <li>Canvas developer access path and LMS workflow integrations in progress</li>
+                <li>SSO and deeper LMS rollout support planned for institutional pilots</li>
               </ul>
             </FeatureCard>
           </div>
