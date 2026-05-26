@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
 import { OrganizationSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <Toaster position="bottom-right" />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
