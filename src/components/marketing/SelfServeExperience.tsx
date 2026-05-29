@@ -96,6 +96,8 @@ const roles = [
 
 const launchTags = ['No code', 'No ticket queue', 'Canvas optional']
 
+const launchMetrics = ['Verified institution', 'Faculty invited', 'Course AI live']
+
 function MiniVisual({ visual }: { visual: string }) {
   if (visual === 'school.edu') {
     return (
@@ -184,7 +186,7 @@ export function InteractiveLaunchpad() {
 
   return (
     <div className="relative">
-      <div className="absolute -inset-px rounded-lg bg-[linear-gradient(135deg,rgba(139,92,246,0.7),rgba(56,189,248,0.24),rgba(34,197,94,0.22))] opacity-80" />
+      <div className="absolute -inset-px rounded-lg bg-[linear-gradient(135deg,rgba(139,92,246,0.78),rgba(56,189,248,0.28),rgba(34,197,94,0.24))] opacity-80" />
       <div className="relative overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12] shadow-[0_34px_100px_rgba(0,0,0,0.45)]">
         <div className="flex items-center justify-between border-b border-border-gray px-4 py-3">
           <div className="flex items-center gap-2">
@@ -246,9 +248,31 @@ export function InteractiveLaunchpad() {
                 )
               })}
             </div>
+            <div className="mt-5 grid grid-cols-3 gap-2">
+              {launchMetrics.map((metric, index) => (
+                <div
+                  key={metric}
+                  className={cn(
+                    'rounded-md border px-2 py-2 text-center transition',
+                    index < activeStep
+                      ? 'border-[#22C55E]/25 bg-[#22C55E]/10 text-[#86EFAC]'
+                      : index === activeStep
+                        ? 'border-accent/30 bg-accent/10 text-accent'
+                        : 'border-border-gray bg-bg-surface text-text-tertiary'
+                  )}
+                >
+                  <CheckCircle2 className="mx-auto h-3.5 w-3.5" aria-hidden="true" />
+                  <p className="mt-1 text-[10px] font-medium leading-4">{metric}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="relative overflow-hidden bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,1))] p-5 md:p-7">
+            <div
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(139,92,246,0.08),rgba(56,189,248,0.04),transparent_60%)]"
+              aria-hidden="true"
+            />
             <div
               className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent"
               aria-hidden="true"
@@ -260,6 +284,7 @@ export function InteractiveLaunchpad() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -8, scale: 0.98 }}
                 transition={{ duration: 0.24, ease: 'easeOut' }}
+                className="relative z-10"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -278,8 +303,14 @@ export function InteractiveLaunchpad() {
                   </span>
                 </div>
 
-                <div className="mt-7">
+                <div className="mt-7 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
                   <MiniVisual visual={active.visual} />
+                  <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-4 md:w-40">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+                      Current state
+                    </p>
+                    <p className="mt-2 text-sm font-semibold text-text-primary">{active.panelLabel}</p>
+                  </div>
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-2">

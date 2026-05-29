@@ -1,7 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import {
-  ArrowRight,
   CheckCircle2,
   Clock,
   GraduationCap,
@@ -21,12 +19,12 @@ import {
   CTABand,
   Container,
   FeatureCard,
+  Hero,
   PageShell,
   Section,
   SectionHeader,
   TrustBar,
 } from '@/components/marketing'
-import { Button } from '@/components/ui/button'
 import { SIGN_UP_URL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
@@ -98,41 +96,33 @@ export default function HowItWorksPage() {
     <PageShell>
       <BreadcrumbSchema items={breadcrumbItems} />
 
-      <Section className="pt-24 pb-16 md:pt-32 md:pb-24">
+      <Hero
+        eyebrow="Self-serve onboarding"
+        title="Launch EdPilot at your university in"
+        accent="minutes, not months."
+        description="No procurement maze. No IT project. An admin signs up, EdPilot approves your institution, and your professors are teaching with course-grounded AI the same week."
+        actions={[
+          { label: 'Get Started Free', href: SIGN_UP_URL },
+          { label: 'See the Steps', href: '#steps', variant: 'secondary' },
+        ]}
+      />
+
+      <Section className="py-16 md:py-24" surface="panel">
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-[620px] bg-[linear-gradient(180deg,rgba(139,92,246,0.18),rgba(20,20,22,0)_64%)]"
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 top-20 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(139,92,246,0.08),rgba(24,24,27,0)_42%)]"
           aria-hidden="true"
         />
         <Container size="wide" className="relative z-10">
-          <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                Self-serve onboarding
-              </p>
-              <h1 className="max-w-3xl text-5xl font-semibold leading-[1.02] tracking-[-0.035em] text-text-primary md:text-7xl">
-                Launch EdPilot at your university in{' '}
-                <span className="text-accent">minutes, not months.</span>
-              </h1>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-text-secondary md:text-lg">
-                No procurement maze. No IT project. An admin signs up, EdPilot approves your
-                institution, and your professors are teaching with course-grounded AI the same week.
-              </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg" className="h-11 px-7">
-                  <Link href={SIGN_UP_URL}>
-                    Get started free
-                    <ArrowRight aria-hidden="true" />
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="h-11 px-7">
-                  <Link href="#steps">See the steps</Link>
-                </Button>
-              </div>
-              <div className="mt-10 grid max-w-xl grid-cols-3 gap-px overflow-hidden rounded-lg border border-border-gray bg-border-gray">
+              <SectionHeader
+                eyebrow="Interactive setup"
+                title="Click through the launch path."
+                description="The onboarding flow is deliberately small: request the workspace, get verified, invite faculty, and let professors choose Canvas or direct uploads."
+                align="left"
+                className="mb-7"
+              />
+              <div className="grid max-w-xl grid-cols-3 gap-px overflow-hidden rounded-lg border border-border-gray bg-border-gray">
                 {heroStats.map((stat) => (
                   <div key={stat.label} className="bg-[#0F0F12] px-4 py-3">
                     <p className="text-lg font-semibold tracking-[-0.02em] text-text-primary">
