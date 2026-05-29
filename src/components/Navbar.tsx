@@ -10,6 +10,7 @@ import { SIGN_IN_URL, SIGN_UP_URL } from "@/lib/marketing";
 
 const NAV_LINKS = [
   { href: "/products", label: "Products" },
+  { href: "/how-it-works", label: "How It Works" },
   { href: "/compare", label: "Compare" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
@@ -32,13 +33,19 @@ export default function Navbar() {
           className="group flex w-fit items-center gap-2.5 rounded-lg focus-ring"
           aria-label="EdPilot home"
         >
-          <BrandMark size={30} className="transition-transform duration-200 group-hover:scale-[1.04]" />
-          <span className="text-sm font-semibold tracking-[-0.01em] text-text-primary">EdPilot</span>
+          <BrandMark
+            size={30}
+            className="transition-transform duration-200 group-hover:scale-[1.04]"
+          />
+          <span className="text-sm font-semibold tracking-[-0.01em] text-text-primary">
+            EdPilot
+          </span>
         </Link>
 
         <ul className="hidden items-center gap-1 rounded-lg border border-white/[0.06] bg-white/[0.03] p-1 lg:flex">
           {NAV_LINKS.map((link) => {
-            const active = pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`));
+            const active =
+              pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`));
             return (
               <li key={link.href}>
                 <Link

@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { ArrowRight, Mail } from 'lucide-react'
-import { BrandMark } from '@/components/BrandMark'
-import { SIGN_UP_URL, SUPPORT_EMAIL } from '@/lib/marketing'
+import Link from "next/link";
+import { ArrowRight, Mail } from "lucide-react";
+import { BrandMark } from "@/components/BrandMark";
+import { SIGN_UP_URL, SUPPORT_EMAIL } from "@/lib/marketing";
 
 export default function Footer() {
   return (
@@ -12,7 +12,10 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-12">
           {/* Brand */}
           <div className="md:col-span-4">
-            <Link href="/" className="group mb-4 inline-flex items-center gap-2.5 rounded-lg focus-ring">
+            <Link
+              href="/"
+              className="group mb-4 inline-flex items-center gap-2.5 rounded-lg focus-ring"
+            >
               <BrandMark
                 size={30}
                 className="group-hover:scale-105 transition-transform duration-150"
@@ -22,7 +25,8 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-text-secondary text-sm leading-6 max-w-[260px]">
-              Course-grounded AI infrastructure for universities that want control, clarity, and trust.
+              Course-grounded AI infrastructure for universities that want control, clarity, and
+              trust.
             </p>
             <a
               href={SIGN_UP_URL}
@@ -53,6 +57,14 @@ export default function Footer() {
                   className="rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   Curriculum Intelligence
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/how-it-works"
+                  className="rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                >
+                  How It Works
                 </Link>
               </li>
             </ul>
@@ -98,11 +110,11 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               {[
-                { href: '/about', label: 'About' },
-                { href: '/contact', label: 'Contact' },
-                { href: '/blog', label: 'Blog' },
-                { href: '/faq', label: 'FAQ' },
-              ].map(link => (
+                { href: "/about", label: "About" },
+                { href: "/contact", label: "Contact" },
+                { href: "/blog", label: "Blog" },
+                { href: "/faq", label: "FAQ" },
+              ].map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -141,10 +153,10 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-6">
             {[
-              { href: '/privacy-policy', label: 'Privacy' },
-              { href: '/terms', label: 'Terms' },
-              { href: '/accessibility', label: 'Accessibility' },
-            ].map(link => (
+              { href: "/privacy-policy", label: "Privacy" },
+              { href: "/terms", label: "Terms" },
+              { href: "/accessibility", label: "Accessibility" },
+            ].map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -157,5 +169,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
