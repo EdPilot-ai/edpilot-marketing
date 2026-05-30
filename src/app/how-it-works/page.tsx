@@ -113,8 +113,8 @@ export default function HowItWorksPage() {
           aria-hidden="true"
         />
         <Container size="wide" className="relative z-10">
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
-            <div>
+          <div className="grid gap-10 lg:grid-cols-[0.58fr_1.42fr] lg:items-start">
+            <div className="lg:sticky lg:top-28">
               <SectionHeader
                 eyebrow="Interactive setup"
                 title="Click through the launch path."

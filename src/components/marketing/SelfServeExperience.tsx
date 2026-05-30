@@ -94,9 +94,21 @@ const roles = [
   },
 ]
 
-const launchTags = ['No code', 'No ticket queue', 'Canvas optional']
+function getChecklist(visual: string) {
+  if (visual === 'school.edu') {
+    return ['School email captured', 'Institution name inferred', 'Workspace request submitted']
+  }
 
-const launchMetrics = ['Verified institution', 'Faculty invited', 'Course AI live']
+  if (visual === 'verified') {
+    return ['University record confirmed', 'Admin email approved', 'Workspace boundary created']
+  }
+
+  if (visual === 'invites') {
+    return ['Paste one email or a department list', 'Send join links instantly', 'Faculty land in their own dashboards']
+  }
+
+  return ['Canvas can connect in a few clicks', 'Direct uploads work without Canvas', 'Assistant answers from approved course content']
+}
 
 function MiniVisual({ visual }: { visual: string }) {
   if (visual === 'school.edu') {
@@ -175,6 +187,7 @@ export function InteractiveLaunchpad() {
   const [activeStep, setActiveStep] = useState(0)
   const active = launchSteps[activeStep]
   const progress = ((activeStep + 1) / launchSteps.length) * 100
+  const checklist = getChecklist(active.visual)
 
   return (
     <div className="relative">
@@ -191,7 +204,7 @@ export function InteractiveLaunchpad() {
           </span>
         </div>
 
-        <div className="grid gap-px bg-border-gray lg:grid-cols-[0.86fr_1.14fr]">
+        <div className="grid gap-px bg-border-gray lg:h-[790px] lg:grid-cols-[320px_minmax(0,1fr)]">
           <div className="bg-[#0F0F12] p-4 md:p-5">
             <div className="mb-4 flex items-center justify-between gap-4">
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
@@ -219,7 +232,7 @@ export function InteractiveLaunchpad() {
                     onClick={() => setActiveStep(index)}
                     aria-pressed={isActive}
                     className={cn(
-                      'group grid min-h-[76px] grid-cols-[auto_1fr] gap-3 rounded-lg border p-3 text-left transition duration-150 focus-ring',
+                      'group grid min-h-[70px] grid-cols-[auto_1fr] gap-3 rounded-lg border p-3 text-left transition duration-150 focus-ring',
                       isActive
                         ? 'border-accent/55 bg-accent/10 shadow-[0_18px_45px_rgba(124,58,237,0.18)]'
                         : 'border-transparent bg-transparent hover:border-border-gray hover:bg-bg-surface'
@@ -248,27 +261,9 @@ export function InteractiveLaunchpad() {
                 )
               })}
             </div>
-            <div className="mt-5 grid grid-cols-3 gap-2">
-              {launchMetrics.map((metric, index) => (
-                <div
-                  key={metric}
-                  className={cn(
-                    'rounded-md border px-2 py-2 text-center transition',
-                    index < activeStep
-                      ? 'border-[#22C55E]/25 bg-[#22C55E]/10 text-[#86EFAC]'
-                      : index === activeStep
-                        ? 'border-accent/30 bg-accent/10 text-accent'
-                        : 'border-border-gray bg-bg-surface text-text-tertiary'
-                  )}
-                >
-                  <CheckCircle2 className="mx-auto h-3.5 w-3.5" aria-hidden="true" />
-                  <p className="mt-1 text-[10px] font-medium leading-4">{metric}</p>
-                </div>
-              ))}
-            </div>
           </div>
 
-          <div className="relative overflow-hidden bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,1))] p-5 md:p-7">
+          <div className="relative overflow-hidden bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,1))] p-5 md:p-7 lg:overflow-y-auto">
             <div
               className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(139,92,246,0.08),rgba(56,189,248,0.04),transparent_60%)]"
               aria-hidden="true"
@@ -277,45 +272,65 @@ export function InteractiveLaunchpad() {
               className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent"
               aria-hidden="true"
             />
-            <div key={active.title} className="relative z-10 min-h-[390px]">
+            <div key={active.title} className="relative z-10 flex h-full flex-col gap-5">
               <div className="flex items-start justify-between gap-4">
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
                     {active.panelTitle}
                   </p>
-                  <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-text-primary">
+                  <h3 className="mt-3 max-w-xl text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
                     {active.result}
                   </h3>
-                  <p className="mt-3 max-w-md text-sm leading-7 text-text-secondary">
-                    {active.description}
-                  </p>
                 </div>
                 <span className="shrink-0 rounded-md border border-border-gray bg-[#0F0F12] px-2.5 py-1 text-xs font-medium text-text-secondary">
                   {active.metric}
                 </span>
               </div>
 
-              <div className="mt-7 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
-                <MiniVisual visual={active.visual} />
-                <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-4 md:w-44">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
-                    Current state
-                  </p>
-                  <p className="mt-2 break-words text-xs font-semibold leading-5 text-text-primary">
-                    {active.panelLabel}
-                  </p>
+              <div className="grid flex-1 content-start gap-4">
+                <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-4">
+                  <div className="mb-4 flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+                        Result preview
+                      </p>
+                      <p className="mt-2 break-words text-sm font-semibold leading-5 text-text-primary">
+                        {active.panelLabel}
+                      </p>
+                    </div>
+                    <Rocket className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                  </div>
+                  <MiniVisual visual={active.visual} />
                 </div>
-              </div>
 
-              <div className="mt-6 flex flex-wrap gap-2">
-                {launchTags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-md border border-border-gray bg-[#0F0F12] px-3 py-1.5 text-xs font-medium text-text-secondary"
-                  >
-                    {tag}
-                  </span>
-                ))}
+                <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+                      What happens
+                    </p>
+                    <span className="rounded-md border border-accent/25 bg-accent/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+                      Self-serve
+                    </span>
+                  </div>
+                  <p className="mt-3 text-sm leading-7 text-text-secondary">
+                    {active.description}
+                  </p>
+                  <div className="mt-5 grid gap-2">
+                    {checklist.map((item, index) => (
+                      <div
+                        key={item}
+                        className="grid grid-cols-[auto_1fr] items-center gap-3 rounded-md border border-border-gray bg-bg-surface px-3 py-2"
+                      >
+                        <span className="flex h-6 w-6 items-center justify-center rounded-md bg-[#22C55E]/10 text-[11px] font-semibold text-[#86EFAC]">
+                          {index + 1}
+                        </span>
+                        <span className="text-sm font-medium leading-5 text-text-primary">
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
