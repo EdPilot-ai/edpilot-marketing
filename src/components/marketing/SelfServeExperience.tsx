@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
   CheckCircle2,
   GraduationCap,
@@ -101,7 +101,7 @@ const launchMetrics = ['Verified institution', 'Faculty invited', 'Course AI liv
 function MiniVisual({ visual }: { visual: string }) {
   if (visual === 'school.edu') {
     return (
-      <div className="rounded-lg border border-border-gray bg-bg-surface p-4">
+      <div className="min-h-[142px] rounded-lg border border-border-gray bg-bg-surface p-4">
         <div className="mb-3 h-2 w-24 rounded-full bg-accent/50" />
         <div className="rounded-md border border-border-gray bg-[#0F0F12] px-3 py-3 text-sm font-medium text-text-primary">
           admin@<span className="text-accent">school.edu</span>
@@ -116,7 +116,7 @@ function MiniVisual({ visual }: { visual: string }) {
 
   if (visual === 'verified') {
     return (
-      <div className="grid gap-3 rounded-lg border border-border-gray bg-bg-surface p-4">
+      <div className="grid min-h-[142px] gap-3 rounded-lg border border-border-gray bg-bg-surface p-4">
         {['University record', 'Admin email', 'Data boundary'].map((item) => (
           <div key={item} className="flex items-center justify-between rounded-md bg-[#0F0F12] px-3 py-2">
             <span className="text-xs text-text-secondary">{item}</span>
@@ -129,7 +129,7 @@ function MiniVisual({ visual }: { visual: string }) {
 
   if (visual === 'invites') {
     return (
-      <div className="rounded-lg border border-border-gray bg-bg-surface p-4">
+      <div className="min-h-[142px] rounded-lg border border-border-gray bg-bg-surface p-4">
         <div className="space-y-2">
           {['professor@school.edu', 'department-list.csv', '+ 12 more'].map((item, index) => (
             <m.div
@@ -149,7 +149,7 @@ function MiniVisual({ visual }: { visual: string }) {
   }
 
   return (
-    <div className="rounded-lg border border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.16),rgba(15,15,18,1))] p-4">
+    <div className="min-h-[142px] rounded-lg border border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.16),rgba(15,15,18,1))] p-4">
       <div className="flex items-center justify-between rounded-md border border-border-gray bg-[#0F0F12] px-3 py-3">
         <div>
           <p className="text-sm font-semibold text-text-primary">Course AI</p>
@@ -176,14 +176,6 @@ export function InteractiveLaunchpad() {
   const active = launchSteps[activeStep]
   const progress = ((activeStep + 1) / launchSteps.length) * 100
 
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveStep((current) => (current + 1) % launchSteps.length)
-    }, 5200)
-
-    return () => window.clearInterval(timer)
-  }, [])
-
   return (
     <div className="relative">
       <div className="absolute -inset-px rounded-lg bg-[linear-gradient(135deg,rgba(139,92,246,0.78),rgba(56,189,248,0.28),rgba(34,197,94,0.24))] opacity-80" />
@@ -201,11 +193,19 @@ export function InteractiveLaunchpad() {
 
         <div className="grid gap-px bg-border-gray lg:grid-cols-[0.86fr_1.14fr]">
           <div className="bg-[#0F0F12] p-4 md:p-5">
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+                Guided setup
+              </p>
+              <p className="text-xs font-medium text-text-secondary">
+                Step {activeStep + 1} of {launchSteps.length}
+              </p>
+            </div>
             <div className="mb-4 h-1 overflow-hidden rounded-full bg-bg-surface">
               <m.div
                 className="h-full rounded-full bg-[linear-gradient(90deg,#8B5CF6,#38BDF8)]"
                 animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
+                transition={{ duration: 0.22, ease: 'easeOut' }}
               />
             </div>
             <div className="grid gap-2">
@@ -219,7 +219,7 @@ export function InteractiveLaunchpad() {
                     onClick={() => setActiveStep(index)}
                     aria-pressed={isActive}
                     className={cn(
-                      'group grid grid-cols-[auto_1fr] gap-3 rounded-lg border p-3 text-left transition duration-200 focus-ring',
+                      'group grid min-h-[76px] grid-cols-[auto_1fr] gap-3 rounded-lg border p-3 text-left transition duration-150 focus-ring',
                       isActive
                         ? 'border-accent/55 bg-accent/10 shadow-[0_18px_45px_rgba(124,58,237,0.18)]'
                         : 'border-transparent bg-transparent hover:border-border-gray hover:bg-bg-surface'
@@ -277,54 +277,47 @@ export function InteractiveLaunchpad() {
               className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent"
               aria-hidden="true"
             />
-            <AnimatePresence mode="wait">
-              <m.div
-                key={active.title}
-                initial={{ opacity: 0, y: 12, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                transition={{ duration: 0.24, ease: 'easeOut' }}
-                className="relative z-10"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-                      {active.panelTitle}
-                    </p>
-                    <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-text-primary">
-                      {active.result}
-                    </h3>
-                    <p className="mt-3 max-w-md text-sm leading-7 text-text-secondary">
-                      {active.description}
-                    </p>
-                  </div>
-                  <span className="shrink-0 rounded-md border border-border-gray bg-[#0F0F12] px-2.5 py-1 text-xs font-medium text-text-secondary">
-                    {active.metric}
+            <div key={active.title} className="relative z-10 min-h-[390px]">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                    {active.panelTitle}
+                  </p>
+                  <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-text-primary">
+                    {active.result}
+                  </h3>
+                  <p className="mt-3 max-w-md text-sm leading-7 text-text-secondary">
+                    {active.description}
+                  </p>
+                </div>
+                <span className="shrink-0 rounded-md border border-border-gray bg-[#0F0F12] px-2.5 py-1 text-xs font-medium text-text-secondary">
+                  {active.metric}
+                </span>
+              </div>
+
+              <div className="mt-7 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
+                <MiniVisual visual={active.visual} />
+                <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-4 md:w-44">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+                    Current state
+                  </p>
+                  <p className="mt-2 break-words text-xs font-semibold leading-5 text-text-primary">
+                    {active.panelLabel}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-2">
+                {launchTags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-md border border-border-gray bg-[#0F0F12] px-3 py-1.5 text-xs font-medium text-text-secondary"
+                  >
+                    {tag}
                   </span>
-                </div>
-
-                <div className="mt-7 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
-                  <MiniVisual visual={active.visual} />
-                  <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-4 md:w-40">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
-                      Current state
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-text-primary">{active.panelLabel}</p>
-                  </div>
-                </div>
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {launchTags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-md border border-border-gray bg-[#0F0F12] px-3 py-1.5 text-xs font-medium text-text-secondary"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </m.div>
-            </AnimatePresence>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
