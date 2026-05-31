@@ -83,7 +83,7 @@ const trustItems = [
 const heroStats = [
   { label: 'Admin signup', value: '~2 min' },
   { label: 'Rollout speed', value: 'Same week' },
-  { label: 'IT dependency', value: 'Optional' },
+  { label: 'No IT lift', value: 'Optional' },
 ]
 
 export default function HowItWorksPage() {
@@ -128,7 +128,7 @@ export default function HowItWorksPage() {
                     <p className="text-lg font-semibold tracking-[-0.02em] text-text-primary">
                       {stat.value}
                     </p>
-                    <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-text-tertiary">
+                    <p className="mt-1 break-words text-[10px] uppercase tracking-[0.08em] text-text-tertiary">
                       {stat.label}
                     </p>
                   </div>

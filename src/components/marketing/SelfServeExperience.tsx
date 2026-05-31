@@ -94,26 +94,10 @@ const roles = [
   },
 ]
 
-function getChecklist(visual: string) {
-  if (visual === 'school.edu') {
-    return ['School email captured', 'Institution name inferred', 'Workspace request submitted']
-  }
-
-  if (visual === 'verified') {
-    return ['University record confirmed', 'Admin email approved', 'Workspace boundary created']
-  }
-
-  if (visual === 'invites') {
-    return ['Paste one email or a department list', 'Send join links instantly', 'Faculty land in their own dashboards']
-  }
-
-  return ['Canvas can connect in a few clicks', 'Direct uploads work without Canvas', 'Assistant answers from approved course content']
-}
-
 function MiniVisual({ visual }: { visual: string }) {
   if (visual === 'school.edu') {
     return (
-      <div className="min-h-[142px] rounded-lg border border-border-gray bg-bg-surface p-4">
+      <div className="min-h-[118px] rounded-lg border border-border-gray bg-bg-surface p-3">
         <div className="mb-3 h-2 w-24 rounded-full bg-accent/50" />
         <div className="rounded-md border border-border-gray bg-[#0F0F12] px-3 py-3 text-sm font-medium text-text-primary">
           admin@<span className="text-accent">school.edu</span>
@@ -128,7 +112,7 @@ function MiniVisual({ visual }: { visual: string }) {
 
   if (visual === 'verified') {
     return (
-      <div className="grid min-h-[142px] gap-3 rounded-lg border border-border-gray bg-bg-surface p-4">
+      <div className="grid min-h-[118px] gap-2 rounded-lg border border-border-gray bg-bg-surface p-3">
         {['University record', 'Admin email', 'Data boundary'].map((item) => (
           <div key={item} className="flex items-center justify-between rounded-md bg-[#0F0F12] px-3 py-2">
             <span className="text-xs text-text-secondary">{item}</span>
@@ -141,7 +125,7 @@ function MiniVisual({ visual }: { visual: string }) {
 
   if (visual === 'invites') {
     return (
-      <div className="min-h-[142px] rounded-lg border border-border-gray bg-bg-surface p-4">
+      <div className="min-h-[118px] rounded-lg border border-border-gray bg-bg-surface p-3">
         <div className="space-y-2">
           {['professor@school.edu', 'department-list.csv', '+ 12 more'].map((item, index) => (
             <m.div
@@ -161,7 +145,7 @@ function MiniVisual({ visual }: { visual: string }) {
   }
 
   return (
-    <div className="min-h-[142px] rounded-lg border border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.16),rgba(15,15,18,1))] p-4">
+    <div className="min-h-[118px] rounded-lg border border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.16),rgba(15,15,18,1))] p-3">
       <div className="flex items-center justify-between rounded-md border border-border-gray bg-[#0F0F12] px-3 py-3">
         <div>
           <p className="text-sm font-semibold text-text-primary">Course AI</p>
@@ -187,7 +171,6 @@ export function InteractiveLaunchpad() {
   const [activeStep, setActiveStep] = useState(0)
   const active = launchSteps[activeStep]
   const progress = ((activeStep + 1) / launchSteps.length) * 100
-  const checklist = getChecklist(active.visual)
 
   return (
     <div className="relative">
@@ -204,43 +187,46 @@ export function InteractiveLaunchpad() {
           </span>
         </div>
 
-        <div className="grid gap-px bg-border-gray lg:h-[790px] lg:grid-cols-[320px_minmax(0,1fr)]">
-          <div className="bg-[#0F0F12] p-4 md:p-5">
-            <div className="mb-4 flex items-center justify-between gap-4">
+        <div className="bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,1))] p-4 md:p-5">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
                 Guided setup
               </p>
-              <p className="text-xs font-medium text-text-secondary">
-                Step {activeStep + 1} of {launchSteps.length}
-              </p>
             </div>
-            <div className="mb-4 h-1 overflow-hidden rounded-full bg-bg-surface">
-              <m.div
-                className="h-full rounded-full bg-[linear-gradient(90deg,#8B5CF6,#38BDF8)]"
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.22, ease: 'easeOut' }}
-              />
-            </div>
-            <div className="grid gap-2">
-              {launchSteps.map((step, index) => {
-                const Icon = step.icon
-                const isActive = index === activeStep
-                return (
-                  <button
-                    key={step.title}
-                    type="button"
-                    onClick={() => setActiveStep(index)}
-                    aria-pressed={isActive}
-                    className={cn(
-                      'group grid min-h-[70px] grid-cols-[auto_1fr] gap-3 rounded-lg border p-3 text-left transition duration-150 focus-ring',
-                      isActive
-                        ? 'border-accent/55 bg-accent/10 shadow-[0_18px_45px_rgba(124,58,237,0.18)]'
-                        : 'border-transparent bg-transparent hover:border-border-gray hover:bg-bg-surface'
-                    )}
-                  >
+            <p className="text-xs font-medium text-text-secondary">
+              Step {activeStep + 1} of {launchSteps.length}
+            </p>
+          </div>
+          <div className="mb-4 h-1 overflow-hidden rounded-full bg-bg-surface">
+            <m.div
+              className="h-full rounded-full bg-[linear-gradient(90deg,#8B5CF6,#38BDF8)]"
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.22, ease: 'easeOut' }}
+            />
+          </div>
+
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            {launchSteps.map((step, index) => {
+              const Icon = step.icon
+              const isActive = index === activeStep
+              return (
+                <button
+                  key={step.title}
+                  type="button"
+                  onClick={() => setActiveStep(index)}
+                  aria-pressed={isActive}
+                  className={cn(
+                    'group min-h-[78px] rounded-lg border p-2.5 text-left transition duration-150 focus-ring',
+                    isActive
+                      ? 'border-accent/55 bg-accent/10 shadow-[0_14px_34px_rgba(124,58,237,0.18)]'
+                      : 'border-border-gray bg-[#0F0F12] hover:border-accent/30 hover:bg-bg-surface'
+                  )}
+                >
+                  <span className="mb-3 flex items-center justify-between gap-2">
                     <span
                       className={cn(
-                        'flex h-9 w-9 items-center justify-center rounded-lg border text-sm font-semibold',
+                        'flex h-8 w-8 items-center justify-center rounded-lg border text-xs font-semibold',
                         isActive
                           ? 'border-accent/35 bg-accent/15 text-accent'
                           : 'border-border-gray bg-bg-surface text-text-secondary'
@@ -248,89 +234,52 @@ export function InteractiveLaunchpad() {
                     >
                       {index + 1}
                     </span>
-                    <span className="min-w-0">
-                      <span className="block text-sm font-semibold text-text-primary">
-                        {step.title}
-                      </span>
-                      <span className="mt-1 flex items-center gap-2 text-xs text-text-secondary">
-                        <Icon className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
-                        {step.time}
-                      </span>
-                    </span>
-                  </button>
-                )
-              })}
-            </div>
+                    <Icon className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+                  </span>
+                  <span className="block text-[13px] font-semibold leading-5 text-text-primary">
+                    {step.title}
+                  </span>
+                  <span className="mt-1 block text-xs text-text-secondary">{step.time}</span>
+                </button>
+              )
+            })}
           </div>
 
-          <div className="relative overflow-hidden bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,1))] p-5 md:p-7 lg:overflow-y-auto">
-            <div
-              className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(139,92,246,0.08),rgba(56,189,248,0.04),transparent_60%)]"
-              aria-hidden="true"
-            />
-            <div
-              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent"
-              aria-hidden="true"
-            />
-            <div key={active.title} className="relative z-10 flex h-full flex-col gap-5">
+          <div key={active.title} className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_220px]">
+            <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-5">
               <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0">
+                <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
                     {active.panelTitle}
                   </p>
-                  <h3 className="mt-3 max-w-xl text-2xl font-semibold tracking-[-0.03em] text-text-primary md:text-3xl">
+                  <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-text-primary">
                     {active.result}
                   </h3>
                 </div>
-                <span className="shrink-0 rounded-md border border-border-gray bg-[#0F0F12] px-2.5 py-1 text-xs font-medium text-text-secondary">
-                  {active.metric}
+                <span className="shrink-0 rounded-md border border-accent/25 bg-accent/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+                  Self-serve
                 </span>
               </div>
+              <p className="mt-3 text-sm leading-7 text-text-secondary">
+                {active.description}
+              </p>
+            </div>
 
-              <div className="grid flex-1 content-start gap-4">
-                <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-4">
-                  <div className="mb-4 flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
-                        Result preview
-                      </p>
-                      <p className="mt-2 break-words text-sm font-semibold leading-5 text-text-primary">
-                        {active.panelLabel}
-                      </p>
-                    </div>
-                    <Rocket className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                  </div>
-                  <MiniVisual visual={active.visual} />
-                </div>
-
-                <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-5">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
-                      What happens
-                    </p>
-                    <span className="rounded-md border border-accent/25 bg-accent/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
-                      Self-serve
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-7 text-text-secondary">
-                    {active.description}
+            <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-4">
+              <div className="mb-3 flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+                    Result preview
                   </p>
-                  <div className="mt-5 grid gap-2">
-                    {checklist.map((item, index) => (
-                      <div
-                        key={item}
-                        className="grid grid-cols-[auto_1fr] items-center gap-3 rounded-md border border-border-gray bg-bg-surface px-3 py-2"
-                      >
-                        <span className="flex h-6 w-6 items-center justify-center rounded-md bg-[#22C55E]/10 text-[11px] font-semibold text-[#86EFAC]">
-                          {index + 1}
-                        </span>
-                        <span className="text-sm font-medium leading-5 text-text-primary">
-                          {item}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                  <p className="mt-2 break-words text-sm font-semibold leading-5 text-text-primary">
+                    {active.panelLabel}
+                  </p>
                 </div>
+                <Rocket className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+              </div>
+              <MiniVisual visual={active.visual} />
+              <div className="mt-3 rounded-md border border-border-gray bg-bg-surface px-3 py-2 text-xs font-medium text-text-secondary">
+                {active.metric}
               </div>
             </div>
           </div>
