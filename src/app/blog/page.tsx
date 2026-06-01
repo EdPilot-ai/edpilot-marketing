@@ -4,11 +4,13 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { AnimatePresence, m } from 'framer-motion'
 import { ArrowRight, BookOpen, Search, X } from 'lucide-react'
+import toast from 'react-hot-toast'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { Container, Hero, PageShell, Section, SectionHeader } from '@/components/marketing'
 import { ALL_CATEGORIES, blogPosts, getFeaturedPost } from '@/lib/blog-data'
 import type { BlogCategory, BlogPost } from '@/lib/blog-data'
+import { subscribeToNewsletter } from './actions'
 
 type ActiveCategory = BlogCategory | 'All'
 
@@ -90,6 +92,7 @@ export default function BlogPage() {
   const [query, setQuery] = useState('')
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
+  const [isSubscribing, setIsSubscribing] = useState(false)
   const featuredPost = getFeaturedPost()
 
   const categoryCounts = useMemo(() => {
@@ -126,11 +129,21 @@ export default function BlogPage() {
     })
   }, [activeCategory, query])
 
-  const handleSubscribe = (event: React.FormEvent) => {
+  const handleSubscribe = async (event: React.FormEvent) => {
     event.preventDefault()
     if (!email.trim()) return
-    setSubscribed(true)
-    setEmail('')
+
+    setIsSubscribing(true)
+    const result = await subscribeToNewsletter({ email })
+    setIsSubscribing(false)
+
+    if (result.success) {
+      setSubscribed(true)
+      setEmail('')
+      return
+    }
+
+    toast.error(result.error || 'We could not receive your subscription. Please try again.')
   }
 
   return (
@@ -307,9 +320,11 @@ export default function BlogPage() {
               <m.div
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
+                role="status"
+                aria-live="polite"
                 className="inline-flex rounded-lg border border-accent/20 bg-accent/10 px-5 py-3 text-sm font-medium text-accent"
               >
-                You&apos;re subscribed. Thank you.
+                Your email was received. Thank you for subscribing.
               </m.div>
             ) : (
               <form
@@ -330,8 +345,8 @@ export default function BlogPage() {
                   autoComplete="email"
                   className="h-11 flex-1 rounded-lg border border-border-gray bg-[#0F0F12] px-4 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none"
                 />
-                <Button type="submit" className="h-11 px-6">
-                  Subscribe
+                <Button type="submit" className="h-11 px-6" disabled={isSubscribing}>
+                  {isSubscribing ? 'Subscribing...' : 'Subscribe'}
                 </Button>
               </form>
             )}
