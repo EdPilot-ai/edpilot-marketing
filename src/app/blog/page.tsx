@@ -10,17 +10,7 @@ import { Container, Hero, PageShell, Section, SectionHeader } from '@/components
 import { ALL_CATEGORIES, blogPosts, getFeaturedPost } from '@/lib/blog-data'
 import type { BlogCategory, BlogPost } from '@/lib/blog-data'
 
-type CategorySlug = 'all' | string
-
-function categorySlug(category: BlogCategory | 'All') {
-  return category === 'All'
-    ? 'all'
-    : category
-        .toLowerCase()
-        .replace(/&/g, 'and')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '')
-}
+type ActiveCategory = BlogCategory | 'All'
 
 function CategoryButton({
   label,
@@ -96,7 +86,7 @@ function ArticleCard({ post }: { post: BlogPost }) {
 }
 
 export default function BlogPage() {
-  const [activeCategorySlug, setActiveCategorySlug] = useState<CategorySlug>('all')
+  const [activeCategory, setActiveCategory] = useState<ActiveCategory>('All')
   const [query, setQuery] = useState('')
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
@@ -104,10 +94,9 @@ export default function BlogPage() {
 
   const categoryCounts = useMemo(() => {
     const nonFeatured = blogPosts.filter((post) => !post.featured)
-    const counts: Record<string, number> = { all: nonFeatured.length }
+    const counts: Partial<Record<ActiveCategory, number>> = { All: nonFeatured.length }
     for (const category of ALL_CATEGORIES) {
-      const slug = categorySlug(category)
-      counts[slug] = nonFeatured.filter((post) => categorySlug(post.category) === slug).length
+      counts[category] = nonFeatured.filter((post) => post.category === category).length
     }
     return counts
   }, [])
@@ -116,8 +105,7 @@ export default function BlogPage() {
     () =>
       ALL_CATEGORIES.map((category) => ({
         label: category,
-        slug: categorySlug(category),
-        count: categoryCounts[categorySlug(category)] ?? 0,
+        count: categoryCounts[category] ?? 0,
       })).filter((category) => category.count > 0),
     [categoryCounts]
   )
@@ -127,8 +115,7 @@ export default function BlogPage() {
 
     return blogPosts.filter((post) => {
       if (post.featured) return false
-      const matchesCategory =
-        activeCategorySlug === 'all' || categorySlug(post.category) === activeCategorySlug
+      const matchesCategory = activeCategory === 'All' || post.category === activeCategory
       const matchesSearch =
         !normalizedQuery ||
         post.title.toLowerCase().includes(normalizedQuery) ||
@@ -137,7 +124,7 @@ export default function BlogPage() {
 
       return matchesCategory && matchesSearch
     })
-  }, [activeCategorySlug, query])
+  }, [activeCategory, query])
 
   const handleSubscribe = (event: React.FormEvent) => {
     event.preventDefault()
@@ -190,17 +177,17 @@ export default function BlogPage() {
             >
               <CategoryButton
                 label="All"
-                count={categoryCounts.all ?? 0}
-                active={activeCategorySlug === 'all'}
-                onClick={() => setActiveCategorySlug('all')}
+                count={categoryCounts.All ?? 0}
+                active={activeCategory === 'All'}
+                onClick={() => setActiveCategory('All')}
               />
               {visibleCategories.map((category) => (
                 <CategoryButton
-                  key={category.slug}
+                  key={category.label}
                   label={category.label}
                   count={category.count}
-                  active={activeCategorySlug === category.slug}
-                  onClick={() => setActiveCategorySlug(category.slug)}
+                  active={activeCategory === category.label}
+                  onClick={() => setActiveCategory(category.label)}
                 />
               ))}
             </div>
@@ -210,7 +197,7 @@ export default function BlogPage() {
 
       <Section className="py-16 md:py-20">
         <Container size="wide">
-          {activeCategorySlug === 'all' && !query && (
+          {activeCategory === 'All' && !query && (
             <div className="mb-14">
               <SectionHeader align="left" eyebrow="Featured" title="Start here" />
               <Link href={`/blog/${featuredPost.slug}`} className="group block rounded-lg focus-ring">
@@ -261,8 +248,8 @@ export default function BlogPage() {
 
           <AnimatePresence mode="wait" initial={false}>
             {filteredPosts.length > 0 ? (
-                <m.div
-                key={`${activeCategorySlug}-${query}`}
+              <m.div
+                key={`${activeCategory}-${query}`}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
@@ -290,12 +277,12 @@ export default function BlogPage() {
                     ? `No results for "${query}". Try a different search or clear the filter.`
                     : 'Articles in this category are coming soon.'}
                 </p>
-                {(query || activeCategorySlug !== 'all') && (
+                {(query || activeCategory !== 'All') && (
                   <button
                     type="button"
                     onClick={() => {
                       setQuery('')
-                      setActiveCategorySlug('all')
+                      setActiveCategory('All')
                     }}
                     className="mt-5 rounded-md text-sm font-semibold text-accent hover:text-[#A78BFA] focus-ring"
                   >
