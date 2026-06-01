@@ -18,8 +18,8 @@ export function OrganizationSchema() {
     '@type': 'Organization',
     name: 'EdPilot',
     alternateName: 'EdPilot Inc',
-    url: 'https://edpilot.com',
-    logo: 'https://edpilot.com/logo.svg',
+    url: 'https://edpilot.ai',
+    logo: 'https://edpilot.ai/logo.svg',
     description:
       'Instructor-controlled AI infrastructure for higher education',
     sameAs: [
@@ -30,7 +30,7 @@ export function OrganizationSchema() {
       '@type': 'ContactPoint',
       contactType: 'Support',
       email: SUPPORT_EMAIL,
-      url: 'https://edpilot.com/contact',
+      url: 'https://edpilot.ai/contact',
     },
     foundingDate: '2024',
     areaServed: 'US',
@@ -68,7 +68,7 @@ export function ProductSchema() {
     },
     offers: {
       '@type': 'Offer',
-      url: 'https://edpilot.com/contact',
+      url: 'https://edpilot.ai/contact',
       priceCurrency: 'USD',
       price: 'Contact for pricing',
       availability: 'https://schema.org/InStock',
@@ -191,8 +191,8 @@ export function SoftwareApplicationSchema() {
     author: {
       '@type': 'Organization',
       name: 'EdPilot',
-      url: 'https://edpilot.com',
-      logo: 'https://edpilot.com/logo.svg',
+      url: 'https://edpilot.ai',
+      logo: 'https://edpilot.ai/logo.svg',
       sameAs: [
         'https://twitter.com/edpilot',
         'https://linkedin.com/company/edpilot',

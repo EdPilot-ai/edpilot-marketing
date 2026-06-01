@@ -30,4 +30,4 @@ Disallow: /.next/
 Disallow: /node_modules/
 
 # Provide sitemap
-Sitemap: https://edpilot.com/sitemap.xml
+Sitemap: https://edpilot.ai/sitemap.xml

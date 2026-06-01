@@ -15,9 +15,9 @@ export default function TutoringPlatformsPage() {
     <>
       <BreadcrumbSchema
         items={[
-          { name: 'EdPilot', url: 'https://edpilot.com' },
-          { name: 'Compare', url: 'https://edpilot.com/compare' },
-          { name: 'vs. Tutoring Platforms', url: 'https://edpilot.com/compare/tutoring-platforms' },
+          { name: 'EdPilot', url: 'https://edpilot.ai' },
+          { name: 'Compare', url: 'https://edpilot.ai/compare' },
+          { name: 'vs. Tutoring Platforms', url: 'https://edpilot.ai/compare/tutoring-platforms' },
         ]}
       />
       <ComparisonDetail

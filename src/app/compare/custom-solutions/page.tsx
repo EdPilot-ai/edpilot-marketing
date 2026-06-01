@@ -15,9 +15,9 @@ export default function CustomSolutionsPage() {
     <>
       <BreadcrumbSchema
         items={[
-          { name: 'EdPilot', url: 'https://edpilot.com' },
-          { name: 'Compare', url: 'https://edpilot.com/compare' },
-          { name: 'vs. Custom Solutions', url: 'https://edpilot.com/compare/custom-solutions' },
+          { name: 'EdPilot', url: 'https://edpilot.ai' },
+          { name: 'Compare', url: 'https://edpilot.ai/compare' },
+          { name: 'vs. Custom Solutions', url: 'https://edpilot.ai/compare/custom-solutions' },
         ]}
       />
       <ComparisonDetail

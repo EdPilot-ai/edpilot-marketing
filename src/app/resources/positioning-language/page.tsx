@@ -40,9 +40,9 @@ const definitions = [
 
 export default function PositioningLanguagePage() {
   const breadcrumbItems = [
-    { name: 'EdPilot', url: 'https://edpilot.com' },
-    { name: 'Resources', url: 'https://edpilot.com/resources' },
-    { name: 'Positioning Language', url: 'https://edpilot.com/resources/positioning-language' },
+    { name: 'EdPilot', url: 'https://edpilot.ai' },
+    { name: 'Resources', url: 'https://edpilot.ai/resources' },
+    { name: 'Positioning Language', url: 'https://edpilot.ai/resources/positioning-language' },
   ]
 
   return (

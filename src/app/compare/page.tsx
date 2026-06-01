@@ -68,8 +68,8 @@ const comparisons = [
 
 export default function ComparePage() {
   const breadcrumbItems = [
-    { name: 'EdPilot', url: 'https://edpilot.com' },
-    { name: 'Compare', url: 'https://edpilot.com/compare' },
+    { name: 'EdPilot', url: 'https://edpilot.ai' },
+    { name: 'Compare', url: 'https://edpilot.ai/compare' },
   ]
 
   return (

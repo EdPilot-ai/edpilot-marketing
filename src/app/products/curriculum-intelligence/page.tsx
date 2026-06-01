@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import {
   ArrowRight,
@@ -35,6 +36,14 @@ import {
 } from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
 
+export const metadata: Metadata = {
+  title: 'Curriculum Intelligence — The AI Teaching Assistant',
+  description:
+    'A teaching assistant that answers student questions using your course materials, your terminology, and your standards. Cites your readings, flags misconceptions, and follows the guardrails faculty set.',
+  keywords:
+    'AI teaching assistant, curriculum intelligence, course-grounded AI, RAG for higher education, citations, academic integrity AI, Canvas integration',
+}
+
 const products = [
   {
     id: 'ai-teaching-assistant',
@@ -52,7 +61,8 @@ const products = [
     subtitle: 'Curriculum-aligned material creation',
     icon: FileEdit,
     status: 'Beta',
-    preview: 'Draft quiz, study guide, and rubric blocks generated from the same week of materials.',
+    preview:
+      'Draft quiz, study guide, and rubric blocks generated from the same week of materials.',
     description:
       'Draft syllabi, quizzes, exams, assignments, and rubrics from existing materials. Faculty review everything before it reaches students.',
   },
@@ -227,7 +237,9 @@ export default function CurriculumIntelligencePage() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-2">
-                          <h3 className="text-sm font-semibold text-text-primary">{product.title}</h3>
+                          <h3 className="text-sm font-semibold text-text-primary">
+                            {product.title}
+                          </h3>
                           <span
                             className={`rounded-md border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] ${statusClasses[product.status as keyof typeof statusClasses]}`}
                           >
@@ -281,7 +293,9 @@ export default function CurriculumIntelligencePage() {
                       {product.status}
                     </span>
                   </div>
-                  <p className="mt-5 text-sm leading-7 text-text-secondary">{product.description}</p>
+                  <p className="mt-5 text-sm leading-7 text-text-secondary">
+                    {product.description}
+                  </p>
                   <div className="mt-6 border-t border-border-gray pt-5">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
                       Example Interface
