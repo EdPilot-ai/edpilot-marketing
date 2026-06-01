@@ -7,6 +7,7 @@ import {
   ArrowRight,
   Building2,
   CalendarCheck,
+  ChevronDown,
   CheckCircle,
   HelpCircle,
   Loader2,
@@ -20,14 +21,12 @@ import { Button } from '@/components/ui/button'
 import { sendContactMessage } from './actions'
 import {
   Container,
-  FeatureCard,
   Hero,
   IconChip,
   PageShell,
   ProofPanel,
   Section,
   SectionHeader,
-  WorkflowSteps,
 } from '@/components/marketing'
 import { SUPPORT_EMAIL } from '@/lib/marketing'
 
@@ -45,10 +44,136 @@ const initialFormData = {
   message: '',
 }
 
+const intentOptions = [
+  { value: 'book-demo', label: 'Book a university demo', detail: 'For teams evaluating rollout.' },
+  { value: 'start-pilot', label: 'Start a professor pilot', detail: 'For a real course-material test.' },
+  {
+    value: 'security-procurement',
+    label: 'Security or procurement',
+    detail: 'For IT, legal, privacy, or accessibility questions.',
+  },
+  { value: 'general-question', label: 'General question', detail: 'For anything else.' },
+]
+
+const roleOptions = [
+  { value: 'professor', label: 'Professor / Instructor' },
+  { value: 'department-head', label: 'Department Head' },
+  { value: 'administrator', label: 'University Administrator' },
+  { value: 'it-staff', label: 'IT / LMS Staff' },
+  { value: 'student', label: 'Student' },
+  { value: 'partner', label: 'Partner / Vendor' },
+  { value: 'other', label: 'Other' },
+]
+
+const lmsOptions = [
+  { value: 'canvas', label: 'Canvas' },
+  { value: 'blackboard', label: 'Blackboard' },
+  { value: 'moodle', label: 'Moodle' },
+  { value: 'brightspace', label: 'D2L Brightspace' },
+  { value: 'none', label: 'Not sure / none' },
+  { value: 'other', label: 'Other' },
+]
+
+const timelineOptions = [
+  { value: 'this-month', label: 'This month' },
+  { value: 'this-term', label: 'This term' },
+  { value: 'next-term', label: 'Next term' },
+  { value: 'exploring', label: 'Just exploring' },
+]
+
+type SelectOption = {
+  value: string
+  label: string
+  detail?: string
+}
+
+function CustomSelect({
+  id,
+  label,
+  value,
+  options,
+  placeholder,
+  required,
+  open,
+  onOpenChange,
+  onValueChange,
+}: {
+  id: string
+  label: string
+  value: string
+  options: SelectOption[]
+  placeholder: string
+  required?: boolean
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onValueChange: (value: string) => void
+}) {
+  const selected = options.find((option) => option.value === value)
+
+  return (
+    <div className="relative">
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-text-primary">
+        {label} {required && <span className="text-accent">*</span>}
+      </label>
+      <button
+        id={id}
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => onOpenChange(!open)}
+        className="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-border-gray bg-[#0F0F12] px-3.5 py-2 text-left text-sm text-text-primary transition-colors hover:border-border-strong focus:border-accent focus:outline-none"
+      >
+        <span className={selected ? 'text-text-primary' : 'text-text-tertiary'}>
+          {selected?.label ?? placeholder}
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-text-tertiary transition-transform ${open ? 'rotate-180' : ''}`}
+          aria-hidden="true"
+        />
+      </button>
+      {open && (
+        <div
+          role="listbox"
+          aria-labelledby={id}
+          className="absolute z-40 mt-2 max-h-72 w-full overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12] p-1 shadow-[0_22px_70px_rgba(0,0,0,0.45)]"
+        >
+          {options.map((option) => {
+            const active = option.value === value
+
+            return (
+              <button
+                key={option.value}
+                type="button"
+                role="option"
+                aria-selected={active}
+                onClick={() => {
+                  onValueChange(option.value)
+                  onOpenChange(false)
+                }}
+                className={`w-full rounded-md px-3 py-2.5 text-left transition-colors ${
+                  active ? 'bg-accent/15 text-text-primary' : 'text-text-secondary hover:bg-bg-surface hover:text-text-primary'
+                }`}
+              >
+                <span className="block text-sm font-medium">{option.label}</span>
+                {option.detail && (
+                  <span className="mt-0.5 block text-xs leading-5 text-text-tertiary">
+                    {option.detail}
+                  </span>
+                )}
+              </button>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [formData, setFormData] = useState(initialFormData)
+  const [openSelect, setOpenSelect] = useState<string | null>(null)
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -81,81 +206,120 @@ export default function ContactPage() {
   }
 
   const inputClass =
-    'h-11 w-full rounded-lg border border-border-gray bg-[#0F0F12] px-3.5 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none'
+    'h-11 w-full rounded-lg border border-border-gray bg-[#0F0F12] px-3.5 text-sm text-text-primary placeholder:text-text-tertiary transition-colors hover:border-border-strong focus:border-accent focus:outline-none'
+
+  const setFieldValue = (name: keyof typeof initialFormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
 
   return (
     <PageShell>
       <Hero
         eyebrow="Contact"
-        title="Book a demo or start a pilot."
-        description="Tell us who you are, what you are evaluating, and what course or rollout context matters. We will route the next step without making you decode a sales funnel."
-        actions={[{ label: 'Email Support', href: `mailto:${SUPPORT_EMAIL}` }]}
+        title="Tell us what you want to launch."
+        accent="We will route the rest."
+        description="Demo, professor pilot, security review, or procurement question: send the context once and we will come back with the right next step."
+        actions={[
+          { label: 'Start the Form', href: '#contact-form' },
+          { label: 'Email Support', href: `mailto:${SUPPORT_EMAIL}`, variant: 'secondary' },
+        ]}
         className="pb-14 md:pb-20"
       />
 
-      <Section className="py-12" surface="panel">
-        <Container>
+      <Section className="py-14" surface="panel">
+        <Container size="wide">
           <div className="grid gap-4 md:grid-cols-3">
-            <FeatureCard
-              icon={CalendarCheck}
-              title="Book a demo"
-              description="Best for administrators, departments, IT, and teams evaluating a university rollout."
-            />
-            <FeatureCard
-              icon={Rocket}
-              title="Start a pilot"
-              description="Best for professors who want to test EdPilot with real course materials."
-            />
-            <FeatureCard
-              icon={HelpCircle}
-              title="Ask a question"
-              description="Use the same form for privacy, procurement, accessibility, LMS, or partnership questions."
-            >
-              <Button asChild variant="outline" size="sm" className="mt-4">
-                <Link href="/faq">
-                  Browse FAQ
-                  <ArrowRight aria-hidden="true" />
-                </Link>
-              </Button>
-            </FeatureCard>
+            {[
+              {
+                icon: CalendarCheck,
+                title: 'Book a demo',
+                description:
+                  'For administrators, departments, IT, and teams evaluating a university rollout.',
+                meta: 'University fit',
+              },
+              {
+                icon: Rocket,
+                title: 'Start a pilot',
+                description:
+                  'For professors who want to test EdPilot with real course materials and faculty controls.',
+                meta: 'Course sample',
+              },
+              {
+                icon: HelpCircle,
+                title: 'Ask a question',
+                description:
+                  'For privacy, procurement, accessibility, LMS, partnership, or support questions.',
+                meta: 'Routed reply',
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="rounded-lg border border-border-gray bg-[linear-gradient(180deg,rgba(34,34,40,0.72),rgba(15,15,18,0.94))] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.2)]"
+              >
+                <div className="mb-5 flex items-start justify-between gap-4">
+                  <IconChip icon={item.icon} className="h-10 w-10" />
+                  <span className="rounded-md border border-border-gray bg-[#0F0F12] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
+                    {item.meta}
+                  </span>
+                </div>
+                <h2 className="text-base font-semibold text-text-primary">{item.title}</h2>
+                <p className="mt-2 text-sm leading-7 text-text-secondary">{item.description}</p>
+              </div>
+            ))}
           </div>
         </Container>
       </Section>
 
       <Section id="contact-form" className="py-20 md:py-24">
         <Container size="wide">
-          <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
             <div>
               <SectionHeader
                 align="left"
                 eyebrow="Next Step"
-                title="A form built for university context."
-                description="Add the details that help us prepare: institution, role, LMS, timeline, and how many courses might be involved."
+                title="A cleaner path to the right conversation."
+                description="The form is structured around the details that actually change the next step: role, institution, LMS, timeline, and pilot size."
                 className="mb-8"
               />
-              <WorkflowSteps
-                className="grid-cols-1 md:grid-cols-1"
-                steps={[
+              <div className="overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12]">
+                {[
                   {
-                    step: '01',
                     title: 'We read the context',
-                    description: 'Your role, institution, timeline, and LMS help us route the right response.',
+                    description:
+                      'Your role, institution, timeline, and LMS help us route the right response.',
                     icon: MessageSquare,
                   },
                   {
-                    step: '02',
                     title: 'We propose a useful next step',
-                    description: 'That may be a demo, course-material pilot, privacy conversation, or FAQ follow-up.',
+                    description:
+                      'That may be a demo, course-material pilot, privacy conversation, or FAQ follow-up.',
                     icon: Shield,
                   },
                   {
-                    step: '03',
                     title: 'You see the product on real material',
-                    description: 'For pilots, the most useful demo is usually built around your syllabus or course sample.',
+                    description:
+                      'For pilots, the most useful demo is usually built around your syllabus or course sample.',
                     icon: Building2,
                   },
-                ]}
-              />
+                ].map((item, index) => (
+                  <div key={item.title} className="border-b border-border-gray p-5 last:border-b-0">
+                    <div className="flex gap-4">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
+                        <item.icon className="h-4 w-4" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
+                          Step {String(index + 1).padStart(2, '0')}
+                        </p>
+                        <h3 className="mt-1 text-sm font-semibold text-text-primary">{item.title}</h3>
+                        <p className="mt-1 text-[13px] leading-6 text-text-secondary">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
               <a
                 href={`mailto:${SUPPORT_EMAIL}`}
                 className="mt-6 inline-flex items-center gap-3 rounded-lg border border-border-gray bg-bg-surface px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:border-accent/45 hover:bg-accent/10 hover:text-text-primary focus-ring"
@@ -165,7 +329,7 @@ export default function ContactPage() {
               </a>
             </div>
 
-            <div className="rounded-lg border border-border-gray bg-bg-surface p-5 shadow-[0_24px_80px_rgba(0,0,0,0.25)] md:p-7">
+            <div className="overflow-visible rounded-lg border border-border-gray bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,0.96))] p-5 shadow-[0_28px_90px_rgba(0,0,0,0.32)] md:p-7">
               {showSuccess ? (
                 <div role="status" aria-live="polite" className="py-12 text-center">
                   <div
@@ -184,27 +348,17 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <label
-                      htmlFor="contact-intent"
-                      className="mb-1.5 block text-sm font-medium text-text-primary"
-                    >
-                      What do you want to do? *
-                    </label>
-                    <select
-                      id="contact-intent"
-                      name="intent"
-                      value={formData.intent}
-                      onChange={handleChange}
-                      required
-                      className={inputClass}
-                    >
-                      <option value="book-demo">Book a university demo</option>
-                      <option value="start-pilot">Start a professor pilot</option>
-                      <option value="security-procurement">Ask about security or procurement</option>
-                      <option value="general-question">Ask a general question</option>
-                    </select>
-                  </div>
+                  <CustomSelect
+                    id="contact-intent"
+                    label="What do you want to do?"
+                    value={formData.intent}
+                    options={intentOptions}
+                    placeholder="Choose a request type"
+                    required
+                    open={openSelect === 'intent'}
+                    onOpenChange={(open) => setOpenSelect(open ? 'intent' : null)}
+                    onValueChange={(value) => setFieldValue('intent', value)}
+                  />
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
@@ -268,31 +422,17 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label
-                        htmlFor="contact-role"
-                        className="mb-1.5 block text-sm font-medium text-text-primary"
-                      >
-                        Role *
-                      </label>
-                      <select
+                      <CustomSelect
                         id="contact-role"
-                        name="role"
+                        label="Role"
                         value={formData.role}
-                        onChange={handleChange}
+                        options={roleOptions}
+                        placeholder="Select your role"
                         required
-                        className={inputClass}
-                      >
-                        <option value="" disabled>
-                          Select your role
-                        </option>
-                        <option value="professor">Professor / Instructor</option>
-                        <option value="department-head">Department Head</option>
-                        <option value="administrator">University Administrator</option>
-                        <option value="it-staff">IT / LMS Staff</option>
-                        <option value="student">Student</option>
-                        <option value="partner">Partner / Vendor</option>
-                        <option value="other">Other</option>
-                      </select>
+                        open={openSelect === 'role'}
+                        onOpenChange={(open) => setOpenSelect(open ? 'role' : null)}
+                        onValueChange={(value) => setFieldValue('role', value)}
+                      />
                     </div>
                   </div>
 
@@ -336,27 +476,16 @@ export default function ContactPage() {
 
                   <div className="grid gap-4 sm:grid-cols-3">
                     <div>
-                      <label
-                        htmlFor="contact-lms"
-                        className="mb-1.5 block text-sm font-medium text-text-primary"
-                      >
-                        LMS
-                      </label>
-                      <select
+                      <CustomSelect
                         id="contact-lms"
-                        name="lms"
+                        label="LMS"
                         value={formData.lms}
-                        onChange={handleChange}
-                        className={inputClass}
-                      >
-                        <option value="">Select one</option>
-                        <option value="canvas">Canvas</option>
-                        <option value="blackboard">Blackboard</option>
-                        <option value="moodle">Moodle</option>
-                        <option value="brightspace">D2L Brightspace</option>
-                        <option value="none">Not sure / none</option>
-                        <option value="other">Other</option>
-                      </select>
+                        options={lmsOptions}
+                        placeholder="Select one"
+                        open={openSelect === 'lms'}
+                        onOpenChange={(open) => setOpenSelect(open ? 'lms' : null)}
+                        onValueChange={(value) => setFieldValue('lms', value)}
+                      />
                     </div>
                     <div>
                       <label
@@ -376,25 +505,16 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label
-                        htmlFor="contact-timeline"
-                        className="mb-1.5 block text-sm font-medium text-text-primary"
-                      >
-                        Timeline
-                      </label>
-                      <select
+                      <CustomSelect
                         id="contact-timeline"
-                        name="timeline"
+                        label="Timeline"
                         value={formData.timeline}
-                        onChange={handleChange}
-                        className={inputClass}
-                      >
-                        <option value="">Select one</option>
-                        <option value="this-month">This month</option>
-                        <option value="this-term">This term</option>
-                        <option value="next-term">Next term</option>
-                        <option value="exploring">Just exploring</option>
-                      </select>
+                        options={timelineOptions}
+                        placeholder="Select one"
+                        open={openSelect === 'timeline'}
+                        onOpenChange={(open) => setOpenSelect(open ? 'timeline' : null)}
+                        onValueChange={(value) => setFieldValue('timeline', value)}
+                      />
                     </div>
                   </div>
 

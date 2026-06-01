@@ -1,12 +1,17 @@
 import type { Metadata } from 'next'
 import {
-  CheckCircle2,
+  ArrowRight,
+  Building2,
   Clock,
+  FileCheck2,
   GraduationCap,
+  KeyRound,
   Lock,
   Rocket,
+  Settings2,
   ShieldCheck,
   Sparkles,
+  UserCheck,
 } from 'lucide-react'
 import { BreadcrumbSchema } from '@/components/StructuredData'
 import Footer from '@/components/Footer'
@@ -22,7 +27,6 @@ import {
   PageShell,
   Section,
   SectionHeader,
-  TrustBar,
 } from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
 
@@ -61,7 +65,28 @@ const easeFeatures = [
   },
 ]
 
-const trustItems = [
+const heroStats = [
+  {
+    label: 'Admin signup',
+    value: '~2 min',
+    detail: 'Request the workspace from an official university email.',
+    icon: UserCheck,
+  },
+  {
+    label: 'Rollout speed',
+    value: 'Same week',
+    detail: 'Invite faculty as soon as the institution is verified.',
+    icon: Rocket,
+  },
+  {
+    label: 'IT lift',
+    value: 'Optional',
+    detail: 'Start with uploads; add Canvas and SSO when the pilot grows.',
+    icon: Settings2,
+  },
+]
+
+const safetyChecks = [
   {
     icon: ShieldCheck,
     label: 'Admin approved',
@@ -70,7 +95,7 @@ const trustItems = [
   {
     icon: Lock,
     label: 'Course-scoped data',
-    detail: 'Student activity stays inside the course it belongs to — FERPA-aligned by design.',
+    detail: 'Student activity stays inside the course it belongs to, FERPA-aligned by design.',
   },
   {
     icon: Clock,
@@ -79,10 +104,22 @@ const trustItems = [
   },
 ]
 
-const heroStats = [
-  { label: 'Admin signup', value: '~2 min' },
-  { label: 'Rollout speed', value: 'Same week' },
-  { label: 'No IT lift', value: 'Optional' },
+const safetyPolicies = [
+  {
+    title: 'Workspace access',
+    detail: 'Your admin approves who joins, so no one self-enrolls into your workspace.',
+    icon: KeyRound,
+  },
+  {
+    title: 'Faculty controls',
+    detail: 'Professors decide what the AI can see and how it behaves in their course.',
+    icon: GraduationCap,
+  },
+  {
+    title: 'Operational control',
+    detail: 'Add or remove faculty and courses anytime, right from the dashboard.',
+    icon: Building2,
+  },
 ]
 
 export default function HowItWorksPage() {
@@ -114,24 +151,48 @@ export default function HowItWorksPage() {
         <Container size="wide" className="relative z-10">
           <div className="grid gap-10 lg:grid-cols-[0.58fr_1.42fr] lg:items-start">
             <div className="lg:sticky lg:top-28">
-              <SectionHeader
-                eyebrow="Interactive setup"
-                title="Click through the launch path."
-                description="The onboarding flow is deliberately small: request the workspace, get verified, invite faculty, and let professors choose Canvas or direct uploads."
-                align="left"
-                className="mb-7"
-              />
-              <div className="grid max-w-xl grid-cols-3 gap-px overflow-hidden rounded-lg border border-border-gray bg-border-gray">
-                {heroStats.map((stat) => (
-                  <div key={stat.label} className="bg-[#0F0F12] px-4 py-3">
-                    <p className="text-lg font-semibold tracking-[-0.02em] text-text-primary">
-                      {stat.value}
-                    </p>
-                    <p className="mt-1 break-words text-[10px] uppercase tracking-[0.08em] text-text-tertiary">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
+              <div className="overflow-hidden rounded-lg border border-border-gray bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(15,15,18,0.96))] shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
+                <div className="border-b border-border-gray p-6 md:p-7">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                    Interactive setup
+                  </p>
+                  <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary">
+                    Click through the launch path.
+                  </h2>
+                  <p className="mt-4 text-sm leading-7 text-text-secondary">
+                    The onboarding flow is deliberately small: request the workspace, get verified,
+                    invite faculty, and let professors choose Canvas or direct uploads.
+                  </p>
+                </div>
+                <div className="grid gap-px bg-border-gray">
+                  {heroStats.map((stat) => (
+                    <div
+                      key={stat.label}
+                      className="group bg-[#0F0F12] p-4 transition-colors hover:bg-bg-surface"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
+                          <stat.icon className="h-4 w-4" aria-hidden="true" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-baseline justify-between gap-2">
+                            <p className="text-sm font-semibold text-text-primary">{stat.label}</p>
+                            <p className="text-lg font-semibold tracking-[-0.02em] text-accent">
+                              {stat.value}
+                            </p>
+                          </div>
+                          <p className="mt-1 text-xs leading-5 text-text-secondary">{stat.detail}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between gap-4 border-t border-border-gray bg-accent/5 px-5 py-4">
+                  <span className="text-xs font-medium text-text-secondary">
+                    No rollout team required.
+                  </span>
+                  <ArrowRight className="h-4 w-4 text-accent" aria-hidden="true" />
+                </div>
               </div>
             </div>
 
@@ -178,25 +239,58 @@ export default function HowItWorksPage() {
 
       <Section className="py-20 md:py-28">
         <Container size="wide">
-          <SectionHeader
-            eyebrow="Safe by design"
-            title="Fast to launch, careful with data."
-            description="Self-serve doesn't mean a free-for-all. Every institution is verified and every course is walled off."
-          />
-          <TrustBar items={trustItems} />
-          <div className="mx-auto mt-12 max-w-2xl">
-            <ul className="space-y-3">
-              {[
-                'Your admin approves who joins — no one self-enrolls into your workspace.',
-                'Professors decide what the AI can see and how it behaves in their course.',
-                'Add or remove faculty and courses anytime, right from the dashboard.',
-              ].map((item) => (
-                <li key={item} className="flex gap-3 text-sm leading-6 text-text-secondary">
-                  <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                  <span>{item}</span>
-                </li>
+          <div className="overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12] shadow-[0_28px_90px_rgba(0,0,0,0.26)]">
+            <div className="grid gap-px bg-border-gray lg:grid-cols-[0.88fr_1.12fr]">
+              <div className="bg-[linear-gradient(145deg,rgba(139,92,246,0.16),rgba(24,24,27,0.98)_42%,rgba(15,15,18,1))] p-7 md:p-9">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                  Safe by design
+                </p>
+                <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary md:text-4xl">
+                  Fast to launch, careful with data.
+                </h2>
+                <p className="mt-5 text-sm leading-7 text-text-secondary md:text-base">
+                  Self-serve does not mean a free-for-all. Every institution is verified and every
+                  course is walled off before students ever ask a question.
+                </p>
+                <div className="mt-8 rounded-lg border border-accent/20 bg-accent/10 p-4">
+                  <div className="flex items-start gap-3">
+                    <FileCheck2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+                    <p className="text-sm leading-6 text-text-primary">
+                      Verification, access, and course boundaries are part of setup, not a separate
+                      security project.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="grid gap-px bg-border-gray">
+                {safetyChecks.map((item) => (
+                  <div key={item.label} className="bg-bg-surface p-5 md:p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
+                        <item.icon className="h-4 w-4" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-primary">
+                          {item.label}
+                        </p>
+                        <p className="mt-2 text-sm leading-6 text-text-secondary">{item.detail}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="grid gap-px bg-border-gray md:grid-cols-3">
+              {safetyPolicies.map((item) => (
+                <div key={item.title} className="bg-[#0F0F12] p-5 md:p-6">
+                  <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg border border-border-gray bg-bg-surface text-accent">
+                    <item.icon className="h-4 w-4" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-sm font-semibold text-text-primary">{item.title}</h3>
+                  <p className="mt-2 text-[13px] leading-6 text-text-secondary">{item.detail}</p>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </Container>
       </Section>
