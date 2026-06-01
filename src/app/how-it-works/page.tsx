@@ -13,7 +13,6 @@ import Footer from '@/components/Footer'
 import {
   InteractiveLaunchpad,
   RoleExplorer,
-  ScrollStepPath,
 } from '@/components/marketing/SelfServeExperience'
 import {
   CTABand,
@@ -103,11 +102,11 @@ export default function HowItWorksPage() {
         description="No procurement maze. No IT project. An admin signs up, EdPilot approves your institution, and your professors are teaching with course-grounded AI the same week."
         actions={[
           { label: 'Get Started Free', href: SIGN_UP_URL },
-          { label: 'See the Steps', href: '#steps', variant: 'secondary' },
+          { label: 'Explore Setup', href: '#self-serve-setup', variant: 'secondary' },
         ]}
       />
 
-      <Section className="py-16 md:py-24" surface="panel">
+      <Section id="self-serve-setup" className="py-16 md:py-24" surface="panel">
         <div
           className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(139,92,246,0.08),rgba(24,24,27,0)_42%)]"
           aria-hidden="true"
@@ -138,17 +137,6 @@ export default function HowItWorksPage() {
 
             <InteractiveLaunchpad />
           </div>
-        </Container>
-      </Section>
-
-      <Section id="steps" className="py-20 md:py-28" surface="panel">
-        <Container size="wide">
-          <SectionHeader
-            eyebrow="How it works"
-            title="Four steps from sign-up to live."
-            description="Everything is self-serve. You stay in the driver's seat the whole way — EdPilot just clears the runway."
-          />
-          <ScrollStepPath />
         </Container>
       </Section>
 

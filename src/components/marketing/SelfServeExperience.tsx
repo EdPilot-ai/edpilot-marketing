@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { m } from 'framer-motion'
 import {
   CheckCircle2,
@@ -286,100 +286,6 @@ export function InteractiveLaunchpad() {
         </div>
       </div>
     </div>
-  )
-}
-
-export function ScrollStepPath() {
-  const [activeStep, setActiveStep] = useState(0)
-  const itemRefs = useRef<Array<HTMLLIElement | null>>([])
-  const progress = (activeStep / (launchSteps.length - 1)) * 100
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-
-        if (visible?.target instanceof HTMLElement) {
-          setActiveStep(Number(visible.target.dataset.stepIndex ?? 0))
-        }
-      },
-      { rootMargin: '-35% 0px -45% 0px', threshold: [0.2, 0.45, 0.7] }
-    )
-
-    const refs = itemRefs.current
-    refs.forEach((item) => {
-      if (item) observer.observe(item)
-    })
-
-    return () => {
-      refs.forEach((item) => {
-        if (item) observer.unobserve(item)
-      })
-    }
-  }, [])
-
-  return (
-    <ol className="relative grid gap-4 lg:grid-cols-4">
-      <div
-        className="pointer-events-none absolute left-0 right-0 top-[3.25rem] hidden h-px bg-border-gray lg:block"
-        aria-hidden="true"
-      />
-      <m.div
-        className="pointer-events-none absolute left-0 top-[3.25rem] hidden h-px bg-[linear-gradient(90deg,#8B5CF6,#38BDF8,#22C55E)] lg:block"
-        animate={{ width: `${progress}%` }}
-        transition={{ duration: 0.35, ease: 'easeOut' }}
-        aria-hidden="true"
-      />
-      {launchSteps.map((step, index) => {
-        const Icon = step.icon
-        const isActive = index <= activeStep
-        return (
-          <li
-            key={step.title}
-            ref={(node) => {
-              itemRefs.current[index] = node
-            }}
-            data-step-index={index}
-            className={cn(
-              'group relative overflow-hidden rounded-lg border p-5 transition duration-300 md:p-6',
-              isActive
-                ? 'border-accent/35 bg-[linear-gradient(180deg,rgba(139,92,246,0.1),rgba(15,15,18,1)_42%)] shadow-[0_20px_60px_rgba(0,0,0,0.22)]'
-                : 'border-border-gray bg-[#0F0F12]'
-            )}
-          >
-            <div className="mb-5 flex items-center justify-between gap-3">
-              <div
-                className={cn(
-                  'flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border text-base font-semibold transition',
-                  isActive
-                    ? 'border-accent/35 bg-accent/15 text-accent'
-                    : 'border-border-gray bg-bg-surface text-text-secondary'
-                )}
-              >
-                {index + 1}
-              </div>
-              <span className="inline-flex items-center gap-1.5 rounded-md border border-border-gray bg-bg-surface px-2.5 py-1 text-[11px] font-medium text-text-secondary">
-                <Icon className="h-3 w-3 text-accent" aria-hidden="true" />
-                {step.time}
-              </span>
-            </div>
-            <h3 className="text-base font-semibold tracking-[-0.01em] text-text-primary">
-              {step.title}
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-text-secondary">{step.description}</p>
-            <div className="mt-5 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-text-tertiary">
-              <CheckCircle2
-                className={cn('h-4 w-4', isActive ? 'text-[#22C55E]' : 'text-text-tertiary')}
-                aria-hidden="true"
-              />
-              {step.result}
-            </div>
-          </li>
-        )
-      })}
-    </ol>
   )
 }
 
