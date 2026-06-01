@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import {
   ArrowRight,
@@ -14,20 +15,23 @@ import {
 } from 'lucide-react'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
-import {
-  Container,
-  Hero,
-  PageShell,
-  Section,
-  SectionHeader,
-} from '@/components/marketing'
+import { Container, Hero, PageShell, Section, SectionHeader } from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
+
+export const metadata: Metadata = {
+  title: 'Products — Course-grounded AI for higher education',
+  description:
+    'Explore the EdPilot product suite: Curriculum Intelligence and the AI Teaching Assistant that answers student questions from your course materials, governed by faculty and ready for institutional review.',
+  keywords:
+    'EdPilot products, AI teaching assistant, curriculum intelligence, course-grounded AI, higher education AI platform',
+}
 
 const comingSoonSuites = [
   {
     id: 'professor-network',
     title: 'Professor Network Hub',
-    description: 'Share materials, co-develop courses, and collaborate with faculty across your institution.',
+    description:
+      'Share materials, co-develop courses, and collaborate with faculty across your institution.',
     icon: Users,
     signal: 'Faculty collaboration',
   },
@@ -166,9 +170,9 @@ export default function ProductsPage() {
                   Built to graduate from pilot to institution.
                 </h2>
                 <p className="mt-5 max-w-xl text-sm leading-7 text-text-secondary md:text-base">
-                  The product path starts with direct course-material upload and professor-led pilots,
-                  then expands into LMS, SSO, accessibility, procurement, and multi-course rollout
-                  conversations as institutions are ready.
+                  The product path starts with direct course-material upload and professor-led
+                  pilots, then expands into LMS, SSO, accessibility, procurement, and multi-course
+                  rollout conversations as institutions are ready.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Button asChild size="lg" className="h-11 px-7">
@@ -187,17 +191,20 @@ export default function ProductsPage() {
                   {[
                     {
                       label: 'Pilot',
-                      detail: 'Upload course materials, test student support, review faculty controls.',
+                      detail:
+                        'Upload course materials, test student support, review faculty controls.',
                       icon: Sparkles,
                     },
                     {
                       label: 'Rollout',
-                      detail: 'Add accessibility, procurement, LMS, and SSO requirements as scope grows.',
+                      detail:
+                        'Add accessibility, procurement, LMS, and SSO requirements as scope grows.',
                       icon: Layers3,
                     },
                     {
                       label: 'Institution',
-                      detail: 'Expand across programs with governed course models and clearer analytics.',
+                      detail:
+                        'Expand across programs with governed course models and clearer analytics.',
                       icon: CheckCircle2,
                     },
                   ].map((item, index) => (

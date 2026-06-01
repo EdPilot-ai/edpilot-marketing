@@ -15,9 +15,9 @@ export default function LMSNativePage() {
     <>
       <BreadcrumbSchema
         items={[
-          { name: 'EdPilot', url: 'https://edpilot.com' },
-          { name: 'Compare', url: 'https://edpilot.com/compare' },
-          { name: 'vs. LMS-Native AI', url: 'https://edpilot.com/compare/lms-native' },
+          { name: 'EdPilot', url: 'https://edpilot.ai' },
+          { name: 'Compare', url: 'https://edpilot.ai/compare' },
+          { name: 'vs. LMS-Native AI', url: 'https://edpilot.ai/compare/lms-native' },
         ]}
       />
       <ComparisonDetail

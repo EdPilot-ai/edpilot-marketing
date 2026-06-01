@@ -15,9 +15,9 @@ export default function ChatGPTComparisonPage() {
     <>
       <BreadcrumbSchema
         items={[
-          { name: 'EdPilot', url: 'https://edpilot.com' },
-          { name: 'Compare', url: 'https://edpilot.com/compare' },
-          { name: 'vs. ChatGPT', url: 'https://edpilot.com/compare/chatgpt' },
+          { name: 'EdPilot', url: 'https://edpilot.ai' },
+          { name: 'Compare', url: 'https://edpilot.ai/compare' },
+          { name: 'vs. ChatGPT', url: 'https://edpilot.ai/compare/chatgpt' },
         ]}
       />
       <ComparisonDetail

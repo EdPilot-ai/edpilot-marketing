@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -23,6 +24,14 @@ import {
   TrustBar,
 } from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
+
+export const metadata: Metadata = {
+  title: 'About — Why we built EdPilot',
+  description:
+    'EdPilot builds course-grounded AI infrastructure for universities that want control, clarity, and trust. Meet the team and the principles behind faculty-controlled AI.',
+  keywords:
+    'about EdPilot, EdPilot founders, higher education AI company, faculty-controlled AI mission',
+}
 
 const founders = [
   {
@@ -91,8 +100,8 @@ export default function AboutPage() {
         <Container size="narrow">
           <div className="border-l-2 border-accent pl-7">
             <p className="text-xl font-medium leading-9 text-text-primary md:text-2xl">
-              AI in education is inevitable. Our mission is to ensure it amplifies the professor&apos;s
-              expertise, not replace it.
+              AI in education is inevitable. Our mission is to ensure it amplifies the
+              professor&apos;s expertise, not replace it.
             </p>
             <p className="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
               Our Mission
@@ -184,7 +193,8 @@ export default function AboutPage() {
             items={[
               {
                 label: 'FERPA aligned',
-                detail: 'Student data never trains public models. Course data stays inside your institution.',
+                detail:
+                  'Student data never trains public models. Course data stays inside your institution.',
               },
               {
                 label: 'WCAG & ADA',
@@ -212,4 +222,3 @@ export default function AboutPage() {
     </PageShell>
   )
 }
-

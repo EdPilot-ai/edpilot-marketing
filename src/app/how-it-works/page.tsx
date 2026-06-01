@@ -124,8 +124,8 @@ const safetyPolicies = [
 
 export default function HowItWorksPage() {
   const breadcrumbItems = [
-    { name: 'EdPilot', url: 'https://edpilot.com' },
-    { name: 'How It Works', url: 'https://edpilot.com/how-it-works' },
+    { name: 'EdPilot', url: 'https://edpilot.ai' },
+    { name: 'How It Works', url: 'https://edpilot.ai/how-it-works' },
   ]
 
   return (
