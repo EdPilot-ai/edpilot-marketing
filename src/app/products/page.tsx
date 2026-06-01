@@ -1,27 +1,44 @@
 import Link from 'next/link'
 import {
   ArrowRight,
+  BarChart3,
   Briefcase,
   Building2,
+  ClipboardCheck,
   Cpu,
+  FileEdit,
   GraduationCap,
   MonitorPlay,
+  Shield,
+  Sparkles,
   Users,
+  Video,
 } from 'lucide-react'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import {
   CTABand,
   Container,
+  CourseAssistantMockup,
   FeatureCard,
   Hero,
   PageShell,
   Section,
   SectionHeader,
+  StatusPill,
+  SuiteMap,
 } from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
 
-const comingSoonSuites = [
+const suiteMapItems = [
+  { title: 'AI Teaching Assistant', status: 'live' as const, icon: Sparkles },
+  { title: 'Content Generation', status: 'beta' as const, icon: FileEdit },
+  { title: 'Student Insights', status: 'beta' as const, icon: BarChart3 },
+  { title: 'Multimedia Generation', status: 'planned' as const, icon: Video },
+  { title: 'AI Grader', status: 'planned' as const, icon: ClipboardCheck },
+]
+
+const roadmapSuites = [
   {
     id: 'professor-network',
     title: 'Professor Network Hub',
@@ -59,72 +76,115 @@ export default function ProductsPage() {
     <PageShell>
       <Hero
         eyebrow="Products"
-        title="AI product suites for"
-        accent="higher education."
-        description="One suite is live today. The rest are being shaped around the same principle: institutional AI should be governed, grounded, and useful."
-      />
+        title="Start with the course model."
+        description="Curriculum Intelligence is the live EdPilot platform: one governed course model powering student support, faculty controls, content workflows, and learning signals."
+        actions={[
+          { label: 'Explore Curriculum Intelligence', href: '/products/curriculum-intelligence' },
+          { label: 'Book Demo', href: '/contact', variant: 'secondary' },
+        ]}
+      >
+        <CourseAssistantMockup className="mt-14" />
+      </Hero>
 
       <Section className="py-20 md:py-28" surface="panel">
         <Container>
-          <SectionHeader eyebrow="Available Now" title="Start with Curriculum Intelligence." />
-          <Link href="/products/curriculum-intelligence" className="group block">
-            <div className="rounded-lg border border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.14),rgba(15,15,18,1)_45%,rgba(24,24,27,1))] p-6 transition duration-200 hover:border-accent/55 md:p-8">
-              <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <div className="flex gap-5">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
+          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+            <SectionHeader
+              align="left"
+              eyebrow="Available Now"
+              title="Curriculum Intelligence Suite"
+              description="Lead with the product that is real today, then expand from the same foundation as pilots mature."
+              className="mb-0"
+            />
+            <Link href="/products/curriculum-intelligence" className="group block">
+              <div className="rounded-lg border border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.14),rgba(15,15,18,1)_45%,rgba(24,24,27,1))] p-6 transition duration-200 hover:border-accent/55 md:p-8">
+                <div className="mb-6 flex items-center justify-between gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
                     <GraduationCap className="h-5 w-5" aria-hidden="true" />
                   </div>
-                  <div>
-                    <h3 className="text-xl font-semibold tracking-[-0.02em] text-text-primary group-hover:text-accent">
-                      Curriculum Intelligence Suite
-                    </h3>
-                    <p className="mt-2 max-w-2xl text-sm leading-7 text-text-secondary">
-                      AI tutor, content generation, rubric-based grading, multimedia materials, and
-                      performance analytics, all powered by the same course model.
-                    </p>
-                  </div>
+                  <StatusPill>live suite</StatusPill>
                 </div>
-                <Button variant="outline" className="shrink-0">
+                <h3 className="text-2xl font-semibold tracking-[-0.02em] text-text-primary group-hover:text-accent">
+                  Five tools, one course source of truth.
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-text-secondary">
+                  AI tutor, content generation, rubric workflows, multimedia materials, and
+                  performance analytics all draw from the same governed course model.
+                </p>
+                <Button variant="outline" className="mt-7">
                   Learn More
                   <ArrowRight aria-hidden="true" />
                 </Button>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         </Container>
       </Section>
 
       <Section className="py-20 md:py-28">
+        <Container size="wide">
+          <SectionHeader
+            eyebrow="Suite Map"
+            title="One model connects every capability."
+            description="Status labels keep the product story clear: what teams can use now, what is in pilot, and what is planned next."
+          />
+          <SuiteMap items={suiteMapItems} />
+        </Container>
+      </Section>
+
+      <Section className="py-20 md:py-28" surface="panel">
         <Container>
           <SectionHeader
-            eyebrow="Coming Soon"
-            title="A broader institutional platform."
-            description="Future suites extend the same design system into collaboration, analytics, and AI governance."
+            eyebrow="Roadmap"
+            title="A quieter view of what comes next."
+            description="Future suites are framed as a roadmap, not equal products, so buyers can understand the platform direction without losing sight of the live suite."
           />
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {comingSoonSuites.map((suite) => (
+            {roadmapSuites.map((suite) => (
               <FeatureCard
                 key={suite.id}
                 icon={suite.icon}
                 title={suite.title}
                 description={suite.description}
-                className="opacity-80"
+                className="opacity-85"
               >
-                <span className="mt-5 inline-flex rounded-md border border-border-gray bg-[#0F0F12] px-2.5 py-1 text-[11px] font-medium text-text-tertiary">
-                  In development
-                </span>
+                <div className="mt-5">
+                  <StatusPill tone="planned">planned</StatusPill>
+                </div>
               </FeatureCard>
             ))}
           </div>
         </Container>
       </Section>
 
+      <Section className="py-20 md:py-28">
+        <Container>
+          <div className="rounded-lg border border-border-gray bg-bg-surface p-6 md:p-8">
+            <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-center">
+              <div>
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
+                  <Shield className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <h2 className="text-2xl font-semibold tracking-[-0.02em] text-text-primary">
+                  Built to graduate from pilot to institution.
+                </h2>
+              </div>
+              <p className="text-sm leading-7 text-text-secondary">
+                The product path starts with direct course-material upload and professor-led pilots,
+                then expands into LMS, SSO, accessibility, procurement, and multi-course rollout
+                conversations as institutions are ready.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
       <CTABand
         title="Start with the suite that is ready now."
-        description="Upload your materials and see how course-grounded AI changes the student support layer."
+        description="Upload real materials and see how course-grounded AI changes the student support layer."
         actions={[
-          { label: 'Get Started Free', href: SIGN_UP_URL },
-          { label: 'Contact Sales', href: '/contact', variant: 'secondary' },
+          { label: 'Book Demo', href: '/contact' },
+          { label: 'Start Professor Pilot', href: SIGN_UP_URL, variant: 'secondary' },
         ]}
       />
 
@@ -132,4 +192,3 @@ export default function ProductsPage() {
     </PageShell>
   )
 }
-
