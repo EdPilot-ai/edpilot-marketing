@@ -294,6 +294,258 @@ export function TrustBar({
   )
 }
 
+export function StatusPill({
+  children,
+  tone = 'live',
+}: {
+  children: ReactNode
+  tone?: 'live' | 'beta' | 'planned'
+}) {
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center rounded-md border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]',
+        tone === 'live' && 'border-green-400/20 bg-green-400/10 text-green-300',
+        tone === 'beta' && 'border-amber-300/20 bg-amber-300/10 text-amber-200',
+        tone === 'planned' && 'border-border-gray bg-[#0F0F12] text-text-tertiary'
+      )}
+    >
+      {children}
+    </span>
+  )
+}
+
+export function CourseAssistantMockup({ className }: { className?: string }) {
+  return (
+    <div className={cn('mx-auto max-w-6xl', className)}>
+      <div className="overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12] shadow-[0_34px_100px_rgba(0,0,0,0.45)]">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-gray bg-bg-surface px-4 py-3">
+          <div className="flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
+          </div>
+          <div className="flex items-center gap-2 text-[11px] font-medium text-text-tertiary">
+            <span className="rounded-md border border-border-gray bg-[#0F0F12] px-2 py-1">
+              BIO 214
+            </span>
+            <span>Cell Signaling and Disease</span>
+          </div>
+        </div>
+        <div className="grid lg:grid-cols-[260px_minmax(0,1fr)_280px]">
+          <aside className="border-b border-border-gray bg-bg-surface/70 p-4 lg:border-b-0 lg:border-r">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+              Course Model
+            </p>
+            <div className="space-y-3">
+              {[
+                ['Syllabus', '12 policies indexed'],
+                ['Week 6 slides', '48 concepts mapped'],
+                ['Rubric', '4 criteria active'],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-lg border border-border-gray bg-[#0F0F12] p-3">
+                  <p className="text-xs font-semibold text-text-primary">{label}</p>
+                  <p className="mt-1 text-[11px] text-text-secondary">{value}</p>
+                </div>
+              ))}
+            </div>
+          </aside>
+
+          <main className="min-w-0 p-4 md:p-6">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                  Student Workspace
+                </p>
+                <h3 className="mt-1 text-lg font-semibold tracking-[-0.02em] text-text-primary">
+                  The answer stays inside the course.
+                </h3>
+              </div>
+              <StatusPill>Cites sources</StatusPill>
+            </div>
+            <div className="space-y-4">
+              <div className="ml-auto max-w-md rounded-lg border border-accent/25 bg-accent/15 px-4 py-3 text-sm leading-6 text-text-primary">
+                Why does receptor desensitization matter in long-term treatment?
+              </div>
+              <div className="rounded-lg border border-border-gray bg-bg-surface px-4 py-4 text-sm leading-7 text-text-secondary">
+                Receptor desensitization means the cell responds less after repeated exposure to a
+                signal. In this course, Professor Rivera connects it to dosage planning: the same
+                signal can produce a weaker effect over time, so treatment has to account for
+                changing responsiveness.
+                <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                  {['Week 6 slides, frames 18-21', 'Case note: beta blockers, p. 3'].map(
+                    (source, index) => (
+                      <span
+                        key={source}
+                        className="inline-flex max-w-full items-center gap-2 rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1.5 text-[11px] font-medium text-accent"
+                      >
+                        <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded bg-accent/20 text-[10px]">
+                          {index + 1}
+                        </span>
+                        <span className="truncate">{source}</span>
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
+              <div className="grid gap-2 sm:grid-cols-3">
+                {['Ask a follow-up', 'Generate practice', 'Show misconception'].map((chip) => (
+                  <button
+                    key={chip}
+                    type="button"
+                    className="rounded-md border border-border-gray bg-[#0F0F12] px-3 py-2 text-xs font-medium text-text-secondary transition-colors hover:border-accent/40 hover:text-text-primary"
+                  >
+                    {chip}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </main>
+
+          <aside className="border-t border-border-gray bg-bg-surface p-4 lg:border-l lg:border-t-0">
+            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+              Faculty Controls
+            </p>
+            <div className="space-y-3">
+              {[
+                ['Integrity mode', 'Guide, do not complete'],
+                ['Outside knowledge', 'Off for students'],
+                ['Citation policy', 'Required'],
+                ['Assessment help', 'Hints only'],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-lg border border-border-gray bg-[#0F0F12] p-3">
+                  <p className="text-[11px] text-text-tertiary">{label}</p>
+                  <p className="mt-1 text-xs font-medium text-text-primary">{value}</p>
+                </div>
+              ))}
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function RoleValueGrid({
+  items,
+  className,
+}: {
+  items: Array<{ role: string; promise: string; detail: string; icon?: ElementType }>
+  className?: string
+}) {
+  return (
+    <div className={cn('grid gap-4 md:grid-cols-3', className)}>
+      {items.map((item) => (
+        <div key={item.role} className="rounded-lg border border-border-gray bg-bg-surface p-5">
+          <div className="flex items-center gap-3">
+            {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+              {item.role}
+            </p>
+          </div>
+          <h3 className="mt-5 text-xl font-semibold tracking-[-0.02em] text-text-primary">
+            {item.promise}
+          </h3>
+          <p className="mt-3 text-sm leading-7 text-text-secondary">{item.detail}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export function WorkflowSteps({
+  steps,
+  className,
+}: {
+  steps: Array<{ step: string; title: string; description: string; icon?: ElementType }>
+  className?: string
+}) {
+  return (
+    <div className={cn('grid gap-3 md:grid-cols-4', className)}>
+      {steps.map((item) => (
+        <div key={item.step} className="relative rounded-lg border border-border-gray bg-[#0F0F12] p-5">
+          <div className="mb-5 flex items-center justify-between gap-3">
+            <span className="text-xs font-bold text-accent/70">{item.step}</span>
+            {item.icon && <IconChip icon={item.icon} className="h-8 w-8" />}
+          </div>
+          <h3 className="text-sm font-semibold leading-6 text-text-primary">{item.title}</h3>
+          <p className="mt-2 text-[13px] leading-6 text-text-secondary">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export function ProofPanel({
+  items,
+  className,
+}: {
+  items: Array<{ label: string; detail: string; icon?: ElementType }>
+  className?: string
+}) {
+  return (
+    <div
+      className={cn(
+        'rounded-lg border border-border-gray bg-[linear-gradient(135deg,rgba(255,255,255,0.035),rgba(15,15,18,0.96))] p-5 md:p-7',
+        className
+      )}
+    >
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {items.map((item) => (
+          <div key={item.label} className="flex gap-3">
+            {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
+            <div>
+              <p className="text-sm font-semibold text-text-primary">{item.label}</p>
+              <p className="mt-1 text-[13px] leading-6 text-text-secondary">{item.detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export function SuiteMap({
+  items,
+  className,
+}: {
+  items: Array<{ title: string; status: 'live' | 'beta' | 'planned'; icon?: ElementType }>
+  className?: string
+}) {
+  return (
+    <div className={cn('rounded-lg border border-border-gray bg-[#0F0F12] p-5 md:p-7', className)}>
+      <div className="grid gap-4 lg:grid-cols-[1fr_220px_1fr] lg:items-center">
+        <div className="grid gap-3">
+          {items.slice(0, 3).map((item) => (
+            <FeatureCard key={item.title} icon={item.icon} title={item.title} className="bg-bg-surface">
+              <div className="mt-4">
+                <StatusPill tone={item.status}>{item.status}</StatusPill>
+              </div>
+            </FeatureCard>
+          ))}
+        </div>
+        <div className="rounded-lg border border-accent/30 bg-accent/10 p-5 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+            One Course Model
+          </p>
+          <p className="mt-3 text-sm leading-6 text-text-primary">
+            Syllabus, lectures, readings, rubrics, policies, and outcomes stay synchronized.
+          </p>
+        </div>
+        <div className="grid gap-3">
+          {items.slice(3).map((item) => (
+            <FeatureCard key={item.title} icon={item.icon} title={item.title} className="bg-bg-surface">
+              <div className="mt-4">
+                <StatusPill tone={item.status}>{item.status}</StatusPill>
+              </div>
+            </FeatureCard>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function CTABand({
   title,
   description,

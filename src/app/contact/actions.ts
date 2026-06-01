@@ -7,6 +7,12 @@ interface ContactFormData {
   lastName: string;
   email: string;
   role: string;
+  intent?: string;
+  institution?: string;
+  department?: string;
+  lms?: string;
+  timeline?: string;
+  courseCount?: string;
   message: string;
 }
 
@@ -21,10 +27,16 @@ export async function sendContactMessage(data: ContactFormData) {
     const lastName = data.lastName?.trim() ?? "";
     const email = data.email?.trim() ?? "";
     const role = data.role?.trim() ?? "";
+    const intent = data.intent?.trim() ?? "";
+    const institution = data.institution?.trim() ?? "";
+    const department = data.department?.trim() ?? "";
+    const lms = data.lms?.trim() ?? "";
+    const timeline = data.timeline?.trim() ?? "";
+    const courseCount = data.courseCount?.trim() ?? "";
     const message = data.message?.trim() ?? "";
 
-    if (!firstName || !lastName || !email || !role || !message) {
-      return { success: false, error: "All fields are required" };
+    if (!firstName || !lastName || !email || !role || !intent || !institution || !message) {
+      return { success: false, error: "Please complete the required fields" };
     }
 
     if (!EMAIL_REGEX.test(email)) {
@@ -44,6 +56,12 @@ export async function sendContactMessage(data: ContactFormData) {
           lastName,
           email,
           role,
+          intent,
+          institution,
+          department,
+          lms,
+          timeline,
+          courseCount,
           message,
           source: "edpilot-marketing",
           submittedAt: new Date().toISOString(),
