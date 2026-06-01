@@ -5,15 +5,20 @@ import {
   BookOpen,
   Brain,
   ChevronLeft,
+  CheckCircle2,
   ClipboardCheck,
   Database,
   FileEdit,
+  FileStack,
+  Gauge,
+  Layers3,
   Lock,
+  MessageCircle,
   Plug,
   Shield,
   Sparkles,
   Target,
-  Upload,
+  Users,
   Video,
 } from 'lucide-react'
 import Footer from '@/components/Footer'
@@ -21,16 +26,12 @@ import { Button } from '@/components/ui/button'
 import {
   CTABand,
   Container,
-  CourseAssistantMockup,
   FeatureCard,
   Hero,
   PageShell,
-  ProofPanel,
   Section,
   SectionHeader,
-  StatusPill,
-  SuiteMap,
-  WorkflowSteps,
+  TrustBar,
 } from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
 
@@ -40,7 +41,7 @@ const products = [
     title: 'AI Teaching Assistant',
     subtitle: 'Course-trained student support',
     icon: Brain,
-    status: 'live' as const,
+    status: 'Live',
     preview: 'Student chat with citations, hints, practice prompts, and assessment-safe refusals.',
     description:
       'A tutor that knows your course cold. Students get answers sourced from uploaded materials, with citations and hard stops where policy requires them.',
@@ -50,7 +51,7 @@ const products = [
     title: 'Content Generation',
     subtitle: 'Curriculum-aligned material creation',
     icon: FileEdit,
-    status: 'beta' as const,
+    status: 'Beta',
     preview: 'Draft quiz, study guide, and rubric blocks generated from the same week of materials.',
     description:
       'Draft syllabi, quizzes, exams, assignments, and rubrics from existing materials. Faculty review everything before it reaches students.',
@@ -60,7 +61,7 @@ const products = [
     title: 'Student Performance Insights',
     subtitle: 'Learning-objective-level analytics',
     icon: BarChart3,
-    status: 'beta' as const,
+    status: 'Beta',
     preview: 'Misconception trends show which concepts need another pass before the exam.',
     description:
       'See which objectives are not landing, identify students trending toward failure, and adjust before the exam confirms the problem.',
@@ -70,7 +71,7 @@ const products = [
     title: 'Multimedia Generation',
     subtitle: 'Structured visual teaching materials',
     icon: Video,
-    status: 'planned' as const,
+    status: 'Planned',
     preview: 'Lecture notes become slide outlines and visual explainers for faculty review.',
     description:
       'Turn lecture notes into slide decks, visual explainers, and short concept videos that reinforce the course rather than replace it.',
@@ -80,11 +81,30 @@ const products = [
     title: 'AI Grader',
     subtitle: 'Rubric-enforced, instructor-controlled grading',
     icon: ClipboardCheck,
-    status: 'planned' as const,
+    status: 'Planned',
     preview: 'Rubric rows stay visible so instructors can review every score before release.',
     description:
       'Grade submissions against the same rubric every time. Faculty can review, edit, or override any grade before release.',
   },
+]
+
+const statusClasses = {
+  Live: 'border-emerald-400/30 bg-emerald-400/10 text-emerald-200',
+  Beta: 'border-sky-400/30 bg-sky-400/10 text-sky-200',
+  Planned: 'border-border-gray bg-[#0F0F12] text-text-tertiary',
+}
+
+const courseModelInputs = [
+  { label: 'Syllabus', detail: 'Policies, outcomes, schedule', icon: FileStack },
+  { label: 'Lectures', detail: 'Slides, notes, transcripts', icon: MessageCircle },
+  { label: 'Readings', detail: 'Articles, chapters, cases', icon: BookOpen },
+  { label: 'Rubrics', detail: 'Criteria, weights, feedback', icon: ClipboardCheck },
+]
+
+const courseModelSignals = [
+  { label: 'Objectives mapped', value: '42', icon: Target },
+  { label: 'Policies indexed', value: '12', icon: Shield },
+  { label: 'Rubrics active', value: '8', icon: Gauge },
 ]
 
 export default function CurriculumIntelligencePage() {
@@ -96,8 +116,8 @@ export default function CurriculumIntelligencePage() {
         accent="Suite."
         description="Five tools that run from the same course model. Upload materials once; the tutor, grader, content generator, and analytics all reflect what you actually teach."
         actions={[
-          { label: 'Book Product Demo', href: '/contact' },
-          { label: 'Start Professor Pilot', href: SIGN_UP_URL, variant: 'secondary' },
+          { label: 'Get Started Free', href: SIGN_UP_URL },
+          { label: 'Contact Sales', href: '/contact', variant: 'secondary' },
         ]}
         className="pt-20"
       >
@@ -110,27 +130,26 @@ export default function CurriculumIntelligencePage() {
             Back to Products
           </Link>
         </div>
-        <CourseAssistantMockup className="mt-12" />
       </Hero>
 
       <Section className="py-14" surface="panel">
         <Container>
-          <ProofPanel
+          <TrustBar
             items={[
               {
                 icon: Target,
                 label: 'Course-aware',
-                detail: 'Trained on your syllabus, readings, assignments, policies, and rubrics.',
+                detail: 'Trained on your syllabus, readings, assignments, and rubrics.',
               },
               {
                 icon: Shield,
                 label: 'Grounded answers',
-                detail: 'If support is not backed by course materials, the system can say so.',
+                detail: 'If it is not in the course materials, the system says so.',
               },
               {
                 icon: BookOpen,
-                label: 'Faculty-governed',
-                detail: 'Designed around learning objectives, rubrics, assessment boundaries, and instructor review.',
+                label: 'Built for higher ed',
+                detail: 'Designed around learning objectives, rubrics, and faculty governance.',
               },
             ]}
           />
@@ -144,40 +163,145 @@ export default function CurriculumIntelligencePage() {
             title="Upload once. Power every workflow."
             description="The course model is the product center: it keeps student support, faculty workflows, and analytics aligned as materials change."
           />
-          <SuiteMap items={products.map(({ title, status, icon }) => ({ title, status, icon }))} />
+          <div className="grid gap-5 lg:grid-cols-[0.9fr_1.25fr_0.9fr] lg:items-center">
+            <div className="grid gap-3">
+              {courseModelInputs.map((input) => (
+                <div
+                  key={input.label}
+                  className="rounded-lg border border-border-gray bg-bg-surface p-4 transition duration-200 hover:border-accent/30 hover:bg-[#1d1d22]"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
+                      <input.icon className="h-4 w-4" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-text-primary">{input.label}</h3>
+                      <p className="mt-1 text-xs leading-5 text-text-secondary">{input.detail}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="relative overflow-hidden rounded-lg border border-accent/30 bg-[linear-gradient(150deg,rgba(139,92,246,0.16),rgba(24,24,27,0.95)_46%,rgba(15,15,18,1))] p-6 shadow-[0_24px_90px_rgba(0,0,0,0.35)] md:p-8">
+              <div
+                className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-accent/70 to-transparent"
+                aria-hidden="true"
+              />
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-lg border border-accent/30 bg-accent/10 text-accent shadow-[0_0_44px_rgba(139,92,246,0.24)]">
+                <Database className="h-7 w-7" aria-hidden="true" />
+              </div>
+              <div className="mt-6 text-center">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                  One Course Model
+                </p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.025em] text-text-primary md:text-3xl">
+                  Syllabus, lectures, readings, rubrics, policies, and outcomes stay synchronized.
+                </h3>
+              </div>
+              <div className="mt-7 grid gap-3 sm:grid-cols-3">
+                {courseModelSignals.map((signal) => (
+                  <div key={signal.label} className="border-t border-border-gray pt-4 text-center">
+                    <signal.icon className="mx-auto h-4 w-4 text-accent" aria-hidden="true" />
+                    <p className="mt-2 text-xl font-semibold text-text-primary">{signal.value}</p>
+                    <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-text-tertiary">
+                      {signal.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-3">
+              {products.map((product) => {
+                const Icon = product.icon
+
+                return (
+                  <div
+                    key={product.id}
+                    className="rounded-lg border border-border-gray bg-[#0F0F12] p-4 transition duration-200 hover:border-accent/25"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-accent">
+                        <Icon className="h-4 w-4" aria-hidden="true" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-sm font-semibold text-text-primary">{product.title}</h3>
+                          <span
+                            className={`rounded-md border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] ${statusClasses[product.status as keyof typeof statusClasses]}`}
+                          >
+                            {product.status}
+                          </span>
+                        </div>
+                        <p className="mt-1 text-xs leading-5 text-text-secondary">
+                          {product.subtitle}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
         </Container>
       </Section>
 
       <Section className="py-20 md:py-28" surface="panel">
-        <Container>
+        <Container size="wide">
           <SectionHeader
             eyebrow="Product Moments"
             title="What each tool looks like in practice."
             description="A clearer status and preview for each capability helps buyers separate what is live, what is in beta, and what is planned."
           />
-          <div className="grid gap-4">
-            {products.map((product) => (
-              <FeatureCard
-                key={product.id}
-                icon={product.icon}
-                title={product.title}
-                className="md:p-6"
-              >
-                <div className="mt-1 flex flex-wrap items-center gap-3">
-                  <p className="text-xs font-medium text-accent">{product.subtitle}</p>
-                  <StatusPill tone={product.status}>{product.status}</StatusPill>
-                </div>
-                <div className="mt-5 grid gap-5 md:grid-cols-[0.9fr_1.1fr] md:items-start">
-                  <p className="text-sm leading-7 text-text-secondary">{product.description}</p>
-                  <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-4">
+          <div className="grid gap-4 lg:grid-cols-2">
+            {products.map((product) => {
+              const Icon = product.icon
+
+              return (
+                <div
+                  key={product.id}
+                  className="group overflow-hidden rounded-lg border border-border-gray bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,0.9))] p-5 transition duration-200 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-[0_22px_70px_rgba(0,0,0,0.26)] md:p-6"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-semibold tracking-[-0.01em] text-text-primary">
+                          {product.title}
+                        </h3>
+                        <p className="mt-1 text-xs font-medium text-accent">{product.subtitle}</p>
+                      </div>
+                    </div>
+                    <span
+                      className={`shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${statusClasses[product.status as keyof typeof statusClasses]}`}
+                    >
+                      {product.status}
+                    </span>
+                  </div>
+                  <p className="mt-5 text-sm leading-7 text-text-secondary">{product.description}</p>
+                  <div className="mt-6 border-t border-border-gray pt-5">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
-                      Example interface
+                      Example Interface
                     </p>
-                    <p className="mt-3 text-sm leading-7 text-text-primary">{product.preview}</p>
+                    <div className="mt-3 flex items-start gap-3">
+                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-accent">
+                        {product.status === 'Live' ? (
+                          <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+                        ) : product.status === 'Beta' ? (
+                          <Sparkles className="h-4 w-4" aria-hidden="true" />
+                        ) : (
+                          <Layers3 className="h-4 w-4" aria-hidden="true" />
+                        )}
+                      </div>
+                      <p className="text-[13px] leading-6 text-text-secondary">{product.preview}</p>
+                    </div>
                   </div>
                 </div>
-              </FeatureCard>
-            ))}
+              )
+            })}
           </div>
         </Container>
       </Section>
@@ -185,47 +309,9 @@ export default function CurriculumIntelligencePage() {
       <Section className="py-20 md:py-28">
         <Container>
           <SectionHeader
-            eyebrow="How It Works"
-            title="Pilot quickly. Deploy responsibly."
-            description="A professor-led pilot can start with direct upload, while institutional rollout adds the review layers IT, legal, and academic leaders expect."
-          />
-          <WorkflowSteps
-            steps={[
-              {
-                step: '01',
-                title: 'Upload',
-                description: 'Syllabus, readings, assignments, rubrics, and policies form the first course model.',
-                icon: Upload,
-              },
-              {
-                step: '02',
-                title: 'Configure',
-                description: 'Faculty set citation rules, assessment behavior, tone, and course boundaries.',
-                icon: Shield,
-              },
-              {
-                step: '03',
-                title: 'Pilot',
-                description: 'Students use grounded support while faculty inspect answers and interaction patterns.',
-                icon: Sparkles,
-              },
-              {
-                step: '04',
-                title: 'Review',
-                description: 'Institutional teams evaluate privacy, access, retention, LMS, and rollout needs.',
-                icon: ClipboardCheck,
-              },
-            ]}
-          />
-        </Container>
-      </Section>
-
-      <Section className="py-20 md:py-28" surface="panel">
-        <Container>
-          <SectionHeader
             eyebrow="Compliance & Integrations"
-            title="Clear status for institutional teams."
-            description="The page now separates what is available from what is being piloted or planned, which gives procurement and IT a cleaner starting point."
+            title="Built for institutions."
+            description="Designed for procurement, IT, and legal from the start, not retrofitted from a consumer chatbot."
           />
           <div className="grid gap-4 md:grid-cols-2">
             <FeatureCard icon={Lock} title="Compliance & Security">
@@ -248,36 +334,12 @@ export default function CurriculumIntelligencePage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
-        <Container>
-          <ProofPanel
-            items={[
-              {
-                icon: Database,
-                label: 'Data boundaries',
-                detail: 'Institution, course, and student records are treated as scoped deployment data.',
-              },
-              {
-                icon: FileEdit,
-                label: 'Faculty review',
-                detail: 'Generated materials and grading outputs stay reviewable before they reach students.',
-              },
-              {
-                icon: Shield,
-                label: 'Academic integrity',
-                detail: 'Assessment-sensitive interactions can be guided, limited, or refused based on policy.',
-              },
-            ]}
-          />
-        </Container>
-      </Section>
-
       <CTABand
         title="See it running on your course materials."
-        description="We will shape the demo around your syllabus, not a generic sample course."
+        description="We will build a live demo from your syllabus. No generic demo, just your course and your content."
         actions={[
-          { label: 'Book Product Demo', href: '/contact' },
-          { label: 'Start Professor Pilot', href: SIGN_UP_URL, variant: 'secondary' },
+          { label: 'Contact Sales', href: '/contact' },
+          { label: 'Get Started Free', href: SIGN_UP_URL, variant: 'secondary' },
         ]}
       />
 

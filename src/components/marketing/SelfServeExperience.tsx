@@ -290,125 +290,108 @@ export function InteractiveLaunchpad() {
 }
 
 export function RoleExplorer() {
+  const [activeRole, setActiveRole] = useState(0)
+  const active = roles[activeRole]
+  const ActiveIcon = active.icon
+
   return (
     <div className="role-explorer overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12]">
-      {roles.map((role, index) => (
-        <input
-          key={role.label}
-          className="role-input"
-          type="radio"
-          name="role-explorer"
-          id={`role-${index}`}
-          defaultChecked={index === 0}
-        />
-      ))}
+      <div className="border-b border-border-gray bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(15,15,18,1))] p-3">
+        <div className="mb-3 flex items-center justify-between gap-4 px-1">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+            Choose a lane
+          </p>
+          <p className="hidden text-xs text-text-secondary sm:block">
+            {active.label} details shown below
+          </p>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-3" role="tablist" aria-label="Role lanes">
+          {roles.map((item, index) => {
+            const RoleIcon = item.icon
+            const isActive = index === activeRole
 
-      <div className="role-tabs grid gap-px bg-border-gray sm:grid-cols-3">
-        {roles.map((item, index) => {
-          const RoleIcon = item.icon
-          return (
-            <label
-              key={item.title}
-              htmlFor={`role-${index}`}
-              className="role-tab flex cursor-pointer items-center gap-3 bg-[#0F0F12] px-4 py-4 text-left text-text-secondary transition hover:text-text-primary"
-            >
-              <span className="role-tab-icon flex h-9 w-9 items-center justify-center rounded-lg border border-border-gray bg-bg-surface text-text-tertiary transition">
-                <RoleIcon className="h-4 w-4" aria-hidden="true" />
-              </span>
-              <span className="text-sm font-semibold">{item.label}</span>
-            </label>
-          )
-        })}
+            return (
+              <button
+                key={item.title}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls="role-panel"
+                onClick={() => setActiveRole(index)}
+                className={cn(
+                  'group flex min-h-[92px] items-center justify-between gap-3 rounded-lg border px-4 py-4 text-left transition duration-150 focus-ring',
+                  isActive
+                    ? 'border-accent/55 bg-accent/10 text-text-primary shadow-[0_16px_42px_rgba(124,58,237,0.2)]'
+                    : 'border-border-gray bg-[#0F0F12] text-text-secondary hover:border-accent/30 hover:bg-bg-surface hover:text-text-primary'
+                )}
+              >
+                <span className="flex min-w-0 items-center gap-3">
+                  <span
+                    className={cn(
+                      'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border transition',
+                      isActive
+                        ? 'border-accent/35 bg-accent/15 text-accent'
+                        : 'border-border-gray bg-bg-surface text-text-tertiary group-hover:text-accent'
+                    )}
+                  >
+                    <RoleIcon className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold">{item.label}</span>
+                    <span className="mt-1 block text-xs leading-5 text-text-tertiary">
+                      {item.details[0]}
+                    </span>
+                  </span>
+                </span>
+                <span
+                  className={cn(
+                    'shrink-0 rounded-md border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]',
+                    isActive
+                      ? 'border-accent/30 bg-accent/10 text-accent'
+                      : 'border-border-gray bg-bg-surface text-text-tertiary'
+                  )}
+                >
+                  {isActive ? 'Open' : 'View'}
+                </span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
-      <div className="role-panels">
-        {roles.map((role, roleIndex) => {
-          const Icon = role.icon
-          return (
-            <div
-              key={role.title}
-              className={cn(
-                'role-panel gap-px bg-border-gray md:grid-cols-[0.95fr_1.05fr]',
-                `role-panel-${roleIndex}`
-              )}
-            >
-              <div className="bg-[#0F0F12] p-6 md:p-8">
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </div>
-                <h3 className="text-2xl font-semibold tracking-[-0.03em] text-text-primary">
-                  {role.title}
-                </h3>
-                <p className="mt-4 text-sm leading-7 text-text-secondary">{role.description}</p>
+      <div
+        id="role-panel"
+        role="tabpanel"
+        className="grid gap-px bg-border-gray md:grid-cols-[0.95fr_1.05fr]"
+      >
+        <div className="bg-[#0F0F12] p-6 md:p-8">
+          <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
+            <ActiveIcon className="h-5 w-5" aria-hidden="true" />
+          </div>
+          <h3 className="text-2xl font-semibold tracking-[-0.03em] text-text-primary">
+            {active.title}
+          </h3>
+          <p className="mt-4 text-sm leading-7 text-text-secondary">{active.description}</p>
+        </div>
+        <div className="bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,1))] p-6 md:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+            What they do
+          </p>
+          <div className="mt-5 grid gap-3">
+            {active.details.map((detail, index) => (
+              <div
+                key={detail}
+                className="flex items-center gap-3 rounded-lg border border-border-gray bg-[#0F0F12] p-3"
+              >
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-accent/10 text-xs font-semibold text-accent">
+                  {index + 1}
+                </span>
+                <span className="text-sm font-medium text-text-primary">{detail}</span>
               </div>
-              <div className="bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,1))] p-6 md:p-8">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-                  What they do
-                </p>
-                <div className="mt-5 grid gap-3">
-                  {role.details.map((detail, index) => (
-                    <div
-                      key={detail}
-                      className="flex items-center gap-3 rounded-lg border border-border-gray bg-[#0F0F12] p-3"
-                    >
-                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-accent/10 text-xs font-semibold text-accent">
-                        {index + 1}
-                      </span>
-                      <span className="text-sm font-medium text-text-primary">{detail}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )
-        })}
+            ))}
+          </div>
+        </div>
       </div>
-
-      <style jsx>{`
-        .role-input {
-          position: absolute;
-          width: 1px;
-          height: 1px;
-          opacity: 0;
-          pointer-events: none;
-        }
-
-        .role-tab:focus-visible {
-          outline: 2px solid var(--accent-hex);
-          outline-offset: -2px;
-        }
-
-        #role-0:focus-visible ~ .role-tabs label[for='role-0'],
-        #role-1:focus-visible ~ .role-tabs label[for='role-1'],
-        #role-2:focus-visible ~ .role-tabs label[for='role-2'] {
-          outline: 2px solid var(--accent-hex);
-          outline-offset: -2px;
-        }
-
-        .role-panel {
-          display: none;
-        }
-
-        #role-0:checked ~ .role-tabs label[for='role-0'],
-        #role-1:checked ~ .role-tabs label[for='role-1'],
-        #role-2:checked ~ .role-tabs label[for='role-2'] {
-          color: var(--text-primary);
-        }
-
-        #role-0:checked ~ .role-tabs label[for='role-0'] .role-tab-icon,
-        #role-1:checked ~ .role-tabs label[for='role-1'] .role-tab-icon,
-        #role-2:checked ~ .role-tabs label[for='role-2'] .role-tab-icon {
-          border-color: rgba(139, 92, 246, 0.35);
-          background: rgba(139, 92, 246, 0.15);
-          color: var(--accent-hex);
-        }
-
-        #role-0:checked ~ .role-panels .role-panel-0,
-        #role-1:checked ~ .role-panels .role-panel-1,
-        #role-2:checked ~ .role-panels .role-panel-2 {
-          display: grid;
-        }
-      `}</style>
     </div>
   )
 }
