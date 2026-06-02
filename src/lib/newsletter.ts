@@ -1,24 +1,10 @@
-import { neon, type NeonQueryFunction } from '@neondatabase/serverless'
+import { type NeonQueryFunction } from '@neondatabase/serverless'
+import { getSql } from '@/lib/db'
 
 /**
  * Newsletter subscriber storage backed by Vercel Postgres (Neon).
- *
- * The Neon Vercel integration provisions the database and exposes the
- * connection string as DATABASE_URL (POSTGRES_URL is accepted as a fallback
- * for the older Vercel Postgres naming).
  */
-const DATABASE_URL = process.env.DATABASE_URL ?? process.env.POSTGRES_URL
-
-let sqlClient: NeonQueryFunction<false, false> | null = null
 let schemaReady: Promise<void> | null = null
-
-function getSql(): NeonQueryFunction<false, false> | null {
-  if (!DATABASE_URL) return null
-  if (!sqlClient) {
-    sqlClient = neon(DATABASE_URL)
-  }
-  return sqlClient
-}
 
 /**
  * Create the subscribers table on first use. Cached for the lifetime of the
