@@ -13,3 +13,22 @@ CREATE TABLE IF NOT EXISTS newsletter_subscribers (
   subscribed_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
   unsubscribed_at TIMESTAMPTZ
 );
+
+-- Contact form submissions. Created automatically on first use via
+-- src/lib/contact-store.ts.
+CREATE TABLE IF NOT EXISTS contact_submissions (
+  id           BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  first_name   TEXT NOT NULL,
+  last_name    TEXT NOT NULL,
+  email        TEXT NOT NULL,
+  role         TEXT NOT NULL,
+  intent       TEXT,
+  institution  TEXT,
+  department   TEXT,
+  lms          TEXT,
+  timeline     TEXT,
+  course_count TEXT,
+  message      TEXT NOT NULL,
+  source       TEXT,
+  submitted_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
