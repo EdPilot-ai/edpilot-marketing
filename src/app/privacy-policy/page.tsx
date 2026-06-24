@@ -16,7 +16,6 @@ import {
   Bell,
 } from 'lucide-react'
 import Link from 'next/link'
-import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { Container, Hero, PageShell, Section } from '@/components/marketing'
 import { SUPPORT_EMAIL, LEGAL_EMAIL, SECURITY_EMAIL } from '@/lib/marketing'
@@ -741,7 +740,6 @@ export default function PrivacyPolicyPage() {
         </Container>
       </Section>
 
-      <Footer />
     </PageShell>
   )
 }

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { ArrowRight, BookOpen, Search, X } from "lucide-react";
 import toast from "react-hot-toast";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Container, Hero, PageShell, Section, SectionHeader } from "@/components/marketing";
 import { blogPosts, getFeaturedPost } from "@/lib/blog-data";
@@ -265,7 +264,7 @@ export default function BlogPage() {
                   placeholder="your@university.edu"
                   required
                   autoComplete="email"
-                  className="h-11 flex-1 rounded-lg border border-border-gray bg-[#0F0F12] px-4 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none"
+                  className="h-11 flex-1 rounded-lg border border-border-gray bg-bg-deep px-4 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none"
                 />
                 <Button type="submit" className="h-11 px-6" disabled={isSubscribing}>
                   {isSubscribing ? "Subscribing..." : "Subscribe"}
@@ -277,7 +276,6 @@ export default function BlogPage() {
         </Container>
       </Section>
 
-      <Footer />
     </PageShell>
   );
 }

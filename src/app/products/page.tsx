@@ -13,7 +13,6 @@ import {
   Sparkles,
   Users,
 } from 'lucide-react'
-import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { Container, Hero, PageShell, Section, SectionHeader } from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
@@ -95,10 +94,10 @@ export default function ProductsPage() {
                     </p>
                   </div>
                 </div>
-                <Button variant="outline" className="shrink-0">
+                <span className="inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg border border-[#3d3d45] bg-transparent px-4 text-sm font-medium text-text-primary transition-colors group-hover:border-accent/45 group-hover:bg-accent/10 group-hover:text-accent">
                   Learn More
-                  <ArrowRight aria-hidden="true" />
-                </Button>
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </span>
               </div>
             </div>
           </Link>
@@ -126,7 +125,7 @@ export default function ProductsPage() {
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-accent ring-1 ring-accent/10">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
-                    <span className="rounded-md border border-border-gray bg-[#141416] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
+                    <span className="rounded-md border border-border-gray bg-bg-page px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
                       Planned
                     </span>
                   </div>
@@ -186,7 +185,7 @@ export default function ProductsPage() {
                   </Button>
                 </div>
               </div>
-              <div className="border-t border-border-gray bg-[#0F0F12]/58 p-6 md:border-l md:border-t-0 md:p-8">
+              <div className="border-t border-border-gray bg-bg-deep/58 p-6 md:border-l md:border-t-0 md:p-8">
                 <div className="space-y-4">
                   {[
                     {
@@ -230,7 +229,6 @@ export default function ProductsPage() {
         </Container>
       </Section>
 
-      <Footer />
     </PageShell>
   )
 }

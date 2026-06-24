@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
 import { Container, Hero, PageShell, Section } from '@/components/marketing'
 import { SUPPORT_EMAIL, ACCESSIBILITY_EMAIL } from '@/lib/marketing'
@@ -544,7 +543,6 @@ export default function AccessibilityPage() {
         </Container>
       </Section>
 
-      <Footer />
     </PageShell>
   )
 }

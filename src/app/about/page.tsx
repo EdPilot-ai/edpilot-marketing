@@ -11,8 +11,6 @@ import {
   Lock,
   Shield,
 } from 'lucide-react'
-import Footer from '@/components/Footer'
-import { Button } from '@/components/ui/button'
 import {
   CTABand,
   Container,
@@ -162,7 +160,7 @@ export default function AboutPage() {
             {founders.map((founder) => (
               <div
                 key={founder.name}
-                className="rounded-lg border border-border-gray bg-[#0F0F12] p-8 text-center"
+                className="rounded-lg border border-border-gray bg-bg-deep p-8 text-center"
               >
                 <Image
                   src={founder.image}
@@ -218,7 +216,6 @@ export default function AboutPage() {
         ]}
       />
 
-      <Footer />
     </PageShell>
   )
 }

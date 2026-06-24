@@ -1,6 +1,5 @@
 import { BreadcrumbSchema } from '@/components/StructuredData'
 import { ComparisonDetail } from '@/components/marketing'
-import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -75,7 +74,6 @@ export default function CustomSolutionsPage() {
           },
         ]}
       />
-      <Footer />
     </>
   )
 }

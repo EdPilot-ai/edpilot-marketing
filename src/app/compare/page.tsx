@@ -10,7 +10,6 @@ import {
   Wrench,
 } from 'lucide-react'
 import { BreadcrumbSchema } from '@/components/StructuredData'
-import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
 import {
   CTABand,
@@ -141,7 +140,7 @@ export default function ComparePage() {
                         </div>
                       </div>
 
-                      <span className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border-gray bg-[#0F0F12] px-3 py-2 text-sm font-semibold text-accent transition group-hover:border-accent/35 group-hover:bg-accent/10">
+                      <span className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border-gray bg-bg-deep px-3 py-2 text-sm font-semibold text-accent transition group-hover:border-accent/35 group-hover:bg-accent/10">
                         Read comparison
                         <ArrowRight
                           className="h-4 w-4 transition-transform group-hover:translate-x-1"
@@ -207,7 +206,6 @@ export default function ComparePage() {
           actions={[{ label: 'Schedule a Demo', href: '/contact' }]}
         />
 
-        <Footer />
       </PageShell>
     </>
   )
