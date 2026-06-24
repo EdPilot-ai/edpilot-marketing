@@ -86,41 +86,54 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Ensure all backgrounds use our color scheme */
-  .bg-bg-page {
-    background-color: var(--bg-page) !important;
+  /*
+   * Themeable color overrides — re-point the Tailwind color utilities at the
+   * CSS custom properties so they respond to prefers-contrast (high-contrast)
+   * theming, which Tailwind's static-hex utilities can't do on their own.
+   *
+   * The `html ` prefix is deliberate. Its specificity (0,1,1) outranks
+   * Tailwind's plain `.bg-bg-surface` utility (0,1,0) so the themeable value
+   * wins, but stays BELOW state utilities such as `.hover:bg-accent/10:hover`
+   * (0,1,1 + pseudo-class = 0,2,0). Previously these rules used `!important`,
+   * which beat every hover/focus utility and silently killed background and
+   * border hovers on any element carrying one of these base classes.
+   * Opacity variants (e.g. `bg-bg-surface/70`) are a different class and are
+   * unaffected.
+   */
+  html .bg-bg-page {
+    background-color: var(--bg-page);
   }
 
-  .bg-bg-surface {
-    background-color: var(--bg-surface) !important;
+  html .bg-bg-surface {
+    background-color: var(--bg-surface);
   }
 
-  .bg-bg-deep {
-    background-color: var(--bg-deep) !important;
+  html .bg-bg-deep {
+    background-color: var(--bg-deep);
   }
 
-  .border-border-gray {
-    border-color: var(--border-gray) !important;
+  html .border-border-gray {
+    border-color: var(--border-gray);
   }
 
-  .text-text-primary {
-    color: var(--text-primary) !important;
+  html .text-text-primary {
+    color: var(--text-primary);
   }
 
-  .text-text-secondary {
-    color: var(--text-secondary) !important;
+  html .text-text-secondary {
+    color: var(--text-secondary);
   }
 
-  .bg-accent {
-    background-color: var(--accent-hex) !important;
+  html .bg-accent {
+    background-color: var(--accent-hex);
   }
 
   .hover\:bg-accent-hover:hover {
     background-color: var(--accent-hover-hex) !important;
   }
 
-  .text-accent {
-    color: var(--accent-hex) !important;
+  html .text-accent {
+    color: var(--accent-hex);
   }
 
   /* Professor workspace utility classes (class-page only) */
