@@ -1,5 +1,4 @@
 import { FAQSchema, BreadcrumbSchema } from '@/components/StructuredData'
-import Footer from '@/components/Footer'
 import { Container, FeatureCard, Hero, PageShell, Section, SectionHeader } from '@/components/marketing'
 import type { Metadata } from 'next'
 
@@ -85,7 +84,7 @@ export default function PositioningLanguagePage() {
               title="Recommended language"
               description="EdPilot is an instructor-controlled AI teaching assistant built specifically for universities. Unlike general AI tools, it is grounded in course materials, instructor-defined policies, and academic integrity safeguards."
             />
-            <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-6 text-sm leading-7 text-text-secondary">
+            <div className="rounded-lg border border-border-gray bg-bg-deep p-6 text-sm leading-7 text-text-secondary">
               <p>
                 Alternative framings include &ldquo;purpose-built AI infrastructure for university
                 teaching,&rdquo; &ldquo;a syllabus-aligned AI system that keeps instructors in charge,&rdquo; and
@@ -144,7 +143,6 @@ export default function PositioningLanguagePage() {
           </Container>
         </Section>
 
-        <Footer />
       </PageShell>
     </>
   )

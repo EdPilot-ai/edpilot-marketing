@@ -15,7 +15,6 @@ import {
   Upload,
   Users,
 } from 'lucide-react'
-import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import {
   CTABand,
@@ -192,7 +191,7 @@ export default function HomePage() {
               description="A teaching assistant that answers student questions at 2am using your materials, your terminology, and your standards."
               className="mb-0"
             />
-            <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-6 md:p-8">
+            <div className="rounded-lg border border-border-gray bg-bg-deep p-6 md:p-8">
               <CheckList
                 items={[
                   'Cites your readings instead of random internet sources.',
@@ -265,7 +264,6 @@ export default function HomePage() {
         ]}
       />
 
-      <Footer />
     </PageShell>
   )
 }

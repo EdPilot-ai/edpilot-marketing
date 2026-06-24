@@ -14,7 +14,6 @@ import {
   ChevronRight,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import Footer from '@/components/Footer'
 import { getBlogPost, getRelatedPosts } from '@/lib/blog-data'
 import toast from 'react-hot-toast'
 
@@ -387,34 +386,31 @@ function ArticleBody({
         />
 
         <div className="container mx-auto px-6 max-w-3xl relative z-10">
-          <div
-          >
-            {/* Category */}
-            <div className="mb-5">
-              <span className="inline-block text-[10px] font-semibold uppercase tracking-widest text-accent bg-accent/10 rounded-md px-2.5 py-1">
-                {post.category}
-              </span>
+          {/* Category */}
+          <div className="mb-5">
+            <span className="inline-block text-[10px] font-semibold uppercase tracking-widest text-accent bg-accent/10 rounded-md px-2.5 py-1">
+              {post.category}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-6 leading-[1.2] tracking-tight">
+            {post.title}
+          </h1>
+
+          {/* Meta */}
+          <div className="flex items-center gap-3 flex-wrap">
+            <AuthorAvatar name={post.author.name} size="md" />
+            <div>
+              <p className="text-text-primary text-sm font-semibold leading-none">
+                {post.author.name}
+              </p>
+              <p className="text-text-secondary text-xs mt-0.5">{post.author.title}</p>
             </div>
-
-            {/* Title */}
-            <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-6 leading-[1.2] tracking-tight">
-              {post.title}
-            </h1>
-
-            {/* Meta */}
-            <div className="flex items-center gap-3 flex-wrap">
-              <AuthorAvatar name={post.author.name} size="md" />
-              <div>
-                <p className="text-text-primary text-sm font-semibold leading-none">
-                  {post.author.name}
-                </p>
-                <p className="text-text-secondary text-xs mt-0.5">{post.author.title}</p>
-              </div>
-              <span className="text-border-gray text-xs" aria-hidden="true">·</span>
-              <div className="flex items-center gap-1 text-text-secondary text-xs">
-                <Clock className="w-3 h-3 flex-shrink-0" aria-hidden="true" />
-                <span>{post.readingTime} min read</span>
-              </div>
+            <span className="text-border-gray text-xs" aria-hidden="true">·</span>
+            <div className="flex items-center gap-1 text-text-secondary text-xs">
+              <Clock className="w-3 h-3 flex-shrink-0" aria-hidden="true" />
+              <span>{post.readingTime} min read</span>
             </div>
           </div>
         </div>
@@ -427,7 +423,7 @@ function ArticleBody({
         <div className="flex gap-16 py-14">
 
           {/* Main column */}
-          <main className="flex-1 min-w-0 max-w-3xl">
+          <div className="flex-1 min-w-0 max-w-3xl">
             <div
               ref={articleRef}
             >
@@ -448,7 +444,7 @@ function ArticleBody({
             <div className="mt-14 pt-8 border-t border-border-gray">
               <ShareRow title={post.title} />
             </div>
-          </main>
+          </div>
 
           {/* TOC sidebar — xl screens only */}
           <aside className="flex-shrink-0">
@@ -519,7 +515,6 @@ function ArticleBody({
         </section>
       )}
 
-      <Footer />
     </>
   )
 }

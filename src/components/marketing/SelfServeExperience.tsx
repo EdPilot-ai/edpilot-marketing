@@ -99,7 +99,7 @@ function MiniVisual({ visual }: { visual: string }) {
     return (
       <div className="min-h-[118px] rounded-lg border border-border-gray bg-bg-surface p-3">
         <div className="mb-3 h-2 w-24 rounded-full bg-accent/50" />
-        <div className="rounded-md border border-border-gray bg-[#0F0F12] px-3 py-3 text-sm font-medium text-text-primary">
+        <div className="rounded-md border border-border-gray bg-bg-deep px-3 py-3 text-sm font-medium text-text-primary">
           admin@<span className="text-accent">school.edu</span>
         </div>
         <div className="mt-3 flex items-center gap-2 text-xs text-text-secondary">
@@ -114,7 +114,7 @@ function MiniVisual({ visual }: { visual: string }) {
     return (
       <div className="grid min-h-[118px] gap-2 rounded-lg border border-border-gray bg-bg-surface p-3">
         {['University record', 'Admin email', 'Data boundary'].map((item) => (
-          <div key={item} className="flex items-center justify-between rounded-md bg-[#0F0F12] px-3 py-2">
+          <div key={item} className="flex items-center justify-between rounded-md bg-bg-deep px-3 py-2">
             <span className="text-xs text-text-secondary">{item}</span>
             <CheckCircle2 className="h-4 w-4 text-[#22C55E]" aria-hidden="true" />
           </div>
@@ -133,7 +133,7 @@ function MiniVisual({ visual }: { visual: string }) {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.08 }}
-              className="flex items-center gap-2 rounded-md bg-[#0F0F12] px-3 py-2 text-xs text-text-secondary"
+              className="flex items-center gap-2 rounded-md bg-bg-deep px-3 py-2 text-xs text-text-secondary"
             >
               <Mails className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
               {item}
@@ -146,7 +146,7 @@ function MiniVisual({ visual }: { visual: string }) {
 
   return (
     <div className="min-h-[118px] rounded-lg border border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.16),rgba(15,15,18,1))] p-3">
-      <div className="flex items-center justify-between rounded-md border border-border-gray bg-[#0F0F12] px-3 py-3">
+      <div className="flex items-center justify-between rounded-md border border-border-gray bg-bg-deep px-3 py-3">
         <div>
           <p className="text-sm font-semibold text-text-primary">Course AI</p>
           <p className="mt-1 text-xs text-text-secondary">Grounded in approved content</p>
@@ -175,7 +175,7 @@ export function InteractiveLaunchpad() {
   return (
     <div className="relative">
       <div className="absolute -inset-px rounded-lg bg-[linear-gradient(135deg,rgba(139,92,246,0.78),rgba(56,189,248,0.28),rgba(34,197,94,0.24))] opacity-80" />
-      <div className="relative overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12] shadow-[0_34px_100px_rgba(0,0,0,0.45)]">
+      <div className="relative overflow-hidden rounded-lg border border-border-gray bg-bg-deep shadow-[0_34px_100px_rgba(0,0,0,0.45)]">
         <div className="flex items-center justify-between border-b border-border-gray px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-[#22C55E]" />
@@ -220,7 +220,7 @@ export function InteractiveLaunchpad() {
                     'group min-h-[78px] rounded-lg border p-2.5 text-left transition duration-150 focus-ring',
                     isActive
                       ? 'border-accent/55 bg-accent/10 shadow-[0_14px_34px_rgba(124,58,237,0.18)]'
-                      : 'border-border-gray bg-[#0F0F12] hover:border-accent/30 hover:bg-bg-surface'
+                      : 'border-border-gray bg-bg-deep hover:border-accent/30 hover:bg-bg-surface'
                   )}
                 >
                   <span className="mb-3 flex items-center justify-between gap-2">
@@ -246,7 +246,7 @@ export function InteractiveLaunchpad() {
           </div>
 
           <div key={active.title} className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_220px]">
-            <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-5">
+            <div className="rounded-lg border border-border-gray bg-bg-deep p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
@@ -265,7 +265,7 @@ export function InteractiveLaunchpad() {
               </p>
             </div>
 
-            <div className="rounded-lg border border-border-gray bg-[#0F0F12] p-4">
+            <div className="rounded-lg border border-border-gray bg-bg-deep p-4">
               <div className="mb-3 flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
@@ -295,7 +295,7 @@ export function RoleExplorer() {
   const ActiveIcon = active.icon
 
   return (
-    <div className="role-explorer overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12]">
+    <div className="role-explorer overflow-hidden rounded-lg border border-border-gray bg-bg-deep">
       <div className="border-b border-border-gray bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(15,15,18,1))] p-3">
         <div className="mb-3 flex items-center justify-between gap-4 px-1">
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
@@ -322,7 +322,7 @@ export function RoleExplorer() {
                   'group flex min-h-[92px] items-center justify-between gap-3 rounded-lg border px-4 py-4 text-left transition duration-150 focus-ring',
                   isActive
                     ? 'border-accent/55 bg-accent/10 text-text-primary shadow-[0_16px_42px_rgba(124,58,237,0.2)]'
-                    : 'border-border-gray bg-[#0F0F12] text-text-secondary hover:border-accent/30 hover:bg-bg-surface hover:text-text-primary'
+                    : 'border-border-gray bg-bg-deep text-text-secondary hover:border-accent/30 hover:bg-bg-surface hover:text-text-primary'
                 )}
               >
                 <span className="flex min-w-0 items-center gap-3">
@@ -364,7 +364,7 @@ export function RoleExplorer() {
         role="tabpanel"
         className="grid gap-px bg-border-gray md:grid-cols-[0.95fr_1.05fr]"
       >
-        <div className="bg-[#0F0F12] p-6 md:p-8">
+        <div className="bg-bg-deep p-6 md:p-8">
           <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
             <ActiveIcon className="h-5 w-5" aria-hidden="true" />
           </div>
@@ -381,7 +381,7 @@ export function RoleExplorer() {
             {active.details.map((detail, index) => (
               <div
                 key={detail}
-                className="flex items-center gap-3 rounded-lg border border-border-gray bg-[#0F0F12] p-3"
+                className="flex items-center gap-3 rounded-lg border border-border-gray bg-bg-deep p-3"
               >
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-accent/10 text-xs font-semibold text-accent">
                   {index + 1}

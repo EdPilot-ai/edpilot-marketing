@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
 import {
@@ -16,7 +16,6 @@ import {
   Rocket,
   Shield,
 } from 'lucide-react'
-import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { sendContactMessage } from './actions'
 import {
@@ -94,6 +93,8 @@ function CustomSelect({
   options,
   placeholder,
   required,
+  invalid,
+  errorMessage,
   open,
   onOpenChange,
   onValueChange,
@@ -104,24 +105,124 @@ function CustomSelect({
   options: SelectOption[]
   placeholder: string
   required?: boolean
+  invalid?: boolean
+  errorMessage?: string
   open: boolean
   onOpenChange: (open: boolean) => void
   onValueChange: (value: string) => void
 }) {
   const selected = options.find((option) => option.value === value)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(-1)
+  const listboxId = `${id}-listbox`
+  const errorId = `${id}-error`
+
+  // When the listbox opens, start keyboard navigation from the selected option.
+  useEffect(() => {
+    if (open) {
+      const selectedIndex = options.findIndex((option) => option.value === value)
+      setActiveIndex(selectedIndex >= 0 ? selectedIndex : 0)
+    } else {
+      setActiveIndex(-1)
+    }
+  }, [open, value, options])
+
+  // Close on outside click. (Escape/Tab are handled on the trigger, which keeps
+  // focus in the select-only combobox pattern.)
+  useEffect(() => {
+    if (!open) return
+    const onPointerDown = (event: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
+        onOpenChange(false)
+      }
+    }
+    document.addEventListener('mousedown', onPointerDown)
+    return () => document.removeEventListener('mousedown', onPointerDown)
+  }, [open, onOpenChange])
+
+  // Keep the active option scrolled into view while arrow-navigating.
+  useEffect(() => {
+    if (!open || activeIndex < 0) return
+    listRef.current
+      ?.querySelector<HTMLElement>(`[data-index="${activeIndex}"]`)
+      ?.scrollIntoView({ block: 'nearest' })
+  }, [open, activeIndex])
+
+  const selectIndex = (index: number) => {
+    const option = options[index]
+    if (!option) return
+    onValueChange(option.value)
+    onOpenChange(false)
+  }
+
+  // WAI-ARIA APG "Select-Only Combobox" keyboard support.
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault()
+        if (!open) onOpenChange(true)
+        else setActiveIndex((index) => Math.min(options.length - 1, index + 1))
+        break
+      case 'ArrowUp':
+        event.preventDefault()
+        if (!open) onOpenChange(true)
+        else setActiveIndex((index) => Math.max(0, index - 1))
+        break
+      case 'Home':
+        if (open) {
+          event.preventDefault()
+          setActiveIndex(0)
+        }
+        break
+      case 'End':
+        if (open) {
+          event.preventDefault()
+          setActiveIndex(options.length - 1)
+        }
+        break
+      case 'Enter':
+      case ' ':
+        event.preventDefault()
+        if (open) selectIndex(activeIndex)
+        else onOpenChange(true)
+        break
+      case 'Escape':
+        if (open) {
+          event.preventDefault()
+          onOpenChange(false)
+        }
+        break
+      case 'Tab':
+        if (open) onOpenChange(false)
+        break
+      default:
+        break
+    }
+  }
 
   return (
-    <div className="relative">
+    <div className="relative" ref={rootRef}>
       <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-text-primary">
         {label} {required && <span className="text-accent">*</span>}
       </label>
       <button
         id={id}
         type="button"
+        role="combobox"
         aria-haspopup="listbox"
         aria-expanded={open}
+        aria-controls={listboxId}
+        aria-activedescendant={open && activeIndex >= 0 ? `${id}-option-${activeIndex}` : undefined}
+        aria-invalid={invalid || undefined}
+        aria-describedby={invalid && errorMessage ? errorId : undefined}
         onClick={() => onOpenChange(!open)}
-        className="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-border-gray bg-[#0F0F12] px-3.5 py-2 text-left text-sm text-text-primary transition-colors hover:border-border-strong focus:border-accent focus:outline-none"
+        onKeyDown={handleKeyDown}
+        className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border bg-bg-deep px-3.5 py-2 text-left text-sm text-text-primary transition-colors focus:outline-none ${
+          invalid
+            ? 'border-red-500/60 focus:border-red-500'
+            : 'border-border-gray hover:border-border-strong focus:border-accent'
+        }`}
       >
         <span className={selected ? 'text-text-primary' : 'text-text-tertiary'}>
           {selected?.label ?? placeholder}
@@ -133,25 +234,31 @@ function CustomSelect({
       </button>
       {open && (
         <div
+          ref={listRef}
+          id={listboxId}
           role="listbox"
-          aria-labelledby={id}
-          className="absolute z-40 mt-2 max-h-72 w-full overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12] p-1 shadow-[0_22px_70px_rgba(0,0,0,0.45)]"
+          aria-label={label}
+          className="absolute z-40 mt-2 max-h-72 w-full overflow-auto rounded-lg border border-border-gray bg-bg-deep p-1 shadow-[0_22px_70px_rgba(0,0,0,0.45)]"
         >
-          {options.map((option) => {
-            const active = option.value === value
+          {options.map((option, index) => {
+            const isSelected = option.value === value
+            const isActive = index === activeIndex
 
             return (
-              <button
+              <div
                 key={option.value}
-                type="button"
+                id={`${id}-option-${index}`}
+                data-index={index}
                 role="option"
-                aria-selected={active}
-                onClick={() => {
-                  onValueChange(option.value)
-                  onOpenChange(false)
-                }}
-                className={`w-full rounded-md px-3 py-2.5 text-left transition-colors ${
-                  active ? 'bg-accent/15 text-text-primary' : 'text-text-secondary hover:bg-bg-surface hover:text-text-primary'
+                aria-selected={isSelected}
+                onClick={() => selectIndex(index)}
+                onMouseEnter={() => setActiveIndex(index)}
+                className={`cursor-pointer rounded-md px-3 py-2.5 text-left transition-colors ${
+                  isActive
+                    ? 'bg-accent/15 text-text-primary'
+                    : isSelected
+                      ? 'text-text-primary'
+                      : 'text-text-secondary'
                 }`}
               >
                 <span className="block text-sm font-medium">{option.label}</span>
@@ -160,10 +267,15 @@ function CustomSelect({
                     {option.detail}
                   </span>
                 )}
-              </button>
+              </div>
             )
           })}
         </div>
+      )}
+      {invalid && errorMessage && (
+        <p id={errorId} role="alert" className="mt-1.5 text-xs font-medium text-red-400">
+          {errorMessage}
+        </p>
       )}
     </div>
   )
@@ -174,9 +286,23 @@ export default function ContactPage() {
   const [showSuccess, setShowSuccess] = useState(false)
   const [formData, setFormData] = useState(initialFormData)
   const [openSelect, setOpenSelect] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({})
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+
+    // The native inputs enforce their own `required`, but the custom selects
+    // are not native form controls — validate them on the client so the user
+    // gets inline feedback instead of a round-trip rejection toast.
+    const nextErrors: Record<string, boolean> = {}
+    if (!formData.intent) nextErrors.intent = true
+    if (!formData.role) nextErrors.role = true
+    if (Object.keys(nextErrors).length > 0) {
+      setFieldErrors(nextErrors)
+      toast.error('Please select your role before sending.')
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -206,10 +332,17 @@ export default function ContactPage() {
   }
 
   const inputClass =
-    'h-11 w-full rounded-lg border border-border-gray bg-[#0F0F12] px-3.5 text-sm text-text-primary placeholder:text-text-tertiary transition-colors hover:border-border-strong focus:border-accent focus:outline-none'
+    'h-11 w-full rounded-lg border border-border-gray bg-bg-deep px-3.5 text-sm text-text-primary placeholder:text-text-tertiary transition-colors hover:border-border-strong focus:border-accent focus:outline-none'
 
   const setFieldValue = (name: keyof typeof initialFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }))
+    // Clear a pending validation error once the field has a value.
+    setFieldErrors((prev) => {
+      if (!prev[name]) return prev
+      const next = { ...prev }
+      delete next[name]
+      return next
+    })
   }
 
   return (
@@ -258,7 +391,7 @@ export default function ContactPage() {
               >
                 <div className="mb-5 flex items-start justify-between gap-4">
                   <IconChip icon={item.icon} className="h-10 w-10" />
-                  <span className="rounded-md border border-border-gray bg-[#0F0F12] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
+                  <span className="rounded-md border border-border-gray bg-bg-deep px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
                     {item.meta}
                   </span>
                 </div>
@@ -281,7 +414,7 @@ export default function ContactPage() {
                 description="The form is structured around the details that actually change the next step: role, institution, LMS, timeline, and pilot size."
                 className="mb-8"
               />
-              <div className="overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12]">
+              <div className="overflow-hidden rounded-lg border border-border-gray bg-bg-deep">
                 {[
                   {
                     title: 'We read the context',
@@ -355,6 +488,8 @@ export default function ContactPage() {
                     options={intentOptions}
                     placeholder="Choose a request type"
                     required
+                    invalid={fieldErrors.intent}
+                    errorMessage="Please choose a request type."
                     open={openSelect === 'intent'}
                     onOpenChange={(open) => setOpenSelect(open ? 'intent' : null)}
                     onValueChange={(value) => setFieldValue('intent', value)}
@@ -429,6 +564,8 @@ export default function ContactPage() {
                         options={roleOptions}
                         placeholder="Select your role"
                         required
+                        invalid={fieldErrors.role}
+                        errorMessage="Please select your role."
                         open={openSelect === 'role'}
                         onOpenChange={(open) => setOpenSelect(open ? 'role' : null)}
                         onValueChange={(value) => setFieldValue('role', value)}
@@ -532,7 +669,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="w-full resize-none rounded-lg border border-border-gray bg-[#0F0F12] px-3.5 py-3 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none"
+                      className="w-full resize-none rounded-lg border border-border-gray bg-bg-deep px-3.5 py-3 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none"
                       placeholder="Tell us about the course, rollout, privacy question, or demo scenario you want to explore."
                     />
                   </div>
@@ -589,7 +726,6 @@ export default function ContactPage() {
         </Container>
       </Section>
 
-      <Footer />
     </PageShell>
   )
 }

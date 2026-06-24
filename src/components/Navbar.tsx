@@ -22,7 +22,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#27272A]/80 bg-[#0F0F12]/78 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0F0F12]/68">
+    <header className="sticky top-0 z-40 border-b border-[#27272A]/80 bg-bg-deep/78 backdrop-blur-xl supports-[backdrop-filter]:bg-bg-deep/68">
       <nav
         aria-label="Primary"
         className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-6"
@@ -86,7 +86,7 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-[#27272A] bg-[#0F0F12]/95 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-[#27272A] bg-bg-deep/95 backdrop-blur-xl lg:hidden">
           <ul className="space-y-1 px-6 py-4">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>

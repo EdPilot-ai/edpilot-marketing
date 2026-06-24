@@ -20,6 +20,10 @@ module.exports = {
         'bg-page': '#141416',
         'bg-surface': '#18181B',
         'bg-elevated': '#222228',
+        // Deepest surface — recessed panels, rails, and inset wells. Sits below
+        // bg-page. Previously hardcoded as the `[#0F0F12]` arbitrary value in
+        // 40+ places; promoted to a token to match the rest of the scale.
+        'bg-deep': '#0F0F12',
         'border-gray': '#27272A',
         'border-strong': '#3d3d45',
         'text-primary': '#EDEDEF',
@@ -71,7 +75,9 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        sans: ['var(--font-sans)', 'Plus Jakarta Sans', ...fontFamily.sans],
+        // Inner fallback (ui-sans-serif) guards against an undefined --font-sans
+        // making the whole declaration invalid before next/font hydrates.
+        sans: ['var(--font-sans, ui-sans-serif)', 'Plus Jakarta Sans', ...fontFamily.sans],
       },
       keyframes: {
         'accordion-down': {

@@ -10,7 +10,6 @@ import {
   Shield,
   Users,
 } from 'lucide-react'
-import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import {
   CTABand,
@@ -190,7 +189,7 @@ export default function FAQPage() {
                 key={category.id}
                 type="button"
                 onClick={() => scrollToCategory(category.id)}
-                className="group rounded-lg border border-border-gray bg-[#0F0F12] p-4 text-center transition duration-200 hover:border-border-strong hover:bg-[#1d1d22]"
+                className="group rounded-lg border border-border-gray bg-bg-deep p-4 text-center transition duration-200 hover:border-border-strong hover:bg-[#1d1d22]"
               >
                 <IconChip icon={category.icon} className="mx-auto mb-3 h-9 w-9" />
                 <span className="text-xs font-semibold leading-5 text-text-secondary transition-colors group-hover:text-text-primary">
@@ -279,7 +278,6 @@ export default function FAQPage() {
         ]}
       />
 
-      <Footer />
     </PageShell>
   )
 }

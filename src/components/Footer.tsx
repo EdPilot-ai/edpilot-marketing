@@ -7,7 +7,7 @@ import { SIGN_UP_URL, SUPPORT_EMAIL } from "@/lib/marketing";
 
 export default function Footer() {
   return (
-    <footer aria-label="Site footer" className="border-t border-[#27272A] bg-[#0F0F12]">
+    <footer aria-label="Site footer" className="border-t border-[#27272A] bg-bg-deep">
       <div className="container mx-auto max-w-6xl px-6 py-14">
         <div className="grid gap-10 md:grid-cols-12">
           {/* Brand */}

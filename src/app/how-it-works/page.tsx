@@ -14,7 +14,6 @@ import {
   UserCheck,
 } from 'lucide-react'
 import { BreadcrumbSchema } from '@/components/StructuredData'
-import Footer from '@/components/Footer'
 import {
   InteractiveLaunchpad,
   RoleExplorer,
@@ -168,7 +167,7 @@ export default function HowItWorksPage() {
                   {heroStats.map((stat) => (
                     <div
                       key={stat.label}
-                      className="group bg-[#0F0F12] p-4 transition-colors hover:bg-bg-surface"
+                      className="group bg-bg-deep p-4 transition-colors hover:bg-bg-surface"
                     >
                       <div className="flex items-start gap-4">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
@@ -239,7 +238,7 @@ export default function HowItWorksPage() {
 
       <Section className="py-20 md:py-28">
         <Container size="wide">
-          <div className="overflow-hidden rounded-lg border border-border-gray bg-[#0F0F12] shadow-[0_28px_90px_rgba(0,0,0,0.26)]">
+          <div className="overflow-hidden rounded-lg border border-border-gray bg-bg-deep shadow-[0_28px_90px_rgba(0,0,0,0.26)]">
             <div className="grid gap-px bg-border-gray lg:grid-cols-[0.88fr_1.12fr]">
               <div className="bg-[linear-gradient(145deg,rgba(139,92,246,0.16),rgba(24,24,27,0.98)_42%,rgba(15,15,18,1))] p-7 md:p-9">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
@@ -282,7 +281,7 @@ export default function HowItWorksPage() {
             </div>
             <div className="grid gap-px bg-border-gray md:grid-cols-3">
               {safetyPolicies.map((item) => (
-                <div key={item.title} className="bg-[#0F0F12] p-5 md:p-6">
+                <div key={item.title} className="bg-bg-deep p-5 md:p-6">
                   <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg border border-border-gray bg-bg-surface text-accent">
                     <item.icon className="h-4 w-4" aria-hidden="true" />
                   </div>
@@ -304,7 +303,6 @@ export default function HowItWorksPage() {
         ]}
       />
 
-      <Footer />
     </PageShell>
   )
 }

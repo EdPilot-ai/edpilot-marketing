@@ -22,7 +22,6 @@ import {
   Users,
   Video,
 } from 'lucide-react'
-import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import {
   CTABand,
@@ -101,7 +100,7 @@ const products = [
 const statusClasses = {
   Live: 'border-emerald-400/30 bg-emerald-400/10 text-emerald-200',
   Beta: 'border-sky-400/30 bg-sky-400/10 text-sky-200',
-  Planned: 'border-border-gray bg-[#0F0F12] text-text-tertiary',
+  Planned: 'border-border-gray bg-bg-deep text-text-tertiary',
 }
 
 const courseModelInputs = [
@@ -229,7 +228,7 @@ export default function CurriculumIntelligencePage() {
                 return (
                   <div
                     key={product.id}
-                    className="rounded-lg border border-border-gray bg-[#0F0F12] p-4 transition duration-200 hover:border-accent/25"
+                    className="rounded-lg border border-border-gray bg-bg-deep p-4 transition duration-200 hover:border-accent/25"
                   >
                     <div className="flex items-start gap-3">
                       <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-accent">
@@ -357,7 +356,6 @@ export default function CurriculumIntelligencePage() {
         ]}
       />
 
-      <Footer />
     </PageShell>
   )
 }

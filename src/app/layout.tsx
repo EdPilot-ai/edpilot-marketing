@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { MotionProvider } from "@/components/MotionProvider";
 import { OrganizationSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import "./globals.css";
+
+// Self-hosted via next/font so the design's intended typeface actually loads
+// (globals.css referenced "Inter" in --font-sans but nothing ever loaded it,
+// so the site silently fell back to system fonts). `variable` feeds the same
+// --font-sans token the Tailwind `font-sans` utility already consumes.
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
 const SITE_URL = process.env.NEXT_PUBLIC_MARKETING_URL ?? "https://edpilot.ai";
 const SITE_NAME = "EdPilot";
@@ -54,12 +67,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only z-[100] rounded-lg border border-border-gray bg-bg-surface px-4 py-2 text-sm font-medium text-text-primary focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
+        >
+          Skip to content
+        </a>
         <OrganizationSchema />
         <SoftwareApplicationSchema />
         <Navbar />
-        {children}
+        <main id="main-content" tabIndex={-1} className="outline-none">
+          <MotionProvider>{children}</MotionProvider>
+        </main>
+        <Footer />
         <Toaster position="bottom-right" />
         <Analytics />
         <SpeedInsights />
