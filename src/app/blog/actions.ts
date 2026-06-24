@@ -4,12 +4,20 @@ import { saveNewsletterSubscriber } from '@/lib/newsletter'
 
 interface NewsletterSubscriptionData {
   email: string
+  // Honeypot: a hidden field real users never fill. Bots that auto-complete
+  // every input will populate it, letting us drop the request.
+  company?: string
 }
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export async function subscribeToNewsletter(data: NewsletterSubscriptionData) {
   try {
+    // Honeypot tripped — pretend success so bots don't learn they were caught.
+    if (data.company && data.company.trim() !== '') {
+      return { success: true }
+    }
+
     const email = data.email?.trim().toLowerCase() ?? ''
 
     if (!email) {
