@@ -41,6 +41,7 @@ const initialFormData = {
   timeline: '',
   courseCount: '',
   message: '',
+  company: '', // honeypot — stays empty for humans
 }
 
 const intentOptions = [
@@ -481,6 +482,22 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {/* Honeypot — hidden from users + assistive tech; bots fill it. */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden"
+                  >
+                    <label htmlFor="contact-company">Company (leave blank)</label>
+                    <input
+                      id="contact-company"
+                      type="text"
+                      name="company"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.company}
+                      onChange={(event) => setFieldValue('company', event.target.value)}
+                    />
+                  </div>
                   <CustomSelect
                     id="contact-intent"
                     label="What do you want to do?"

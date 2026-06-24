@@ -15,6 +15,9 @@ interface ContactFormData {
   timeline?: string;
   courseCount?: string;
   message: string;
+  // Honeypot: hidden field real users never fill. Bots that auto-complete
+  // every input populate it, letting us drop the submission.
+  company?: string;
 }
 
 const MAX_MESSAGE_LENGTH = 5000;
@@ -22,6 +25,11 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function sendContactMessage(data: ContactFormData) {
   try {
+    // Honeypot tripped — pretend success so bots don't learn they were caught.
+    if (data.company && data.company.trim() !== "") {
+      return { success: true, message: "Message sent successfully" };
+    }
+
     // Trim all fields so whitespace-only strings are treated as empty
     const firstName = data.firstName?.trim() ?? "";
     const lastName = data.lastName?.trim() ?? "";

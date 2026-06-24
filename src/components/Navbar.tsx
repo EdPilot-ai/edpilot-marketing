@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { BrandMark } from "@/components/BrandMark";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,16 @@ const NAV_LINKS = [
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  // Close the mobile menu on Escape — standard disclosure keyboard behavior.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#27272A]/80 bg-bg-deep/78 backdrop-blur-xl supports-[backdrop-filter]:bg-bg-deep/68">

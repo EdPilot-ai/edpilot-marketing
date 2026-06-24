@@ -53,6 +53,7 @@ function ArticleCard({ post }: { post: BlogPost }) {
 export default function BlogPage() {
   const [query, setQuery] = useState("");
   const [email, setEmail] = useState("");
+  const [company, setCompany] = useState(""); // honeypot — stays empty for humans
   const [subscribed, setSubscribed] = useState(false);
   const [isSubscribing, setIsSubscribing] = useState(false);
   const featuredPost = getFeaturedPost();
@@ -76,7 +77,7 @@ export default function BlogPage() {
     if (!email.trim()) return;
 
     setIsSubscribing(true);
-    const result = await subscribeToNewsletter({ email });
+    const result = await subscribeToNewsletter({ email, company });
     setIsSubscribing(false);
 
     if (result.success) {
@@ -256,6 +257,19 @@ export default function BlogPage() {
                 <label htmlFor="newsletter-email" className="sr-only">
                   Email address
                 </label>
+                {/* Honeypot — hidden from users + assistive tech; bots fill it. */}
+                <div aria-hidden="true" className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
+                  <label htmlFor="newsletter-company">Company (leave blank)</label>
+                  <input
+                    id="newsletter-company"
+                    type="text"
+                    name="company"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={company}
+                    onChange={(event) => setCompany(event.target.value)}
+                  />
+                </div>
                 <input
                   id="newsletter-email"
                   type="email"
