@@ -61,6 +61,22 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/for-universities"
+                  className="rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                >
+                  For Universities
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pricing"
+                  className="rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                >
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/how-it-works"
                   className="rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
@@ -111,6 +127,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {[
                 { href: "/about", label: "About" },
+                { href: "/security", label: "Security & Trust" },
                 { href: "/contact", label: "Contact" },
                 { href: "/blog", label: "Blog" },
                 { href: "/faq", label: "FAQ" },

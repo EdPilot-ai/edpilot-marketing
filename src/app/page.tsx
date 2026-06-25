@@ -28,9 +28,11 @@ import {
   RoleValueGrid,
   Section,
   SectionHeader,
+  StatBand,
   WorkflowSteps,
 } from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
+import { productFacts } from '@/lib/social-proof'
 
 export default function HomePage() {
   return (
@@ -46,6 +48,25 @@ export default function HomePage() {
       >
         <CourseAssistantMockup className="mt-14" />
       </Hero>
+
+      <Section className="py-16 md:py-20" surface="panel">
+        <Container size="wide">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+              The exposure you already have
+            </p>
+            <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary md:text-4xl">
+              Your students are already using AI on your courses.
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-text-secondary md:text-lg">
+              Right now you can&apos;t see it, shape it, or stand behind it. EdPilot turns campus AI
+              into something faculty govern and administrators can answer for &mdash; not something
+              that happens to you.
+            </p>
+          </div>
+          <StatBand items={productFacts} className="mt-10" />
+        </Container>
+      </Section>
 
       <Section className="py-12" surface="deep">
         <Container>
@@ -68,8 +89,8 @@ export default function HomePage() {
       <Section className="py-16" surface="panel">
         <Container size="narrow" className="text-center">
           <p className="text-xl font-medium leading-9 tracking-[-0.015em] text-text-primary md:text-2xl">
-            Students are already using AI to study. EdPilot gives them one that knows the
-            course, respects faculty rules, and shows its work.
+            EdPilot gives students a tutor that knows the course, follows faculty rules, and shows
+            its work &mdash; and gives your institution a way to adopt AI on purpose, not by accident.
           </p>
         </Container>
       </Section>
