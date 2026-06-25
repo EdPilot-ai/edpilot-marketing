@@ -182,14 +182,11 @@ export default function ForUniversitiesPage() {
           />
           <ProofPanel items={signoff} />
           <p className="mt-6 text-center text-sm text-text-secondary">
-            Reviewing for a security or procurement team?{' '}
-            <Link
-              href="/security"
-              className="font-semibold text-accent hover:text-[#A78BFA] focus-ring"
-            >
-              See our Security &amp; Trust overview
-            </Link>
-            .
+            Have a security or procurement review coming up?{' '}
+            <Link href="/contact" className="font-semibold text-accent hover:text-[#A78BFA] focus-ring">
+              Talk to our team
+            </Link>{' '}
+            and we&apos;ll walk through our data handling and controls.
           </p>
         </Container>
       </Section>
