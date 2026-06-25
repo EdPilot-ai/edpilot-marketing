@@ -10,9 +10,10 @@ import { SIGN_IN_URL, SIGN_UP_URL } from "@/lib/marketing";
 
 const NAV_LINKS = [
   { href: "/products", label: "Products" },
+  { href: "/for-universities", label: "For Universities" },
   { href: "/how-it-works", label: "How It Works" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/compare", label: "Compare" },
-  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

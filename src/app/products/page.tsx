@@ -2,19 +2,31 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import {
   ArrowRight,
+  BarChart3,
+  Brain,
   Briefcase,
   Building2,
   CheckCircle2,
+  ClipboardCheck,
   Cpu,
+  FileEdit,
   GraduationCap,
   Layers3,
   MonitorPlay,
   Route,
   Sparkles,
   Users,
+  Video,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Container, Hero, PageShell, Section, SectionHeader } from '@/components/marketing'
+import {
+  Container,
+  Hero,
+  PageShell,
+  Section,
+  SectionHeader,
+  StatusPill,
+} from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
@@ -64,19 +76,71 @@ const comingSoonSuites = [
   },
 ]
 
+const curriculumTools: Array<{
+  title: string
+  blurb: string
+  icon: typeof Brain
+  status: 'live' | 'beta' | 'planned'
+  statusLabel: string
+}> = [
+  {
+    title: 'AI Teaching Assistant',
+    blurb: 'Answers student questions from your materials, with citations and integrity guardrails.',
+    icon: Brain,
+    status: 'live',
+    statusLabel: 'Live',
+  },
+  {
+    title: 'Content Generation',
+    blurb: 'Draft quizzes, study guides, and rubrics from the same course materials.',
+    icon: FileEdit,
+    status: 'beta',
+    statusLabel: 'Beta',
+  },
+  {
+    title: 'Student Performance Insights',
+    blurb: 'See which learning objectives aren’t landing — before the exam confirms it.',
+    icon: BarChart3,
+    status: 'beta',
+    statusLabel: 'Beta',
+  },
+  {
+    title: 'Multimedia Generation',
+    blurb: 'Turn lecture notes into slide outlines and visual explainers for review.',
+    icon: Video,
+    status: 'planned',
+    statusLabel: 'Planned',
+  },
+  {
+    title: 'AI Grader',
+    blurb: 'Grade against your rubric every time, with faculty review before release.',
+    icon: ClipboardCheck,
+    status: 'planned',
+    statusLabel: 'Planned',
+  },
+]
+
 export default function ProductsPage() {
   return (
     <PageShell>
       <Hero
         eyebrow="Products"
-        title="AI product suites for"
-        accent="higher education."
-        description="One suite is live today. The rest are being shaped around the same principle: institutional AI should be governed, grounded, and useful."
+        title="One course model."
+        accent="A whole suite of tools."
+        description="EdPilot’s Curriculum Intelligence suite is live today — five tools that all run from the same course model, so faculty set things up once and everything stays in sync."
+        actions={[
+          { label: 'Explore Curriculum Intelligence', href: '/products/curriculum-intelligence' },
+          { label: 'See Pricing', href: '/pricing', variant: 'secondary' },
+        ]}
       />
 
       <Section className="py-20 md:py-28" surface="panel">
-        <Container>
-          <SectionHeader eyebrow="Available Now" title="Start with Curriculum Intelligence." />
+        <Container size="wide">
+          <SectionHeader
+            eyebrow="Available now"
+            title="The Curriculum Intelligence suite."
+            description="Not a single feature — a connected set of tools for the whole course, governed by the instructor and grounded in real materials."
+          />
           <Link href="/products/curriculum-intelligence" className="group block">
             <div className="rounded-lg border border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.14),rgba(15,15,18,1)_45%,rgba(24,24,27,1))] p-6 transition duration-200 hover:border-accent/55 md:p-8">
               <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -101,48 +165,68 @@ export default function ProductsPage() {
               </div>
             </div>
           </Link>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {curriculumTools.map((tool) => {
+              const Icon = tool.icon
+              return (
+                <div
+                  key={tool.title}
+                  className="flex h-full flex-col rounded-lg border border-border-gray bg-bg-surface p-5 transition-colors hover:border-border-strong"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    </div>
+                    <StatusPill tone={tool.status}>{tool.statusLabel}</StatusPill>
+                  </div>
+                  <h4 className="mt-4 text-sm font-semibold text-text-primary">{tool.title}</h4>
+                  <p className="mt-1.5 text-[13px] leading-6 text-text-secondary">{tool.blurb}</p>
+                </div>
+              )
+            })}
+            <div className="flex h-full flex-col justify-center rounded-lg border border-dashed border-border-gray bg-bg-deep p-5">
+              <p className="text-[13px] leading-6 text-text-secondary">
+                All five tools share one course model — set it up once, and the tutor, grader,
+                content, and analytics stay in sync.
+              </p>
+              <Link
+                href="/products/curriculum-intelligence"
+                className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-[#A78BFA] focus-ring"
+              >
+                See how the suite works
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-20">
         <Container size="wide">
           <SectionHeader
-            eyebrow="Roadmap"
-            title="A quieter view of what comes next."
-            description="Future suites are framed as a roadmap, not equal products, so buyers can understand the platform direction without losing sight of the live suite."
+            eyebrow="The wider platform, over time"
+            title="Where EdPilot is headed."
+            description="A few directions we’re exploring beyond the live suite. These are a roadmap, not products you can buy today — included for transparency, not as equal offerings."
+            className="mb-8"
           />
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-6">
-            {comingSoonSuites.map((suite, index) => {
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {comingSoonSuites.map((suite) => {
               const Icon = suite.icon
-
               return (
                 <div
                   key={suite.id}
-                  className="group relative overflow-hidden rounded-lg border border-border-gray bg-[linear-gradient(180deg,rgba(34,34,40,0.74),rgba(15,15,18,0.92))] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.22)] transition duration-200 hover:-translate-y-1 hover:border-accent/35 hover:shadow-[0_26px_80px_rgba(0,0,0,0.32)] md:p-6 lg:col-span-2 [&:nth-child(4)]:lg:col-start-2"
+                  className="flex items-center gap-3 rounded-lg border border-border-gray bg-bg-deep px-4 py-3"
                 >
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 transition group-hover:opacity-100" />
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-accent ring-1 ring-accent/10">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </div>
-                    <span className="rounded-md border border-border-gray bg-bg-page px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
-                      Planned
-                    </span>
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border-gray bg-bg-surface text-text-tertiary">
+                    <Icon className="h-4 w-4" aria-hidden="true" />
                   </div>
-                  <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent/80">
-                    {suite.signal}
-                  </p>
-                  <h3 className="mt-2 text-base font-semibold tracking-[-0.01em] text-text-primary">
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium text-text-secondary">
                     {suite.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-text-secondary">{suite.description}</p>
-                  <div className="mt-6 flex items-center gap-2 border-t border-border-gray pt-4 text-xs text-text-tertiary">
-                    <span className="font-mono text-[11px] text-text-tertiary">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="h-px flex-1 bg-border-gray" />
-                    <span>Roadmap suite</span>
-                  </div>
+                  </span>
+                  <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
+                    Planned
+                  </span>
                 </div>
               )
             })}
