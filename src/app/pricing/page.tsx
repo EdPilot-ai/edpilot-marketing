@@ -36,20 +36,6 @@ type Tier = {
 
 const tiers: Tier[] = [
   {
-    name: 'Students',
-    price: 'Free',
-    audience: 'For students in an EdPilot course',
-    description:
-      'Course-grounded help with citations — available to every student whose professor runs EdPilot.',
-    features: [
-      'Ask questions grounded in the actual course',
-      'See the sources behind every answer',
-      'Practice prompts and hints, never finished work',
-      'No cost, ever, for students',
-    ],
-    cta: { label: 'Join Your Class', href: SIGN_UP_URL },
-  },
-  {
     name: 'Professor Pilot',
     price: 'Free',
     audience: 'For individual faculty',
@@ -59,7 +45,7 @@ const tiers: Tier[] = [
       'Upload your syllabus, slides, and readings',
       'Set integrity rules and the knowledge boundary',
       'Student question & confusion analytics',
-      'Connect Canvas or upload directly',
+      'Direct upload today; Canvas/LMS workflow support in progress',
     ],
     cta: { label: 'Start a Free Pilot', href: SIGN_UP_URL },
     featured: true,
@@ -78,6 +64,20 @@ const tiers: Tier[] = [
       'Security, accessibility & procurement support',
     ],
     cta: { label: 'Talk to Our Team', href: '/contact' },
+  },
+  {
+    name: 'Students',
+    price: 'Free',
+    audience: 'For students in an EdPilot course',
+    description:
+      'Course-grounded help with citations — available to every student whose professor runs EdPilot.',
+    features: [
+      'Ask questions grounded in the actual course',
+      'See the sources behind every answer',
+      'Practice prompts and hints, never finished work',
+      'No cost, ever, for students',
+    ],
+    cta: { label: 'Join Your Class', href: SIGN_UP_URL },
   },
 ]
 

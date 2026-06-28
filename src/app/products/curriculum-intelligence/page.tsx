@@ -117,10 +117,10 @@ export default function CurriculumIntelligencePage() {
   return (
     <PageShell>
       <Hero
-        eyebrow="Product Suite"
-        title="Curriculum Intelligence"
-        accent="Suite."
-        description="Five tools that run from the same course model. Upload materials once; the tutor, grader, content generator, and analytics all reflect what you actually teach."
+        eyebrow="Curriculum Intelligence"
+        title="The AI Teaching Assistant is live now."
+        accent="The suite grows from there."
+        description="Upload materials once and start with course-grounded student support today. Content generation and insights are beta; multimedia and grading workflows are planned from the same course model."
         actions={[
           { label: 'Get Started Free', href: SIGN_UP_URL },
           { label: 'Contact Sales', href: '/contact', variant: 'secondary' },
@@ -144,18 +144,18 @@ export default function CurriculumIntelligencePage() {
             items={[
               {
                 icon: Target,
-                label: 'Course-aware',
-                detail: 'Trained on your syllabus, readings, assignments, and rubrics.',
+                label: 'Live now',
+                detail: 'AI Teaching Assistant for student chat, citations, hints, and guardrails.',
               },
               {
                 icon: Shield,
-                label: 'Grounded answers',
-                detail: 'If it is not in the course materials, the system says so.',
+                label: 'Beta',
+                detail: 'Content generation and student performance insights are being refined.',
               },
               {
                 icon: BookOpen,
-                label: 'Built for higher ed',
-                detail: 'Designed around learning objectives, rubrics, and faculty governance.',
+                label: 'Planned',
+                detail: 'Multimedia generation and AI grading are roadmap workflows, not live parity.',
               },
             ]}
           />
@@ -263,6 +263,7 @@ export default function CurriculumIntelligencePage() {
 
               return (
                 <div
+                  id={product.id}
                   key={product.id}
                   className="surface-gradient-panel group overflow-hidden rounded-lg border border-border-gray p-5 transition duration-200 hover:-translate-y-px hover:border-accent/25 hover:shadow-lg md:p-6"
                 >

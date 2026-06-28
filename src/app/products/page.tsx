@@ -129,7 +129,7 @@ export default function ProductsPage() {
         eyebrow="Products"
         title="One course model."
         accent="A whole suite of tools."
-        description="EdPilot’s Curriculum Intelligence suite is live today — five tools that all run from the same course model, so faculty set things up once and everything stays in sync."
+        description="EdPilot’s live AI Teaching Assistant runs from a shared course model today. Content generation and insights are in beta, with multimedia and grading workflows planned from the same foundation."
         actions={[
           { label: 'Explore Curriculum Intelligence', href: '/products/curriculum-intelligence' },
           { label: 'See Pricing', href: '/pricing', variant: 'secondary' },
@@ -140,8 +140,8 @@ export default function ProductsPage() {
         <Container size="wide">
           <SectionHeader
             eyebrow="Available now"
-            title="The Curriculum Intelligence suite."
-            description="Not a single feature — a connected set of tools for the whole course, governed by the instructor and grounded in real materials."
+            title="Start with the live AI Teaching Assistant."
+            description="Curriculum Intelligence is the shared course model behind the product line: live student support today, beta faculty workflows next, and planned roadmap tools kept clearly labeled."
           />
           <Link href="/products/curriculum-intelligence" className="group block">
             <div className="surface-gradient-featured rounded-lg border border-accent/20 p-6 transition duration-200 hover:border-accent/35 md:p-8">
@@ -153,8 +153,9 @@ export default function ProductsPage() {
                       Curriculum Intelligence Suite
                     </h3>
                     <p className="mt-2 max-w-2xl text-sm leading-7 text-text-secondary">
-                      AI tutor, content generation, rubric-based grading, multimedia materials, and
-                      performance analytics, all powered by the same course model.
+                      The live AI Teaching Assistant is the anchor. Content generation and
+                      performance insights are beta; rubric grading and multimedia workflows remain
+                      planned.
                     </p>
                   </div>
                 </div>
@@ -185,8 +186,8 @@ export default function ProductsPage() {
             })}
             <div className="flex h-full flex-col justify-center rounded-lg border border-dashed border-border-gray bg-bg-deep p-5">
               <p className="text-[13px] leading-6 text-text-secondary">
-                All five tools share one course model — set it up once, and the tutor, grader,
-                content, and analytics stay in sync.
+                The tools share one course model as they become available — start with the live
+                assistant, then add beta and planned workflows without rebuilding the course setup.
               </p>
               <Link
                 href="/products/curriculum-intelligence"
@@ -288,7 +289,7 @@ export default function ProductsPage() {
         </Container>
       </Section>
 
-      <Section className="py-16 md:py-20">
+      <Section id="roadmap" className="py-16 md:py-20">
         <Container size="wide">
           <SectionHeader
             eyebrow="The wider platform, over time"
@@ -319,7 +320,7 @@ export default function ProductsPage() {
       </Section>
 
       <CTABand
-        title="Start with the live suite, then grow from there."
+        title="Start with the live assistant, then grow from there."
         description="Explore Curriculum Intelligence on real course materials, or talk with us about the institution path from pilot to rollout."
         actions={[
           { label: 'Explore Curriculum Intelligence', href: '/products/curriculum-intelligence' },

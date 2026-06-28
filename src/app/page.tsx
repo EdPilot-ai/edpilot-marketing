@@ -23,17 +23,24 @@ import {
   CourseAssistantMockup,
   FeatureCard,
   Hero,
-  MarketingCard,
   PageShell,
   ProofPanel,
   RoleValueGrid,
   Section,
   SectionHeader,
   StatBand,
+  ValueStrip,
   WorkflowSteps,
 } from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
 import { productFacts } from '@/lib/social-proof'
+
+const homeSignals = [
+  { label: 'Course-grounded', detail: 'Answers come from uploaded materials.' },
+  { label: 'Faculty-controlled', detail: 'Boundaries, tone, and policies stay instructor-led.' },
+  { label: 'Institution-ready', detail: 'Built for privacy, rollout, and procurement questions.' },
+  { label: 'Cites sources', detail: 'Students can see what course material supports an answer.' },
+]
 
 export default function HomePage() {
   return (
@@ -102,19 +109,18 @@ export default function HomePage() {
 
       <Section className="py-12" surface="deep">
         <Container>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ['Course-grounded', 'Answers come from uploaded materials.'],
-              ['Faculty-controlled', 'Boundaries, tone, and policies stay instructor-led.'],
-              ['Institution-ready', 'Built for privacy, rollout, and procurement questions.'],
-              ['Cites sources', 'Students can see what course material supports an answer.'],
-            ].map(([label, detail]) => (
-              <MarketingCard key={label} className="p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">{label}</p>
-                <p className="mt-2 text-xs leading-5 text-text-secondary">{detail}</p>
-              </MarketingCard>
-            ))}
-          </div>
+          <ValueStrip items={homeSignals} />
+          <p className="mx-auto mt-7 max-w-2xl text-center text-sm leading-7 text-text-secondary">
+            Planning an institutional rollout? Start with the{' '}
+            <Link href="/for-universities" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              university view
+            </Link>{' '}
+            and the{' '}
+            <Link href="/pricing" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              pricing path
+            </Link>
+            .
+          </p>
         </Container>
       </Section>
 

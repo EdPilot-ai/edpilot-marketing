@@ -14,8 +14,6 @@ const NAV_LINKS = [
   { href: "/how-it-works", label: "How It Works" },
   { href: "/pricing", label: "Pricing" },
   { href: "/compare", label: "Compare" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -74,7 +72,17 @@ export default function Navbar() {
           })}
         </ul>
 
-        <div className="hidden items-center justify-end gap-3 xl:flex">
+        <div className="hidden items-center justify-end gap-2 xl:flex">
+          <Link
+            href="/contact"
+            className={`inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium transition-colors focus-ring ${
+              pathname === "/contact"
+                ? "text-text-primary"
+                : "text-text-secondary hover:text-text-primary"
+            }`}
+          >
+            Contact
+          </Link>
           <a
             href={SIGN_IN_URL}
             className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary focus-ring"
@@ -105,17 +113,53 @@ export default function Navbar() {
       {open && (
         <div id={mobileMenuId} className="border-t border-border-gray bg-bg-deep/95 backdrop-blur-xl xl:hidden">
           <ul className="space-y-1 px-6 py-4">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-text-secondary hover:bg-bg-elevated hover:text-text-primary focus-ring"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const active =
+                pathname === link.href ||
+                (link.href !== "/" && pathname.startsWith(`${link.href}/`));
+
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className={`flex min-h-11 items-center rounded-lg px-3 text-sm font-medium transition-colors focus-ring ${
+                      active
+                        ? "bg-white/[0.07] text-text-primary"
+                        : "text-text-secondary hover:bg-bg-elevated hover:text-text-primary"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+            <li className="pt-2">
+              <Link
+                href="/blog"
+                onClick={() => setOpen(false)}
+                className={`flex min-h-11 items-center rounded-lg px-3 text-sm font-medium transition-colors focus-ring ${
+                  pathname === "/blog" || pathname.startsWith("/blog/")
+                    ? "bg-white/[0.07] text-text-primary"
+                    : "text-text-secondary hover:bg-bg-elevated hover:text-text-primary"
+                }`}
+              >
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className={`flex min-h-11 items-center rounded-lg px-3 text-sm font-medium transition-colors focus-ring ${
+                  pathname === "/contact"
+                    ? "bg-white/[0.07] text-text-primary"
+                    : "text-text-secondary hover:bg-bg-elevated hover:text-text-primary"
+                }`}
+              >
+                Contact
+              </Link>
+            </li>
             <li className="pt-2">
               <a
                 href={SIGN_IN_URL}

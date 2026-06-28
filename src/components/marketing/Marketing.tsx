@@ -330,6 +330,27 @@ export function MarketingCard({
   )
 }
 
+export function ValueStrip({
+  items,
+  className,
+}: {
+  items: Array<{ label: string; detail: ReactNode }>
+  className?: string
+}) {
+  return (
+    <div className={cn('grid gap-3 sm:grid-cols-2 lg:grid-cols-4', className)}>
+      {items.map((item) => (
+        <MarketingCard key={item.label} className="p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+            {item.label}
+          </p>
+          <p className="mt-2 text-xs leading-5 text-text-secondary">{item.detail}</p>
+        </MarketingCard>
+      ))}
+    </div>
+  )
+}
+
 export function FeatureCard({
   icon,
   title,
@@ -766,6 +787,12 @@ export function ComparisonDetail({
   sections: Array<{ title: string; body: ReactNode }>
   scenarios?: Array<{ setup: string; oldWay: string; edpilot: string }>
 }) {
+  const relatedLinks = [
+    { href: '/for-universities', label: 'For Universities', detail: 'See the governance story.' },
+    { href: '/products', label: 'Products', detail: 'Review what is live and planned.' },
+    { href: '/pricing', label: 'Pricing', detail: 'Understand the pilot-to-rollout path.' },
+  ]
+
   return (
     <PageShell>
       <Hero
@@ -782,6 +809,17 @@ export function ComparisonDetail({
           <BackLink href="/compare">Back to comparisons</BackLink>
         </div>
       </Hero>
+
+      <Section className="py-16" surface="panel">
+        <Container>
+          <ComparisonGrid
+            leftTitle={competitorName}
+            rightTitle="EdPilot"
+            leftItems={competitorItems}
+            rightItems={edpilotItems}
+          />
+        </Container>
+      </Section>
 
       {scenarios && scenarios.length > 0 && (
         <Section className="py-16">
@@ -817,17 +855,6 @@ export function ComparisonDetail({
         </Section>
       )}
 
-      <Section className="py-16" surface="panel">
-        <Container>
-          <ComparisonGrid
-            leftTitle={competitorName}
-            rightTitle="EdPilot"
-            leftItems={competitorItems}
-            rightItems={edpilotItems}
-          />
-        </Container>
-      </Section>
-
       <Section className="py-20 md:py-28">
         <Container size="narrow">
           <div className="space-y-5">
@@ -841,6 +868,26 @@ export function ComparisonDetail({
                 </h2>
                 <div className="mt-3 text-sm leading-7 text-text-secondary">{section.body}</div>
               </MarketingCard>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {relatedLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="group rounded-lg border border-border-gray bg-bg-surface p-4 transition duration-200 hover:-translate-y-px hover:border-border-strong hover:bg-bg-elevated focus-ring"
+              >
+                <span className="flex items-center justify-between gap-3 text-sm font-semibold text-text-primary">
+                  {link.label}
+                  <ArrowRight
+                    className="h-4 w-4 text-accent transition-transform group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </span>
+                <span className="mt-2 block text-[13px] leading-5 text-text-secondary">
+                  {link.detail}
+                </span>
+              </Link>
             ))}
           </div>
         </Container>

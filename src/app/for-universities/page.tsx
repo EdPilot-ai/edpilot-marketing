@@ -19,6 +19,8 @@ import {
   Container,
   FeatureCard,
   Hero,
+  IconChip,
+  MarketingCard,
   PageShell,
   ProofPanel,
   Section,
@@ -76,6 +78,32 @@ const shifts = [
     description:
       'Course-grounded, cited answers replace ungoverned chatbots. Campus AI becomes something you chose and can stand behind.',
   },
+]
+
+const governanceVisualItems = [
+  {
+    icon: ShieldCheck,
+    label: 'Course guardrails',
+    detail: 'Faculty rules, citation expectations, and assessment boundaries stay visible.',
+  },
+  {
+    icon: FileCheck2,
+    label: 'Review posture',
+    detail: 'Data handling, retention, accessibility, and LMS status are ready for signoff.',
+  },
+  {
+    icon: Eye,
+    label: 'Adoption visibility',
+    detail: 'Leaders can see where pilots are active and what support questions are emerging.',
+  },
+]
+
+const rolloutChecklist = [
+  'Verify institutional domain',
+  'Invite professor-led pilots',
+  'Upload course materials directly',
+  'Review privacy and procurement notes',
+  'Scope department rollout when ready',
 ]
 
 const signoff = [
@@ -177,6 +205,74 @@ export default function ForUniversitiesPage() {
             </Link>
             .
           </p>
+        </Container>
+      </Section>
+
+      <Section className="py-20 md:py-28">
+        <Container size="wide">
+          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+            <SectionHeader
+              align="left"
+              eyebrow="Admin governance view"
+              title="A rollout picture leaders can actually use."
+              description="The university view should make the control model tangible: faculty own the course, administrators see the rollout posture, and procurement questions do not wait until the end."
+              className="mb-0"
+            />
+
+            <div className="surface-gradient-featured overflow-hidden rounded-lg border border-accent/20 shadow-2xl">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-gray bg-bg-surface/80 px-5 py-4">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                    Governance workspace
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-text-primary">
+                    Pilot controls, rollout notes, and signoff posture in one place.
+                  </p>
+                </div>
+                <span className="rounded-md border border-border-gray bg-bg-deep px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-secondary">
+                  Pilot-ready
+                </span>
+              </div>
+
+              <div className="grid gap-0 md:grid-cols-[1fr_0.9fr]">
+                <div className="space-y-3 p-5 md:p-6">
+                  {governanceVisualItems.map((item) => (
+                    <MarketingCard key={item.label} surface="deep" className="p-4">
+                      <div className="flex items-start gap-3">
+                        <IconChip icon={item.icon} className="h-9 w-9" />
+                        <div>
+                          <h3 className="text-sm font-semibold text-text-primary">
+                            {item.label}
+                          </h3>
+                          <p className="mt-1 text-[13px] leading-6 text-text-secondary">
+                            {item.detail}
+                          </p>
+                        </div>
+                      </div>
+                    </MarketingCard>
+                  ))}
+                </div>
+
+                <div className="border-t border-border-gray bg-bg-deep/70 p-5 md:border-l md:border-t-0 md:p-6">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-tertiary">
+                    Rollout checklist
+                  </p>
+                  <ul className="mt-4 space-y-3">
+                    {rolloutChecklist.map((item, index) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border-gray bg-bg-surface text-[11px] font-bold text-accent">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="pt-1 text-[13px] leading-6 text-text-secondary">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </Container>
       </Section>
 

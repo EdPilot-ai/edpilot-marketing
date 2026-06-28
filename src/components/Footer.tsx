@@ -6,13 +6,67 @@ import { BrandMark } from "@/components/BrandMark";
 import { Container } from "@/components/marketing";
 import { SIGN_UP_URL, SUPPORT_EMAIL } from "@/lib/marketing";
 
+const FOOTER_SECTIONS = [
+  {
+    title: "For Universities",
+    links: [
+      { href: "/for-universities", label: "Governed AI" },
+      { href: "/how-it-works", label: "How It Works" },
+      { href: "/pricing", label: "Pricing" },
+      { href: "/contact", label: "Contact" },
+    ],
+  },
+  {
+    title: "Products",
+    links: [
+      { href: "/products", label: "Product Suite" },
+      { href: "/products/curriculum-intelligence", label: "Curriculum Intelligence" },
+      {
+        href: "/products/curriculum-intelligence#ai-teaching-assistant",
+        label: "AI Teaching Assistant",
+      },
+      { href: "/products#roadmap", label: "Roadmap" },
+    ],
+  },
+  {
+    title: "Compare",
+    links: [
+      { href: "/compare/chatgpt", label: "ChatGPT" },
+      { href: "/compare/tutoring-platforms", label: "Tutoring Platforms" },
+      { href: "/compare/lms-native", label: "LMS-Native AI" },
+      { href: "/compare/custom-solutions", label: "Custom Solutions" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { href: "/blog", label: "Blog" },
+      { href: "/faq", label: "FAQ" },
+      { href: "/resources/positioning-language", label: "Positioning Language" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { href: "/about", label: "About" },
+      { href: "/contact", label: "Contact" },
+    ],
+  },
+]
+
+const legalLinks = [
+  { href: "/privacy-policy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+  { href: "/accessibility", label: "Accessibility" },
+]
+
 export default function Footer() {
   return (
     <footer aria-label="Site footer" className="border-t border-border-gray bg-bg-deep">
       <Container size="wide" className="py-14">
         <div className="grid gap-10 md:grid-cols-12">
           {/* Brand */}
-          <div className="md:col-span-4">
+          <div className="md:col-span-3">
             <Link
               href="/"
               className="group mb-4 inline-flex items-center gap-2.5 rounded-lg focus-ring"
@@ -30,6 +84,13 @@ export default function Footer() {
               trust.
             </p>
             <a
+              href={`mailto:${SUPPORT_EMAIL}`}
+              className="mt-4 flex min-h-11 items-center gap-2 rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+            >
+              <Mail className="w-3 h-3 flex-shrink-0" aria-hidden="true" />
+              {SUPPORT_EMAIL}
+            </a>
+            <a
               href={SIGN_UP_URL}
               className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-md text-xs font-semibold text-accent transition-colors hover:text-accent-soft focus-ring"
             >
@@ -38,129 +99,25 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* Product */}
-          <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
-              Product
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/for-universities"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
-                >
-                  For Universities
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
-                >
-                  Products
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products/curriculum-intelligence"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
-                >
-                  Curriculum Intelligence
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/how-it-works"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
-                >
-                  How It Works
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pricing"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
-                >
-                  Pricing
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Compare */}
-          <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
-              Compare
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/compare"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
-                >
-                  All Comparisons
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/compare/chatgpt"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
-                >
-                  vs. ChatGPT
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/compare/lms-native"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
-                >
-                  vs. LMS AI
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
-              Company
-            </h3>
-            <ul className="space-y-2">
-              {[
-                { href: "/about", label: "About" },
-                { href: "/contact", label: "Contact" },
-                { href: "/blog", label: "Blog" },
-                { href: "/faq", label: "FAQ" },
-              ].map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
-              Get in Touch
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href={`mailto:${SUPPORT_EMAIL}`}
-                  className="flex min-h-11 items-center gap-2 rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
-                >
-                  <Mail className="w-3 h-3 flex-shrink-0" aria-hidden="true" />
-                  {SUPPORT_EMAIL}
-                </a>
-              </li>
-            </ul>
-          </div>
+          {FOOTER_SECTIONS.map((section) => (
+            <div key={section.title} className="md:col-span-2 last:md:col-span-1">
+              <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
+                {section.title}
+              </h3>
+              <ul className="space-y-2">
+                {section.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         {/* Bottom Bar */}
@@ -169,11 +126,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} EdPilot. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1">
-            {[
-              { href: "/privacy-policy", label: "Privacy" },
-              { href: "/terms", label: "Terms" },
-              { href: "/accessibility", label: "Accessibility" },
-            ].map((link) => (
+            {legalLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
