@@ -15,7 +15,7 @@ export default function NotFound() {
     <PageShell>
       <Section className="pt-28 pb-24 md:pt-36 md:pb-32">
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.16),rgba(20,20,22,0)_60%)]"
+          className="hero-glow pointer-events-none absolute inset-x-0 top-0 h-[420px]"
           aria-hidden="true"
         />
         <Container size="narrow" className="relative z-10 text-center">
@@ -47,7 +47,7 @@ export default function NotFound() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-border-gray bg-bg-surface px-3.5 py-2 text-sm font-medium text-text-secondary transition-colors hover:border-accent/45 hover:bg-accent/10 hover:text-text-primary focus-ring"
+                  className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-border-gray bg-bg-surface px-3.5 text-sm font-medium text-text-secondary transition-colors hover:border-accent/30 hover:bg-bg-elevated hover:text-text-primary focus-ring"
                 >
                   {link.label}
                   <ArrowRight className="h-3.5 w-3.5 text-accent" aria-hidden="true" />

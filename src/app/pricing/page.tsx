@@ -4,9 +4,11 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { BreadcrumbSchema } from '@/components/StructuredData'
 import { Button } from '@/components/ui/button'
 import {
+  Badge,
   CTABand,
   Container,
   Hero,
+  MarketingCard,
   PageShell,
   Section,
   SectionHeader,
@@ -105,22 +107,17 @@ export default function PricingPage() {
         <Container size="wide">
           <div className="grid items-stretch gap-4 lg:grid-cols-3">
             {tiers.map((tier) => (
-              <div
+              <MarketingCard
                 key={tier.name}
-                className={`flex h-full flex-col rounded-lg border p-6 md:p-7 ${
-                  tier.featured
-                    ? 'border-accent/40 bg-[linear-gradient(180deg,rgba(139,92,246,0.12),rgba(24,24,27,0.96)_46%,rgba(15,15,18,1))] shadow-[0_24px_80px_rgba(0,0,0,0.3)]'
-                    : 'border-border-gray bg-bg-surface'
-                }`}
+                featured={tier.featured}
+                className="flex h-full flex-col p-6 md:p-7"
               >
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
                     {tier.name}
                   </h2>
                   {tier.featured && (
-                    <span className="rounded-md border border-accent/30 bg-accent/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
-                      Most popular
-                    </span>
+                    <Badge className="border-accent/20 tracking-[0.12em]">Most popular</Badge>
                   )}
                 </div>
                 <div className="mt-5 flex items-baseline gap-2">
@@ -156,13 +153,24 @@ export default function PricingPage() {
                     <ArrowRight aria-hidden="true" />
                   </Link>
                 </Button>
-              </div>
+              </MarketingCard>
             ))}
           </div>
           <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-7 text-text-secondary">
             Institutional pricing scales with the number of courses and faculty — start with a pilot
             and grow as adoption does. We’ll put real numbers in front of you once we understand your
             scope; there’s no upfront commitment to evaluate EdPilot.
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-7 text-text-secondary">
+            Need to see what is included first?{' '}
+            <Link href="/products" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              Explore Products
+            </Link>
+            . Need the rollout sequence?{' '}
+            <Link href="/how-it-works" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              See How It Works
+            </Link>
+            .
           </p>
         </Container>
       </Section>
@@ -196,12 +204,19 @@ export default function PricingPage() {
                 key={item.step}
                 className="rounded-lg border border-border-gray bg-bg-deep p-5 md:p-6"
               >
-                <span className="text-xs font-bold text-accent/70">{item.step}</span>
+                <span className="text-xs font-bold text-text-tertiary">{item.step}</span>
                 <h3 className="mt-4 text-sm font-semibold text-text-primary">{item.title}</h3>
                 <p className="mt-2 text-[13px] leading-6 text-text-secondary">{item.detail}</p>
               </div>
             ))}
           </div>
+          <p className="mt-6 text-center text-sm text-text-secondary">
+            If your team is comparing EdPilot with general AI, LMS-native AI, or a custom build,{' '}
+            <Link href="/compare" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              review the comparisons
+            </Link>
+            .
+          </p>
         </Container>
       </Section>
 

@@ -175,7 +175,7 @@ export default function AboutPage() {
                   href={founder.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border-strong px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:border-[#0A66C2] hover:bg-[#0A66C2] hover:text-white"
+                  className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg border border-border-strong px-4 text-sm font-medium text-text-secondary transition-colors hover:border-brand-linkedin hover:bg-brand-linkedin hover:text-white focus-ring"
                 >
                   LinkedIn
                 </a>

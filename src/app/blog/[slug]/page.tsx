@@ -14,6 +14,7 @@ import {
   ChevronRight,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Badge, Container, PageShell, Section } from '@/components/marketing'
 import { getBlogPost, getRelatedPosts } from '@/lib/blog-data'
 import toast from 'react-hot-toast'
 
@@ -248,7 +249,7 @@ function ShareRow({ title }: { title: string }) {
   }
 
   const btnBase =
-    'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-gray text-text-secondary text-xs font-medium transition-all duration-150 focus-ring'
+    'inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-border-gray px-3 text-text-secondary text-xs font-medium transition-all duration-150 focus-ring'
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
@@ -270,7 +271,7 @@ function ShareRow({ title }: { title: string }) {
       <button
         onClick={shareLinkedIn}
         aria-label="Share on LinkedIn"
-        className={`${btnBase} hover:text-[#0A66C2] hover:border-[#0A66C2]`}
+        className={`${btnBase} hover:border-brand-linkedin hover:text-brand-linkedin`}
       >
         <Linkedin className="w-3 h-3" aria-hidden="true" />
         LinkedIn
@@ -297,7 +298,7 @@ function AuthorAvatar({ name, size = 'md' }: { name: string; size?: 'sm' | 'md' 
   }[size]
   return (
     <div
-      className={`${cls} bg-accent/10 rounded-lg border border-accent/20 flex items-center justify-center flex-shrink-0`}
+      className={`${cls} bg-accent/5 rounded-lg border border-accent/15 flex items-center justify-center flex-shrink-0`}
     >
       <span className="text-accent font-semibold">{name.charAt(0)}</span>
     </div>
@@ -316,10 +317,10 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   const toc = extractToc(post.content)
 
   return (
-    <div className="min-h-screen bg-bg-page">
+    <PageShell>
       <ReadingProgressBar />
       <ArticleBody post={post} toc={toc} relatedPosts={relatedPosts} />
-    </div>
+    </PageShell>
   )
 }
 
@@ -363,8 +364,8 @@ function ArticleBody({
   return (
     <>
       {/* ── Breadcrumb bar — sits flush below Navbar ── */}
-      <div className="border-b border-border-gray/60 bg-bg-page/80 backdrop-blur-sm">
-        <div className="container mx-auto px-6 max-w-5xl h-11 flex items-center">
+      <Section className="border-b border-border-gray/60 bg-bg-page/80 py-0 backdrop-blur-sm">
+        <Container className="flex h-11 items-center">
           <Link
             href="/blog"
             className="group inline-flex items-center gap-1.5 rounded-md text-xs font-medium text-text-secondary transition-colors duration-150 hover:text-accent focus-ring"
@@ -375,22 +376,20 @@ function ArticleBody({
             />
             All Articles
           </Link>
-        </div>
-      </div>
+        </Container>
+      </Section>
 
       {/* ── Article header ── */}
-      <header className="relative overflow-hidden border-b border-border-gray pt-16 pb-12">
+      <Section className="border-b border-border-gray pt-16 pb-12">
         <div
-          className="absolute inset-x-0 top-0 h-[360px] bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.14),rgba(20,20,22,0)_62%)] pointer-events-none"
+          className="hero-glow-subtle pointer-events-none absolute inset-x-0 top-0 h-[360px]"
           aria-hidden="true"
         />
 
-        <div className="container mx-auto px-6 max-w-3xl relative z-10">
+        <Container size="narrow" className="relative z-10">
           {/* Category */}
           <div className="mb-5">
-            <span className="inline-block text-[10px] font-semibold uppercase tracking-widest text-accent bg-accent/10 rounded-md px-2.5 py-1">
-              {post.category}
-            </span>
+            <Badge>{post.category}</Badge>
           </div>
 
           {/* Title */}
@@ -413,13 +412,11 @@ function ArticleBody({
               <span>{post.readingTime} min read</span>
             </div>
           </div>
-        </div>
-      </header>
-
-      <div className="border-t border-border-gray" />
+        </Container>
+      </Section>
 
       {/* ── Article body + TOC layout ── */}
-      <div className="container mx-auto px-6 max-w-5xl">
+      <Container>
         <div className="flex gap-16 py-14">
 
           {/* Main column */}
@@ -451,12 +448,12 @@ function ArticleBody({
             <TableOfContents entries={toc} activeId={activeId} />
           </aside>
         </div>
-      </div>
+      </Container>
 
       {/* ── Related articles ── */}
       {relatedPosts.length > 0 && (
-        <section className="border-t border-border-gray py-16 bg-bg-surface">
-          <div className="container mx-auto px-6 max-w-3xl">
+        <Section className="py-16" surface="panel">
+          <Container size="narrow">
             <div
               className="mb-8"
             >
@@ -471,7 +468,7 @@ function ArticleBody({
                   key={related.slug}
                 >
                   <Link href={`/blog/${related.slug}`} className="group block rounded-lg focus-ring">
-                    <article className="flex items-start gap-4 p-5 rounded-lg border border-border-gray bg-bg-page hover:border-accent/30 transition-all duration-200">
+                    <article className="flex items-start gap-4 p-5 rounded-lg border border-border-gray bg-bg-page hover:border-accent/25 transition-all duration-200">
                       {/* Color swatch accent */}
                       <div className="w-1 self-stretch rounded-full bg-accent/30 flex-shrink-0 group-hover:bg-accent transition-colors duration-150" />
 
@@ -511,8 +508,8 @@ function ArticleBody({
                 </Link>
               </Button>
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
       )}
 
     </>

@@ -103,7 +103,7 @@ function MiniVisual({ visual }: { visual: string }) {
           admin@<span className="text-accent">school.edu</span>
         </div>
         <div className="mt-3 flex items-center gap-2 text-xs text-text-secondary">
-          <CheckCircle2 className="h-4 w-4 text-[#22C55E]" aria-hidden="true" />
+          <CheckCircle2 className="h-4 w-4 text-status-success" aria-hidden="true" />
           Official domain recognized
         </div>
       </div>
@@ -116,7 +116,7 @@ function MiniVisual({ visual }: { visual: string }) {
         {['University record', 'Admin email', 'Data boundary'].map((item) => (
           <div key={item} className="flex items-center justify-between rounded-md bg-bg-deep px-3 py-2">
             <span className="text-xs text-text-secondary">{item}</span>
-            <CheckCircle2 className="h-4 w-4 text-[#22C55E]" aria-hidden="true" />
+            <CheckCircle2 className="h-4 w-4 text-status-success" aria-hidden="true" />
           </div>
         ))}
       </div>
@@ -145,19 +145,19 @@ function MiniVisual({ visual }: { visual: string }) {
   }
 
   return (
-    <div className="min-h-[118px] rounded-lg border border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.16),rgba(15,15,18,1))] p-3">
+      <div className="surface-gradient-featured min-h-[118px] rounded-lg border border-accent/20 p-3">
       <div className="flex items-center justify-between rounded-md border border-border-gray bg-bg-deep px-3 py-3">
         <div>
           <p className="text-sm font-semibold text-text-primary">Course AI</p>
           <p className="mt-1 text-xs text-text-secondary">Grounded in approved content</p>
         </div>
-        <span className="rounded-md bg-[#22C55E]/15 px-2 py-1 text-[11px] font-medium text-[#86EFAC]">
+        <span className="rounded-md bg-status-success/15 px-2 py-1 text-[11px] font-medium text-status-success-soft">
           Live
         </span>
       </div>
       <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-border-gray">
         <m.div
-          className="h-full rounded-full bg-[linear-gradient(90deg,#8B5CF6,#38BDF8,#22C55E)]"
+          className="accent-path-gradient h-full rounded-full"
           initial={{ width: '0%' }}
           animate={{ width: '100%' }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
@@ -174,20 +174,20 @@ export function InteractiveLaunchpad() {
 
   return (
     <div className="relative">
-      <div className="absolute -inset-px rounded-lg bg-[linear-gradient(135deg,rgba(139,92,246,0.78),rgba(56,189,248,0.28),rgba(34,197,94,0.24))] opacity-80" />
-      <div className="relative overflow-hidden rounded-lg border border-border-gray bg-bg-deep shadow-[0_34px_100px_rgba(0,0,0,0.45)]">
+      <div className="launchpad-border-gradient absolute -inset-px rounded-lg opacity-80" />
+      <div className="relative overflow-hidden rounded-lg border border-border-gray bg-bg-deep shadow-2xl">
         <div className="flex items-center justify-between border-b border-border-gray px-4 py-3">
           <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#22C55E]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#A78BFA]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#38BDF8]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-status-success" />
+            <span className="h-2.5 w-2.5 rounded-full bg-accent-soft" />
+            <span className="h-2.5 w-2.5 rounded-full bg-status-info" />
           </div>
-          <span className="rounded-md border border-accent/25 bg-accent/10 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-accent">
+      <span className="rounded-md border border-accent/15 bg-accent/5 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-accent">
             Launchpad
           </span>
         </div>
 
-        <div className="bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,1))] p-4 md:p-5">
+        <div className="surface-gradient-panel p-4 md:p-5">
           <div className="mb-4 flex items-center justify-between gap-4">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
@@ -200,7 +200,7 @@ export function InteractiveLaunchpad() {
           </div>
           <div className="mb-4 h-1 overflow-hidden rounded-full bg-bg-surface">
             <m.div
-              className="h-full rounded-full bg-[linear-gradient(90deg,#8B5CF6,#38BDF8)]"
+              className="accent-path-gradient-short h-full rounded-full"
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.22, ease: 'easeOut' }}
             />
@@ -219,8 +219,8 @@ export function InteractiveLaunchpad() {
                   className={cn(
                     'group min-h-[78px] rounded-lg border p-2.5 text-left transition duration-150 focus-ring',
                     isActive
-                      ? 'border-accent/55 bg-accent/10 shadow-[0_14px_34px_rgba(124,58,237,0.18)]'
-                      : 'border-border-gray bg-bg-deep hover:border-accent/30 hover:bg-bg-surface'
+                        ? 'border-accent/30 bg-accent/5 shadow-lg'
+                        : 'border-border-gray bg-bg-deep hover:border-accent/25 hover:bg-bg-surface'
                   )}
                 >
                   <span className="mb-3 flex items-center justify-between gap-2">
@@ -228,7 +228,7 @@ export function InteractiveLaunchpad() {
                       className={cn(
                         'flex h-8 w-8 items-center justify-center rounded-lg border text-xs font-semibold',
                         isActive
-                          ? 'border-accent/35 bg-accent/15 text-accent'
+                      ? 'border-accent/25 bg-accent/5 text-accent'
                           : 'border-border-gray bg-bg-surface text-text-secondary'
                       )}
                     >
@@ -256,7 +256,7 @@ export function InteractiveLaunchpad() {
                     {active.result}
                   </h3>
                 </div>
-                <span className="shrink-0 rounded-md border border-accent/25 bg-accent/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+                <span className="shrink-0 rounded-md border border-accent/15 bg-accent/5 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
                   Self-serve
                 </span>
               </div>
@@ -296,7 +296,7 @@ export function RoleExplorer() {
 
   return (
     <div className="role-explorer overflow-hidden rounded-lg border border-border-gray bg-bg-deep">
-      <div className="border-b border-border-gray bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(15,15,18,1))] p-3">
+      <div className="surface-gradient-panel border-b border-border-gray p-3">
         <div className="mb-3 flex items-center justify-between gap-4 px-1">
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
             Choose a lane
@@ -321,8 +321,8 @@ export function RoleExplorer() {
                 className={cn(
                   'group flex min-h-[92px] items-center justify-between gap-3 rounded-lg border px-4 py-4 text-left transition duration-150 focus-ring',
                   isActive
-                    ? 'border-accent/55 bg-accent/10 text-text-primary shadow-[0_16px_42px_rgba(124,58,237,0.2)]'
-                    : 'border-border-gray bg-bg-deep text-text-secondary hover:border-accent/30 hover:bg-bg-surface hover:text-text-primary'
+                        ? 'border-accent/30 bg-accent/5 text-text-primary shadow-lg'
+                        : 'border-border-gray bg-bg-deep text-text-secondary hover:border-accent/25 hover:bg-bg-surface hover:text-text-primary'
                 )}
               >
                 <span className="flex min-w-0 items-center gap-3">
@@ -330,7 +330,7 @@ export function RoleExplorer() {
                     className={cn(
                       'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border transition',
                       isActive
-                        ? 'border-accent/35 bg-accent/15 text-accent'
+                      ? 'border-accent/25 bg-accent/5 text-accent'
                         : 'border-border-gray bg-bg-surface text-text-tertiary group-hover:text-accent'
                     )}
                   >
@@ -347,7 +347,7 @@ export function RoleExplorer() {
                   className={cn(
                     'shrink-0 rounded-md border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]',
                     isActive
-                      ? 'border-accent/30 bg-accent/10 text-accent'
+                        ? 'border-accent/25 bg-accent/5 text-accent'
                       : 'border-border-gray bg-bg-surface text-text-tertiary'
                   )}
                 >
@@ -365,7 +365,7 @@ export function RoleExplorer() {
         className="grid gap-px bg-border-gray md:grid-cols-[0.95fr_1.05fr]"
       >
         <div className="bg-bg-deep p-6 md:p-8">
-          <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-accent/15 bg-accent/5 text-accent">
             <ActiveIcon className="h-5 w-5" aria-hidden="true" />
           </div>
           <h3 className="text-2xl font-semibold tracking-[-0.03em] text-text-primary">
@@ -373,7 +373,7 @@ export function RoleExplorer() {
           </h3>
           <p className="mt-4 text-sm leading-7 text-text-secondary">{active.description}</p>
         </div>
-        <div className="bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,1))] p-6 md:p-8">
+        <div className="surface-gradient-panel p-6 md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
             What they do
           </p>
@@ -383,7 +383,7 @@ export function RoleExplorer() {
                 key={detail}
                 className="flex items-center gap-3 rounded-lg border border-border-gray bg-bg-deep p-3"
               >
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-accent/10 text-xs font-semibold text-accent">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-accent/15 bg-accent/5 text-xs font-semibold text-accent">
                   {index + 1}
                 </span>
                 <span className="text-sm font-medium text-text-primary">{detail}</span>

@@ -158,7 +158,7 @@ export default function TermsOfServicePage() {
         {/* Prohibited Conduct */}
         <section id="prohibited">
           <div className="flex items-center gap-3 mb-4">
-            <XCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+            <XCircle className="w-5 h-5 text-status-danger flex-shrink-0" />
             <h2 className="text-xl font-bold text-text-primary">Prohibited conduct</h2>
           </div>
 
@@ -179,7 +179,7 @@ export default function TermsOfServicePage() {
               "Attempt to access other users' accounts or data",
             ].map((item) => (
               <li key={item} className="flex items-start gap-2.5 leading-relaxed">
-                <XCircle className="w-3.5 h-3.5 text-red-400 mt-0.5 flex-shrink-0" />
+                <XCircle className="w-3.5 h-3.5 text-status-danger mt-0.5 flex-shrink-0" />
                 {item}
               </li>
             ))}
@@ -468,7 +468,7 @@ export default function TermsOfServicePage() {
         {/* Limitation of Liability */}
         <section id="liability">
           <div className="flex items-center gap-3 mb-4">
-            <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0" />
+            <AlertTriangle className="w-5 h-5 text-status-warning flex-shrink-0" />
             <h2 className="text-xl font-bold text-text-primary">Limitation of liability</h2>
           </div>
           <div className="rounded-lg border border-border-gray bg-bg-elevated p-4 text-xs leading-6 text-text-secondary space-y-3">

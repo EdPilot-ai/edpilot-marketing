@@ -6,7 +6,7 @@ import { AnimatePresence, m } from "framer-motion";
 import { ArrowRight, BookOpen, Search, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import { Container, Hero, PageShell, Section, SectionHeader } from "@/components/marketing";
+import { Badge, Container, Hero, MarketingCard, PageShell, Section, SectionHeader } from "@/components/marketing";
 import { blogPosts, getFeaturedPost } from "@/lib/blog-data";
 import type { BlogPost } from "@/lib/blog-data";
 import { subscribeToNewsletter } from "./actions";
@@ -14,7 +14,7 @@ import { subscribeToNewsletter } from "./actions";
 function AuthorBadge({ post }: { post: BlogPost }) {
   return (
     <div className="flex min-w-0 items-center gap-2">
-      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-xs font-semibold text-accent">
+      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-accent/15 bg-accent/5 text-xs font-semibold text-accent">
         {post.author.name.charAt(0)}
       </div>
       <div className="min-w-0">
@@ -28,10 +28,8 @@ function AuthorBadge({ post }: { post: BlogPost }) {
 function ArticleCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`} className="group block h-full rounded-lg focus-ring">
-      <article className="flex h-full flex-col rounded-lg border border-border-gray bg-bg-surface p-5 transition duration-200 hover:border-accent/35 hover:bg-[#1d1d22]">
-        <span className="mb-4 w-fit rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-          {post.category}
-        </span>
+      <MarketingCard as="article" className="flex h-full flex-col" interactive>
+        <Badge className="mb-4 w-fit">{post.category}</Badge>
         <h3 className="line-clamp-2 text-base font-semibold leading-6 tracking-[-0.015em] text-text-primary transition-colors group-hover:text-accent">
           {post.title}
         </h3>
@@ -45,7 +43,7 @@ function ArticleCard({ post }: { post: BlogPost }) {
             aria-hidden="true"
           />
         </div>
-      </article>
+      </MarketingCard>
     </Link>
   );
 }
@@ -113,14 +111,14 @@ export default function BlogPage() {
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search articles"
                 aria-label="Search articles"
-                className="h-10 w-full rounded-lg border border-border-gray bg-bg-surface px-9 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none"
+                className="h-11 w-full rounded-lg border border-border-gray bg-bg-surface px-9 text-sm text-text-primary placeholder:text-text-tertiary transition-colors focus:border-accent focus:outline-none"
               />
               {query && (
                 <button
                   type="button"
                   onClick={() => setQuery("")}
                   aria-label="Clear search"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md text-text-secondary transition-colors hover:text-text-primary focus-ring"
+                  className="absolute right-0 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-md text-text-secondary transition-colors hover:text-text-primary focus-ring"
                 >
                   <X className="h-4 w-4" aria-hidden="true" />
                 </button>
@@ -139,12 +137,10 @@ export default function BlogPage() {
                 href={`/blog/${featuredPost.slug}`}
                 className="group block rounded-lg focus-ring"
               >
-                <article className="rounded-lg border border-border-gray bg-[linear-gradient(135deg,rgba(139,92,246,0.12),rgba(24,24,27,0.96)_42%,rgba(15,15,18,1))] p-6 transition duration-200 hover:border-accent/45 md:p-8">
+                <article className="surface-gradient-featured rounded-lg border border-border-gray p-6 transition duration-200 hover:border-accent/30 md:p-8">
                   <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
                     <div>
-                      <span className="mb-4 inline-flex rounded-md border border-accent/20 bg-accent/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent">
-                        {featuredPost.category}
-                      </span>
+                      <Badge className="mb-4">{featuredPost.category}</Badge>
                       <h2 className="max-w-3xl text-2xl font-semibold leading-tight tracking-[-0.025em] text-text-primary transition-colors group-hover:text-accent md:text-3xl">
                         {featuredPost.title}
                       </h2>
@@ -206,7 +202,7 @@ export default function BlogPage() {
                 exit={{ opacity: 0 }}
                 className="rounded-lg border border-border-gray bg-bg-surface px-6 py-20 text-center"
               >
-                <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-lg border border-accent/20 bg-accent/10">
+                <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-lg border border-accent/15 bg-accent/5">
                   <BookOpen className="h-5 w-5 text-accent" aria-hidden="true" />
                 </div>
                 <p className="font-semibold text-text-primary">No articles found</p>
@@ -219,7 +215,7 @@ export default function BlogPage() {
                   <button
                     type="button"
                     onClick={() => setQuery("")}
-                    className="mt-5 rounded-md text-sm font-semibold text-accent hover:text-[#A78BFA] focus-ring"
+                    className="mt-5 inline-flex min-h-11 items-center rounded-md px-3 text-sm font-semibold text-accent hover:text-accent-soft focus-ring"
                   >
                     Clear search
                   </button>
@@ -244,7 +240,7 @@ export default function BlogPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 role="status"
                 aria-live="polite"
-                className="inline-flex rounded-lg border border-accent/20 bg-accent/10 px-5 py-3 text-sm font-medium text-accent"
+                className="inline-flex rounded-lg border border-accent/15 bg-accent/5 px-5 py-3 text-sm font-medium text-accent"
               >
                 Your email was received. Thank you for subscribing.
               </m.div>

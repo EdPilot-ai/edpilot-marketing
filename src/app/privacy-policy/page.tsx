@@ -226,7 +226,7 @@ export default function PrivacyPolicyPage() {
                   'Disclose student records to parents (unless the student is a dependent minor and the institution has authorized disclosure)',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2 leading-relaxed">
-                    <ChevronRight className="w-3.5 h-3.5 text-red-400 mt-0.5 flex-shrink-0" />
+                    <ChevronRight className="w-3.5 h-3.5 text-status-danger mt-0.5 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -286,7 +286,7 @@ export default function PrivacyPolicyPage() {
                     "Content from other courses",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-2 leading-relaxed">
-                      <ChevronRight className="w-3.5 h-3.5 text-red-400 mt-0.5 flex-shrink-0" />
+                    <ChevronRight className="w-3.5 h-3.5 text-status-danger mt-0.5 flex-shrink-0" />
                       {item}
                     </li>
                   ))}

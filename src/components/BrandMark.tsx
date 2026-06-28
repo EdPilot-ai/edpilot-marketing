@@ -14,6 +14,7 @@
  */
 
 import { useId } from 'react'
+import { designTokens } from '@/lib/design-tokens'
 
 type Variant = 'gradient' | 'mono'
 
@@ -68,13 +69,13 @@ export function BrandMark({
     >
       <defs>
         <linearGradient id={`${id}-wing`} x1="10%" y1="15%" x2="85%" y2="75%">
-          <stop offset="0%" stopColor="#C4B5FD" />
-          <stop offset="45%" stopColor="#8B5CF6" />
-          <stop offset="100%" stopColor="#6D28D9" />
+          <stop offset="0%" stopColor={designTokens.brandMarkWingLight} />
+          <stop offset="45%" stopColor={designTokens.accent} />
+          <stop offset="100%" stopColor={designTokens.accentPress} />
         </linearGradient>
         <linearGradient id={`${id}-fuse`} x1="40%" y1="0%" x2="60%" y2="100%">
-          <stop offset="0%" stopColor="#4C1D95" />
-          <stop offset="100%" stopColor="#2E1065" />
+          <stop offset="0%" stopColor={designTokens.brandMarkFuse} />
+          <stop offset="100%" stopColor={designTokens.brandMarkFuseDeep} />
         </linearGradient>
       </defs>
       <path d="M90 8 L48 48 L50 80 Z" fill={`url(#${id}-fuse)`} strokeLinejoin="round" />

@@ -33,9 +33,29 @@
     /* Accent Primary - Refined Violet */
     --accent-hex: #8B5CF6;
 
+    /* Accent soft — used for hover text where the interaction intentionally lightens */
+    --accent-soft-hex: #A78BFA;
+
     /* Accent Hover - Deeper Violet */
     --accent-hover-hex: #7C3AED;
     --accent-press-hex: #6D28D9;
+
+    /* Brand mark facets — asset-only violets used by the canonical logo */
+    --brand-mark-wing-light: #C4B5FD;
+    --brand-mark-fuse: #4C1D95;
+    --brand-mark-fuse-deep: #2E1065;
+
+    /* Semantic non-palette colors that appear as state or brand affordances */
+    --brand-linkedin: #0A66C2;
+    --status-success: #22C55E;
+    --status-success-soft: #86EFAC;
+    --status-info: #38BDF8;
+    --status-warning: #FBBF24;
+    --status-warning-soft: #FDE68A;
+    --status-danger: #F87171;
+    --window-close: #FF5F57;
+    --window-minimize: #FEBC2E;
+    --window-maximize: #28C840;
 
     /* Professor workspace tokens — used by the class-page sidebar/topbar.
        These intentionally run slightly darker than the main dashboard so
@@ -112,8 +132,16 @@
     background-color: var(--bg-deep);
   }
 
+  html .bg-bg-elevated {
+    background-color: var(--bg-elevated);
+  }
+
   html .border-border-gray {
     border-color: var(--border-gray);
+  }
+
+  html .border-border-strong {
+    border-color: var(--text-faint);
   }
 
   html .text-text-primary {
@@ -122,6 +150,10 @@
 
   html .text-text-secondary {
     color: var(--text-secondary);
+  }
+
+  html .text-text-tertiary {
+    color: var(--text-muted);
   }
 
   html .bg-accent {
@@ -134,6 +166,74 @@
 
   html .text-accent {
     color: var(--accent-hex);
+  }
+
+  html .text-accent-soft {
+    color: var(--accent-soft-hex);
+  }
+
+  html .bg-status-success {
+    background-color: var(--status-success);
+  }
+
+  html .text-status-success {
+    color: var(--status-success);
+  }
+
+  html .text-status-success-soft {
+    color: var(--status-success-soft);
+  }
+
+  html .bg-status-info {
+    background-color: var(--status-info);
+  }
+
+  html .text-status-warning {
+    color: var(--status-warning);
+  }
+
+  html .text-status-warning-soft {
+    color: var(--status-warning-soft);
+  }
+
+  html .text-status-danger {
+    color: var(--status-danger);
+  }
+
+  html .border-status-success {
+    border-color: var(--status-success);
+  }
+
+  html .border-status-warning {
+    border-color: var(--status-warning);
+  }
+
+  html .bg-status-warning {
+    background-color: var(--status-warning);
+  }
+
+  html .text-brand-linkedin {
+    color: var(--brand-linkedin);
+  }
+
+  html .border-brand-linkedin {
+    border-color: var(--brand-linkedin);
+  }
+
+  html .bg-brand-linkedin {
+    background-color: var(--brand-linkedin);
+  }
+
+  html .bg-window-close {
+    background-color: var(--window-close);
+  }
+
+  html .bg-window-minimize {
+    background-color: var(--window-minimize);
+  }
+
+  html .bg-window-maximize {
+    background-color: var(--window-maximize);
   }
 
   /* Professor workspace utility classes (class-page only) */
@@ -154,6 +254,57 @@
   }
   .text-text-faint {
     color: var(--text-faint) !important;
+  }
+}
+
+@layer components {
+  .hero-glow {
+    background: radial-gradient(ellipse at top, rgb(139 92 246 / 0.10), rgb(20 20 22 / 0) 62%);
+  }
+
+  .hero-glow-subtle {
+    background: radial-gradient(ellipse at top, rgb(139 92 246 / 0.08), rgb(20 20 22 / 0) 64%);
+  }
+
+  .surface-gradient {
+    background: linear-gradient(180deg, rgb(34 34 40 / 0.72), rgb(15 15 18 / 0.94));
+  }
+
+  .surface-gradient-panel {
+    background: linear-gradient(180deg, rgb(24 24 27 / 0.98), rgb(15 15 18 / 0.96));
+  }
+
+  .surface-gradient-featured {
+    background: linear-gradient(135deg, rgb(139 92 246 / 0.075), rgb(24 24 27 / 0.97) 48%, rgb(15 15 18));
+  }
+
+  .surface-gradient-proof {
+    background: linear-gradient(135deg, rgb(255 255 255 / 0.035), rgb(15 15 18 / 0.96));
+  }
+
+  .cta-gradient {
+    background: linear-gradient(180deg, rgb(15 15 18), rgb(18 16 24 / 0.88), rgb(15 15 18));
+  }
+
+  .launch-gradient {
+    background: linear-gradient(180deg, rgb(139 92 246 / 0.045), rgb(24 24 27 / 0) 46%);
+  }
+
+  .accent-path-gradient {
+    background: linear-gradient(90deg, var(--accent-hex), var(--status-info), var(--status-success));
+  }
+
+  .accent-path-gradient-short {
+    background: linear-gradient(90deg, var(--accent-hex), var(--status-info));
+  }
+
+  .launchpad-border-gradient {
+    background: linear-gradient(
+      135deg,
+      rgb(139 92 246 / 0.78),
+      rgb(56 189 248 / 0.28),
+      rgb(34 197 94 / 0.24)
+    );
   }
 }
 

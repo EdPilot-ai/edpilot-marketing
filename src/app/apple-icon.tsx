@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { designTokens } from '@/lib/design-tokens'
 
 // Apple touch icon (home-screen / bookmark icon on iOS & macOS Safari).
 // Same artwork as icon.tsx, rendered at 180x180 PNG. Kept in sync with
@@ -10,7 +11,7 @@ export const contentType = 'image/png'
 const ICON_SVG =
   `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" shape-rendering="geometricPrecision" role="img" aria-label="EdPilot">` +
   `<defs><linearGradient id="edpilot-favicon-tile" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">` +
-  `<stop stop-color="#8B5CF6"/><stop offset="1" stop-color="#6D28D9"/></linearGradient></defs>` +
+  `<stop stop-color="${designTokens.accent}"/><stop offset="1" stop-color="${designTokens.accentPress}"/></linearGradient></defs>` +
   `<rect width="64" height="64" rx="15" fill="url(#edpilot-favicon-tile)"/>` +
   `<g transform="translate(13 17) scale(0.38)">` +
   `<path d="M90 8 L8 36 L48 48 Z" fill="white" stroke-linejoin="round"/>` +

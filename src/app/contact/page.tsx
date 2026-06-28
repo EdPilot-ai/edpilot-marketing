@@ -22,6 +22,7 @@ import {
   Container,
   Hero,
   IconChip,
+  MarketingCard,
   PageShell,
   ProofPanel,
   Section,
@@ -221,7 +222,7 @@ function CustomSelect({
         onKeyDown={handleKeyDown}
         className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border bg-bg-deep px-3.5 py-2 text-left text-sm text-text-primary transition-colors focus:outline-none ${
           invalid
-            ? 'border-red-500/60 focus:border-red-500'
+                    ? 'border-status-danger/60 focus:border-status-danger'
             : 'border-border-gray hover:border-border-strong focus:border-accent'
         }`}
       >
@@ -239,7 +240,7 @@ function CustomSelect({
           id={listboxId}
           role="listbox"
           aria-label={label}
-          className="absolute z-40 mt-2 max-h-72 w-full overflow-auto rounded-lg border border-border-gray bg-bg-deep p-1 shadow-[0_22px_70px_rgba(0,0,0,0.45)]"
+          className="absolute z-40 mt-2 max-h-72 w-full overflow-auto rounded-lg border border-border-gray bg-bg-deep p-1 shadow-2xl"
         >
           {options.map((option, index) => {
             const isSelected = option.value === value
@@ -256,7 +257,7 @@ function CustomSelect({
                 onMouseEnter={() => setActiveIndex(index)}
                 className={`cursor-pointer rounded-md px-3 py-2.5 text-left transition-colors ${
                   isActive
-                    ? 'bg-accent/15 text-text-primary'
+                    ? 'bg-accent/5 text-text-primary'
                     : isSelected
                       ? 'text-text-primary'
                       : 'text-text-secondary'
@@ -274,7 +275,7 @@ function CustomSelect({
         </div>
       )}
       {invalid && errorMessage && (
-        <p id={errorId} role="alert" className="mt-1.5 text-xs font-medium text-red-400">
+        <p id={errorId} role="alert" className="mt-1.5 text-xs font-medium text-status-danger">
           {errorMessage}
         </p>
       )}
@@ -388,7 +389,7 @@ export default function ContactPage() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="rounded-lg border border-border-gray bg-[linear-gradient(180deg,rgba(34,34,40,0.72),rgba(15,15,18,0.94))] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.2)]"
+                className="surface-gradient rounded-lg border border-border-gray p-5 shadow-lg"
               >
                 <div className="mb-5 flex items-start justify-between gap-4">
                   <IconChip icon={item.icon} className="h-10 w-10" />
@@ -438,7 +439,7 @@ export default function ContactPage() {
                 ].map((item, index) => (
                   <div key={item.title} className="border-b border-border-gray p-5 last:border-b-0">
                     <div className="flex gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/15 bg-accent/5 text-accent">
                         <item.icon className="h-4 w-4" aria-hidden="true" />
                       </div>
                       <div>
@@ -456,21 +457,21 @@ export default function ContactPage() {
               </div>
               <a
                 href={`mailto:${SUPPORT_EMAIL}`}
-                className="mt-6 inline-flex items-center gap-3 rounded-lg border border-border-gray bg-bg-surface px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:border-accent/45 hover:bg-accent/10 hover:text-text-primary focus-ring"
+                className="mt-6 inline-flex items-center gap-3 rounded-lg border border-border-gray bg-bg-surface px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:border-accent/30 hover:bg-bg-elevated hover:text-text-primary focus-ring"
               >
                 <IconChip icon={Mail} className="h-8 w-8" />
                 {SUPPORT_EMAIL}
               </a>
             </div>
 
-            <div className="overflow-visible rounded-lg border border-border-gray bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,0.96))] p-5 shadow-[0_28px_90px_rgba(0,0,0,0.32)] md:p-7">
+            <div className="surface-gradient-panel overflow-visible rounded-lg border border-border-gray p-5 shadow-2xl md:p-7">
               {showSuccess ? (
                 <div role="status" aria-live="polite" className="py-12 text-center">
                   <div
-                    className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-lg border border-green-500/20 bg-green-500/10"
+                    className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-lg border border-status-success/20 bg-status-success/10"
                     aria-hidden="true"
                   >
-                    <CheckCircle className="h-7 w-7 text-green-400" aria-hidden="true" />
+                    <CheckCircle className="h-7 w-7 text-status-success-soft" aria-hidden="true" />
                   </div>
                   <h2 className="text-xl font-semibold text-text-primary">Message sent.</h2>
                   <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-text-secondary">
@@ -707,7 +708,7 @@ export default function ContactPage() {
 
                   <p className="text-center text-xs leading-5 text-text-tertiary">
                     By submitting, you agree to our{' '}
-                    <Link href="/privacy-policy" className="text-accent hover:text-[#A78BFA]">
+                    <Link href="/privacy-policy" className="rounded-md text-accent hover:text-accent-soft focus-ring">
                       Privacy Policy
                     </Link>
                     . Required fields are marked with *.

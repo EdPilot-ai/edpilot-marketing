@@ -22,7 +22,7 @@ export default function Error({
     <PageShell>
       <Section className="pt-28 pb-24 md:pt-36 md:pb-32">
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.16),rgba(20,20,22,0)_60%)]"
+          className="hero-glow pointer-events-none absolute inset-x-0 top-0 h-[420px]"
           aria-hidden="true"
         />
         <Container size="narrow" className="relative z-10 text-center">
