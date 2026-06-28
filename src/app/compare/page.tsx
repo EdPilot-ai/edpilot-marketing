@@ -16,6 +16,7 @@ import {
   Container,
   FeatureCard,
   Hero,
+  IconChip,
   PageShell,
   Section,
   SectionHeader,
@@ -94,16 +95,14 @@ export default function ComparePage() {
                     href={`/compare/${comparison.slug}`}
                     className="group block"
                   >
-                    <div className="relative h-full overflow-hidden rounded-lg border border-border-gray bg-[linear-gradient(180deg,rgba(34,34,40,0.72),rgba(15,15,18,0.94))] p-5 shadow-[0_20px_70px_rgba(0,0,0,0.22)] transition duration-200 hover:-translate-y-1 hover:border-accent/35 hover:shadow-[0_30px_90px_rgba(0,0,0,0.34)] md:p-6">
+                    <div className="surface-gradient relative h-full overflow-hidden rounded-lg border border-border-gray p-5 shadow-lg transition duration-200 hover:-translate-y-px hover:border-accent/25 hover:shadow-2xl md:p-6">
                       <div
-                        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/55 to-transparent opacity-0 transition group-hover:opacity-100"
+                        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/35 to-transparent opacity-0 transition group-hover:opacity-100"
                         aria-hidden="true"
                       />
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-start gap-4">
-                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent ring-1 ring-accent/10">
-                            <Icon className="h-5 w-5" aria-hidden="true" />
-                          </div>
+                          <IconChip icon={Icon} className="h-11 w-11 [&_svg]:h-5 [&_svg]:w-5" />
                           <div>
                             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
                               Compare {String(index + 1).padStart(2, '0')}
@@ -140,7 +139,7 @@ export default function ComparePage() {
                         </div>
                       </div>
 
-                      <span className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border-gray bg-bg-deep px-3 py-2 text-sm font-semibold text-accent transition group-hover:border-accent/35 group-hover:bg-accent/10">
+                      <span className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border-gray bg-bg-deep px-3 py-2 text-sm font-semibold text-accent transition group-hover:border-accent/25 group-hover:bg-bg-surface">
                         Read comparison
                         <ArrowRight
                           className="h-4 w-4 transition-transform group-hover:translate-x-1"
@@ -197,6 +196,17 @@ export default function ComparePage() {
                 />
               ))}
             </div>
+            <p className="mt-6 text-center text-sm text-text-secondary">
+              Want the product tour before you book time?{' '}
+              <Link href="/products" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+                Explore Products
+              </Link>
+              . Already planning scope?{' '}
+              <Link href="/pricing" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+                See Pricing
+              </Link>
+              .
+            </p>
           </Container>
         </Section>
 

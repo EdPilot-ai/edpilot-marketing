@@ -224,7 +224,7 @@ export default function AccessibilityPage() {
               </li>
               <li>
                 Secondary text set to{' '}
-                <code className="text-accent">#9D9DA8</code> (~5.1:1) and muted-foreground
+                <code className="text-accent">text-secondary</code> (~5.1:1) and muted-foreground
                 lightness raised to 65% to satisfy AA requirements
               </li>
               <li>

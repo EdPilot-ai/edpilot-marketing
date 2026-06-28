@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 import { SIGN_IN_URL, SIGN_UP_URL } from "@/lib/marketing";
 
 const NAV_LINKS = [
-  { href: "/products", label: "Products" },
   { href: "/for-universities", label: "For Universities" },
+  { href: "/products", label: "Products" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/pricing", label: "Pricing" },
   { href: "/compare", label: "Compare" },
@@ -21,6 +21,7 @@ const NAV_LINKS = [
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const mobileMenuId = "primary-mobile-menu";
 
   // Close the mobile menu on Escape — standard disclosure keyboard behavior.
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#27272A]/80 bg-bg-deep/78 backdrop-blur-xl supports-[backdrop-filter]:bg-bg-deep/68">
+    <header className="sticky top-0 z-40 border-b border-border-gray/80 bg-bg-deep/78 backdrop-blur-xl supports-[backdrop-filter]:bg-bg-deep/68">
       <nav
         aria-label="Primary"
         className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-6"
@@ -52,7 +53,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-1 rounded-lg border border-white/[0.06] bg-white/[0.03] p-1 lg:flex">
+        <ul className="hidden items-center gap-1 rounded-lg border border-white/[0.06] bg-white/[0.03] p-1 xl:flex">
           {NAV_LINKS.map((link) => {
             const active =
               pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`));
@@ -60,10 +61,10 @@ export default function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors focus-ring ${
+                  className={`flex min-h-11 items-center rounded-md px-3 text-sm font-medium transition-colors focus-ring ${
                     active
                       ? "bg-white/[0.07] text-text-primary"
-                      : "text-text-secondary hover:bg-white/[0.04] hover:text-text-primary"
+                      : "text-text-secondary hover:bg-bg-elevated hover:text-text-primary"
                   }`}
                 >
                   {link.label}
@@ -73,10 +74,10 @@ export default function Navbar() {
           })}
         </ul>
 
-        <div className="hidden items-center justify-end gap-3 lg:flex">
+        <div className="hidden items-center justify-end gap-3 xl:flex">
           <a
             href={SIGN_IN_URL}
-            className="rounded-lg px-2 py-1 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary focus-ring"
+            className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary focus-ring"
           >
             Sign in
           </a>
@@ -87,24 +88,29 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="col-start-3 justify-self-end rounded-lg border border-border-gray bg-bg-surface p-2 text-text-primary transition-colors hover:border-border-strong focus-ring lg:hidden"
+          className="col-start-3 flex h-11 w-11 items-center justify-center justify-self-end rounded-lg border border-border-gray bg-bg-surface text-text-primary transition-colors hover:border-border-strong focus-ring xl:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls={mobileMenuId}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {open ? (
+            <X className="h-5 w-5" aria-hidden="true" />
+          ) : (
+            <Menu className="h-5 w-5" aria-hidden="true" />
+          )}
         </button>
       </nav>
 
       {open && (
-        <div className="border-t border-[#27272A] bg-bg-deep/95 backdrop-blur-xl lg:hidden">
+        <div id={mobileMenuId} className="border-t border-border-gray bg-bg-deep/95 backdrop-blur-xl xl:hidden">
           <ul className="space-y-1 px-6 py-4">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-white/[0.04] hover:text-text-primary focus-ring"
+                  className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-text-secondary hover:bg-bg-elevated hover:text-text-primary focus-ring"
                 >
                   {link.label}
                 </Link>
@@ -113,17 +119,18 @@ export default function Navbar() {
             <li className="pt-2">
               <a
                 href={SIGN_IN_URL}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-white/[0.04] hover:text-text-primary focus-ring"
+                onClick={() => setOpen(false)}
+                className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-text-secondary hover:bg-bg-elevated hover:text-text-primary focus-ring"
               >
                 Sign in
               </a>
             </li>
-            <li>
-              <a href={SIGN_UP_URL} className="block pt-2">
-                <Button size="sm" className="w-full">
+            <li className="pt-2">
+              <Button asChild size="sm" className="w-full">
+                <a href={SIGN_UP_URL} onClick={() => setOpen(false)}>
                   Get Started
-                </Button>
-              </a>
+                </a>
+              </Button>
             </li>
           </ul>
         </div>

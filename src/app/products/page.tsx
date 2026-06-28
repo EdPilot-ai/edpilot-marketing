@@ -20,8 +20,10 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
+  CTABand,
   Container,
   Hero,
+  IconChip,
   PageShell,
   Section,
   SectionHeader,
@@ -142,12 +144,10 @@ export default function ProductsPage() {
             description="Not a single feature — a connected set of tools for the whole course, governed by the instructor and grounded in real materials."
           />
           <Link href="/products/curriculum-intelligence" className="group block">
-            <div className="rounded-lg border border-accent/30 bg-[linear-gradient(135deg,rgba(139,92,246,0.14),rgba(15,15,18,1)_45%,rgba(24,24,27,1))] p-6 transition duration-200 hover:border-accent/55 md:p-8">
+            <div className="surface-gradient-featured rounded-lg border border-accent/20 p-6 transition duration-200 hover:border-accent/35 md:p-8">
               <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="flex gap-5">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
-                    <GraduationCap className="h-5 w-5" aria-hidden="true" />
-                  </div>
+                  <IconChip icon={GraduationCap} className="h-12 w-12" />
                   <div>
                     <h3 className="text-xl font-semibold tracking-[-0.02em] text-text-primary group-hover:text-accent">
                       Curriculum Intelligence Suite
@@ -158,7 +158,7 @@ export default function ProductsPage() {
                     </p>
                   </div>
                 </div>
-                <span className="inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg border border-[#3d3d45] bg-transparent px-4 text-sm font-medium text-text-primary transition-colors group-hover:border-accent/45 group-hover:bg-accent/10 group-hover:text-accent">
+                <span className="inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg border border-border-strong bg-transparent px-4 text-sm font-medium text-text-primary transition-colors group-hover:border-accent/30 group-hover:bg-bg-elevated group-hover:text-accent">
                   Learn More
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </span>
@@ -172,12 +172,10 @@ export default function ProductsPage() {
               return (
                 <div
                   key={tool.title}
-                  className="flex h-full flex-col rounded-lg border border-border-gray bg-bg-surface p-5 transition-colors hover:border-border-strong"
+                  className="flex h-full flex-col rounded-lg border border-border-gray bg-bg-surface p-5 transition-colors hover:border-border-strong hover:bg-bg-elevated"
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
-                      <Icon className="h-4 w-4" aria-hidden="true" />
-                    </div>
+                    <IconChip icon={Icon} className="h-9 w-9" />
                     <StatusPill tone={tool.status}>{tool.statusLabel}</StatusPill>
                   </div>
                   <h4 className="mt-4 text-sm font-semibold text-text-primary">{tool.title}</h4>
@@ -192,7 +190,7 @@ export default function ProductsPage() {
               </p>
               <Link
                 href="/products/curriculum-intelligence"
-                className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-[#A78BFA] focus-ring"
+                className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent-soft focus-ring"
               >
                 See how the suite works
                 <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
@@ -202,50 +200,16 @@ export default function ProductsPage() {
         </Container>
       </Section>
 
-      <Section className="py-16 md:py-20">
-        <Container size="wide">
-          <SectionHeader
-            eyebrow="The wider platform, over time"
-            title="Where EdPilot is headed."
-            description="A few directions we’re exploring beyond the live suite. These are a roadmap, not products you can buy today — included for transparency, not as equal offerings."
-            className="mb-8"
-          />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {comingSoonSuites.map((suite) => {
-              const Icon = suite.icon
-              return (
-                <div
-                  key={suite.id}
-                  className="flex items-center gap-3 rounded-lg border border-border-gray bg-bg-deep px-4 py-3"
-                >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border-gray bg-bg-surface text-text-tertiary">
-                    <Icon className="h-4 w-4" aria-hidden="true" />
-                  </div>
-                  <span className="min-w-0 flex-1 truncate text-sm font-medium text-text-secondary">
-                    {suite.title}
-                  </span>
-                  <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
-                    Planned
-                  </span>
-                </div>
-              )
-            })}
-          </div>
-        </Container>
-      </Section>
-
       <Section className="py-20 md:py-28" surface="deep">
         <div
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(15,15,18,1),rgba(25,18,38,0.62),rgba(15,15,18,1))]"
+          className="cta-gradient pointer-events-none absolute inset-0"
           aria-hidden="true"
         />
         <Container className="relative z-10">
-          <div className="overflow-hidden rounded-lg border border-accent/25 bg-[linear-gradient(135deg,rgba(139,92,246,0.16),rgba(24,24,27,0.92)_44%,rgba(15,15,18,1))] shadow-[0_28px_90px_rgba(0,0,0,0.38)]">
+          <div className="surface-gradient-featured overflow-hidden rounded-lg border border-accent/25 shadow-2xl">
             <div className="grid gap-0 md:grid-cols-[1.05fr_0.95fr]">
               <div className="p-7 md:p-10">
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
-                  <Route className="h-5 w-5" aria-hidden="true" />
-                </div>
+                <IconChip icon={Route} className="mb-6 h-12 w-12" />
                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                   Institution path
                 </p>
@@ -256,6 +220,17 @@ export default function ProductsPage() {
                   The product path starts with direct course-material upload and professor-led
                   pilots, then expands into LMS, SSO, accessibility, procurement, and multi-course
                   rollout conversations as institutions are ready.
+                </p>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-text-secondary">
+                  If you are evaluating this as a campus initiative, start with the{' '}
+                  <Link href="/for-universities" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+                    university view
+                  </Link>{' '}
+                  or review the launch path on{' '}
+                  <Link href="/how-it-works" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+                    How It Works
+                  </Link>
+                  .
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Button asChild size="lg" className="h-11 px-7">
@@ -293,7 +268,7 @@ export default function ProductsPage() {
                   ].map((item, index) => (
                     <div key={item.label} className="flex gap-4">
                       <div className="flex flex-col items-center">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-accent">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border-gray bg-bg-surface text-accent">
                           <item.icon className="h-4 w-4" aria-hidden="true" />
                         </div>
                         {index < 2 && <span className="mt-3 h-8 w-px bg-border-gray" />}
@@ -312,6 +287,45 @@ export default function ProductsPage() {
           </div>
         </Container>
       </Section>
+
+      <Section className="py-16 md:py-20">
+        <Container size="wide">
+          <SectionHeader
+            eyebrow="The wider platform, over time"
+            title="Where EdPilot is headed."
+            description="A few directions we’re exploring beyond the live suite. These are a roadmap, not products you can buy today — included for transparency, not as equal offerings."
+            className="mb-8"
+          />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {comingSoonSuites.map((suite) => {
+              const Icon = suite.icon
+              return (
+                <div
+                  key={suite.id}
+                  className="flex items-center gap-3 rounded-lg border border-border-gray bg-bg-deep px-4 py-3"
+                >
+                  <IconChip icon={Icon} className="h-8 w-8 border-border-gray bg-bg-surface text-text-tertiary" />
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium text-text-secondary">
+                    {suite.title}
+                  </span>
+                  <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
+                    Planned
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        </Container>
+      </Section>
+
+      <CTABand
+        title="Start with the live suite, then grow from there."
+        description="Explore Curriculum Intelligence on real course materials, or talk with us about the institution path from pilot to rollout."
+        actions={[
+          { label: 'Explore Curriculum Intelligence', href: '/products/curriculum-intelligence' },
+          { label: 'See Pricing', href: '/pricing', variant: 'secondary' },
+        ]}
+      />
 
     </PageShell>
   )

@@ -189,7 +189,7 @@ export default function FAQPage() {
                 key={category.id}
                 type="button"
                 onClick={() => scrollToCategory(category.id)}
-                className="group rounded-lg border border-border-gray bg-bg-deep p-4 text-center transition duration-200 hover:border-border-strong hover:bg-[#1d1d22]"
+                className="group rounded-lg border border-border-gray bg-bg-deep p-4 text-center transition duration-200 hover:border-border-strong hover:bg-bg-elevated focus-ring"
               >
                 <IconChip icon={category.icon} className="mx-auto mb-3 h-9 w-9" />
                 <span className="text-xs font-semibold leading-5 text-text-secondary transition-colors group-hover:text-text-primary">
@@ -227,7 +227,7 @@ export default function FAQPage() {
                         key={faq.question}
                         className={`rounded-lg border transition duration-200 ${
                           isOpen
-                            ? 'border-accent/30 bg-bg-surface'
+                            ? 'border-accent/20 bg-bg-surface'
                             : 'border-border-gray bg-bg-surface hover:border-border-strong'
                         }`}
                       >

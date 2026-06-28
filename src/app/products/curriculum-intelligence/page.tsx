@@ -28,9 +28,12 @@ import {
   Container,
   FeatureCard,
   Hero,
+  IconChip,
+  MarketingCard,
   PageShell,
   Section,
   SectionHeader,
+  StatusPill,
   TrustBar,
 } from '@/components/marketing'
 import { SIGN_UP_URL } from '@/lib/marketing'
@@ -96,12 +99,6 @@ const products = [
       'Grade submissions against the same rubric every time. Faculty can review, edit, or override any grade before release.',
   },
 ]
-
-const statusClasses = {
-  Live: 'border-emerald-400/30 bg-emerald-400/10 text-emerald-200',
-  Beta: 'border-sky-400/30 bg-sky-400/10 text-sky-200',
-  Planned: 'border-border-gray bg-bg-deep text-text-tertiary',
-}
 
 const courseModelInputs = [
   { label: 'Syllabus', detail: 'Policies, outcomes, schedule', icon: FileStack },
@@ -175,31 +172,28 @@ export default function CurriculumIntelligencePage() {
           <div className="grid gap-5 lg:grid-cols-[0.9fr_1.25fr_0.9fr] lg:items-center">
             <div className="grid gap-3">
               {courseModelInputs.map((input) => (
-                <div
+                <MarketingCard
                   key={input.label}
-                  className="rounded-lg border border-border-gray bg-bg-surface p-4 transition duration-200 hover:border-accent/30 hover:bg-[#1d1d22]"
+                  interactive
+                  className="p-4 hover:border-accent/25"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
-                      <input.icon className="h-4 w-4" aria-hidden="true" />
-                    </div>
+                    <IconChip icon={input.icon} className="h-9 w-9" />
                     <div>
                       <h3 className="text-sm font-semibold text-text-primary">{input.label}</h3>
                       <p className="mt-1 text-xs leading-5 text-text-secondary">{input.detail}</p>
                     </div>
                   </div>
-                </div>
+                </MarketingCard>
               ))}
             </div>
 
-            <div className="relative overflow-hidden rounded-lg border border-accent/30 bg-[linear-gradient(150deg,rgba(139,92,246,0.16),rgba(24,24,27,0.95)_46%,rgba(15,15,18,1))] p-6 shadow-[0_24px_90px_rgba(0,0,0,0.35)] md:p-8">
+            <div className="surface-gradient-featured relative overflow-hidden rounded-lg border border-accent/20 p-6 shadow-2xl md:p-8">
               <div
-                className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-accent/70 to-transparent"
+                className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-accent/35 to-transparent"
                 aria-hidden="true"
               />
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-lg border border-accent/30 bg-accent/10 text-accent shadow-[0_0_44px_rgba(139,92,246,0.24)]">
-                <Database className="h-7 w-7" aria-hidden="true" />
-              </div>
+              <IconChip icon={Database} className="mx-auto h-16 w-16 [&_svg]:h-7 [&_svg]:w-7" />
               <div className="mt-6 text-center">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                   One Course Model
@@ -226,31 +220,29 @@ export default function CurriculumIntelligencePage() {
                 const Icon = product.icon
 
                 return (
-                  <div
+                  <MarketingCard
                     key={product.id}
-                    className="rounded-lg border border-border-gray bg-bg-deep p-4 transition duration-200 hover:border-accent/25"
+                    surface="deep"
+                    interactive
+                    className="p-4 hover:border-accent/25"
                   >
                     <div className="flex items-start gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-accent">
-                        <Icon className="h-4 w-4" aria-hidden="true" />
-                      </div>
+                      <IconChip icon={Icon} className="h-9 w-9" />
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-2">
                           <h3 className="text-sm font-semibold text-text-primary">
                             {product.title}
                           </h3>
-                          <span
-                            className={`rounded-md border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] ${statusClasses[product.status as keyof typeof statusClasses]}`}
-                          >
+                          <StatusPill tone={product.status.toLowerCase() as 'live' | 'beta' | 'planned'}>
                             {product.status}
-                          </span>
+                          </StatusPill>
                         </div>
                         <p className="mt-1 text-xs leading-5 text-text-secondary">
                           {product.subtitle}
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </MarketingCard>
                 )
               })}
             </div>
@@ -272,13 +264,11 @@ export default function CurriculumIntelligencePage() {
               return (
                 <div
                   key={product.id}
-                  className="group overflow-hidden rounded-lg border border-border-gray bg-[linear-gradient(180deg,rgba(24,24,27,0.98),rgba(15,15,18,0.9))] p-5 transition duration-200 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-[0_22px_70px_rgba(0,0,0,0.26)] md:p-6"
+                  className="surface-gradient-panel group overflow-hidden rounded-lg border border-border-gray p-5 transition duration-200 hover:-translate-y-px hover:border-accent/25 hover:shadow-lg md:p-6"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
-                        <Icon className="h-5 w-5" aria-hidden="true" />
-                      </div>
+                      <IconChip icon={Icon} className="h-10 w-10 [&_svg]:h-5 [&_svg]:w-5" />
                       <div>
                         <h3 className="text-base font-semibold tracking-[-0.01em] text-text-primary">
                           {product.title}
@@ -286,11 +276,11 @@ export default function CurriculumIntelligencePage() {
                         <p className="mt-1 text-xs font-medium text-accent">{product.subtitle}</p>
                       </div>
                     </div>
-                    <span
-                      className={`shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${statusClasses[product.status as keyof typeof statusClasses]}`}
+                    <StatusPill
+                      tone={product.status.toLowerCase() as 'live' | 'beta' | 'planned'}
                     >
                       {product.status}
-                    </span>
+                    </StatusPill>
                   </div>
                   <p className="mt-5 text-sm leading-7 text-text-secondary">
                     {product.description}
@@ -300,7 +290,7 @@ export default function CurriculumIntelligencePage() {
                       Example Interface
                     </p>
                     <div className="mt-3 flex items-start gap-3">
-                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-accent">
+                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border-gray bg-bg-deep text-accent">
                         {product.status === 'Live' ? (
                           <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
                         ) : product.status === 'Beta' ? (
@@ -344,6 +334,17 @@ export default function CurriculumIntelligencePage() {
               </ul>
             </FeatureCard>
           </div>
+          <p className="mt-6 text-center text-sm text-text-secondary">
+            For setup details, visit{' '}
+            <Link href="/how-it-works" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              How It Works
+            </Link>
+            . For rollout cost, see{' '}
+            <Link href="/pricing" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              Pricing
+            </Link>
+            .
+          </p>
         </Container>
       </Section>
 

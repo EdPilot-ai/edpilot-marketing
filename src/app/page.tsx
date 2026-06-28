@@ -23,6 +23,7 @@ import {
   CourseAssistantMockup,
   FeatureCard,
   Hero,
+  MarketingCard,
   PageShell,
   ProofPanel,
   RoleValueGrid,
@@ -38,9 +39,9 @@ export default function HomePage() {
   return (
     <PageShell>
       <Hero
-        title="Faculty-controlled AI teaching assistants"
-        accent="for real courses."
-        description="EdPilot helps universities launch AI support grounded in course materials, governed by faculty, and ready for institutional review."
+        title="Adopt campus AI on purpose."
+        accent="Not by accident."
+        description="Students are already using AI on your courses. EdPilot gives universities a governed path to launch course-grounded support faculty can control and administrators can stand behind."
         actions={[
           { label: 'Book University Demo', href: '/contact' },
           { label: 'Start Professor Pilot', href: SIGN_UP_URL, variant: 'secondary' },
@@ -51,20 +52,51 @@ export default function HomePage() {
 
       <Section className="py-16 md:py-20" surface="panel">
         <Container size="wide">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-              The exposure you already have
-            </p>
-            <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary md:text-4xl">
-              Your students are already using AI on your courses.
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-text-secondary md:text-lg">
-              Right now you can&apos;t see it, shape it, or stand behind it. EdPilot turns campus AI
-              into something faculty govern and administrators can answer for &mdash; not something
-              that happens to you.
-            </p>
-          </div>
+          <SectionHeader
+            eyebrow="The exposure you already have"
+            title="Your students are already using AI on your courses."
+            description={
+              <>
+                Right now you can&apos;t see it, shape it, or stand behind it. EdPilot turns campus AI
+                into something faculty govern and administrators can answer for &mdash; not something
+                that happens to you.
+              </>
+            }
+            className="mb-0"
+          />
           <StatBand items={productFacts} className="mt-10" />
+        </Container>
+      </Section>
+
+      <Section className="py-20 md:py-28">
+        <Container>
+          <SectionHeader
+            eyebrow="Who It Helps"
+            title="One platform, three clear experiences."
+            description="The product story changes by role, but the core promise stays the same: governed AI support inside the academic boundary."
+          />
+          <RoleValueGrid
+            items={[
+              {
+                icon: Building2,
+                role: 'Administrators',
+                promise: 'A governed path for campus AI adoption.',
+                detail: 'Pilot course-grounded AI with privacy posture, rollout controls, and faculty ownership built into the experience.',
+              },
+              {
+                icon: BookOpen,
+                role: 'Professors',
+                promise: 'Fewer repetitive questions, more useful signals.',
+                detail: 'Set the knowledge boundary, review source-backed answers, and see where students are struggling before office hours fill up.',
+              },
+              {
+                icon: Sparkles,
+                role: 'Students',
+                promise: '24/7 help that speaks the language of the class.',
+                detail: 'Get explanations, practice prompts, and citations from the actual syllabus, slides, readings, and rubrics.',
+              },
+            ]}
+          />
         </Container>
       </Section>
 
@@ -77,10 +109,10 @@ export default function HomePage() {
               ['Institution-ready', 'Built for privacy, rollout, and procurement questions.'],
               ['Cites sources', 'Students can see what course material supports an answer.'],
             ].map(([label, detail]) => (
-              <div key={label} className="rounded-lg border border-border-gray bg-bg-surface p-4">
+              <MarketingCard key={label} className="p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">{label}</p>
                 <p className="mt-2 text-xs leading-5 text-text-secondary">{detail}</p>
-              </div>
+              </MarketingCard>
             ))}
           </div>
         </Container>
@@ -127,38 +159,6 @@ export default function HomePage() {
                 step: '04',
                 title: 'Faculty see patterns',
                 description: 'Confusion, misuse attempts, and concept gaps become visible before the next assessment.',
-              },
-            ]}
-          />
-        </Container>
-      </Section>
-
-      <Section className="py-20 md:py-28" surface="panel">
-        <Container>
-          <SectionHeader
-            eyebrow="Who It Helps"
-            title="One platform, three clear experiences."
-            description="The product story changes by role, but the core promise stays the same: governed AI support inside the academic boundary."
-          />
-          <RoleValueGrid
-            items={[
-              {
-                icon: BookOpen,
-                role: 'Professors',
-                promise: 'Fewer repetitive questions, more useful signals.',
-                detail: 'Set the knowledge boundary, review source-backed answers, and see where students are struggling before office hours fill up.',
-              },
-              {
-                icon: Sparkles,
-                role: 'Students',
-                promise: '24/7 help that speaks the language of the class.',
-                detail: 'Get explanations, practice prompts, and citations from the actual syllabus, slides, readings, and rubrics.',
-              },
-              {
-                icon: Building2,
-                role: 'Administrators',
-                promise: 'A governed path for campus AI adoption.',
-                detail: 'Pilot course-grounded AI with privacy posture, rollout controls, and faculty ownership built into the experience.',
               },
             ]}
           />

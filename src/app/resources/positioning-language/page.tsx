@@ -1,5 +1,14 @@
 import { FAQSchema, BreadcrumbSchema } from '@/components/StructuredData'
-import { Container, FeatureCard, Hero, PageShell, Section, SectionHeader } from '@/components/marketing'
+import {
+  Badge,
+  Container,
+  FeatureCard,
+  Hero,
+  MarketingCard,
+  PageShell,
+  Section,
+  SectionHeader,
+} from '@/components/marketing'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -84,13 +93,13 @@ export default function PositioningLanguagePage() {
               title="Recommended language"
               description="EdPilot is an instructor-controlled AI teaching assistant built specifically for universities. Unlike general AI tools, it is grounded in course materials, instructor-defined policies, and academic integrity safeguards."
             />
-            <div className="rounded-lg border border-border-gray bg-bg-deep p-6 text-sm leading-7 text-text-secondary">
+            <MarketingCard surface="deep" className="p-6 text-sm leading-7 text-text-secondary">
               <p>
                 Alternative framings include &ldquo;purpose-built AI infrastructure for university
                 teaching,&rdquo; &ldquo;a syllabus-aligned AI system that keeps instructors in charge,&rdquo; and
                 &ldquo;the instructor-controlled alternative to general AI tools for university courses.&rdquo;
               </p>
-            </div>
+            </MarketingCard>
           </Container>
         </Section>
 
@@ -132,12 +141,9 @@ export default function PositioningLanguagePage() {
                 'course-specific AI',
                 'AI governance for universities',
               ].map((term) => (
-                <span
-                  key={term}
-                  className="rounded-lg border border-accent/20 bg-accent/10 px-3 py-2 text-sm font-medium text-accent"
-                >
+                <Badge key={term} className="normal-case tracking-normal">
                   {term}
-                </span>
+                </Badge>
               ))}
             </div>
           </Container>
@@ -147,4 +153,3 @@ export default function PositioningLanguagePage() {
     </>
   )
 }
-

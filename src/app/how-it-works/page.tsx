@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import {
   ArrowRight,
   Building2,
@@ -23,6 +24,7 @@ import {
   Container,
   FeatureCard,
   Hero,
+  IconChip,
   PageShell,
   Section,
   SectionHeader,
@@ -144,13 +146,13 @@ export default function HowItWorksPage() {
 
       <Section id="self-serve-setup" className="py-16 md:py-24" surface="panel">
         <div
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(139,92,246,0.08),rgba(24,24,27,0)_42%)]"
+          className="launch-gradient pointer-events-none absolute inset-0"
           aria-hidden="true"
         />
         <Container size="wide" className="relative z-10">
           <div className="grid gap-10 lg:grid-cols-[0.58fr_1.42fr] lg:items-start">
             <div className="lg:sticky lg:top-28">
-              <div className="overflow-hidden rounded-lg border border-border-gray bg-[linear-gradient(180deg,rgba(24,24,27,0.96),rgba(15,15,18,0.96))] shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
+              <div className="surface-gradient-panel overflow-hidden rounded-lg border border-border-gray shadow-2xl">
                 <div className="border-b border-border-gray p-6 md:p-7">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                     Interactive setup
@@ -170,9 +172,7 @@ export default function HowItWorksPage() {
                       className="group bg-bg-deep p-4 transition-colors hover:bg-bg-surface"
                     >
                       <div className="flex items-start gap-4">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
-                          <stat.icon className="h-4 w-4" aria-hidden="true" />
-                        </div>
+                        <IconChip icon={stat.icon} className="h-10 w-10" />
                         <div className="min-w-0 flex-1">
                           <div className="flex flex-wrap items-baseline justify-between gap-2">
                             <p className="text-sm font-semibold text-text-primary">{stat.label}</p>
@@ -233,14 +233,21 @@ export default function HowItWorksPage() {
             description="The same onboarding gives each role exactly what they need — and nothing they don't."
           />
           <RoleExplorer />
+          <p className="mt-6 text-center text-sm text-text-secondary">
+            Need the product view before setup details?{' '}
+            <Link href="/products" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              Explore Products
+            </Link>
+            .
+          </p>
         </Container>
       </Section>
 
       <Section className="py-20 md:py-28">
         <Container size="wide">
-          <div className="overflow-hidden rounded-lg border border-border-gray bg-bg-deep shadow-[0_28px_90px_rgba(0,0,0,0.26)]">
+          <div className="overflow-hidden rounded-lg border border-border-gray bg-bg-deep shadow-2xl">
             <div className="grid gap-px bg-border-gray lg:grid-cols-[0.88fr_1.12fr]">
-              <div className="bg-[linear-gradient(145deg,rgba(139,92,246,0.16),rgba(24,24,27,0.98)_42%,rgba(15,15,18,1))] p-7 md:p-9">
+              <div className="surface-gradient-featured p-7 md:p-9">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                   Safe by design
                 </p>
@@ -251,7 +258,7 @@ export default function HowItWorksPage() {
                   Self-serve does not mean a free-for-all. Every institution is verified and every
                   course is walled off before students ever ask a question.
                 </p>
-                <div className="mt-8 rounded-lg border border-accent/20 bg-accent/10 p-4">
+                <div className="mt-8 rounded-lg border border-accent/15 bg-accent/5 p-4">
                   <div className="flex items-start gap-3">
                     <FileCheck2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
                     <p className="text-sm leading-6 text-text-primary">
@@ -265,9 +272,7 @@ export default function HowItWorksPage() {
                 {safetyChecks.map((item) => (
                   <div key={item.label} className="bg-bg-surface p-5 md:p-6">
                     <div className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-accent/10 text-accent">
-                        <item.icon className="h-4 w-4" aria-hidden="true" />
-                      </div>
+                      <IconChip icon={item.icon} className="h-10 w-10" />
                       <div>
                         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-primary">
                           {item.label}
@@ -282,15 +287,24 @@ export default function HowItWorksPage() {
             <div className="grid gap-px bg-border-gray md:grid-cols-3">
               {safetyPolicies.map((item) => (
                 <div key={item.title} className="bg-bg-deep p-5 md:p-6">
-                  <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg border border-border-gray bg-bg-surface text-accent">
-                    <item.icon className="h-4 w-4" aria-hidden="true" />
-                  </div>
+                  <IconChip icon={item.icon} className="mb-4 h-9 w-9 border-border-gray bg-bg-surface" />
                   <h3 className="text-sm font-semibold text-text-primary">{item.title}</h3>
                   <p className="mt-2 text-[13px] leading-6 text-text-secondary">{item.detail}</p>
                 </div>
               ))}
             </div>
           </div>
+          <p className="mt-6 text-center text-sm text-text-secondary">
+            Ready to understand rollout cost?{' '}
+            <Link href="/pricing" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              See Pricing
+            </Link>
+            . Still comparing approaches?{' '}
+            <Link href="/compare" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              Compare alternatives
+            </Link>
+            .
+          </p>
         </Container>
       </Section>
 

@@ -170,23 +170,12 @@ export default function ForUniversitiesPage() {
               />
             ))}
           </div>
-        </Container>
-      </Section>
-
-      <Section className="py-20 md:py-28">
-        <Container>
-          <SectionHeader
-            eyebrow="Built for the people who sign off"
-            title="Answers for IT, legal, and procurement — before they ask."
-            description="The academic, privacy, and implementation posture is visible up front, so a pilot doesn't turn into a procurement surprise."
-          />
-          <ProofPanel items={signoff} />
           <p className="mt-6 text-center text-sm text-text-secondary">
-            Have a security or procurement review coming up?{' '}
-            <Link href="/contact" className="font-semibold text-accent hover:text-[#A78BFA] focus-ring">
-              Talk to our team
-            </Link>{' '}
-            and we&apos;ll walk through our data handling and controls.
+            Want to see the product behind the governance model?{' '}
+            <Link href="/products" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              Explore the product suite
+            </Link>
+            .
           </p>
         </Container>
       </Section>
@@ -201,8 +190,37 @@ export default function ForUniversitiesPage() {
               No procurement maze, no IT project. An admin registers, EdPilot verifies the
               institution, and faculty are teaching with course-grounded AI the same week.
             </p>
+            <p className="mt-4 text-sm text-text-secondary">
+              See the launch path on{' '}
+              <Link href="/how-it-works" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+                How It Works
+              </Link>
+              .
+            </p>
           </div>
           <StatBand items={productFacts} />
+        </Container>
+      </Section>
+
+      <Section className="py-20 md:py-28">
+        <Container>
+          <SectionHeader
+            eyebrow="Built for the people who sign off"
+            title="Answers for IT, legal, and procurement — before they ask."
+            description="The academic, privacy, and implementation posture is visible up front, so a pilot doesn't turn into a procurement surprise."
+          />
+          <ProofPanel items={signoff} />
+          <p className="mt-6 text-center text-sm text-text-secondary">
+            Have a security or procurement review coming up?{' '}
+            <Link href="/contact" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              Talk to our team
+            </Link>{' '}
+            and we&apos;ll walk through our data handling and controls. Comparing options first?{' '}
+            <Link href="/compare" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              See how EdPilot compares
+            </Link>
+            .
+          </p>
         </Container>
       </Section>
 

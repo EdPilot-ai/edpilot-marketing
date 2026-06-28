@@ -23,24 +23,21 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Primary — edpilot violet. Hover lightens to #8B5CF6.
-        default: 'bg-[#7C3AED] text-white hover:bg-[#8B5CF6] shadow-sm shadow-violet-900/30',
+        // Primary — edpilot violet.
+        default: 'bg-accent-hover text-white hover:bg-accent shadow-sm shadow-violet-900/30',
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/85 shadow-sm',
-        // Outline — explicit border so it's always visible against dark backgrounds.
-        // #3d3d45 is intentionally lighter than border-gray (#27272A) for contrast.
         outline:
-          'border border-[#3d3d45] bg-transparent text-text-primary hover:bg-bg-elevated hover:border-[#55566a]',
-        // Secondary — low-contrast surface fill for supporting actions.
+          'border border-border-strong bg-transparent text-text-primary hover:bg-bg-elevated hover:border-accent/30',
         secondary:
-          'bg-bg-elevated text-text-primary border border-border-gray hover:bg-[#2a2a30] hover:border-[#3f3f46]',
+          'bg-bg-elevated text-text-primary border border-border-gray hover:bg-bg-surface hover:border-border-strong',
         ghost: 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-9 px-4 py-2',
-        sm: 'h-8 rounded-lg px-3 text-xs',
+        default: 'h-11 px-4 py-2',
+        sm: 'h-11 rounded-lg px-4 text-sm',
         lg: 'h-11 rounded-lg px-7 text-sm',
-        icon: 'h-9 w-9',
+        icon: 'h-11 w-11',
       },
     },
     defaultVariants: {

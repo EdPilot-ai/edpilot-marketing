@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { designTokens } from '@/lib/design-tokens'
 
 /**
  * global-error replaces the root layout when an error is thrown in the layout
@@ -28,8 +29,8 @@ export default function GlobalError({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#141416',
-          color: '#EDEDEF',
+          backgroundColor: designTokens.bgPage,
+          color: designTokens.textPrimary,
           fontFamily:
             'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
           padding: '24px',
@@ -43,7 +44,7 @@ export default function GlobalError({
               fontWeight: 600,
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
-              color: '#8B5CF6',
+              color: designTokens.accent,
             }}
           >
             Something went wrong
@@ -59,21 +60,37 @@ export default function GlobalError({
           >
             We hit an unexpected error.
           </h1>
-          <p style={{ margin: '20px 0 0', fontSize: 16, lineHeight: 1.7, color: '#9D9DA8' }}>
+          <p
+            style={{
+              margin: '20px 0 0',
+              fontSize: 16,
+              lineHeight: 1.7,
+              color: designTokens.textSecondary,
+            }}
+          >
             This one is on us. Try reloading the page.
           </p>
           <button
             type="button"
             onClick={() => reset()}
+            onBlur={(event) => {
+              event.currentTarget.style.outline = '2px solid transparent'
+            }}
+            onFocus={(event) => {
+              event.currentTarget.style.outline = `2px solid ${designTokens.accent}`
+            }}
             style={{
               marginTop: 32,
               cursor: 'pointer',
               borderRadius: 8,
               border: 'none',
-              backgroundColor: '#7C3AED',
-              color: '#ffffff',
+              backgroundColor: designTokens.accentHover,
+              color: designTokens.white,
               fontSize: 14,
               fontWeight: 500,
+              minHeight: 44,
+              outline: '2px solid transparent',
+              outlineOffset: 3,
               padding: '12px 28px',
             }}
           >

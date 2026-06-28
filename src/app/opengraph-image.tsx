@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { designTokens } from '@/lib/design-tokens'
 
 export const alt = 'EdPilot — Faculty-controlled AI teaching assistants for real courses'
 export const size = { width: 1200, height: 630 }
@@ -14,7 +15,7 @@ export default function OpenGraphImage() {
         flexDirection: 'column',
         justifyContent: 'space-between',
         background:
-          'radial-gradient(1000px 600px at 78% -10%, rgba(139,92,246,0.30), transparent 60%), #141416',
+          `radial-gradient(1000px 600px at 78% -10%, rgba(139,92,246,0.30), transparent 60%), ${designTokens.bgPage}`,
         padding: '72px 80px',
         fontFamily: 'sans-serif',
       }}
@@ -22,10 +23,17 @@ export default function OpenGraphImage() {
       {/* Brand lockup */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
         <svg width="56" height="50" viewBox="0 0 100 90" fill="none">
-          <path d="M90 8 L48 48 L50 80 Z" fill="#4C1D95" />
-          <path d="M90 8 L8 36 L48 48 Z" fill="#8B5CF6" />
+          <path d="M90 8 L48 48 L50 80 Z" fill={designTokens.brandMarkFuse} />
+          <path d="M90 8 L8 36 L48 48 Z" fill={designTokens.accent} />
         </svg>
-        <div style={{ fontSize: 36, fontWeight: 700, color: '#EDEDEF', letterSpacing: '-0.01em' }}>
+        <div
+          style={{
+            fontSize: 36,
+            fontWeight: 700,
+            color: designTokens.textPrimary,
+            letterSpacing: '-0.01em',
+          }}
+        >
           EdPilot
         </div>
       </div>
@@ -38,16 +46,23 @@ export default function OpenGraphImage() {
             fontWeight: 700,
             lineHeight: 1.05,
             letterSpacing: '-0.03em',
-            color: '#EDEDEF',
+            color: designTokens.textPrimary,
             maxWidth: 980,
             display: 'flex',
             flexWrap: 'wrap',
           }}
         >
           Faculty-controlled AI teaching assistants&nbsp;
-          <span style={{ color: '#8B5CF6' }}>for real courses.</span>
+          <span style={{ color: designTokens.accent }}>for real courses.</span>
         </div>
-        <div style={{ fontSize: 30, lineHeight: 1.35, color: '#9D9DA8', maxWidth: 920 }}>
+        <div
+          style={{
+            fontSize: 30,
+            lineHeight: 1.35,
+            color: designTokens.textSecondary,
+            maxWidth: 920,
+          }}
+        >
           AI support grounded in course materials, governed by faculty, and ready for institutional
           review.
         </div>
@@ -60,12 +75,12 @@ export default function OpenGraphImage() {
           alignItems: 'center',
           gap: 16,
           fontSize: 24,
-          color: '#6c6c78',
-          borderTop: '1px solid #27272A',
+          color: designTokens.textTertiary,
+          borderTop: `1px solid ${designTokens.borderGray}`,
           paddingTop: 28,
         }}
       >
-        <span style={{ color: '#9D9DA8' }}>edpilot.ai</span>
+        <span style={{ color: designTokens.textSecondary }}>edpilot.ai</span>
         <span>·</span>
         <span>Course-grounded</span>
         <span>·</span>
