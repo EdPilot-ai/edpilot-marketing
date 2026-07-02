@@ -1,6 +1,6 @@
-import { Quote } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import type { Testimonial } from '@/lib/social-proof'
+import { Quote } from "lucide-react";
+import { cn } from "@/lib/utils";
+import type { Testimonial } from "@/lib/social-proof";
 
 /**
  * A row of headline numbers. Pass only TRUE product facts (see
@@ -11,29 +11,29 @@ export function StatBand({
   items,
   className,
 }: {
-  items: Array<{ value: string; label: string }>
-  className?: string
+  items: Array<{ value: string; label: string }>;
+  className?: string;
 }) {
   return (
     <dl
       className={cn(
-        'grid gap-px overflow-hidden rounded-lg border border-border-gray bg-border-gray sm:grid-cols-2 lg:grid-cols-4',
-        className
+        "shadow-card grid gap-px overflow-hidden rounded-xl border border-border-gray bg-border-gray sm:grid-cols-2 lg:grid-cols-4",
+        className,
       )}
     >
       {items.map((item) => (
-        <div key={item.label} className="bg-bg-deep p-6 text-center">
+        <div key={item.label} className="bg-bg-deep p-6 text-center md:p-7">
           <dt className="sr-only">{item.label}</dt>
-          <dd className="text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">
+          <dd className="text-gradient-accent font-display text-3xl font-semibold tracking-[-0.03em] md:text-4xl">
             {item.value}
           </dd>
-          <p className="mt-2 text-[11px] font-medium uppercase leading-5 tracking-[0.14em] text-text-tertiary">
+          <p className="mt-2.5 text-[11px] font-medium uppercase leading-5 tracking-[0.14em] text-text-tertiary">
             {item.label}
           </p>
         </div>
       ))}
     </dl>
-  )
+  );
 }
 
 /**
@@ -45,8 +45,8 @@ export function TrustStrip({ items, className }: { items: string[]; className?: 
   return (
     <div
       className={cn(
-        'flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center',
-        className
+        "flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center",
+        className,
       )}
     >
       {items.map((item) => (
@@ -58,28 +58,22 @@ export function TrustStrip({ items, className }: { items: string[]; className?: 
         </span>
       ))}
     </div>
-  )
+  );
 }
 
 /**
  * Renders real testimonials. Returns null when there are none, so the live
  * site never shows placeholder quotes.
  */
-export function Testimonials({
-  quotes,
-  className,
-}: {
-  quotes: Testimonial[]
-  className?: string
-}) {
-  if (!quotes || quotes.length === 0) return null
+export function Testimonials({ quotes, className }: { quotes: Testimonial[]; className?: string }) {
+  if (!quotes || quotes.length === 0) return null;
 
   return (
     <div
       className={cn(
-        'grid gap-4',
-        quotes.length > 1 ? 'md:grid-cols-2 lg:grid-cols-3' : 'mx-auto max-w-2xl',
-        className
+        "grid gap-4",
+        quotes.length > 1 ? "md:grid-cols-2 lg:grid-cols-3" : "mx-auto max-w-2xl",
+        className,
       )}
     >
       {quotes.map((quote) => (
@@ -100,5 +94,5 @@ export function Testimonials({
         </figure>
       ))}
     </div>
-  )
+  );
 }

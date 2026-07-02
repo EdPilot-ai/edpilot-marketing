@@ -21,19 +21,19 @@ export default function Footer() {
                 size={30}
                 className="group-hover:scale-105 transition-transform duration-150"
               />
-              <span className="text-sm font-semibold text-text-primary tracking-[-0.01em]">
+              <span className="font-display text-sm font-bold text-text-primary tracking-[-0.01em]">
                 EdPilot
               </span>
             </Link>
-            <p className="text-text-secondary text-sm leading-6 max-w-[260px]">
-              Course-grounded AI infrastructure for universities that want control, clarity, and
-              trust.
+            <p className="text-text-secondary text-sm leading-6 max-w-[280px]">
+              The AI teaching assistant your faculty controls — grounded in course materials,
+              governed by professors, built for universities.
             </p>
             <a
               href={SIGN_UP_URL}
-              className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-md text-xs font-semibold text-accent transition-colors hover:text-accent-soft focus-ring"
+              className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-accent transition-colors hover:text-accent-soft focus-ring"
             >
-              Get Started
+              Start a free pilot
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </a>
           </div>
@@ -47,7 +47,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/for-universities"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                  className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   For Universities
                 </Link>
@@ -55,7 +55,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/products"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                  className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   Products
                 </Link>
@@ -63,7 +63,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/products/curriculum-intelligence"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                  className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   Curriculum Intelligence
                 </Link>
@@ -71,7 +71,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/how-it-works"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                  className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   How It Works
                 </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/pricing"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                  className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   Pricing
                 </Link>
@@ -96,7 +96,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/compare"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                  className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   All Comparisons
                 </Link>
@@ -104,7 +104,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/compare/chatgpt"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                  className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   vs. ChatGPT
                 </Link>
@@ -112,7 +112,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/compare/lms-native"
-                  className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                  className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   vs. LMS AI
                 </Link>
@@ -135,7 +135,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                    className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                   >
                     {link.label}
                   </Link>
@@ -153,7 +153,7 @@ export default function Footer() {
               <li>
                 <a
                   href={`mailto:${SUPPORT_EMAIL}`}
-                  className="flex min-h-11 items-center gap-2 rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                  className="flex min-h-11 items-center gap-2 rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
                 >
                   <Mail className="w-3 h-3 flex-shrink-0" aria-hidden="true" />
                   {SUPPORT_EMAIL}
@@ -177,7 +177,7 @@ export default function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="inline-flex min-h-11 items-center rounded-md text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
               >
                 {link.label}
               </Link>

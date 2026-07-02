@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Newsreader, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "react-hot-toast";
@@ -17,6 +17,23 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
+});
+
+// Display face for headlines — the same family the product app uses, so the
+// marketing site and app.edpilot.ai read as one brand.
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-display",
+});
+
+// Editorial serif, italic only — used for the accented word in hero
+// headlines. Italic subset keeps the payload to a single small file.
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  style: ["italic"],
+  display: "swap",
+  variable: "--font-serif",
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_MARKETING_URL ?? "https://edpilot.ai";
@@ -67,8 +84,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${jakarta.variable} ${newsreader.variable}`}>
       <body>
+        {/* Scroll-reveal elements ship with inline opacity:0 in the SSR
+            markup and rely on JS to animate in. Without JS (or in no-JS
+            renderers), force them visible so content is never hidden. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1 !important;transform:none !important}`}</style>
+        </noscript>
         <a
           href="#main-content"
           className="sr-only z-[100] rounded-lg border border-border-gray bg-bg-surface px-4 py-2 text-sm font-medium text-text-primary focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
