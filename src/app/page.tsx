@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 import {
   ArrowRight,
   BarChart3,
@@ -7,71 +7,208 @@ import {
   CheckCircle2,
   Database,
   Eye,
+  EyeOff,
   FileText,
+  Globe,
   Lock,
   MessageSquare,
+  Puzzle,
+  RefreshCw,
   Shield,
+  ShieldOff,
   Sparkles,
   Upload,
   Users,
-} from 'lucide-react'
-import { Button } from '@/components/ui/button'
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   CTABand,
   CheckList,
   Container,
   CourseAssistantMockup,
+  FAQList,
   FeatureCard,
   Hero,
-  MarketingCard,
   PageShell,
   ProofPanel,
+  Reveal,
   RoleValueGrid,
   Section,
   SectionHeader,
   StatBand,
+  Testimonials,
+  TextLink,
+  TrustStrip,
   WorkflowSteps,
-} from '@/components/marketing'
-import { SIGN_UP_URL } from '@/lib/marketing'
-import { productFacts } from '@/lib/social-proof'
+} from "@/components/marketing";
+import { SIGN_UP_URL } from "@/lib/marketing";
+import { productFacts, testimonials } from "@/lib/social-proof";
+
+const HOMEPAGE_FAQS = [
+  {
+    question: "How is EdPilot different from ChatGPT?",
+    answer: (
+      <>
+        ChatGPT answers from the open internet and follows its own rules. EdPilot answers only from
+        the materials a professor uploads, cites those sources, and follows the guardrails the
+        professor sets — including refusing to complete graded work.{" "}
+        <Link href="/compare/chatgpt" className="font-semibold text-accent hover:text-accent-soft">
+          See the full comparison
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    question: "Do professors control what the AI can and can't do?",
+    answer:
+      "Yes. Instructors set the knowledge boundary (course materials only, or course-plus-context), the citation policy, how the assistant handles assessment questions, and its tone. The AI works for the professor, not around them.",
+  },
+  {
+    question: "How long does setup take?",
+    answer:
+      "Registering a university takes about two minutes, and professors can be teaching with EdPilot the same week. There is no IT integration project — upload materials, set the rules, share the class link.",
+  },
+  {
+    question: "What does it cost to try?",
+    answer: (
+      <>
+        Professors can pilot EdPilot on a real course for free. Institutional pricing scales with
+        campus size, so a small pilot never carries enterprise pricing.{" "}
+        <Link href="/pricing" className="font-semibold text-accent hover:text-accent-soft">
+          See pricing
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    question: "How is student data handled?",
+    answer: (
+      <>
+        Course materials and student interactions are scoped to your institution and course, and
+        student records are never used to train public models.{" "}
+        <Link href="/for-universities" className="font-semibold text-accent hover:text-accent-soft">
+          Read the answers we prepare for IT, legal, and procurement
+        </Link>
+        .
+      </>
+    ),
+  },
+];
 
 export default function HomePage() {
   return (
     <PageShell>
       <Hero
-        title="Adopt campus AI on purpose."
-        accent="Not by accident."
-        description="Students are already using AI on your courses. EdPilot gives universities a governed path to launch course-grounded support faculty can control and administrators can stand behind."
+        eyebrow="AI built for higher education"
+        title="The AI teaching assistant"
+        accent="your faculty controls."
+        description="EdPilot grounds every answer in your actual course materials — syllabi, lectures, readings — inside guardrails professors set. Students get a tutor that knows the class. Universities get AI adoption on their terms."
         actions={[
-          { label: 'Book University Demo', href: '/contact' },
-          { label: 'Start Professor Pilot', href: SIGN_UP_URL, variant: 'secondary' },
+          { label: "Book a University Demo", href: "/contact" },
+          { label: "Start a Free Pilot", href: SIGN_UP_URL, variant: "secondary" },
         ]}
+        note="Free for professors to pilot · Set up in minutes · No IT project required"
       >
         <CourseAssistantMockup className="mt-14" />
+        <TrustStrip
+          className="mt-12"
+          items={[
+            "Built for higher education",
+            "Faculty-governed by design",
+            "FERPA-conscious",
+            "Canvas-integrated",
+            "Citations on every answer",
+          ]}
+        />
       </Hero>
 
-      <Section className="py-16 md:py-20" surface="panel">
-        <Container size="wide">
+      <Section className="py-20 md:py-28" surface="panel">
+        <Container>
           <SectionHeader
-            eyebrow="The exposure you already have"
-            title="Your students are already using AI on your courses."
-            description={
-              <>
-                Right now you can&apos;t see it, shape it, or stand behind it. EdPilot turns campus AI
-                into something faculty govern and administrators can answer for &mdash; not something
-                that happens to you.
-              </>
-            }
-            className="mb-0"
+            eyebrow="The problem"
+            title="Students are already using AI on your courses."
+            description="Right now that happens through generic chatbots — outside your policies, outside your visibility, and often wrong about your class. The question isn't whether AI reaches your students. It's whether your institution has any say in how."
           />
-          <StatBand items={productFacts} className="mt-10" />
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              {
+                icon: ShieldOff,
+                title: "Ungoverned",
+                detail:
+                  "Generic chatbots follow their own rules — not your syllabus, your honor code, or your assessment policy.",
+              },
+              {
+                icon: EyeOff,
+                title: "Invisible",
+                detail:
+                  "Faculty get no signal about what students ask, where they struggle, or how AI is shaping their learning.",
+              },
+              {
+                icon: MessageSquare,
+                title: "Unaccountable",
+                detail:
+                  "Answers come from the open internet with no citations — confidently wrong about your course, with no way to check.",
+              },
+            ].map((item, index) => (
+              <Reveal key={item.title} delay={index * 0.08}>
+                <FeatureCard icon={item.icon} title={item.title} description={item.detail} />
+              </Reveal>
+            ))}
+          </div>
         </Container>
       </Section>
 
       <Section className="py-20 md:py-28">
         <Container>
           <SectionHeader
-            eyebrow="Who It Helps"
+            eyebrow="How it works"
+            title="From syllabus to student support in an afternoon."
+            description="No IT project, no migration. A professor uploads materials, sets the rules, and shares a link — the course model does the rest."
+          />
+          <WorkflowSteps
+            steps={[
+              {
+                icon: Upload,
+                step: "01",
+                title: "Upload course materials",
+                description:
+                  "Syllabi, lectures, readings, rubrics, policies, and assignments become the source of truth.",
+              },
+              {
+                icon: Shield,
+                step: "02",
+                title: "Configure guardrails",
+                description:
+                  "Faculty choose citation rules, assessment boundaries, tone, and what the assistant can answer.",
+              },
+              {
+                icon: MessageSquare,
+                step: "03",
+                title: "Students ask safely",
+                description:
+                  "The assistant gives grounded explanations, practice prompts, and hints without completing work.",
+              },
+              {
+                icon: BarChart3,
+                step: "04",
+                title: "Faculty see patterns",
+                description:
+                  "Confusion, misuse attempts, and concept gaps become visible before the next assessment.",
+              },
+            ]}
+          />
+          <Reveal>
+            <StatBand items={productFacts} className="mt-12" />
+          </Reveal>
+        </Container>
+      </Section>
+
+      <Section className="py-20 md:py-28" surface="panel">
+        <Container>
+          <SectionHeader
+            eyebrow="Who it helps"
             title="One platform, three clear experiences."
             description="The product story changes by role, but the core promise stays the same: governed AI support inside the academic boundary."
           />
@@ -79,86 +216,24 @@ export default function HomePage() {
             items={[
               {
                 icon: Building2,
-                role: 'Administrators',
-                promise: 'A governed path for campus AI adoption.',
-                detail: 'Pilot course-grounded AI with privacy posture, rollout controls, and faculty ownership built into the experience.',
+                role: "Administrators",
+                promise: "A governed path for campus AI adoption.",
+                detail:
+                  "Pilot course-grounded AI with privacy posture, rollout controls, and faculty ownership built into the experience.",
               },
               {
                 icon: BookOpen,
-                role: 'Professors',
-                promise: 'Fewer repetitive questions, more useful signals.',
-                detail: 'Set the knowledge boundary, review source-backed answers, and see where students are struggling before office hours fill up.',
+                role: "Professors",
+                promise: "Fewer repetitive questions, more useful signals.",
+                detail:
+                  "Set the knowledge boundary, review source-backed answers, and see where students are struggling before office hours fill up.",
               },
               {
                 icon: Sparkles,
-                role: 'Students',
-                promise: '24/7 help that speaks the language of the class.',
-                detail: 'Get explanations, practice prompts, and citations from the actual syllabus, slides, readings, and rubrics.',
-              },
-            ]}
-          />
-        </Container>
-      </Section>
-
-      <Section className="py-12" surface="deep">
-        <Container>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ['Course-grounded', 'Answers come from uploaded materials.'],
-              ['Faculty-controlled', 'Boundaries, tone, and policies stay instructor-led.'],
-              ['Institution-ready', 'Built for privacy, rollout, and procurement questions.'],
-              ['Cites sources', 'Students can see what course material supports an answer.'],
-            ].map(([label, detail]) => (
-              <MarketingCard key={label} className="p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">{label}</p>
-                <p className="mt-2 text-xs leading-5 text-text-secondary">{detail}</p>
-              </MarketingCard>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      <Section className="py-16" surface="panel">
-        <Container size="narrow" className="text-center">
-          <p className="text-xl font-medium leading-9 tracking-[-0.015em] text-text-primary md:text-2xl">
-            EdPilot gives students a tutor that knows the course, follows faculty rules, and shows
-            its work &mdash; and gives your institution a way to adopt AI on purpose, not by accident.
-          </p>
-        </Container>
-      </Section>
-
-      <Section className="py-20 md:py-28">
-        <Container>
-          <SectionHeader
-            eyebrow="Product In Action"
-            title="The course model powers every answer."
-            description="Upload materials once, set the boundaries, then give students support that reflects the class they are actually taking."
-          />
-          <WorkflowSteps
-            steps={[
-              {
-                icon: Upload,
-                step: '01',
-                title: 'Upload course materials',
-                description: 'Syllabi, lectures, readings, rubrics, policies, and assignments become the source of truth.',
-              },
-              {
-                icon: Shield,
-                step: '02',
-                title: 'Configure guardrails',
-                description: 'Faculty choose citation rules, assessment boundaries, tone, and what the assistant can answer.',
-              },
-              {
-                icon: MessageSquare,
-                step: '03',
-                title: 'Students ask safely',
-                description: 'The assistant gives grounded explanations, practice prompts, and hints without completing work.',
-              },
-              {
-                icon: BarChart3,
-                step: '04',
-                title: 'Faculty see patterns',
-                description: 'Confusion, misuse attempts, and concept gaps become visible before the next assessment.',
+                role: "Students",
+                promise: "24/7 help that speaks the language of the class.",
+                detail:
+                  "Get explanations, practice prompts, and citations from the actual syllabus, slides, readings, and rubrics.",
               },
             ]}
           />
@@ -168,35 +243,53 @@ export default function HomePage() {
       <Section className="py-20 md:py-28">
         <Container>
           <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr] md:items-center">
-            <SectionHeader
-              align="left"
-              eyebrow="Why EdPilot"
-              title="Built for higher education, not generic chat."
-              description="Other AI tools are built for everyone. EdPilot is scoped to a course, governed by faculty, and designed for institutional review."
-              className="mb-0"
-            />
+            <div>
+              <SectionHeader
+                align="left"
+                eyebrow="Why EdPilot"
+                title="Built for higher education, not generic chat."
+                description="Other AI tools are built for everyone. EdPilot is scoped to a course, governed by faculty, and designed for institutional review."
+                className="mb-6"
+              />
+              <TextLink href="/compare">
+                Compare EdPilot to the alternatives
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </TextLink>
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
-              <FeatureCard
-                featured
-                icon={BookOpen}
-                title="Course-specific by default"
-                description="Every answer is grounded in uploaded course materials, not a generic web-scale guess."
-              />
-              <FeatureCard
-                icon={Eye}
-                title="Faculty-controlled"
-                description="Instructors define what the AI knows, how it responds, and where it stops."
-              />
-              <FeatureCard
-                icon={Shield}
-                title="Integrity-first"
-                description="Designed to guide students toward understanding instead of completing assessed work."
-              />
-              <FeatureCard
-                icon={BarChart3}
-                title="Insight-rich"
-                description="Show where students are confused before confusion becomes an exam result."
-              />
+              <Reveal>
+                <FeatureCard
+                  featured
+                  icon={BookOpen}
+                  title="Course-specific by default"
+                  description="Every answer is grounded in uploaded course materials, not a generic web-scale guess."
+                  className="h-full"
+                />
+              </Reveal>
+              <Reveal delay={0.08}>
+                <FeatureCard
+                  icon={Eye}
+                  title="Faculty-controlled"
+                  description="Instructors define what the AI knows, how it responds, and where it stops."
+                  className="h-full"
+                />
+              </Reveal>
+              <Reveal delay={0.12}>
+                <FeatureCard
+                  icon={Shield}
+                  title="Integrity-first"
+                  description="Designed to guide students toward understanding instead of completing assessed work."
+                  className="h-full"
+                />
+              </Reveal>
+              <Reveal delay={0.16}>
+                <FeatureCard
+                  icon={BarChart3}
+                  title="Insight-rich"
+                  description="Show where students are confused before confusion becomes an exam result."
+                  className="h-full"
+                />
+              </Reveal>
             </div>
           </div>
         </Container>
@@ -207,27 +300,29 @@ export default function HomePage() {
           <div className="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:items-start">
             <SectionHeader
               align="left"
-              eyebrow="Featured Product"
+              eyebrow="Featured product"
               title="AI Teaching Assistant"
               description="A teaching assistant that answers student questions at 2am using your materials, your terminology, and your standards."
               className="mb-0"
             />
-            <div className="rounded-lg border border-border-gray bg-bg-deep p-6 md:p-8">
-              <CheckList
-                items={[
-                  'Cites your readings instead of random internet sources.',
-                  'Flags misconceptions before they reach the exam.',
-                  'Follows the guardrails and knowledge boundary you set.',
-                  'Separates fast pilots from responsible institutional rollout.',
-                ]}
-              />
-              <Button asChild variant="outline" className="mt-7">
-                <Link href="/products/curriculum-intelligence">
-                  Explore Curriculum Intelligence
-                  <ArrowRight aria-hidden="true" />
-                </Link>
-              </Button>
-            </div>
+            <Reveal>
+              <div className="shadow-card rounded-xl border border-border-gray bg-bg-deep p-6 md:p-8">
+                <CheckList
+                  items={[
+                    "Cites your readings instead of random internet sources.",
+                    "Flags misconceptions before they reach the exam.",
+                    "Follows the guardrails and knowledge boundary you set.",
+                    "Separates fast pilots from responsible institutional rollout.",
+                  ]}
+                />
+                <Button asChild variant="outline" className="mt-7">
+                  <Link href="/products/curriculum-intelligence">
+                    Explore Curriculum Intelligence
+                    <ArrowRight aria-hidden="true" />
+                  </Link>
+                </Button>
+              </div>
+            </Reveal>
           </div>
         </Container>
       </Section>
@@ -235,56 +330,150 @@ export default function HomePage() {
       <Section className="py-20 md:py-28">
         <Container>
           <SectionHeader
-            eyebrow="Institutional Proof"
+            eyebrow="Integrations"
+            title="Meets your campus where it already works."
+            description="EdPilot runs in the browser and connects to the tools your courses already live in — starting with Canvas."
+          />
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              {
+                icon: RefreshCw,
+                title: "Canvas LMS",
+                detail:
+                  "Sync courses, rosters, assignments, and due dates directly from Canvas — the assistant knows what's due and when.",
+                status: "live" as const,
+              },
+              {
+                icon: Globe,
+                title: "Works with or without an LMS",
+                detail:
+                  "Fully browser-based. No installation, no plugin approval, no migration — professors share a link and students are in.",
+                status: "live" as const,
+              },
+              {
+                icon: Puzzle,
+                title: "LTI 1.3 embedding",
+                detail:
+                  "Deeper embedding inside Canvas, Moodle, and Blackboard through the LTI standard is on the roadmap.",
+                status: "planned" as const,
+              },
+            ].map((item, index) => (
+              <Reveal key={item.title} delay={index * 0.08}>
+                <FeatureCard icon={item.icon} title={item.title} description={item.detail} className="h-full">
+                  <div className="mt-4 pl-[3.125rem]">
+                    <span
+                      className={
+                        item.status === "live"
+                          ? "inline-flex items-center gap-1.5 rounded-md border border-status-success/20 bg-status-success/5 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-status-success-soft"
+                          : "inline-flex items-center gap-1.5 rounded-md border border-border-gray bg-bg-deep px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-tertiary"
+                      }
+                    >
+                      {item.status === "live" ? "Live" : "Planned"}
+                    </span>
+                  </div>
+                </FeatureCard>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <Section className="py-20 md:py-28" surface="panel">
+        <Container>
+          <SectionHeader
+            eyebrow="Security & privacy"
             title="Prepared for the questions buyers actually ask."
             description="EdPilot makes the academic, privacy, and implementation posture visible before a pilot turns into a procurement surprise."
           />
-          <ProofPanel
-            items={[
-              {
-                icon: Lock,
-                label: 'FERPA posture',
-                detail: 'Built around institution-bound course and student data, with public model training off the table.',
-              },
-              {
-                icon: Database,
-                label: 'Data boundaries',
-                detail: 'Course materials, student interactions, and deployments are scoped by institution and course.',
-              },
-              {
-                icon: FileText,
-                label: 'Procurement-ready notes',
-                detail: 'Clear answers for data handling, accessibility, LMS status, retention, and pilot rollout.',
-              },
-              {
-                icon: CheckCircle2,
-                label: 'Accessible by design',
-                detail: 'Interaction patterns and content flows are designed with accessibility review in mind.',
-              },
-              {
-                icon: Users,
-                label: 'Faculty ownership',
-                detail: 'Course control stays with the instructor instead of moving into a generic AI layer.',
-              },
-              {
-                icon: Shield,
-                label: 'Integrity controls',
-                detail: 'Assessment and homework requests can be routed toward hints, practice, or refusal states.',
-              },
-            ]}
+          <Reveal>
+            <ProofPanel
+              items={[
+                {
+                  icon: Lock,
+                  label: "FERPA posture",
+                  detail:
+                    "Built around institution-bound course and student data, with public model training off the table.",
+                },
+                {
+                  icon: Database,
+                  label: "Data boundaries",
+                  detail:
+                    "Course materials, student interactions, and deployments are scoped by institution and course.",
+                },
+                {
+                  icon: FileText,
+                  label: "Procurement-ready notes",
+                  detail:
+                    "Clear answers for data handling, accessibility, LMS status, retention, and pilot rollout.",
+                },
+                {
+                  icon: CheckCircle2,
+                  label: "Accessible by design",
+                  detail:
+                    "Interaction patterns and content flows are designed with accessibility review in mind.",
+                },
+                {
+                  icon: Users,
+                  label: "Faculty ownership",
+                  detail:
+                    "Course control stays with the instructor instead of moving into a generic AI layer.",
+                },
+                {
+                  icon: Shield,
+                  label: "Integrity controls",
+                  detail:
+                    "Assessment and homework requests can be routed toward hints, practice, or refusal states.",
+                },
+              ]}
+            />
+          </Reveal>
+          <Reveal className="mt-8 text-center">
+            <TextLink href="/for-universities">
+              See the answers we prepare for IT, legal, and procurement
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </TextLink>
+          </Reveal>
+        </Container>
+      </Section>
+
+      {testimonials.length > 0 && (
+        <Section className="py-20 md:py-28">
+          <Container>
+            <SectionHeader
+              eyebrow="What educators say"
+              title="Trusted in real classrooms."
+            />
+            <Testimonials quotes={testimonials} />
+          </Container>
+        </Section>
+      )}
+
+      <Section className="py-20 md:py-28">
+        <Container size="narrow">
+          <SectionHeader
+            eyebrow="Questions"
+            title="What people ask before they pilot."
           />
+          <Reveal>
+            <FAQList items={HOMEPAGE_FAQS} />
+          </Reveal>
+          <Reveal className="mt-8 text-center">
+            <TextLink href="/faq">
+              See all questions
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </TextLink>
+          </Reveal>
         </Container>
       </Section>
 
       <CTABand
         title="See EdPilot on your course materials."
-        description="Book a demo for a university rollout or start a professor-led pilot with real syllabus content."
+        description="Book a demo for a university rollout, or start a professor-led pilot with real syllabus content today."
         actions={[
-          { label: 'Book University Demo', href: '/contact' },
-          { label: 'Start Professor Pilot', href: SIGN_UP_URL, variant: 'secondary' },
+          { label: "Book a University Demo", href: "/contact" },
+          { label: "Start a Free Pilot", href: SIGN_UP_URL, variant: "secondary" },
         ]}
       />
-
     </PageShell>
-  )
+  );
 }

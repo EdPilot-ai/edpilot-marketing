@@ -1,43 +1,42 @@
-import Link from 'next/link'
-import type { ElementType, ReactNode } from 'react'
-import { ArrowRight, CheckCircle2, ChevronLeft } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { SIGN_UP_URL } from '@/lib/marketing'
+import Link from "next/link";
+import type { ElementType, ReactNode } from "react";
+import { ArrowRight, CheckCircle2, ChevronLeft, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/marketing/Reveal";
+import { cn } from "@/lib/utils";
+import { SIGN_UP_URL } from "@/lib/marketing";
 
 type Action = {
-  label: string
-  href: string
-  variant?: 'primary' | 'secondary'
-}
+  label: string;
+  href: string;
+  variant?: "primary" | "secondary";
+};
 
 export function PageShell({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn('min-h-screen bg-bg-page text-text-primary', className)}>
-      {children}
-    </div>
-  )
+    <div className={cn("min-h-screen bg-bg-page text-text-primary", className)}>{children}</div>
+  );
 }
 
 export function Section({
   children,
   className,
-  surface = 'page',
+  surface = "page",
   id,
 }: {
-  children: ReactNode
-  className?: string
-  surface?: 'page' | 'panel' | 'deep'
-  id?: string
+  children: ReactNode;
+  className?: string;
+  surface?: "page" | "panel" | "deep";
+  id?: string;
 }) {
   return (
     <section
       id={id}
       className={cn(
-        'relative overflow-hidden border-border-gray',
-        surface === 'panel' && 'border-y bg-bg-surface',
-        surface === 'deep' && 'border-y bg-bg-deep',
-        className
+        "relative overflow-hidden border-border-gray",
+        surface === "panel" && "border-y bg-bg-surface",
+        surface === "deep" && "border-y bg-bg-deep",
+        className,
       )}
     >
       <div
@@ -46,61 +45,67 @@ export function Section({
       />
       {children}
     </section>
-  )
+  );
 }
 
 export function Container({
   children,
   className,
-  size = 'default',
+  size = "default",
 }: {
-  children: ReactNode
-  className?: string
-  size?: 'narrow' | 'default' | 'wide'
+  children: ReactNode;
+  className?: string;
+  size?: "narrow" | "default" | "wide";
 }) {
   return (
     <div
       className={cn(
-        'container mx-auto px-6',
-        size === 'narrow' && 'max-w-3xl',
-        size === 'default' && 'max-w-5xl',
-        size === 'wide' && 'max-w-6xl',
-        className
+        "container mx-auto px-6",
+        size === "narrow" && "max-w-3xl",
+        size === "default" && "max-w-5xl",
+        size === "wide" && "max-w-6xl",
+        className,
       )}
     >
       {children}
     </div>
-  )
+  );
 }
 
 export function SectionHeader({
   eyebrow,
   title,
   description,
-  align = 'center',
+  align = "center",
   className,
 }: {
-  eyebrow?: string
-  title: ReactNode
-  description?: ReactNode
-  align?: 'left' | 'center'
-  className?: string
+  eyebrow?: string;
+  title: ReactNode;
+  description?: ReactNode;
+  align?: "left" | "center";
+  className?: string;
 }) {
   return (
-    <div
+    <Reveal
       className={cn(
-        'mb-12',
-        align === 'center' && 'mx-auto max-w-3xl text-center',
-        align === 'left' && 'max-w-2xl',
-        className
+        "mb-12",
+        align === "center" && "mx-auto max-w-3xl text-center",
+        align === "left" && "max-w-2xl",
+        className,
       )}
     >
       {eyebrow && (
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
+        <p
+          className={cn(
+            "mb-4 flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent",
+            align === "center" && "justify-center",
+          )}
+        >
+          <span className="h-1 w-1 rounded-full bg-accent" aria-hidden="true" />
           {eyebrow}
         </p>
       )}
-      <h2 className="text-[2rem] font-semibold leading-[1.12] tracking-[-0.025em] text-text-primary md:text-[2.75rem]">
+      <h2 className="font-display text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] text-text-primary md:text-[2.6rem]">
         {title}
       </h2>
       {description && (
@@ -108,35 +113,31 @@ export function SectionHeader({
           {description}
         </p>
       )}
-    </div>
-  )
+    </Reveal>
+  );
 }
 
 export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <p className={cn('text-[11px] font-semibold uppercase tracking-[0.2em] text-accent', className)}>
+    <p
+      className={cn("text-[11px] font-semibold uppercase tracking-[0.2em] text-accent", className)}
+    >
       {children}
     </p>
-  )
+  );
 }
 
-export function Badge({
-  children,
-  className,
-}: {
-  children: ReactNode
-  className?: string
-}) {
+export function Badge({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <span
       className={cn(
-        'inline-flex rounded-md border border-accent/15 bg-accent/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent',
-        className
+        "inline-flex rounded-md border border-accent/15 bg-accent/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent",
+        className,
       )}
     >
       {children}
     </span>
-  )
+  );
 }
 
 export function TextLink({
@@ -144,30 +145,30 @@ export function TextLink({
   children,
   className,
 }: {
-  href: string
-  children: ReactNode
-  className?: string
+  href: string;
+  children: ReactNode;
+  className?: string;
 }) {
   return (
     <Link
       href={href}
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-md text-sm font-semibold text-accent transition-colors hover:text-accent-soft focus-ring',
-        className
+        "inline-flex items-center gap-1.5 rounded-md text-sm font-semibold text-accent transition-colors hover:text-accent-soft focus-ring",
+        className,
       )}
     >
       {children}
     </Link>
-  )
+  );
 }
 
 function HeroSignalPanel() {
   return (
     <div
-      className="mx-auto mt-12 max-w-3xl rounded-lg border border-border-gray bg-bg-deep/80 p-3 shadow-2xl"
+      className="mx-auto mt-12 max-w-3xl rounded-2xl border border-border-gray bg-bg-deep/80 p-3 shadow-2xl"
       aria-hidden="true"
     >
-      <div className="rounded-md border border-border-gray bg-bg-surface/70">
+      <div className="overflow-hidden rounded-xl border border-border-gray bg-bg-surface/70">
         <div className="flex items-center justify-between gap-4 border-b border-border-gray px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-window-close" />
@@ -180,9 +181,9 @@ function HeroSignalPanel() {
         </div>
         <div className="grid gap-px bg-border-gray sm:grid-cols-3">
           {[
-            ['Governance', 'Faculty rules'],
-            ['Grounding', 'Course sources'],
-            ['Visibility', 'Learning signals'],
+            ["Governance", "Faculty rules"],
+            ["Grounding", "Course sources"],
+            ["Visibility", "Learning signals"],
           ].map(([label, value]) => (
             <div key={label} className="bg-bg-deep px-4 py-4 text-left">
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
@@ -194,7 +195,7 @@ function HeroSignalPanel() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function Hero({
@@ -202,47 +203,62 @@ export function Hero({
   title,
   accent,
   description,
+  note,
   actions,
   children,
   className,
-  align = 'center',
+  align = "center",
 }: {
-  eyebrow?: string
-  title: ReactNode
-  accent?: ReactNode
-  description?: ReactNode
-  actions?: Action[]
-  children?: ReactNode
-  className?: string
-  align?: 'left' | 'center'
+  eyebrow?: string;
+  title: ReactNode;
+  accent?: ReactNode;
+  description?: ReactNode;
+  /** Optional reassurance microcopy rendered under the CTAs. */
+  note?: ReactNode;
+  actions?: Action[];
+  children?: ReactNode;
+  className?: string;
+  align?: "left" | "center";
 }) {
   return (
-    <Section className={cn('pt-24 pb-16 md:pt-32 md:pb-24', className)}>
+    <Section className={cn("pb-16 pt-20 md:pb-24 md:pt-28", className)}>
       <div
-        className="hero-glow pointer-events-none absolute inset-x-0 top-0 h-[480px]"
+        className="hero-aurora pointer-events-none absolute inset-x-0 top-0 h-[560px]"
+        aria-hidden="true"
+      />
+      <div
+        className="bg-grid-faint pointer-events-none absolute inset-x-0 top-0 h-[560px]"
         aria-hidden="true"
       />
       <Container size="wide" className="relative z-10">
         <div
           className={cn(
-            align === 'center' && 'mx-auto max-w-3xl text-center',
-            align === 'left' && 'max-w-3xl'
+            align === "center" && "mx-auto max-w-3xl text-center",
+            align === "left" && "max-w-3xl",
           )}
         >
           {eyebrow && (
-            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
-              {eyebrow}
+            <p className={cn("animate-fade-up mb-5 flex", align === "center" && "justify-center")}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.07] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-soft">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+                {eyebrow}
+              </span>
             </p>
           )}
-          <h1 className="text-[2.35rem] font-semibold leading-[1.06] tracking-[-0.03em] text-text-primary sm:text-5xl md:text-6xl md:tracking-[-0.035em]">
+          <h1 className="animate-fade-up anim-delay-1 font-display text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.03em] text-text-primary sm:text-5xl md:text-[4rem] md:tracking-[-0.035em]">
             {title}
-            {accent && <span className="text-accent"> {accent}</span>}
+            {accent && (
+              <em className="text-gradient-accent font-serif font-medium italic tracking-[-0.01em]">
+                {" "}
+                {accent}
+              </em>
+            )}
           </h1>
           {description && (
             <p
               className={cn(
-                'mt-6 text-base leading-8 text-text-secondary md:text-[1.0625rem] md:leading-8',
-                align === 'center' && 'mx-auto max-w-2xl'
+                "animate-fade-up anim-delay-2 mt-6 text-base leading-8 text-text-secondary md:text-[1.0625rem] md:leading-8",
+                align === "center" && "mx-auto max-w-2xl",
               )}
             >
               {description}
@@ -251,9 +267,9 @@ export function Hero({
           {actions && actions.length > 0 && (
             <div
               className={cn(
-                'mt-9 flex flex-col gap-3 sm:flex-row',
-                align === 'center' && 'items-center justify-center',
-                align === 'left' && 'items-stretch sm:items-center'
+                "animate-fade-up anim-delay-3 mt-9 flex flex-col gap-3 sm:flex-row",
+                align === "center" && "items-center justify-center",
+                align === "left" && "items-stretch sm:items-center",
               )}
             >
               {actions.map((action) => (
@@ -261,73 +277,76 @@ export function Hero({
                   key={action.href + action.label}
                   asChild
                   size="lg"
-                  variant={action.variant === 'secondary' ? 'outline' : 'default'}
-                  className="h-11 px-7"
+                  variant={action.variant === "secondary" ? "outline" : "default"}
                 >
                   <Link href={action.href}>
                     {action.label}
-                    {action.variant !== 'secondary' && <ArrowRight aria-hidden="true" />}
+                    {action.variant !== "secondary" && <ArrowRight aria-hidden="true" />}
                   </Link>
                 </Button>
               ))}
             </div>
           )}
+          {note && (
+            <p
+              className={cn(
+                "animate-fade-up anim-delay-4 mt-5 text-[13px] leading-6 text-text-tertiary",
+                align === "center" && "mx-auto max-w-xl",
+              )}
+            >
+              {note}
+            </p>
+          )}
         </div>
-        {children ?? <HeroSignalPanel />}
+        <div className="animate-fade-up anim-delay-4">{children ?? <HeroSignalPanel />}</div>
       </Container>
     </Section>
-  )
+  );
 }
 
-export function IconChip({
-  icon: Icon,
-  className,
-}: {
-  icon: ElementType
-  className?: string
-}) {
+export function IconChip({ icon: Icon, className }: { icon: ElementType; className?: string }) {
   return (
     <div
       className={cn(
-        'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/15 bg-accent/5 text-accent',
-        className
+        "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/15 bg-accent/5 text-accent",
+        className,
       )}
     >
       <Icon className="h-4 w-4" aria-hidden="true" />
     </div>
-  )
+  );
 }
 
 export function MarketingCard({
-  as: Component = 'div',
+  as: Component = "div",
   children,
   className,
   featured = false,
-  surface = 'surface',
+  surface = "surface",
   interactive = false,
 }: {
-  as?: ElementType
-  children: ReactNode
-  className?: string
-  featured?: boolean
-  surface?: 'surface' | 'deep'
-  interactive?: boolean
+  as?: ElementType;
+  children: ReactNode;
+  className?: string;
+  featured?: boolean;
+  surface?: "surface" | "deep";
+  interactive?: boolean;
 }) {
   return (
     <Component
       className={cn(
-        'rounded-lg border border-border-gray p-5 shadow-[0_1px_0_rgba(255,255,255,0.02)]',
-        surface === 'surface' && 'bg-bg-surface',
-        surface === 'deep' && 'bg-bg-deep',
-        featured && 'surface-gradient-featured border-accent/20',
+        "shadow-card rounded-xl border border-border-gray p-5",
+        surface === "surface" && "bg-bg-surface",
+        surface === "deep" && "bg-bg-deep",
+        featured && "surface-gradient-featured border-accent/20",
         interactive &&
-          'transition duration-200 hover:-translate-y-px hover:border-border-strong hover:bg-bg-elevated hover:shadow-lg',
-        className
+          "hover:shadow-card-hover transition duration-200 hover:-translate-y-0.5 hover:border-accent/25 hover:bg-bg-elevated",
+        className,
       )}
     >
       {children}
     </Component>
-  )
+  );
 }
 
 export function FeatureCard({
@@ -338,23 +357,23 @@ export function FeatureCard({
   className,
   featured = false,
 }: {
-  icon?: ElementType
-  title: ReactNode
-  description?: ReactNode
-  children?: ReactNode
-  className?: string
-  featured?: boolean
+  icon?: ElementType;
+  title: ReactNode;
+  description?: ReactNode;
+  children?: ReactNode;
+  className?: string;
+  featured?: boolean;
 }) {
   return (
     <MarketingCard
       featured={featured}
       interactive
-      className={cn('group relative overflow-hidden p-5 md:p-6', className)}
+      className={cn("group relative overflow-hidden p-5 md:p-6", className)}
     >
-      <div className={cn('flex items-start gap-3.5', !icon && 'block')}>
+      <div className={cn("flex items-start gap-3.5", !icon && "block")}>
         {icon && <IconChip icon={icon} className="h-9 w-9" />}
         <div className="min-w-0 flex-1">
-          <h3 className="text-[15px] font-semibold leading-6 tracking-[-0.01em] text-text-primary">
+          <h3 className="font-display text-[15px] font-semibold leading-6 tracking-[-0.01em] text-text-primary">
             {title}
           </h3>
           {description && (
@@ -364,7 +383,7 @@ export function FeatureCard({
       </div>
       {children}
     </MarketingCard>
-  )
+  );
 }
 
 export function CheckList({ items }: { items: ReactNode[] }) {
@@ -377,23 +396,23 @@ export function CheckList({ items }: { items: ReactNode[] }) {
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
 export function TrustBar({
   items,
   className,
 }: {
-  items: Array<{ icon?: ElementType; label: string; detail: string }>
-  className?: string
+  items: Array<{ icon?: ElementType; label: string; detail: string }>;
+  className?: string;
 }) {
   return (
-    <div className={cn('grid gap-4 md:grid-cols-3', className)}>
+    <div className={cn("grid gap-4 md:grid-cols-3", className)}>
       {items.map((item) => (
         <MarketingCard key={item.label} surface="deep" interactive className="p-5">
           <div className="flex items-start gap-3">
             {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
-            <div className={cn('min-w-0 flex-1', !item.icon && 'text-center')}>
+            <div className={cn("min-w-0 flex-1", !item.icon && "text-center")}>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-primary">
                 {item.label}
               </p>
@@ -403,34 +422,34 @@ export function TrustBar({
         </MarketingCard>
       ))}
     </div>
-  )
+  );
 }
 
 export function StatusPill({
   children,
-  tone = 'live',
+  tone = "live",
 }: {
-  children: ReactNode
-  tone?: 'live' | 'beta' | 'planned'
+  children: ReactNode;
+  tone?: "live" | "beta" | "planned";
 }) {
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-md border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]',
-        tone === 'live' && 'border-status-success/20 bg-status-success/5 text-status-success-soft',
-        tone === 'beta' && 'border-status-warning/20 bg-status-warning/5 text-status-warning-soft',
-        tone === 'planned' && 'border-border-gray bg-bg-deep text-text-tertiary'
+        "inline-flex items-center rounded-md border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]",
+        tone === "live" && "border-status-success/20 bg-status-success/5 text-status-success-soft",
+        tone === "beta" && "border-status-warning/20 bg-status-warning/5 text-status-warning-soft",
+        tone === "planned" && "border-border-gray bg-bg-deep text-text-tertiary",
       )}
     >
       {children}
     </span>
-  )
+  );
 }
 
 export function CourseAssistantMockup({ className }: { className?: string }) {
   return (
-    <div className={cn('mx-auto max-w-6xl', className)}>
-      <div className="overflow-hidden rounded-lg border border-border-gray bg-bg-deep shadow-2xl">
+    <div className={cn("mx-auto max-w-6xl", className)}>
+      <div className="overflow-hidden rounded-2xl border border-border-gray bg-bg-deep shadow-[0_24px_80px_-24px_rgba(0,0,0,0.7),0_12px_40px_-24px_rgba(139,92,246,0.25)]">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-gray bg-bg-surface px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-window-close" />
@@ -451,9 +470,9 @@ export function CourseAssistantMockup({ className }: { className?: string }) {
             </p>
             <div className="space-y-3">
               {[
-                ['Syllabus', '12 policies indexed'],
-                ['Week 6 slides', '48 concepts mapped'],
-                ['Rubric', '4 criteria active'],
+                ["Syllabus", "12 policies indexed"],
+                ["Week 6 slides", "48 concepts mapped"],
+                ["Rubric", "4 criteria active"],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-lg border border-border-gray bg-bg-deep p-3">
                   <p className="text-xs font-semibold text-text-primary">{label}</p>
@@ -485,7 +504,7 @@ export function CourseAssistantMockup({ className }: { className?: string }) {
                 signal can produce a weaker effect over time, so treatment has to account for
                 changing responsiveness.
                 <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                  {['Week 6 slides, frames 18-21', 'Case note: beta blockers, p. 3'].map(
+                  {["Week 6 slides, frames 18-21", "Case note: beta blockers, p. 3"].map(
                     (source, index) => (
                       <span
                         key={source}
@@ -496,12 +515,12 @@ export function CourseAssistantMockup({ className }: { className?: string }) {
                         </span>
                         <span className="truncate">{source}</span>
                       </span>
-                    )
+                    ),
                   )}
                 </div>
               </div>
               <div className="grid gap-2 sm:grid-cols-3">
-                {['Ask a follow-up', 'Generate practice', 'Show misconception'].map((chip) => (
+                {["Ask a follow-up", "Generate practice", "Show misconception"].map((chip) => (
                   <span
                     key={chip}
                     className="rounded-md border border-border-gray bg-bg-deep px-3 py-2 text-center text-xs font-medium text-text-secondary"
@@ -519,10 +538,10 @@ export function CourseAssistantMockup({ className }: { className?: string }) {
             </p>
             <div className="space-y-3">
               {[
-                ['Integrity mode', 'Guide, do not complete'],
-                ['Outside knowledge', 'Off for students'],
-                ['Citation policy', 'Required'],
-                ['Assessment help', 'Hints only'],
+                ["Integrity mode", "Guide, do not complete"],
+                ["Outside knowledge", "Off for students"],
+                ["Citation policy", "Required"],
+                ["Assessment help", "Hints only"],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-lg border border-border-gray bg-bg-deep p-3">
                   <p className="text-[11px] text-text-tertiary">{label}</p>
@@ -534,71 +553,85 @@ export function CourseAssistantMockup({ className }: { className?: string }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function RoleValueGrid({
   items,
   className,
 }: {
-  items: Array<{ role: string; promise: string; detail: string; icon?: ElementType }>
-  className?: string
+  items: Array<{ role: string; promise: string; detail: string; icon?: ElementType }>;
+  className?: string;
 }) {
   return (
-    <div className={cn('grid gap-4 md:grid-cols-3', className)}>
-      {items.map((item) => (
-        <MarketingCard key={item.role} className="p-6">
-          <div className="flex items-center gap-3">
-            {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-              {item.role}
-            </p>
-          </div>
-          <h3 className="mt-5 text-xl font-semibold leading-7 tracking-[-0.02em] text-text-primary">
-            {item.promise}
-          </h3>
-          <p className="mt-3 text-sm leading-7 text-text-secondary">{item.detail}</p>
-        </MarketingCard>
+    <div className={cn("grid gap-4 md:grid-cols-3", className)}>
+      {items.map((item, index) => (
+        <Reveal key={item.role} delay={index * 0.08}>
+          <MarketingCard className="h-full p-6">
+            <div className="flex items-center gap-3">
+              {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                {item.role}
+              </p>
+            </div>
+            <h3 className="mt-5 font-display text-xl font-semibold leading-7 tracking-[-0.02em] text-text-primary">
+              {item.promise}
+            </h3>
+            <p className="mt-3 text-sm leading-7 text-text-secondary">{item.detail}</p>
+          </MarketingCard>
+        </Reveal>
       ))}
     </div>
-  )
+  );
 }
 
 export function WorkflowSteps({
   steps,
   className,
 }: {
-  steps: Array<{ step: string; title: string; description: string; icon?: ElementType }>
-  className?: string
+  steps: Array<{ step: string; title: string; description: string; icon?: ElementType }>;
+  className?: string;
 }) {
   return (
-    <div className={cn('grid gap-3 md:grid-cols-4', className)}>
-      {steps.map((item) => (
-        <MarketingCard key={item.step} surface="deep" className="relative p-5 md:p-6">
-          <div className="mb-5 flex items-center justify-between gap-3">
-            <span className="text-xs font-bold text-text-tertiary">{item.step}</span>
-            {item.icon && <IconChip icon={item.icon} className="h-8 w-8" />}
-          </div>
-          <h3 className="text-sm font-semibold leading-6 text-text-primary">{item.title}</h3>
-          <p className="mt-2 text-[13px] leading-6 text-text-secondary">{item.description}</p>
-        </MarketingCard>
-      ))}
+    <div className={className}>
+      <div
+        className="accent-path-gradient mb-3 hidden h-px w-full opacity-30 md:block"
+        aria-hidden="true"
+      />
+      <div className="grid gap-3 md:grid-cols-4">
+        {steps.map((item, index) => (
+          <Reveal key={item.step} delay={index * 0.08}>
+            <MarketingCard surface="deep" className="relative h-full p-5 md:p-6">
+              <div className="mb-5 flex items-center justify-between gap-3">
+                <span className="text-gradient-accent font-display text-2xl font-bold tracking-[-0.02em]">
+                  {item.step}
+                </span>
+                {item.icon && <IconChip icon={item.icon} className="h-8 w-8" />}
+              </div>
+              <h3 className="font-display text-sm font-semibold leading-6 text-text-primary">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-[13px] leading-6 text-text-secondary">{item.description}</p>
+            </MarketingCard>
+          </Reveal>
+        ))}
+      </div>
     </div>
-  )
+  );
 }
 
 export function ProofPanel({
   items,
   className,
 }: {
-  items: Array<{ label: string; detail: string; icon?: ElementType }>
-  className?: string
+  items: Array<{ label: string; detail: string; icon?: ElementType }>;
+  className?: string;
 }) {
   return (
     <div
       className={cn(
-        'surface-gradient-proof rounded-lg border border-border-gray p-5 md:p-7',
-        className
+        "surface-gradient-proof rounded-xl border border-border-gray p-5 md:p-7",
+        className,
       )}
     >
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -613,29 +646,34 @@ export function ProofPanel({
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 export function SuiteMap({
   items,
   className,
 }: {
-  items: Array<{ title: string; status: 'live' | 'beta' | 'planned'; icon?: ElementType }>
-  className?: string
+  items: Array<{ title: string; status: "live" | "beta" | "planned"; icon?: ElementType }>;
+  className?: string;
 }) {
   return (
-    <div className={cn('rounded-lg border border-border-gray bg-bg-deep p-5 md:p-7', className)}>
+    <div className={cn("rounded-xl border border-border-gray bg-bg-deep p-5 md:p-7", className)}>
       <div className="grid gap-4 lg:grid-cols-[1fr_220px_1fr] lg:items-center">
         <div className="grid gap-3">
           {items.slice(0, 3).map((item) => (
-            <FeatureCard key={item.title} icon={item.icon} title={item.title} className="bg-bg-surface">
+            <FeatureCard
+              key={item.title}
+              icon={item.icon}
+              title={item.title}
+              className="bg-bg-surface"
+            >
               <div className="mt-4">
                 <StatusPill tone={item.status}>{item.status}</StatusPill>
               </div>
             </FeatureCard>
           ))}
         </div>
-        <div className="rounded-lg border border-accent/20 bg-accent/5 p-5 text-center">
+        <div className="rounded-xl border border-accent/20 bg-accent/5 p-5 text-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
             One Course Model
           </p>
@@ -645,7 +683,12 @@ export function SuiteMap({
         </div>
         <div className="grid gap-3">
           {items.slice(3).map((item) => (
-            <FeatureCard key={item.title} icon={item.icon} title={item.title} className="bg-bg-surface">
+            <FeatureCard
+              key={item.title}
+              icon={item.icon}
+              title={item.title}
+              className="bg-bg-surface"
+            >
               <div className="mt-4">
                 <StatusPill tone={item.status}>{item.status}</StatusPill>
               </div>
@@ -654,7 +697,7 @@ export function SuiteMap({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function CTABand({
@@ -662,44 +705,52 @@ export function CTABand({
   description,
   actions,
 }: {
-  title: ReactNode
-  description: ReactNode
-  actions: Action[]
+  title: ReactNode;
+  description: ReactNode;
+  actions: Action[];
 }) {
   return (
     <Section className="py-20 md:py-28" surface="deep">
-      <div
-        className="cta-gradient pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      />
+      <div className="cta-gradient pointer-events-none absolute inset-0" aria-hidden="true" />
       <Container className="relative z-10">
-        <div className="mx-auto max-w-3xl rounded-lg border border-border-gray bg-bg-surface/80 px-7 py-12 text-center shadow-2xl backdrop-blur md:px-12">
-          <h2 className="text-[2rem] font-semibold leading-[1.12] tracking-[-0.025em] text-text-primary md:text-[2.75rem]">
-            {title}
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-text-secondary md:text-base">
-            {description}
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            {actions.map((action) => (
-              <Button
-                key={action.href + action.label}
-                asChild
-                size="lg"
-                variant={action.variant === 'secondary' ? 'outline' : 'default'}
-                className="h-11 px-7"
-              >
-                <Link href={action.href}>
-                  {action.label}
-                  {action.variant !== 'secondary' && <ArrowRight aria-hidden="true" />}
-                </Link>
-              </Button>
-            ))}
+        <Reveal>
+          <div className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-accent/20 bg-bg-surface/80 px-7 py-14 text-center shadow-2xl backdrop-blur md:px-12 md:py-16">
+            <div
+              className="hero-aurora pointer-events-none absolute inset-x-0 top-0 h-full"
+              aria-hidden="true"
+            />
+            <div
+              className="bg-grid-faint pointer-events-none absolute inset-x-0 top-0 h-full"
+              aria-hidden="true"
+            />
+            <div className="relative z-10">
+              <h2 className="font-display text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] text-text-primary md:text-[2.6rem]">
+                {title}
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-text-secondary md:text-base">
+                {description}
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                {actions.map((action) => (
+                  <Button
+                    key={action.href + action.label}
+                    asChild
+                    size="lg"
+                    variant={action.variant === "secondary" ? "outline" : "default"}
+                  >
+                    <Link href={action.href}>
+                      {action.label}
+                      {action.variant !== "secondary" && <ArrowRight aria-hidden="true" />}
+                    </Link>
+                  </Button>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </Container>
     </Section>
-  )
+  );
 }
 
 export function ComparisonGrid({
@@ -708,10 +759,10 @@ export function ComparisonGrid({
   leftItems,
   rightItems,
 }: {
-  leftTitle: string
-  rightTitle: string
-  leftItems: string[]
-  rightItems: string[]
+  leftTitle: string;
+  rightTitle: string;
+  leftItems: string[];
+  rightItems: string[];
 }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
@@ -732,7 +783,7 @@ export function ComparisonGrid({
         </ul>
       </MarketingCard>
     </div>
-  )
+  );
 }
 
 export function BackLink({ href, children }: { href: string; children: ReactNode }) {
@@ -744,11 +795,11 @@ export function BackLink({ href, children }: { href: string; children: ReactNode
       <ChevronLeft className="h-4 w-4 text-accent" aria-hidden="true" />
       {children}
     </Link>
-  )
+  );
 }
 
 export function ComparisonDetail({
-  eyebrow = 'Comparison',
+  eyebrow = "Comparison",
   title,
   description,
   competitorName,
@@ -757,14 +808,14 @@ export function ComparisonDetail({
   sections,
   scenarios,
 }: {
-  eyebrow?: string
-  title: string
-  description: string
-  competitorName: string
-  competitorItems: string[]
-  edpilotItems: string[]
-  sections: Array<{ title: string; body: ReactNode }>
-  scenarios?: Array<{ setup: string; oldWay: string; edpilot: string }>
+  eyebrow?: string;
+  title: string;
+  description: string;
+  competitorName: string;
+  competitorItems: string[];
+  edpilotItems: string[];
+  sections: Array<{ title: string; body: ReactNode }>;
+  scenarios?: Array<{ setup: string; oldWay: string; edpilot: string }>;
 }) {
   return (
     <PageShell>
@@ -773,8 +824,8 @@ export function ComparisonDetail({
         title={title}
         description={description}
         actions={[
-          { label: 'Request Demo', href: '/contact' },
-          { label: 'Get Started Free', href: SIGN_UP_URL, variant: 'secondary' },
+          { label: "Request Demo", href: "/contact" },
+          { label: "Get Started Free", href: SIGN_UP_URL, variant: "secondary" },
         ]}
         className="pb-14 md:pb-20"
       >
@@ -793,21 +844,17 @@ export function ComparisonDetail({
             />
             <div className="grid gap-4 md:grid-cols-3">
               {scenarios.map((scenario) => (
-                <MarketingCard
-                  key={scenario.setup}
-                  className="p-5"
-                >
+                <MarketingCard key={scenario.setup} className="p-5">
                   <p className="text-sm font-semibold leading-6 text-text-primary">
                     {scenario.setup}
                   </p>
                   <div className="mt-4 space-y-3 text-[13px] leading-6">
                     <p className="rounded-lg border border-border-gray bg-bg-deep p-3 text-text-secondary">
-                      <span className="font-semibold text-text-tertiary">Old way:</span>{' '}
+                      <span className="font-semibold text-text-tertiary">Old way:</span>{" "}
                       {scenario.oldWay}
                     </p>
                     <p className="rounded-lg border border-accent/20 bg-accent/5 p-3 text-text-primary">
-                      <span className="font-semibold text-accent">EdPilot:</span>{' '}
-                      {scenario.edpilot}
+                      <span className="font-semibold text-accent">EdPilot:</span> {scenario.edpilot}
                     </p>
                   </div>
                 </MarketingCard>
@@ -832,10 +879,7 @@ export function ComparisonDetail({
         <Container size="narrow">
           <div className="space-y-5">
             {sections.map((section) => (
-              <MarketingCard
-                key={section.title}
-                className="p-6"
-              >
+              <MarketingCard key={section.title} className="p-6">
                 <h2 className="text-xl font-semibold tracking-[-0.02em] text-text-primary">
                   {section.title}
                 </h2>
@@ -850,12 +894,12 @@ export function ComparisonDetail({
         title="Bring institutional control to AI-assisted learning."
         description="See how EdPilot grounds AI in your courses, your policies, and your faculty governance."
         actions={[
-          { label: 'Request Demo', href: '/contact' },
-          { label: 'Get Started Free', href: SIGN_UP_URL, variant: 'secondary' },
+          { label: "Request Demo", href: "/contact" },
+          { label: "Get Started Free", href: SIGN_UP_URL, variant: "secondary" },
         ]}
       />
     </PageShell>
-  )
+  );
 }
 
 export function ProsePage({
@@ -864,10 +908,10 @@ export function ProsePage({
   eyebrow,
   children,
 }: {
-  title: string
-  description?: ReactNode
-  eyebrow?: string
-  children: ReactNode
+  title: string;
+  description?: ReactNode;
+  eyebrow?: string;
+  children: ReactNode;
 }) {
   return (
     <PageShell>
@@ -878,5 +922,42 @@ export function ProsePage({
         </Container>
       </Section>
     </PageShell>
-  )
+  );
+}
+
+/**
+ * Accessible FAQ accordion built on native <details>/<summary> — keyboard and
+ * screen-reader support come from the platform, works with JavaScript
+ * disabled, and every answer stays in the server-rendered HTML for SEO.
+ */
+export function FAQList({
+  items,
+  className,
+}: {
+  items: Array<{ question: string; answer: ReactNode }>;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "shadow-card divide-y divide-border-gray overflow-hidden rounded-xl border border-border-gray bg-bg-surface",
+        className,
+      )}
+    >
+      {items.map((item) => (
+        <details key={item.question} className="group px-6 py-5">
+          <summary className="focus-ring flex cursor-pointer list-none items-center justify-between gap-4 text-[15px] font-semibold leading-6 text-text-primary [&::-webkit-details-marker]:hidden">
+            {item.question}
+            <span
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-accent/20 bg-accent/5 text-accent transition-transform duration-200 group-open:rotate-45"
+              aria-hidden="true"
+            >
+              <Plus className="h-3.5 w-3.5" />
+            </span>
+          </summary>
+          <div className="mt-3 max-w-2xl text-sm leading-7 text-text-secondary">{item.answer}</div>
+        </details>
+      ))}
+    </div>
+  );
 }

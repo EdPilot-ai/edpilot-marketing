@@ -48,7 +48,7 @@ export default function Navbar() {
             size={30}
             className="transition-transform duration-200 group-hover:scale-[1.04]"
           />
-          <span className="text-sm font-semibold tracking-[-0.01em] text-text-primary">
+          <span className="font-display text-sm font-bold tracking-[-0.01em] text-text-primary">
             EdPilot
           </span>
         </Link>
@@ -103,7 +103,10 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div id={mobileMenuId} className="border-t border-border-gray bg-bg-deep/95 backdrop-blur-xl xl:hidden">
+        <div
+          id={mobileMenuId}
+          className="border-t border-border-gray bg-bg-deep/95 backdrop-blur-xl xl:hidden"
+        >
           <ul className="space-y-1 px-6 py-4">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
