@@ -51,7 +51,7 @@ const HOMEPAGE_FAQS = [
       <>
         ChatGPT answers from the open internet and follows its own rules. EdPilot answers only from
         the materials a professor uploads, cites those sources, and follows the guardrails the
-        professor sets — including refusing to complete graded work.{" "}
+        professor sets, including refusing to complete graded work.{" "}
         <Link href="/compare/chatgpt" className="font-semibold text-accent hover:text-accent-soft">
           See the full comparison
         </Link>
@@ -67,7 +67,7 @@ const HOMEPAGE_FAQS = [
   {
     question: "How long does setup take?",
     answer:
-      "Registering a university takes about two minutes, and professors can be teaching with EdPilot the same week. There is no IT integration project — upload materials, set the rules, share the class link.",
+      "Registering a university takes about two minutes, and professors can be teaching with EdPilot the same week. There is no IT integration project. Upload materials, set the rules, and share the class link.",
   },
   {
     question: "What does it cost to try?",
@@ -104,7 +104,7 @@ export default function HomePage() {
         eyebrow="AI built for higher education"
         title="The AI teaching assistant"
         accent="your faculty controls."
-        description="EdPilot grounds every answer in your actual course materials — syllabi, lectures, readings — inside guardrails professors set. Students get a tutor that knows the class. Universities get AI adoption on their terms."
+        description="EdPilot grounds every answer in your actual course materials, inside guardrails professors set. Students get a tutor that knows the class. Universities get AI adoption on their terms."
         actions={[
           { label: "Book a University Demo", href: "/contact" },
           { label: "Start a Free Pilot", href: SIGN_UP_URL, variant: "secondary" },
@@ -129,7 +129,7 @@ export default function HomePage() {
           <SectionHeader
             eyebrow="The problem"
             title="Students are already using AI on your courses."
-            description="Right now that happens through generic chatbots — outside your policies, outside your visibility, and often wrong about your class. The question isn't whether AI reaches your students. It's whether your institution has any say in how."
+            description="Right now that happens through generic chatbots: outside your policies, outside your visibility, and often wrong about your class. The real question is whether your institution has any say in how."
           />
           <div className="grid gap-4 md:grid-cols-3">
             {[
@@ -137,7 +137,7 @@ export default function HomePage() {
                 icon: ShieldOff,
                 title: "Ungoverned",
                 detail:
-                  "Generic chatbots follow their own rules — not your syllabus, your honor code, or your assessment policy.",
+                  "Generic chatbots follow their own rules, not your syllabus, your honor code, or your assessment policy.",
               },
               {
                 icon: EyeOff,
@@ -149,7 +149,7 @@ export default function HomePage() {
                 icon: MessageSquare,
                 title: "Unaccountable",
                 detail:
-                  "Answers come from the open internet with no citations — confidently wrong about your course, with no way to check.",
+                  "Answers come from the open internet with no citations, confidently wrong about your course and impossible to check.",
               },
             ].map((item, index) => (
               <Reveal key={item.title} delay={index * 0.08}>
@@ -165,7 +165,7 @@ export default function HomePage() {
           <SectionHeader
             eyebrow="How it works"
             title="From syllabus to student support in an afternoon."
-            description="No IT project, no migration. A professor uploads materials, sets the rules, and shares a link — the course model does the rest."
+            description="No IT project, no migration. A professor uploads materials, sets the rules, and shares a link. The course model does the rest."
           />
           <WorkflowSteps
             steps={[
@@ -332,7 +332,7 @@ export default function HomePage() {
           <SectionHeader
             eyebrow="Integrations"
             title="Meets your campus where it already works."
-            description="EdPilot runs in the browser and connects to the tools your courses already live in — starting with Canvas."
+            description="EdPilot runs in the browser and connects to the tools your courses already live in, starting with Canvas."
           />
           <div className="grid gap-4 md:grid-cols-3">
             {[
@@ -340,14 +340,14 @@ export default function HomePage() {
                 icon: RefreshCw,
                 title: "Canvas LMS",
                 detail:
-                  "Sync courses, rosters, assignments, and due dates directly from Canvas — the assistant knows what's due and when.",
+                  "Sync courses, rosters, assignments, and due dates directly from Canvas, so the assistant knows what's due and when.",
                 status: "live" as const,
               },
               {
                 icon: Globe,
                 title: "Works with or without an LMS",
                 detail:
-                  "Fully browser-based. No installation, no plugin approval, no migration — professors share a link and students are in.",
+                  "Fully browser-based. No installation, no plugin approval, no migration. Professors share a link and students are in.",
                 status: "live" as const,
               },
               {
@@ -359,7 +359,12 @@ export default function HomePage() {
               },
             ].map((item, index) => (
               <Reveal key={item.title} delay={index * 0.08}>
-                <FeatureCard icon={item.icon} title={item.title} description={item.detail} className="h-full">
+                <FeatureCard
+                  icon={item.icon}
+                  title={item.title}
+                  description={item.detail}
+                  className="h-full"
+                >
                   <div className="mt-4 pl-[3.125rem]">
                     <span
                       className={
@@ -439,10 +444,7 @@ export default function HomePage() {
       {testimonials.length > 0 && (
         <Section className="py-20 md:py-28">
           <Container>
-            <SectionHeader
-              eyebrow="What educators say"
-              title="Trusted in real classrooms."
-            />
+            <SectionHeader eyebrow="What educators say" title="Trusted in real classrooms." />
             <Testimonials quotes={testimonials} />
           </Container>
         </Section>
@@ -450,10 +452,7 @@ export default function HomePage() {
 
       <Section className="py-20 md:py-28">
         <Container size="narrow">
-          <SectionHeader
-            eyebrow="Questions"
-            title="What people ask before they pilot."
-          />
+          <SectionHeader eyebrow="Questions" title="What people ask before they pilot." />
           <Reveal>
             <FAQList items={HOMEPAGE_FAQS} />
           </Reveal>

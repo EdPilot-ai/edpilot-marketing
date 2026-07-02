@@ -23,7 +23,7 @@ const launchSteps = [
     time: '~2 minutes',
     result: 'Workspace request sent',
     description:
-      'A university admin creates an account with their official school email and enters the institution name. EdPilot figures out the rest from your email domain — no forms to chase down, no contracts to sign first.',
+      'A university admin creates an account with their official school email and enters the institution name. EdPilot figures out the rest from your email domain. No forms to chase down, no contracts to sign first.',
     panelTitle: 'Institution request',
     panelLabel: 'admin@university.edu',
     metric: 'Domain detected',
@@ -47,7 +47,7 @@ const launchSteps = [
     time: 'One click each',
     result: 'Faculty links delivered',
     description:
-      'From the admin dashboard, invite faculty by email — one at a time or paste a whole department list at once. Each professor gets a single join link and lands in their own dashboard ready to teach.',
+      'From the admin dashboard, invite faculty by email, one at a time or a whole department list at once. Each professor gets a single join link and lands in their own dashboard ready to teach.',
     panelTitle: 'Faculty invites',
     panelLabel: '14 professors queued',
     metric: 'Links ready',
@@ -55,7 +55,7 @@ const launchSteps = [
   },
   {
     icon: Plug,
-    title: 'Professors connect Canvas — optional',
+    title: 'Professors connect Canvas (optional)',
     time: 'Their choice',
     result: 'Course AI goes live',
     description:
@@ -89,7 +89,7 @@ const roles = [
     title: 'Student',
     label: 'Student',
     description:
-      'Joins their course and asks questions in plain language — getting answers grounded in the actual syllabus and materials, with citations.',
+      'Joins their course and asks questions in plain language, and gets answers grounded in the actual syllabus and materials, with citations.',
     details: ['Join the course', 'Ask plain-language questions', 'Get cited answers'],
   },
 ]

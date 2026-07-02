@@ -29,7 +29,7 @@ import { SIGN_UP_URL } from '@/lib/marketing'
 import { productFacts } from '@/lib/social-proof'
 
 export const metadata: Metadata = {
-  title: 'For University Leaders — Govern campus AI, don’t inherit the risk',
+  title: 'For University Leaders: Govern campus AI without inheriting the risk',
   description:
     'Students are already using AI on your courses. EdPilot gives administrators a governed path to campus AI: faculty control, FERPA-aligned data boundaries, adoption visibility, and a rollout that needs no IT project.',
   keywords:
@@ -68,7 +68,7 @@ const shifts = [
     icon: Eye,
     title: 'You get visibility',
     description:
-      'See adoption across departments, where students are confused, and where misuse is attempted — before it becomes an integrity case.',
+      'See adoption across departments, where students are confused, and where misuse is attempted, before it becomes an integrity case.',
   },
   {
     icon: BarChart3,
@@ -107,7 +107,7 @@ const signoff = [
   {
     icon: GraduationCap,
     label: 'Integrity controls',
-    detail: 'Assessment and homework requests are routed toward hints, practice, or refusal — not completion.',
+    detail: 'Assessment and homework requests are routed toward hints, practice, or refusal, never completion.',
   },
 ]
 
@@ -125,7 +125,7 @@ export default function ForUniversitiesPage() {
         eyebrow="For university leaders"
         title="Adopt campus AI on purpose."
         accent="Not by accident."
-        description="Your students are already using AI on your courses. EdPilot gives administrators a governed path to campus AI — faculty-controlled, FERPA-aligned, and ready for the people who have to sign off."
+        description="Your students are already using AI on your courses. EdPilot gives administrators a governed path to campus AI: faculty-controlled, FERPA-aligned, and ready for the people who have to sign off."
         actions={[
           { label: 'Book University Demo', href: '/contact' },
           { label: 'See Pricing', href: '/pricing', variant: 'secondary' },
@@ -137,7 +137,7 @@ export default function ForUniversitiesPage() {
           <SectionHeader
             eyebrow="The exposure you can't see"
             title="Ungoverned AI is already in your classrooms."
-            description="It didn't wait for a policy. The question is no longer whether students use AI — it's whether the institution can see it, shape it, and answer for it."
+            description="It didn't wait for a policy. The question is no longer whether students use AI. It is whether the institution can see it, shape it, and answer for it."
           />
           <div className="grid gap-4 md:grid-cols-3">
             {risks.map((risk) => (
@@ -206,7 +206,7 @@ export default function ForUniversitiesPage() {
         <Container>
           <SectionHeader
             eyebrow="Built for the people who sign off"
-            title="Answers for IT, legal, and procurement — before they ask."
+            title="Answers for IT, legal, and procurement, before they ask."
             description="The academic, privacy, and implementation posture is visible up front, so a pilot doesn't turn into a procurement surprise."
           />
           <ProofPanel items={signoff} />
@@ -226,7 +226,7 @@ export default function ForUniversitiesPage() {
 
       <CTABand
         title="Give your campus a governed path to AI."
-        description="Book a walkthrough for university leadership, or start a professor-led pilot on real course materials — no commitment required."
+        description="Book a walkthrough for university leadership, or start a professor-led pilot on real course materials. No commitment required."
         actions={[
           { label: 'Book University Demo', href: '/contact' },
           { label: 'Start a Professor Pilot', href: SIGN_UP_URL, variant: 'secondary' },

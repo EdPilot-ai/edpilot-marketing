@@ -92,10 +92,8 @@ module.exports = {
         // Inner fallback (ui-sans-serif) guards against an undefined --font-sans
         // making the whole declaration invalid before next/font hydrates.
         sans: ["var(--font-sans, ui-sans-serif)", "Plus Jakarta Sans", ...fontFamily.sans],
-        // Headline face — Plus Jakarta Sans, matching the product app.
+        // Headline face: Plus Jakarta Sans, matching the product app.
         display: ["var(--font-display, ui-sans-serif)", "Plus Jakarta Sans", ...fontFamily.sans],
-        // Editorial italic accent used inside hero headlines.
-        serif: ["var(--font-serif, Georgia)", ...fontFamily.serif],
       },
       keyframes: {
         "accordion-down": {

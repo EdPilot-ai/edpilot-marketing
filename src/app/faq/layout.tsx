@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'FAQ — Common questions about EdPilot',
+  title: 'FAQ: Common questions about EdPilot',
   description:
     'Answers to common questions about EdPilot: how course-grounded AI works, FERPA and data handling, faculty controls, Canvas and LMS integration, pilots, and rollout.',
   keywords:

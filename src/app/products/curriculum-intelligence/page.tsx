@@ -39,7 +39,7 @@ import {
 import { SIGN_UP_URL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
-  title: 'Curriculum Intelligence — The AI Teaching Assistant',
+  title: 'Curriculum Intelligence: The AI Teaching Assistant',
   description:
     'A teaching assistant that answers student questions using your course materials, your terminology, and your standards. Cites your readings, flags misconceptions, and follows the guardrails faculty set.',
   keywords:
@@ -117,7 +117,7 @@ export default function CurriculumIntelligencePage() {
   return (
     <PageShell>
       <Hero
-        eyebrow="Product Suite"
+        eyebrow="Product suite"
         title="Curriculum Intelligence"
         accent="Suite."
         description="Five tools that run from the same course model. Upload materials once; the tutor, grader, content generator, and analytics all reflect what you actually teach."
@@ -165,7 +165,7 @@ export default function CurriculumIntelligencePage() {
       <Section className="py-20 md:py-28">
         <Container size="wide">
           <SectionHeader
-            eyebrow="Course Model"
+            eyebrow="Course model"
             title="Upload once. Power every workflow."
             description="The course model is the product center: it keeps student support, faculty workflows, and analytics aligned as materials change."
           />
@@ -253,7 +253,7 @@ export default function CurriculumIntelligencePage() {
       <Section className="py-20 md:py-28" surface="panel">
         <Container size="wide">
           <SectionHeader
-            eyebrow="Product Moments"
+            eyebrow="Product moments"
             title="What each tool looks like in practice."
             description="A clearer status and preview for each capability helps buyers separate what is live, what is in beta, and what is planned."
           />

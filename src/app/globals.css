@@ -284,8 +284,8 @@
     mask-image: radial-gradient(ellipse 85% 65% at 50% 0%, black 25%, transparent 78%);
   }
 
-  /* Headline accent — lavender→violet, clipped to text. Used with the serif
-     italic accent span inside Hero. */
+  /* Headline accent: lavender to violet, clipped to text. Used for the
+     emphasized phrase inside Hero headlines. */
   .text-gradient-accent {
     background: linear-gradient(120deg, #c4b5fd 10%, #a78bfa 45%, #8b5cf6 90%);
     -webkit-background-clip: text;

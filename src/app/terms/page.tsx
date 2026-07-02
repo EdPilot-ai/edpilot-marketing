@@ -84,7 +84,7 @@ export default function TermsOfServicePage() {
                     'Provide accurate registration information',
                     'Maintain the confidentiality of your password',
                     'Be enrolled at a higher education institution or authorized for demo access',
-                    'One account per person — no sharing',
+                    'One account per person, no sharing',
                     'Responsible for all activity under your account',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-2 leading-relaxed">
@@ -199,11 +199,11 @@ export default function TermsOfServicePage() {
             {[
               {
                 title: 'Your content is yours',
-                desc: 'You retain full ownership of all content you upload or create — course materials, questions, assignments, and chat messages. By using EdPilot you grant us a limited, non-exclusive, royalty-free license solely to operate, maintain, and deliver the Services to you.',
+                desc: 'You retain full ownership of all content you upload or create: course materials, questions, assignments, and chat messages. By using EdPilot you grant us a limited, non-exclusive, royalty-free license solely to operate, maintain, and deliver the Services to you.',
               },
               {
                 title: 'No AI training on your data',
-                desc: 'EdPilot does not use your User Content — including student educational records, course materials, or AI conversation history — to train or fine-tune machine learning models without your explicit written consent.',
+                desc: 'EdPilot does not use your User Content, including student educational records, course materials, and AI conversation history, to train or fine-tune machine learning models without your explicit written consent.',
               },
               {
                 title: 'Course materials',
@@ -285,9 +285,9 @@ export default function TermsOfServicePage() {
             <ul className="space-y-2">
               {[
                 'EdPilot receives a signed LTI launch payload containing your institution-assigned user ID, course context, role (student or instructor), and LMS platform identifier',
-                'Names And Roles Provisioning Services (NRPS) may be used to sync course rosters directly from your LMS — no manual enrollment required',
+                'Names And Roles Provisioning Services (NRPS) may be used to sync course rosters directly from your LMS with no manual enrollment required',
                 'Assignment and Grade Services (AGS) may be used to report grades or completion status back to your LMS gradebook, if enabled by your institution',
-                'LTI launch data is processed solely to authenticate you, provision your account, and deliver the correct course context — not for advertising or profiling',
+                'LTI launch data is processed solely to authenticate you, provision your account, and deliver the correct course context, never for advertising or profiling',
                 'Institutions control LTI configuration and may revoke access at any time through their LMS administration panel',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2 leading-relaxed">
@@ -337,8 +337,8 @@ export default function TermsOfServicePage() {
               ))}
             </ul>
             <p className="leading-relaxed">
-              Individual students may exercise their FERPA rights — including the right to inspect,
-              review, and request amendment of their education records — through their educational
+              Individual students may exercise their FERPA rights, including the right to inspect,
+              review, and request amendment of their education records, through their educational
               institution&apos;s registrar.
             </p>
           </div>
@@ -397,8 +397,8 @@ export default function TermsOfServicePage() {
               <h3 className="text-sm font-semibold text-text-primary mb-2">AI usage limits</h3>
               <p className="leading-relaxed">
                 EdPilot may impose rate limits or usage quotas on AI features to ensure fair access
-                and prevent abuse. Systematic attempts to circumvent usage limits — including prompt
-                injection, automated scraping, or API abuse — are prohibited and may result in account
+                and prevent abuse. Systematic attempts to circumvent usage limits, including prompt
+                injection, automated scraping, or API abuse, are prohibited and may result in account
                 termination.
               </p>
             </div>
@@ -474,7 +474,7 @@ export default function TermsOfServicePage() {
           <div className="rounded-lg border border-border-gray bg-bg-elevated p-4 text-xs leading-6 text-text-secondary space-y-3">
             <p>
               TO THE MAXIMUM EXTENT PERMITTED BY LAW, EDPILOT SHALL NOT BE LIABLE FOR ANY INDIRECT,
-              INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES — INCLUDING LOSS OF DATA, LOSS
+              INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS OF DATA, LOSS
               OF PROFITS, OR DAMAGES ARISING FROM YOUR USE OF OR INABILITY TO USE THE SERVICE.
             </p>
             <p>

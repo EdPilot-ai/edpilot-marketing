@@ -26,7 +26,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-text-secondary text-sm leading-6 max-w-[280px]">
-              The AI teaching assistant your faculty controls — grounded in course materials,
+              The AI teaching assistant your faculty controls. Grounded in course materials,
               governed by professors, built for universities.
             </p>
             <a
@@ -147,9 +147,17 @@ export default function Footer() {
           {/* Contact */}
           <div className="md:col-span-2">
             <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
-              Get in Touch
+              Contact
             </h3>
             <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/contact"
+                  className="inline-flex min-h-11 items-center rounded-md text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary focus-ring"
+                >
+                  Book a demo
+                </Link>
+              </li>
               <li>
                 <a
                   href={`mailto:${SUPPORT_EMAIL}`}

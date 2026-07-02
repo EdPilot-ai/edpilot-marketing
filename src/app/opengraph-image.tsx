@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 import { designTokens } from '@/lib/design-tokens'
 
-export const alt = 'EdPilot — Faculty-controlled AI teaching assistants for real courses'
+export const alt = 'EdPilot: Faculty-controlled AI teaching assistants for real courses'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 

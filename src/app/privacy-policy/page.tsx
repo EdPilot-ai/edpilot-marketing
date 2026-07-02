@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
             <p>
               This Privacy Policy explains what personal information we collect when you use EdPilot,
               how we use and protect that information, and what choices you have. It applies to all
-              users — students, professors, and demo visitors.
+              users: students, professors, and demo visitors.
             </p>
             <p>
               By accessing or using EdPilot you agree to this policy. If you do not agree, please stop
@@ -82,8 +82,8 @@ export default function PrivacyPolicyPage() {
             <div>
               <h3 className="text-sm font-semibold text-text-primary mb-2">Academic content</h3>
               <p className="leading-relaxed">
-                Professors upload course materials — syllabi, lecture slides, assignments, and practice
-                exams — which form the knowledge base for each course&apos;s AI Teaching Assistant.
+                Professors upload course materials such as syllabi, lecture slides, assignments, and practice
+                exams, which form the knowledge base for each course&apos;s AI Teaching Assistant.
                 Students generate content through their interactions with the assistant: questions
                 asked, responses received, and study sessions created.
               </p>
@@ -95,7 +95,7 @@ export default function PrivacyPolicyPage() {
                 When you access EdPilot through an LMS integration (Canvas, Blackboard, Moodle, etc.),
                 we receive a signed LTI launch payload from your institution. This payload includes
                 your institution-assigned user ID, course context ID, role (student or instructor),
-                LMS platform identifier, and — where enabled — NRPS roster data and AGS grade
+                LMS platform identifier, and, where enabled, NRPS roster data and AGS grade
                 passback configuration. This data is processed exclusively to authenticate you,
                 provision your account, and scope the correct course context. LTI launch data is
                 treated as student education records under FERPA.
@@ -144,7 +144,7 @@ export default function PrivacyPolicyPage() {
             {[
               {
                 title: 'Deliver the AI Teaching Assistant',
-                desc: 'Your course enrollment and the materials your professor uploaded let us scope the AI to your specific curriculum — no generic web results.',
+                desc: 'Your course enrollment and the materials your professor uploaded let us scope the AI to your specific curriculum, with no generic web results.',
               },
               {
                 title: 'Personalized learning',
@@ -160,7 +160,7 @@ export default function PrivacyPolicyPage() {
               },
               {
                 title: 'Academic integrity monitoring',
-                desc: 'We flag unusual usage patterns (e.g., high-volume prompting around exam windows) in the professor analytics dashboard. This supports — not replaces — human academic integrity review.',
+                desc: 'We flag unusual usage patterns (e.g., high-volume prompting around exam windows) in the professor analytics dashboard. This supports human academic integrity review; it does not replace it.',
               },
               {
                 title: 'Platform improvement',
@@ -237,7 +237,7 @@ export default function PrivacyPolicyPage() {
               <span className="font-semibold text-text-primary">Your FERPA rights:</span> Students
               have the right to inspect their education records, request amendments to inaccurate
               records, and consent to disclosures not permitted by FERPA. Exercise these rights
-              through your institution&apos;s registrar — EdPilot will respond to all valid institutional
+              through your institution&apos;s registrar. EdPilot will respond to all valid institutional
               FERPA requests within five (5) business days.
             </p>
           </div>
@@ -334,7 +334,7 @@ export default function PrivacyPolicyPage() {
               <ul className="space-y-2">
                 {[
                   { service: 'Google Firebase', purpose: 'User authentication and real-time data' },
-                  { service: 'Google Cloud Firestore', purpose: 'Database — accounts, courses, sessions' },
+                  { service: 'Google Cloud Firestore', purpose: 'Database for accounts, courses, and sessions' },
                   { service: 'Google Cloud Storage', purpose: 'Secure file storage for course materials' },
                   { service: 'Google Vertex AI', purpose: 'AI model inference and grounding' },
                   { service: 'Anthropic (Claude API)', purpose: 'Large language model responses' },
@@ -582,7 +582,7 @@ export default function PrivacyPolicyPage() {
                   { basis: 'Contract', desc: 'To deliver the Services you signed up for' },
                   { basis: 'Legitimate interests', desc: 'Platform security, fraud prevention, and product improvement (with appropriate safeguards)' },
                   { basis: 'Legal obligation', desc: 'Compliance with FERPA, tax laws, and court orders' },
-                  { basis: 'Consent', desc: 'For any processing beyond these bases — you may withdraw consent at any time' },
+                  { basis: 'Consent', desc: 'For any processing beyond these bases. You may withdraw consent at any time' },
                 ].map((item) => (
                   <li key={item.basis} className="flex items-start gap-2 leading-relaxed">
                     <ChevronRight className="w-3.5 h-3.5 text-accent mt-0.5 flex-shrink-0" />
@@ -680,7 +680,7 @@ export default function PrivacyPolicyPage() {
           </div>
           <div className="text-sm text-text-secondary space-y-3 leading-relaxed">
             <p>
-              EdPilot is built for higher education — college and university students, typically 18
+              EdPilot is built for higher education: college and university students, typically 18
               years or older. We do not knowingly collect personal information from anyone under 13.
             </p>
             <p>

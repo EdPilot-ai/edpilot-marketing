@@ -8,14 +8,22 @@ import { BrandMark } from "@/components/BrandMark";
 import { Button } from "@/components/ui/button";
 import { SIGN_IN_URL, SIGN_UP_URL } from "@/lib/marketing";
 
+// The pill carries only the five destinations a buyer actually navigates by.
+// Everything else (About, Blog, FAQ) lives in the footer; Contact sits next
+// to the auth actions since "book a demo" is the site's primary conversion.
 const NAV_LINKS = [
   { href: "/for-universities", label: "For Universities" },
   { href: "/products", label: "Products" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/pricing", label: "Pricing" },
   { href: "/compare", label: "Compare" },
-  { href: "/about", label: "About" },
+];
+
+// Shown in the mobile menu below the primary set.
+const SECONDARY_LINKS = [
   { href: "/contact", label: "Contact" },
+  { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
 ];
 
 export default function Navbar() {
@@ -53,7 +61,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-1 rounded-lg border border-white/[0.06] bg-white/[0.03] p-1 xl:flex">
+        <ul className="hidden items-center gap-1 rounded-lg border border-white/[0.06] bg-white/[0.03] p-1 lg:flex">
           {NAV_LINKS.map((link) => {
             const active =
               pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`));
@@ -74,21 +82,31 @@ export default function Navbar() {
           })}
         </ul>
 
-        <div className="hidden items-center justify-end gap-3 xl:flex">
+        <div className="hidden items-center justify-end gap-1 lg:flex">
+          <Link
+            href="/contact"
+            className={`inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium transition-colors focus-ring ${
+              pathname === "/contact"
+                ? "text-text-primary"
+                : "text-text-secondary hover:text-text-primary"
+            }`}
+          >
+            Contact
+          </Link>
           <a
             href={SIGN_IN_URL}
             className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary focus-ring"
           >
             Sign in
           </a>
-          <Button asChild size="sm">
+          <Button asChild size="sm" className="ml-2">
             <a href={SIGN_UP_URL}>Get Started</a>
           </Button>
         </div>
 
         <button
           type="button"
-          className="col-start-3 flex h-11 w-11 items-center justify-center justify-self-end rounded-lg border border-border-gray bg-bg-surface text-text-primary transition-colors hover:border-border-strong focus-ring xl:hidden"
+          className="col-start-3 flex h-11 w-11 items-center justify-center justify-self-end rounded-lg border border-border-gray bg-bg-surface text-text-primary transition-colors hover:border-border-strong focus-ring lg:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls={mobileMenuId}
@@ -105,10 +123,22 @@ export default function Navbar() {
       {open && (
         <div
           id={mobileMenuId}
-          className="border-t border-border-gray bg-bg-deep/95 backdrop-blur-xl xl:hidden"
+          className="border-t border-border-gray bg-bg-deep/95 backdrop-blur-xl lg:hidden"
         >
           <ul className="space-y-1 px-6 py-4">
             {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-text-secondary hover:bg-bg-elevated hover:text-text-primary focus-ring"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+            <li aria-hidden="true" className="!my-3 border-t border-border-gray" />
+            {SECONDARY_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
