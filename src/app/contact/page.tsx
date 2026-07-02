@@ -419,7 +419,7 @@ export default function ContactPage() {
             <div>
               <SectionHeader
                 align="left"
-                eyebrow="Next Step"
+                eyebrow="Next step"
                 title="A cleaner path to the right conversation."
                 description="The form is structured around the details that actually change the next step: role, institution, LMS, timeline, and pilot size."
                 className="mb-8"

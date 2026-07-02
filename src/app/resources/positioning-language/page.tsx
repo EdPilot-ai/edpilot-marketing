@@ -67,7 +67,7 @@ export default function PositioningLanguagePage() {
 
         <Section className="py-20 md:py-28">
           <Container>
-            <SectionHeader eyebrow="Core Terminology" title="Use precise language." />
+            <SectionHeader eyebrow="Core terminology" title="Use precise language." />
             <div className="grid gap-4 md:grid-cols-2">
               {definitions.map((definition) => (
                 <FeatureCard
@@ -89,7 +89,7 @@ export default function PositioningLanguagePage() {
           <Container size="narrow">
             <SectionHeader
               align="left"
-              eyebrow="Primary Description"
+              eyebrow="Primary description"
               title="Recommended language"
               description="EdPilot is an instructor-controlled AI teaching assistant built specifically for universities. Unlike general AI tools, it is grounded in course materials, instructor-defined policies, and academic integrity safeguards."
             />
@@ -105,7 +105,7 @@ export default function PositioningLanguagePage() {
 
         <Section className="py-20 md:py-28">
           <Container>
-            <SectionHeader eyebrow="Comparative Positioning" title="Make the contrast explicit." />
+            <SectionHeader eyebrow="Comparative positioning" title="Make the contrast explicit." />
             <div className="grid gap-4 md:grid-cols-3">
               <FeatureCard
                 title="vs. General AI Tools"

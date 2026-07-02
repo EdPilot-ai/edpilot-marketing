@@ -97,11 +97,10 @@ export function SectionHeader({
       {eyebrow && (
         <p
           className={cn(
-            "mb-4 flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent",
-            align === "center" && "justify-center",
+            "mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent",
+            align === "center" && "text-center",
           )}
         >
-          <span className="h-1 w-1 rounded-full bg-accent" aria-hidden="true" />
           {eyebrow}
         </p>
       )}
@@ -239,8 +238,7 @@ export function Hero({
         >
           {eyebrow && (
             <p className={cn("animate-fade-up mb-5 flex", align === "center" && "justify-center")}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.07] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-soft">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+              <span className="inline-flex items-center rounded-full border border-accent/20 bg-accent/[0.07] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-soft">
                 {eyebrow}
               </span>
             </p>
@@ -833,7 +831,7 @@ export function ComparisonDetail({
         <Section className="py-16">
           <Container>
             <SectionHeader
-              eyebrow="Real Moments"
+              eyebrow="Real moments"
               title="Where the difference becomes obvious."
               description="The best comparison is not a feature checklist. It is what happens on a Tuesday night before an exam."
             />

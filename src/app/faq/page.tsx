@@ -201,7 +201,7 @@ export default function FAQPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-24">
+      <Section className="py-20 md:py-28">
         <Container size="narrow">
           <SectionHeader
             eyebrow="Answers"

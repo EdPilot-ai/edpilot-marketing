@@ -1,5 +1,5 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
+import type { Metadata } from "next";
+import Link from "next/link";
 import {
   ArrowRight,
   BarChart3,
@@ -17,110 +17,113 @@ import {
   Sparkles,
   Users,
   Video,
-} from 'lucide-react'
-import { Button } from '@/components/ui/button'
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   CTABand,
   Container,
   Hero,
   IconChip,
+  MarketingCard,
   PageShell,
+  Reveal,
   Section,
   SectionHeader,
   StatusPill,
-} from '@/components/marketing'
-import { SIGN_UP_URL } from '@/lib/marketing'
+} from "@/components/marketing";
+import { SIGN_UP_URL } from "@/lib/marketing";
 
 export const metadata: Metadata = {
-  title: 'Products: Course-grounded AI for higher education',
+  title: "Products: Course-grounded AI for higher education",
   description:
-    'Explore the EdPilot product suite: Curriculum Intelligence and the AI Teaching Assistant that answers student questions from your course materials, governed by faculty and ready for institutional review.',
+    "Explore the EdPilot product suite: Curriculum Intelligence and the AI Teaching Assistant that answers student questions from your course materials, governed by faculty and ready for institutional review.",
   keywords:
-    'EdPilot products, AI teaching assistant, curriculum intelligence, course-grounded AI, higher education AI platform',
-}
+    "EdPilot products, AI teaching assistant, curriculum intelligence, course-grounded AI, higher education AI platform",
+};
 
 const comingSoonSuites = [
   {
-    id: 'professor-network',
-    title: 'Professor Network Hub',
+    id: "professor-network",
+    title: "Professor Network Hub",
     description:
-      'Share materials, co-develop courses, and collaborate with faculty across your institution.',
+      "Share materials, co-develop courses, and collaborate with faculty across your institution.",
     icon: Users,
-    signal: 'Faculty collaboration',
+    signal: "Faculty collaboration",
   },
   {
-    id: 'student-career',
-    title: 'Student Career Network',
-    description: 'Job matching and career recommendations tied to academic performance.',
+    id: "student-career",
+    title: "Student Career Network",
+    description: "Job matching and career recommendations tied to academic performance.",
     icon: Briefcase,
-    signal: 'Student outcomes',
+    signal: "Student outcomes",
   },
   {
-    id: 'university-admin',
-    title: 'University Admin Intelligence',
-    description: 'Curriculum compliance tracking, course planning, and department analytics.',
+    id: "university-admin",
+    title: "University Admin Intelligence",
+    description: "Curriculum compliance tracking, course planning, and department analytics.",
     icon: Building2,
-    signal: 'Admin visibility',
+    signal: "Admin visibility",
   },
   {
-    id: 'ai-lab',
-    title: 'AI Lab & Tooling Suite',
-    description: 'Custom AI workflows, institutional knowledge bases, and model evaluation.',
+    id: "ai-lab",
+    title: "AI Lab & Tooling Suite",
+    description: "Custom AI workflows, institutional knowledge bases, and model evaluation.",
     icon: Cpu,
-    signal: 'AI governance',
+    signal: "AI governance",
   },
   {
-    id: 'classroom-experience',
-    title: 'Classroom Experience Suite',
-    description: 'Live lecture support, engagement tracking, and post-class summaries.',
+    id: "classroom-experience",
+    title: "Classroom Experience Suite",
+    description: "Live lecture support, engagement tracking, and post-class summaries.",
     icon: MonitorPlay,
-    signal: 'Classroom layer',
+    signal: "Classroom layer",
   },
-]
+];
 
 const curriculumTools: Array<{
-  title: string
-  blurb: string
-  icon: typeof Brain
-  status: 'live' | 'beta' | 'planned'
-  statusLabel: string
+  title: string;
+  blurb: string;
+  icon: typeof Brain;
+  status: "live" | "beta" | "planned";
+  statusLabel: string;
 }> = [
   {
-    title: 'AI Teaching Assistant',
-    blurb: 'Answers student questions from your materials, with citations and integrity guardrails.',
+    title: "AI Teaching Assistant",
+    blurb:
+      "Answers student questions from your materials, with citations and integrity guardrails.",
     icon: Brain,
-    status: 'live',
-    statusLabel: 'Live',
+    status: "live",
+    statusLabel: "Live",
   },
   {
-    title: 'Content Generation',
-    blurb: 'Draft quizzes, study guides, and rubrics from the same course materials.',
+    title: "Content Generation",
+    blurb: "Draft quizzes, study guides, and rubrics from the same course materials.",
     icon: FileEdit,
-    status: 'beta',
-    statusLabel: 'Beta',
+    status: "beta",
+    statusLabel: "Beta",
   },
   {
-    title: 'Student Performance Insights',
-    blurb: 'See which learning objectives aren’t landing before the exam confirms it.',
+    title: "Student Performance Insights",
+    blurb: "See which learning objectives aren’t landing before the exam confirms it.",
     icon: BarChart3,
-    status: 'beta',
-    statusLabel: 'Beta',
+    status: "beta",
+    statusLabel: "Beta",
   },
   {
-    title: 'Multimedia Generation',
-    blurb: 'Turn lecture notes into slide outlines and visual explainers for review.',
+    title: "Multimedia Generation",
+    blurb: "Turn lecture notes into slide outlines and visual explainers for review.",
     icon: Video,
-    status: 'planned',
-    statusLabel: 'Planned',
+    status: "planned",
+    statusLabel: "Planned",
   },
   {
-    title: 'AI Grader',
-    blurb: 'Grade against your rubric every time, with faculty review before release.',
+    title: "AI Grader",
+    blurb: "Grade against your rubric every time, with faculty review before release.",
     icon: ClipboardCheck,
-    status: 'planned',
-    statusLabel: 'Planned',
+    status: "planned",
+    statusLabel: "Planned",
   },
-]
+];
 
 export default function ProductsPage() {
   return (
@@ -131,8 +134,8 @@ export default function ProductsPage() {
         accent="A whole suite of tools."
         description="EdPilot’s Curriculum Intelligence suite is live today: five tools that all run from the same course model, so faculty set things up once and everything stays in sync."
         actions={[
-          { label: 'Explore Curriculum Intelligence', href: '/products/curriculum-intelligence' },
-          { label: 'See Pricing', href: '/pricing', variant: 'secondary' },
+          { label: "Explore Curriculum Intelligence", href: "/products/curriculum-intelligence" },
+          { label: "See Pricing", href: "/pricing", variant: "secondary" },
         ]}
       />
 
@@ -167,21 +170,20 @@ export default function ProductsPage() {
           </Link>
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {curriculumTools.map((tool) => {
-              const Icon = tool.icon
+            {curriculumTools.map((tool, index) => {
+              const Icon = tool.icon;
               return (
-                <div
-                  key={tool.title}
-                  className="flex h-full flex-col rounded-lg border border-border-gray bg-bg-surface p-5 transition-colors hover:border-border-strong hover:bg-bg-elevated"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <IconChip icon={Icon} className="h-9 w-9" />
-                    <StatusPill tone={tool.status}>{tool.statusLabel}</StatusPill>
-                  </div>
-                  <h4 className="mt-4 text-sm font-semibold text-text-primary">{tool.title}</h4>
-                  <p className="mt-1.5 text-[13px] leading-6 text-text-secondary">{tool.blurb}</p>
-                </div>
-              )
+                <Reveal key={tool.title} delay={index * 0.06} className="h-full">
+                  <MarketingCard interactive className="flex h-full flex-col p-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <IconChip icon={Icon} className="h-9 w-9" />
+                      <StatusPill tone={tool.status}>{tool.statusLabel}</StatusPill>
+                    </div>
+                    <h4 className="mt-4 text-sm font-semibold text-text-primary">{tool.title}</h4>
+                    <p className="mt-1.5 text-[13px] leading-6 text-text-secondary">{tool.blurb}</p>
+                  </MarketingCard>
+                </Reveal>
+              );
             })}
             <div className="flex h-full flex-col justify-center rounded-lg border border-dashed border-border-gray bg-bg-deep p-5">
               <p className="text-[13px] leading-6 text-text-secondary">
@@ -201,16 +203,13 @@ export default function ProductsPage() {
       </Section>
 
       <Section className="py-20 md:py-28" surface="deep">
-        <div
-          className="cta-gradient pointer-events-none absolute inset-0"
-          aria-hidden="true"
-        />
+        <div className="cta-gradient pointer-events-none absolute inset-0" aria-hidden="true" />
         <Container className="relative z-10">
           <div className="surface-gradient-featured overflow-hidden rounded-lg border border-accent/25 shadow-2xl">
             <div className="grid gap-0 md:grid-cols-[1.05fr_0.95fr]">
               <div className="p-7 md:p-10">
                 <IconChip icon={Route} className="mb-6 h-12 w-12" />
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
                   Institution path
                 </p>
                 <h2 className="max-w-xl text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary md:text-4xl">
@@ -222,12 +221,18 @@ export default function ProductsPage() {
                   rollout conversations as institutions are ready.
                 </p>
                 <p className="mt-4 max-w-xl text-sm leading-7 text-text-secondary">
-                  If you are evaluating this as a campus initiative, start with the{' '}
-                  <Link href="/for-universities" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+                  If you are evaluating this as a campus initiative, start with the{" "}
+                  <Link
+                    href="/for-universities"
+                    className="font-semibold text-accent hover:text-accent-soft focus-ring"
+                  >
                     university view
-                  </Link>{' '}
-                  or review the launch path on{' '}
-                  <Link href="/how-it-works" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+                  </Link>{" "}
+                  or review the launch path on{" "}
+                  <Link
+                    href="/how-it-works"
+                    className="font-semibold text-accent hover:text-accent-soft focus-ring"
+                  >
                     How It Works
                   </Link>
                   .
@@ -248,21 +253,21 @@ export default function ProductsPage() {
                 <div className="space-y-4">
                   {[
                     {
-                      label: 'Pilot',
+                      label: "Pilot",
                       detail:
-                        'Upload course materials, test student support, review faculty controls.',
+                        "Upload course materials, test student support, review faculty controls.",
                       icon: Sparkles,
                     },
                     {
-                      label: 'Rollout',
+                      label: "Rollout",
                       detail:
-                        'Add accessibility, procurement, LMS, and SSO requirements as scope grows.',
+                        "Add accessibility, procurement, LMS, and SSO requirements as scope grows.",
                       icon: Layers3,
                     },
                     {
-                      label: 'Institution',
+                      label: "Institution",
                       detail:
-                        'Expand across programs with governed course models and clearer analytics.',
+                        "Expand across programs with governed course models and clearer analytics.",
                       icon: CheckCircle2,
                     },
                   ].map((item, index) => (
@@ -288,7 +293,7 @@ export default function ProductsPage() {
         </Container>
       </Section>
 
-      <Section className="py-16 md:py-20">
+      <Section className="py-20 md:py-28">
         <Container size="wide">
           <SectionHeader
             eyebrow="The wider platform, over time"
@@ -298,13 +303,16 @@ export default function ProductsPage() {
           />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {comingSoonSuites.map((suite) => {
-              const Icon = suite.icon
+              const Icon = suite.icon;
               return (
                 <div
                   key={suite.id}
                   className="flex items-center gap-3 rounded-lg border border-border-gray bg-bg-deep px-4 py-3"
                 >
-                  <IconChip icon={Icon} className="h-8 w-8 border-border-gray bg-bg-surface text-text-tertiary" />
+                  <IconChip
+                    icon={Icon}
+                    className="h-8 w-8 border-border-gray bg-bg-surface text-text-tertiary"
+                  />
                   <span className="min-w-0 flex-1 truncate text-sm font-medium text-text-secondary">
                     {suite.title}
                   </span>
@@ -312,7 +320,7 @@ export default function ProductsPage() {
                     Planned
                   </span>
                 </div>
-              )
+              );
             })}
           </div>
         </Container>
@@ -322,11 +330,10 @@ export default function ProductsPage() {
         title="Start with the live suite, then grow from there."
         description="Explore Curriculum Intelligence on real course materials, or talk with us about the institution path from pilot to rollout."
         actions={[
-          { label: 'Explore Curriculum Intelligence', href: '/products/curriculum-intelligence' },
-          { label: 'See Pricing', href: '/pricing', variant: 'secondary' },
+          { label: "Explore Curriculum Intelligence", href: "/products/curriculum-intelligence" },
+          { label: "See Pricing", href: "/pricing", variant: "secondary" },
         ]}
       />
-
     </PageShell>
-  )
+  );
 }
