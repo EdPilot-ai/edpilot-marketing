@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Blog — Higher education AI, done responsibly',
+  title: 'Blog: Higher education AI, done responsibly',
   description:
     'Essays on course-grounded AI, academic integrity, faculty control, and what AI infrastructure should look like inside the university.',
   keywords:

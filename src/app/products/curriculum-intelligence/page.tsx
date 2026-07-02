@@ -39,7 +39,7 @@ import {
 import { SIGN_UP_URL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
-  title: 'Curriculum Intelligence — The AI Teaching Assistant',
+  title: 'Curriculum Intelligence: The AI Teaching Assistant',
   description:
     'A teaching assistant that answers student questions using your course materials, your terminology, and your standards. Cites your readings, flags misconceptions, and follows the guardrails faculty set.',
   keywords:

@@ -6,7 +6,7 @@ import { SUPPORT_EMAIL, ACCESSIBILITY_EMAIL } from '@/lib/marketing'
 export const metadata: Metadata = {
   title: 'Accessibility Statement | EdPilot',
   description:
-    'EdPilot accessibility statement — WCAG 2.2 AA conformance, Section 508, ADA Title II, implemented features, known limitations, and how to report accessibility issues.',
+    'EdPilot accessibility statement: WCAG 2.2 AA conformance, Section 508, ADA Title II, implemented features, known limitations, and how to report accessibility issues.',
 }
 
 const LAST_UPDATED = 'May 18, 2026'
@@ -55,7 +55,7 @@ export default function AccessibilityPage() {
               <strong className="text-text-primary">EN 301 549 v3.2.1</strong> (the harmonised
               European standard for ICT accessibility), which references WCAG 2.1 AA as its web
               content criteria. A Voluntary Product Accessibility Template (VPAT®) / Accessibility
-              Conformance Report is available upon request for institutional procurement teams —
+              Conformance Report is available upon request for institutional procurement teams;
               contact{' '}
               <a href={`mailto:${ACCESSIBILITY_EMAIL}`} className="text-accent hover:underline">
                 {ACCESSIBILITY_EMAIL}
@@ -87,7 +87,7 @@ export default function AccessibilityPage() {
               <li>
                 Visible focus indicators on all interactive elements using a{' '}
                 <code className="text-accent">2px solid</code> accent-color ring (WCAG 2.4.7,
-                WCAG 2.4.11 — new in 2.2)
+                WCAG 2.4.11, new in 2.2)
               </li>
               <li>
                 View toggle buttons use{' '}
@@ -103,11 +103,11 @@ export default function AccessibilityPage() {
                 Session timeout warning dialog with focus management and{' '}
                 <code className="text-accent">role=&quot;alertdialog&quot;</code> (WCAG 2.2.1).
                 Authentication sessions extend automatically on user activity and provide at least
-                20 seconds warning before expiry (WCAG 2.2.6 — new in 2.2)
+                20 seconds warning before expiry (WCAG 2.2.6, new in 2.2)
               </li>
               <li>
                 Draggable reorder handles provide keyboard-accessible alternatives via arrow-key
-                controls and an explicit &quot;Move up / Move down&quot; action menu (WCAG 2.5.7 —
+                controls and an explicit &quot;Move up / Move down&quot; action menu (WCAG 2.5.7,
                 new in 2.2)
               </li>
             </ul>
@@ -126,7 +126,7 @@ export default function AccessibilityPage() {
               </li>
               <li>
                 All modal dialogs implement a full{' '}
-                <strong className="text-text-primary">keyboard focus trap</strong> — Tab and
+                <strong className="text-text-primary">keyboard focus trap</strong>: Tab and
                 Shift+Tab cycle only within the open dialog, and pressing Escape dismisses it and
                 returns focus to the triggering element (WCAG 2.1.2)
               </li>
@@ -251,7 +251,7 @@ export default function AccessibilityPage() {
             <ul className="list-disc list-inside space-y-1.5 ml-2">
               <li>
                 All animations and transitions respect the{' '}
-                <code className="text-accent">prefers-reduced-motion: reduce</code> media query —
+                <code className="text-accent">prefers-reduced-motion: reduce</code> media query;
                 durations are collapsed to 0.01ms and custom keyframe animations are disabled
                 (WCAG 2.3.3)
               </li>
@@ -275,7 +275,7 @@ export default function AccessibilityPage() {
                 mobile browsers as part of each release cycle
               </li>
               <li>
-                Orientation is not locked — the platform is fully functional in both portrait and
+                Orientation is not locked. The platform is fully functional in both portrait and
                 landscape (WCAG 1.3.4)
               </li>
               <li>
@@ -293,7 +293,7 @@ export default function AccessibilityPage() {
             </h3>
             <ul className="list-disc list-inside space-y-1.5 ml-2">
               <li>
-                Server-side accessibility scanner runs automatically on every uploaded file —
+                Server-side accessibility scanner runs automatically on every uploaded file;
                 detecting image-only or scanned PDFs, PPTX slides with missing alt text, DOCX
                 images without descriptions, and high-risk spreadsheet structures (WCAG 1.1.1,
                 1.3.1)
@@ -349,13 +349,13 @@ export default function AccessibilityPage() {
             <ul className="list-disc list-inside space-y-2 ml-2">
               <li>
                 <strong className="text-text-primary">PDF tag structure and reading order</strong>{' '}
-                — our server-side scanner detects image-only PDFs but cannot inspect internal PDF
+                : our server-side scanner detects image-only PDFs but cannot inspect internal PDF
                 tag trees, reading order, or heading structure, which require PDF/UA tooling not
                 available in a pure JavaScript environment. Faculty are advised to use Adobe
                 Acrobat&apos;s accessibility checker before uploading.
               </li>
               <li>
-                <strong className="text-text-primary">Third-party embedded content</strong> —
+                <strong className="text-text-primary">Third-party embedded content</strong>:
                 externally hosted content (linked resources, embedded media) is outside our
                 control and may not meet WCAG 2.2 AA. We recommend faculty verify accessibility of
                 any external materials before sharing with students.
@@ -364,7 +364,7 @@ export default function AccessibilityPage() {
                 <strong className="text-text-primary">
                   Complex analytics chart interactions
                 </strong>{' '}
-                — while all charts with bar-based visualizations offer a table-view alternative,
+                : while all charts with bar-based visualizations offer a table-view alternative,
                 some advanced analytics charts (trajectory graphs, timing heatmaps) do not yet
                 have an equivalent data table. This is scheduled for the next release.
               </li>
@@ -372,7 +372,7 @@ export default function AccessibilityPage() {
                 <strong className="text-text-primary">
                   Content Security Policy inline-script directives
                 </strong>{' '}
-                — the current CSP includes{' '}
+                : the current CSP includes{' '}
                 <code className="text-accent">&apos;unsafe-inline&apos;</code> for scripts, which
                 is required by the current build pipeline. Migration to a nonce-based CSP is
                 planned to eliminate this exception.
@@ -525,7 +525,7 @@ export default function AccessibilityPage() {
             <p className="leading-relaxed mb-3">
               Under the DOJ Title II final rule (April 2024), covered entities must conform to
               WCAG 2.1 Level AA. EdPilot has implemented a comprehensive, multi-phase
-              accessibility program — upgraded to WCAG 2.2 AA — spanning structural ARIA
+              accessibility program, upgraded to WCAG 2.2 AA, spanning structural ARIA
               compliance, color contrast remediation, semantic markup, high-contrast mode support,
               automated CI/CD gating, a faculty-facing materials accessibility pipeline, mobile
               and touch accessibility testing, and full keyboard focus-trap management across all

@@ -247,12 +247,7 @@ export function Hero({
           )}
           <h1 className="animate-fade-up anim-delay-1 font-display text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.03em] text-text-primary sm:text-5xl md:text-[4rem] md:tracking-[-0.035em]">
             {title}
-            {accent && (
-              <em className="text-gradient-accent font-serif font-medium italic tracking-[-0.01em]">
-                {" "}
-                {accent}
-              </em>
-            )}
+            {accent && <span className="text-gradient-accent"> {accent}</span>}
           </h1>
           {description && (
             <p

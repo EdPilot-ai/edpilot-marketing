@@ -32,7 +32,7 @@ import {
 import { SIGN_UP_URL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
-  title: 'How It Works — Self-Serve Setup for Your University',
+  title: 'How It Works: Self-Serve Setup for Your University',
   description:
     'Launch EdPilot at your university in minutes, not months. An admin signs up, EdPilot approves your institution, you invite professors, and faculty optionally connect Canvas. No IT project, no procurement maze.',
   keywords:
@@ -44,7 +44,7 @@ const easeFeatures = [
     icon: Rocket,
     title: 'Nothing to install',
     description:
-      'EdPilot runs in the browser. Canvas connects with a secure token in seconds — not a six-week IT integration.',
+      'EdPilot runs in the browser. Canvas connects with a secure token in seconds, not a six-week IT integration.',
   },
   {
     icon: GraduationCap,
@@ -62,7 +62,7 @@ const easeFeatures = [
     icon: Sparkles,
     title: 'Free to start',
     description:
-      'Spin up a pilot at no cost. Add courses and faculty as adoption grows — no upfront commitment to find out if it works.',
+      'Spin up a pilot at no cost. Add courses and faculty as adoption grows, with no upfront commitment to find out if it works.',
   },
 ]
 
@@ -230,7 +230,7 @@ export default function HowItWorksPage() {
           <SectionHeader
             eyebrow="Who does what"
             title="Three lanes. No handoffs."
-            description="The same onboarding gives each role exactly what they need — and nothing they don't."
+            description="The same onboarding gives each role exactly what they need and nothing they don't."
           />
           <RoleExplorer />
           <p className="mt-6 text-center text-sm text-text-secondary">

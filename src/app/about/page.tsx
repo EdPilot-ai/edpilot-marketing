@@ -24,7 +24,7 @@ import {
 import { SIGN_UP_URL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
-  title: 'About — Why we built EdPilot',
+  title: 'About: Why we built EdPilot',
   description:
     'EdPilot builds course-grounded AI infrastructure for universities that want control, clarity, and trust. Meet the team and the principles behind faculty-controlled AI.',
   keywords:

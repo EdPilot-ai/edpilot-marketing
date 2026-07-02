@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
-import toast from 'react-hot-toast'
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import toast from "react-hot-toast";
 import {
   ArrowRight,
   Building2,
@@ -15,9 +15,9 @@ import {
   MessageSquare,
   Rocket,
   Shield,
-} from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { sendContactMessage } from './actions'
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { sendContactMessage } from "./actions";
 import {
   Container,
   Hero,
@@ -27,66 +27,70 @@ import {
   ProofPanel,
   Section,
   SectionHeader,
-} from '@/components/marketing'
-import { SUPPORT_EMAIL } from '@/lib/marketing'
+} from "@/components/marketing";
+import { SUPPORT_EMAIL } from "@/lib/marketing";
 
 const initialFormData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  role: '',
-  intent: 'book-demo',
-  institution: '',
-  department: '',
-  lms: '',
-  timeline: '',
-  courseCount: '',
-  message: '',
-  company: '', // honeypot — stays empty for humans
-}
+  firstName: "",
+  lastName: "",
+  email: "",
+  role: "",
+  intent: "book-demo",
+  institution: "",
+  department: "",
+  lms: "",
+  timeline: "",
+  courseCount: "",
+  message: "",
+  company: "", // honeypot — stays empty for humans
+};
 
 const intentOptions = [
-  { value: 'book-demo', label: 'Book a university demo', detail: 'For teams evaluating rollout.' },
-  { value: 'start-pilot', label: 'Start a professor pilot', detail: 'For a real course-material test.' },
+  { value: "book-demo", label: "Book a university demo", detail: "For teams evaluating rollout." },
   {
-    value: 'security-procurement',
-    label: 'Security or procurement',
-    detail: 'For IT, legal, privacy, or accessibility questions.',
+    value: "start-pilot",
+    label: "Start a professor pilot",
+    detail: "For a real course-material test.",
   },
-  { value: 'general-question', label: 'General question', detail: 'For anything else.' },
-]
+  {
+    value: "security-procurement",
+    label: "Security or procurement",
+    detail: "For IT, legal, privacy, or accessibility questions.",
+  },
+  { value: "general-question", label: "General question", detail: "For anything else." },
+];
 
 const roleOptions = [
-  { value: 'professor', label: 'Professor / Instructor' },
-  { value: 'department-head', label: 'Department Head' },
-  { value: 'administrator', label: 'University Administrator' },
-  { value: 'it-staff', label: 'IT / LMS Staff' },
-  { value: 'student', label: 'Student' },
-  { value: 'partner', label: 'Partner / Vendor' },
-  { value: 'other', label: 'Other' },
-]
+  { value: "professor", label: "Professor / Instructor" },
+  { value: "department-head", label: "Department Head" },
+  { value: "administrator", label: "University Administrator" },
+  { value: "it-staff", label: "IT / LMS Staff" },
+  { value: "student", label: "Student" },
+  { value: "partner", label: "Partner / Vendor" },
+  { value: "other", label: "Other" },
+];
 
 const lmsOptions = [
-  { value: 'canvas', label: 'Canvas' },
-  { value: 'blackboard', label: 'Blackboard' },
-  { value: 'moodle', label: 'Moodle' },
-  { value: 'brightspace', label: 'D2L Brightspace' },
-  { value: 'none', label: 'Not sure / none' },
-  { value: 'other', label: 'Other' },
-]
+  { value: "canvas", label: "Canvas" },
+  { value: "blackboard", label: "Blackboard" },
+  { value: "moodle", label: "Moodle" },
+  { value: "brightspace", label: "D2L Brightspace" },
+  { value: "none", label: "Not sure / none" },
+  { value: "other", label: "Other" },
+];
 
 const timelineOptions = [
-  { value: 'this-month', label: 'This month' },
-  { value: 'this-term', label: 'This term' },
-  { value: 'next-term', label: 'Next term' },
-  { value: 'exploring', label: 'Just exploring' },
-]
+  { value: "this-month", label: "This month" },
+  { value: "this-term", label: "This term" },
+  { value: "next-term", label: "Next term" },
+  { value: "exploring", label: "Just exploring" },
+];
 
 type SelectOption = {
-  value: string
-  label: string
-  detail?: string
-}
+  value: string;
+  label: string;
+  detail?: string;
+};
 
 function CustomSelect({
   id,
@@ -101,107 +105,111 @@ function CustomSelect({
   onOpenChange,
   onValueChange,
 }: {
-  id: string
-  label: string
-  value: string
-  options: SelectOption[]
-  placeholder: string
-  required?: boolean
-  invalid?: boolean
-  errorMessage?: string
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onValueChange: (value: string) => void
+  id: string;
+  label: string;
+  value: string;
+  options: SelectOption[];
+  placeholder: string;
+  required?: boolean;
+  invalid?: boolean;
+  errorMessage?: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onValueChange: (value: string) => void;
 }) {
-  const selected = options.find((option) => option.value === value)
-  const rootRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLDivElement>(null)
-  const [activeIndex, setActiveIndex] = useState(-1)
-  const listboxId = `${id}-listbox`
-  const errorId = `${id}-error`
+  const selected = options.find((option) => option.value === value);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const listboxId = `${id}-listbox`;
+  const errorId = `${id}-error`;
 
-  // When the listbox opens, start keyboard navigation from the selected option.
-  useEffect(() => {
+  // When the listbox opens, start keyboard navigation from the selected
+  // option. Synced during render (React's "adjust state on prop change"
+  // pattern) instead of an effect so the first open paints correctly.
+  const [prevOpen, setPrevOpen] = useState(open);
+  if (prevOpen !== open) {
+    setPrevOpen(open);
     if (open) {
-      const selectedIndex = options.findIndex((option) => option.value === value)
-      setActiveIndex(selectedIndex >= 0 ? selectedIndex : 0)
+      const selectedIndex = options.findIndex((option) => option.value === value);
+      setActiveIndex(selectedIndex >= 0 ? selectedIndex : 0);
     } else {
-      setActiveIndex(-1)
+      setActiveIndex(-1);
     }
-  }, [open, value, options])
+  }
 
   // Close on outside click. (Escape/Tab are handled on the trigger, which keeps
   // focus in the select-only combobox pattern.)
   useEffect(() => {
-    if (!open) return
+    if (!open) return;
     const onPointerDown = (event: MouseEvent) => {
       if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
-        onOpenChange(false)
+        onOpenChange(false);
       }
-    }
-    document.addEventListener('mousedown', onPointerDown)
-    return () => document.removeEventListener('mousedown', onPointerDown)
-  }, [open, onOpenChange])
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    return () => document.removeEventListener("mousedown", onPointerDown);
+  }, [open, onOpenChange]);
 
   // Keep the active option scrolled into view while arrow-navigating.
   useEffect(() => {
-    if (!open || activeIndex < 0) return
+    if (!open || activeIndex < 0) return;
     listRef.current
       ?.querySelector<HTMLElement>(`[data-index="${activeIndex}"]`)
-      ?.scrollIntoView({ block: 'nearest' })
-  }, [open, activeIndex])
+      ?.scrollIntoView({ block: "nearest" });
+  }, [open, activeIndex]);
 
   const selectIndex = (index: number) => {
-    const option = options[index]
-    if (!option) return
-    onValueChange(option.value)
-    onOpenChange(false)
-  }
+    const option = options[index];
+    if (!option) return;
+    onValueChange(option.value);
+    onOpenChange(false);
+  };
 
   // WAI-ARIA APG "Select-Only Combobox" keyboard support.
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault()
-        if (!open) onOpenChange(true)
-        else setActiveIndex((index) => Math.min(options.length - 1, index + 1))
-        break
-      case 'ArrowUp':
-        event.preventDefault()
-        if (!open) onOpenChange(true)
-        else setActiveIndex((index) => Math.max(0, index - 1))
-        break
-      case 'Home':
+      case "ArrowDown":
+        event.preventDefault();
+        if (!open) onOpenChange(true);
+        else setActiveIndex((index) => Math.min(options.length - 1, index + 1));
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        if (!open) onOpenChange(true);
+        else setActiveIndex((index) => Math.max(0, index - 1));
+        break;
+      case "Home":
         if (open) {
-          event.preventDefault()
-          setActiveIndex(0)
+          event.preventDefault();
+          setActiveIndex(0);
         }
-        break
-      case 'End':
+        break;
+      case "End":
         if (open) {
-          event.preventDefault()
-          setActiveIndex(options.length - 1)
+          event.preventDefault();
+          setActiveIndex(options.length - 1);
         }
-        break
-      case 'Enter':
-      case ' ':
-        event.preventDefault()
-        if (open) selectIndex(activeIndex)
-        else onOpenChange(true)
-        break
-      case 'Escape':
+        break;
+      case "Enter":
+      case " ":
+        event.preventDefault();
+        if (open) selectIndex(activeIndex);
+        else onOpenChange(true);
+        break;
+      case "Escape":
         if (open) {
-          event.preventDefault()
-          onOpenChange(false)
+          event.preventDefault();
+          onOpenChange(false);
         }
-        break
-      case 'Tab':
-        if (open) onOpenChange(false)
-        break
+        break;
+      case "Tab":
+        if (open) onOpenChange(false);
+        break;
       default:
-        break
+        break;
     }
-  }
+  };
 
   return (
     <div className="relative" ref={rootRef}>
@@ -222,15 +230,15 @@ function CustomSelect({
         onKeyDown={handleKeyDown}
         className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border bg-bg-deep px-3.5 py-2 text-left text-sm text-text-primary transition-colors focus:outline-none ${
           invalid
-                    ? 'border-status-danger/60 focus:border-status-danger'
-            : 'border-border-gray hover:border-border-strong focus:border-accent'
+            ? "border-status-danger/60 focus:border-status-danger"
+            : "border-border-gray hover:border-border-strong focus:border-accent"
         }`}
       >
-        <span className={selected ? 'text-text-primary' : 'text-text-tertiary'}>
+        <span className={selected ? "text-text-primary" : "text-text-tertiary"}>
           {selected?.label ?? placeholder}
         </span>
         <ChevronDown
-          className={`h-4 w-4 shrink-0 text-text-tertiary transition-transform ${open ? 'rotate-180' : ''}`}
+          className={`h-4 w-4 shrink-0 text-text-tertiary transition-transform ${open ? "rotate-180" : ""}`}
           aria-hidden="true"
         />
       </button>
@@ -243,8 +251,8 @@ function CustomSelect({
           className="absolute z-40 mt-2 max-h-72 w-full overflow-auto rounded-lg border border-border-gray bg-bg-deep p-1 shadow-2xl"
         >
           {options.map((option, index) => {
-            const isSelected = option.value === value
-            const isActive = index === activeIndex
+            const isSelected = option.value === value;
+            const isActive = index === activeIndex;
 
             return (
               <div
@@ -257,10 +265,10 @@ function CustomSelect({
                 onMouseEnter={() => setActiveIndex(index)}
                 className={`cursor-pointer rounded-md px-3 py-2.5 text-left transition-colors ${
                   isActive
-                    ? 'bg-accent/5 text-text-primary'
+                    ? "bg-accent/5 text-text-primary"
                     : isSelected
-                      ? 'text-text-primary'
-                      : 'text-text-secondary'
+                      ? "text-text-primary"
+                      : "text-text-secondary"
                 }`}
               >
                 <span className="block text-sm font-medium">{option.label}</span>
@@ -270,7 +278,7 @@ function CustomSelect({
                   </span>
                 )}
               </div>
-            )
+            );
           })}
         </div>
       )}
@@ -280,72 +288,72 @@ function CustomSelect({
         </p>
       )}
     </div>
-  )
+  );
 }
 
 export default function ContactPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [formData, setFormData] = useState(initialFormData)
-  const [openSelect, setOpenSelect] = useState<string | null>(null)
-  const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [formData, setFormData] = useState(initialFormData);
+  const [openSelect, setOpenSelect] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({});
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
+    event.preventDefault();
 
     // The native inputs enforce their own `required`, but the custom selects
     // are not native form controls — validate them on the client so the user
     // gets inline feedback instead of a round-trip rejection toast.
-    const nextErrors: Record<string, boolean> = {}
-    if (!formData.intent) nextErrors.intent = true
-    if (!formData.role) nextErrors.role = true
+    const nextErrors: Record<string, boolean> = {};
+    if (!formData.intent) nextErrors.intent = true;
+    if (!formData.role) nextErrors.role = true;
     if (Object.keys(nextErrors).length > 0) {
-      setFieldErrors(nextErrors)
-      toast.error('Please select your role before sending.')
-      return
+      setFieldErrors(nextErrors);
+      toast.error("Please select your role before sending.");
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
-      const result = await sendContactMessage(formData)
+      const result = await sendContactMessage(formData);
 
       if (result.success) {
-        setShowSuccess(true)
-        setFormData(initialFormData)
-        toast.success('Message sent successfully.')
+        setShowSuccess(true);
+        setFormData(initialFormData);
+        toast.success("Message sent successfully.");
       } else {
-        toast.error(result.error || 'Failed to send message')
+        toast.error(result.error || "Failed to send message");
       }
     } catch {
-      toast.error('An error occurred. Please try again.')
+      toast.error("An error occurred. Please try again.");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     setFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
-    }))
-  }
+    }));
+  };
 
   const inputClass =
-    'h-11 w-full rounded-lg border border-border-gray bg-bg-deep px-3.5 text-sm text-text-primary placeholder:text-text-tertiary transition-colors hover:border-border-strong focus:border-accent focus:outline-none'
+    "h-11 w-full rounded-lg border border-border-gray bg-bg-deep px-3.5 text-sm text-text-primary placeholder:text-text-tertiary transition-colors hover:border-border-strong focus:border-accent focus:outline-none";
 
   const setFieldValue = (name: keyof typeof initialFormData, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    setFormData((prev) => ({ ...prev, [name]: value }));
     // Clear a pending validation error once the field has a value.
     setFieldErrors((prev) => {
-      if (!prev[name]) return prev
-      const next = { ...prev }
-      delete next[name]
-      return next
-    })
-  }
+      if (!prev[name]) return prev;
+      const next = { ...prev };
+      delete next[name];
+      return next;
+    });
+  };
 
   return (
     <PageShell>
@@ -355,8 +363,8 @@ export default function ContactPage() {
         accent="We will route the rest."
         description="Demo, professor pilot, security review, or procurement question: send the context once and we will come back with the right next step."
         actions={[
-          { label: 'Start the Form', href: '#contact-form' },
-          { label: 'Email Support', href: `mailto:${SUPPORT_EMAIL}`, variant: 'secondary' },
+          { label: "Start the Form", href: "#contact-form" },
+          { label: "Email Support", href: `mailto:${SUPPORT_EMAIL}`, variant: "secondary" },
         ]}
         className="pb-14 md:pb-20"
       />
@@ -367,24 +375,24 @@ export default function ContactPage() {
             {[
               {
                 icon: CalendarCheck,
-                title: 'Book a demo',
+                title: "Book a demo",
                 description:
-                  'For administrators, departments, IT, and teams evaluating a university rollout.',
-                meta: 'University fit',
+                  "For administrators, departments, IT, and teams evaluating a university rollout.",
+                meta: "University fit",
               },
               {
                 icon: Rocket,
-                title: 'Start a pilot',
+                title: "Start a pilot",
                 description:
-                  'For professors who want to test EdPilot with real course materials and faculty controls.',
-                meta: 'Course sample',
+                  "For professors who want to test EdPilot with real course materials and faculty controls.",
+                meta: "Course sample",
               },
               {
                 icon: HelpCircle,
-                title: 'Ask a question',
+                title: "Ask a question",
                 description:
-                  'For privacy, procurement, accessibility, LMS, partnership, or support questions.',
-                meta: 'Routed reply',
+                  "For privacy, procurement, accessibility, LMS, partnership, or support questions.",
+                meta: "Routed reply",
               },
             ].map((item) => (
               <div
@@ -419,21 +427,21 @@ export default function ContactPage() {
               <div className="overflow-hidden rounded-lg border border-border-gray bg-bg-deep">
                 {[
                   {
-                    title: 'We read the context',
+                    title: "We read the context",
                     description:
-                      'Your role, institution, timeline, and LMS help us route the right response.',
+                      "Your role, institution, timeline, and LMS help us route the right response.",
                     icon: MessageSquare,
                   },
                   {
-                    title: 'We propose a useful next step',
+                    title: "We propose a useful next step",
                     description:
-                      'That may be a demo, course-material pilot, privacy conversation, or FAQ follow-up.',
+                      "That may be a demo, course-material pilot, privacy conversation, or FAQ follow-up.",
                     icon: Shield,
                   },
                   {
-                    title: 'You see the product on real material',
+                    title: "You see the product on real material",
                     description:
-                      'For pilots, the most useful demo is usually built around your syllabus or course sample.',
+                      "For pilots, the most useful demo is usually built around your syllabus or course sample.",
                     icon: Building2,
                   },
                 ].map((item, index) => (
@@ -444,9 +452,11 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
-                          Step {String(index + 1).padStart(2, '0')}
+                          Step {String(index + 1).padStart(2, "0")}
                         </p>
-                        <h3 className="mt-1 text-sm font-semibold text-text-primary">{item.title}</h3>
+                        <h3 className="mt-1 text-sm font-semibold text-text-primary">
+                          {item.title}
+                        </h3>
                         <p className="mt-1 text-[13px] leading-6 text-text-secondary">
                           {item.description}
                         </p>
@@ -496,7 +506,7 @@ export default function ContactPage() {
                       tabIndex={-1}
                       autoComplete="off"
                       value={formData.company}
-                      onChange={(event) => setFieldValue('company', event.target.value)}
+                      onChange={(event) => setFieldValue("company", event.target.value)}
                     />
                   </div>
                   <CustomSelect
@@ -508,9 +518,9 @@ export default function ContactPage() {
                     required
                     invalid={fieldErrors.intent}
                     errorMessage="Please choose a request type."
-                    open={openSelect === 'intent'}
-                    onOpenChange={(open) => setOpenSelect(open ? 'intent' : null)}
-                    onValueChange={(value) => setFieldValue('intent', value)}
+                    open={openSelect === "intent"}
+                    onOpenChange={(open) => setOpenSelect(open ? "intent" : null)}
+                    onValueChange={(value) => setFieldValue("intent", value)}
                   />
 
                   <div className="grid gap-4 sm:grid-cols-2">
@@ -584,9 +594,9 @@ export default function ContactPage() {
                         required
                         invalid={fieldErrors.role}
                         errorMessage="Please select your role."
-                        open={openSelect === 'role'}
-                        onOpenChange={(open) => setOpenSelect(open ? 'role' : null)}
-                        onValueChange={(value) => setFieldValue('role', value)}
+                        open={openSelect === "role"}
+                        onOpenChange={(open) => setOpenSelect(open ? "role" : null)}
+                        onValueChange={(value) => setFieldValue("role", value)}
                       />
                     </div>
                   </div>
@@ -637,9 +647,9 @@ export default function ContactPage() {
                         value={formData.lms}
                         options={lmsOptions}
                         placeholder="Select one"
-                        open={openSelect === 'lms'}
-                        onOpenChange={(open) => setOpenSelect(open ? 'lms' : null)}
-                        onValueChange={(value) => setFieldValue('lms', value)}
+                        open={openSelect === "lms"}
+                        onOpenChange={(open) => setOpenSelect(open ? "lms" : null)}
+                        onValueChange={(value) => setFieldValue("lms", value)}
                       />
                     </div>
                     <div>
@@ -666,9 +676,9 @@ export default function ContactPage() {
                         value={formData.timeline}
                         options={timelineOptions}
                         placeholder="Select one"
-                        open={openSelect === 'timeline'}
-                        onOpenChange={(open) => setOpenSelect(open ? 'timeline' : null)}
-                        onValueChange={(value) => setFieldValue('timeline', value)}
+                        open={openSelect === "timeline"}
+                        onOpenChange={(open) => setOpenSelect(open ? "timeline" : null)}
+                        onValueChange={(value) => setFieldValue("timeline", value)}
                       />
                     </div>
                   </div>
@@ -707,8 +717,11 @@ export default function ContactPage() {
                   </Button>
 
                   <p className="text-center text-xs leading-5 text-text-tertiary">
-                    By submitting, you agree to our{' '}
-                    <Link href="/privacy-policy" className="rounded-md text-accent hover:text-accent-soft focus-ring">
+                    By submitting, you agree to our{" "}
+                    <Link
+                      href="/privacy-policy"
+                      className="rounded-md text-accent hover:text-accent-soft focus-ring"
+                    >
                       Privacy Policy
                     </Link>
                     . Required fields are marked with *.
@@ -726,24 +739,25 @@ export default function ContactPage() {
             items={[
               {
                 icon: Shield,
-                label: 'No commitment required',
-                detail: 'The first conversation can be exploratory, procurement-focused, or course-specific.',
+                label: "No commitment required",
+                detail:
+                  "The first conversation can be exploratory, procurement-focused, or course-specific.",
               },
               {
                 icon: MessageSquare,
-                label: 'Response in one business day',
-                detail: 'We route messages to the right product, security, or pilot contact.',
+                label: "Response in one business day",
+                detail: "We route messages to the right product, security, or pilot contact.",
               },
               {
                 icon: Building2,
-                label: 'Course-material demo option',
-                detail: 'When helpful, demos can be shaped around your syllabus rather than a generic sample.',
+                label: "Course-material demo option",
+                detail:
+                  "When helpful, demos can be shaped around your syllabus rather than a generic sample.",
               },
             ]}
           />
         </Container>
       </Section>
-
     </PageShell>
-  )
+  );
 }

@@ -16,9 +16,9 @@ import {
 import { SIGN_UP_URL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
-  title: 'Pricing — Free professor pilots, institutional pricing by size',
+  title: 'Pricing: Free professor pilots, institutional pricing by size',
   description:
-    'EdPilot pricing is built for adoption: students and professor pilots start free, and institutions get pricing scaled to their size. No upfront commitment — add courses and faculty as adoption grows.',
+    'EdPilot pricing is built for adoption: students and professor pilots start free, and institutions get pricing scaled to their size. No upfront commitment: add courses and faculty as adoption grows.',
   keywords:
     'EdPilot pricing, higher education AI pricing, university AI cost, free professor pilot, institutional AI pricing',
 }
@@ -40,7 +40,7 @@ const tiers: Tier[] = [
     price: 'Free',
     audience: 'For students in an EdPilot course',
     description:
-      'Course-grounded help with citations — available to every student whose professor runs EdPilot.',
+      'Course-grounded help with citations, available to every student whose professor runs EdPilot.',
     features: [
       'Ask questions grounded in the actual course',
       'See the sources behind every answer',
@@ -54,7 +54,7 @@ const tiers: Tier[] = [
     price: 'Free',
     audience: 'For individual faculty',
     description:
-      'Spin up your course on real materials, set the guardrails, and see where students get stuck — no procurement, no commitment.',
+      'Spin up your course on real materials, set the guardrails, and see where students get stuck. No procurement, no commitment.',
     features: [
       'Upload your syllabus, slides, and readings',
       'Set integrity rules and the knowledge boundary',
@@ -95,7 +95,7 @@ export default function PricingPage() {
         eyebrow="Pricing"
         title="Starts free."
         accent="Scales with your institution."
-        description="EdPilot is priced for adoption, not gatekeeping. Students and professor pilots are free. Institutions pay based on size — with no upfront commitment to find out if it works."
+        description="EdPilot is priced for adoption, not gatekeeping. Students and professor pilots are free. Institutions pay based on size, with no upfront commitment to find out if it works."
         actions={[
           { label: 'Start a Free Pilot', href: SIGN_UP_URL },
           { label: 'Talk to Our Team', href: '/contact', variant: 'secondary' },
@@ -157,7 +157,7 @@ export default function PricingPage() {
             ))}
           </div>
           <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-7 text-text-secondary">
-            Institutional pricing scales with the number of courses and faculty — start with a pilot
+            Institutional pricing scales with the number of courses and faculty. Start with a pilot
             and grow as adoption does. We’ll put real numbers in front of you once we understand your
             scope; there’s no upfront commitment to evaluate EdPilot.
           </p>
@@ -180,7 +180,7 @@ export default function PricingPage() {
           <SectionHeader
             eyebrow="How institutional pricing works"
             title="No surprises, no shelfware."
-            description="You only scale up once a pilot proves the value. Pricing follows real adoption — courses and faculty actually using the assistant — not a seat count you have to predict in advance."
+            description="You only scale up once a pilot proves the value. Pricing follows real adoption, meaning courses and faculty actually using the assistant, not a seat count you have to predict in advance."
           />
           <div className="grid gap-4 md:grid-cols-3">
             {[
@@ -197,7 +197,7 @@ export default function PricingPage() {
               {
                 step: '03',
                 title: 'Grow as adoption grows',
-                detail: 'Add departments and courses over time — you’re never paying ahead of usage.',
+                detail: 'Add departments and courses over time, so you’re never paying ahead of usage.',
               },
             ].map((item) => (
               <div

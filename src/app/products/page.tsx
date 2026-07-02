@@ -32,7 +32,7 @@ import {
 import { SIGN_UP_URL } from '@/lib/marketing'
 
 export const metadata: Metadata = {
-  title: 'Products — Course-grounded AI for higher education',
+  title: 'Products: Course-grounded AI for higher education',
   description:
     'Explore the EdPilot product suite: Curriculum Intelligence and the AI Teaching Assistant that answers student questions from your course materials, governed by faculty and ready for institutional review.',
   keywords:
@@ -101,7 +101,7 @@ const curriculumTools: Array<{
   },
   {
     title: 'Student Performance Insights',
-    blurb: 'See which learning objectives aren’t landing — before the exam confirms it.',
+    blurb: 'See which learning objectives aren’t landing before the exam confirms it.',
     icon: BarChart3,
     status: 'beta',
     statusLabel: 'Beta',
@@ -129,7 +129,7 @@ export default function ProductsPage() {
         eyebrow="Products"
         title="One course model."
         accent="A whole suite of tools."
-        description="EdPilot’s Curriculum Intelligence suite is live today — five tools that all run from the same course model, so faculty set things up once and everything stays in sync."
+        description="EdPilot’s Curriculum Intelligence suite is live today: five tools that all run from the same course model, so faculty set things up once and everything stays in sync."
         actions={[
           { label: 'Explore Curriculum Intelligence', href: '/products/curriculum-intelligence' },
           { label: 'See Pricing', href: '/pricing', variant: 'secondary' },
@@ -141,7 +141,7 @@ export default function ProductsPage() {
           <SectionHeader
             eyebrow="Available now"
             title="The Curriculum Intelligence suite."
-            description="Not a single feature — a connected set of tools for the whole course, governed by the instructor and grounded in real materials."
+            description="Not a single feature, but a connected set of tools for the whole course, governed by the instructor and grounded in real materials."
           />
           <Link href="/products/curriculum-intelligence" className="group block">
             <div className="surface-gradient-featured rounded-lg border border-accent/20 p-6 transition duration-200 hover:border-accent/35 md:p-8">
@@ -185,7 +185,7 @@ export default function ProductsPage() {
             })}
             <div className="flex h-full flex-col justify-center rounded-lg border border-dashed border-border-gray bg-bg-deep p-5">
               <p className="text-[13px] leading-6 text-text-secondary">
-                All five tools share one course model — set it up once, and the tutor, grader,
+                All five tools share one course model. Set it up once, and the tutor, grader,
                 content, and analytics stay in sync.
               </p>
               <Link
@@ -293,7 +293,7 @@ export default function ProductsPage() {
           <SectionHeader
             eyebrow="The wider platform, over time"
             title="Where EdPilot is headed."
-            description="A few directions we’re exploring beyond the live suite. These are a roadmap, not products you can buy today — included for transparency, not as equal offerings."
+            description="A few directions we’re exploring beyond the live suite. These are a roadmap, not products you can buy today. They are included for transparency, not as equal offerings."
             className="mb-8"
           />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
