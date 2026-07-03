@@ -20,6 +20,7 @@ import {
   CTABand,
   Container,
   FeatureCard,
+  GovernedAnswerWalkthrough,
   Hero,
   IconChip,
   PageShell,
@@ -30,11 +31,11 @@ import {
 import { SIGN_UP_URL } from "@/lib/marketing";
 
 export const metadata: Metadata = {
-  title: "How It Works: Self-Serve Setup for Your University",
+  title: "How It Works: The Whole Product in Minutes",
   description:
-    "Launch EdPilot at your university in minutes, not months. An admin signs up, EdPilot approves your institution, you invite professors, and faculty optionally connect Canvas. No IT project, no procurement maze.",
+    "Watch one governed answer happen — faculty rules, course-grounded citations, and learning signals — then see how a university launches EdPilot in days: admin signs up, EdPilot verifies, professors teach the same week.",
   keywords:
-    "EdPilot setup, self-serve university AI, onboard professors, Canvas integration, FERPA AI teaching assistant, how to start EdPilot",
+    "how EdPilot works, EdPilot setup, self-serve university AI, course-grounded AI walkthrough, Canvas integration, FERPA AI teaching assistant",
 };
 
 const easeFeatures = [
@@ -132,15 +133,28 @@ export default function HowItWorksPage() {
       <BreadcrumbSchema items={breadcrumbItems} />
 
       <Hero
-        eyebrow="Self-serve onboarding"
-        title="Launch EdPilot at your university in"
-        accent="minutes, not months."
-        description="No procurement maze. No IT project. An admin signs up, EdPilot approves your institution, and your professors are teaching with course-grounded AI the same week."
+        eyebrow="How it works"
+        title="The whole product,"
+        accent="understood in minutes."
+        description="EdPilot does one thing exceptionally well: it answers students from the professor's own materials, under the professor's own rules, and tells faculty where students are struggling. Watch it happen below."
         actions={[
           { label: "Get Started Free", href: SIGN_UP_URL },
-          { label: "Explore Setup", href: "#self-serve-setup", variant: "secondary" },
+          { label: "Watch a Governed Answer", href: "#governed-answer", variant: "secondary" },
         ]}
       />
+
+      <Section id="governed-answer" className="py-16 md:py-24">
+        <Container size="wide">
+          <SectionHeader
+            eyebrow="Step by step"
+            title="What happens when a student asks a question."
+            description="This is the entire product in one interaction. Step through the four stages — the same answer is on the right, and each stage lights up the part it controls."
+          />
+          <Reveal>
+            <GovernedAnswerWalkthrough />
+          </Reveal>
+        </Container>
+      </Section>
 
       <Section id="self-serve-setup" className="py-16 md:py-24" surface="panel">
         <div className="launch-gradient pointer-events-none absolute inset-0" aria-hidden="true" />

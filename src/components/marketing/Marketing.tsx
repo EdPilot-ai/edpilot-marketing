@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ElementType, ReactNode } from "react";
-import { ArrowRight, CheckCircle2, ChevronLeft, Plus } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronLeft, Plus, X as XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/marketing/Reveal";
 import { cn } from "@/lib/utils";
@@ -161,42 +161,6 @@ export function TextLink({
   );
 }
 
-function HeroSignalPanel() {
-  return (
-    <div
-      className="mx-auto mt-12 max-w-3xl rounded-2xl border border-border-gray bg-bg-deep/80 p-3 shadow-2xl"
-      aria-hidden="true"
-    >
-      <div className="overflow-hidden rounded-xl border border-border-gray bg-bg-surface/70">
-        <div className="flex items-center justify-between gap-4 border-b border-border-gray px-4 py-3">
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-window-close" />
-            <span className="h-2 w-2 rounded-full bg-window-minimize" />
-            <span className="h-2 w-2 rounded-full bg-window-maximize" />
-          </div>
-          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-text-tertiary">
-            Course model active
-          </span>
-        </div>
-        <div className="grid gap-px bg-border-gray sm:grid-cols-3">
-          {[
-            ["Governance", "Faculty rules"],
-            ["Grounding", "Course sources"],
-            ["Visibility", "Learning signals"],
-          ].map(([label, value]) => (
-            <div key={label} className="bg-bg-deep px-4 py-4 text-left">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
-                {label}
-              </p>
-              <p className="mt-2 text-sm font-semibold text-text-primary">{value}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function Hero({
   eyebrow,
   title,
@@ -291,7 +255,7 @@ export function Hero({
             </p>
           )}
         </div>
-        <div className="animate-fade-up anim-delay-4">{children ?? <HeroSignalPanel />}</div>
+        {children && <div className="animate-fade-up anim-delay-4">{children}</div>}
       </Container>
     </Section>
   );
@@ -439,7 +403,43 @@ export function StatusPill({
   );
 }
 
-export function CourseAssistantMockup({ className }: { className?: string }) {
+function AnnotationPin({ number }: { number: number }) {
+  return (
+    <span
+      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-[11px] font-bold text-white shadow-[0_0_0_3px_rgba(139,92,246,0.2)]"
+      aria-hidden="true"
+    >
+      {number}
+    </span>
+  );
+}
+
+const MOCKUP_ANNOTATIONS = [
+  {
+    title: "The AI only knows what the professor uploads",
+    detail:
+      "Syllabus, slides, and rubrics become the assistant's entire world — not the open internet.",
+  },
+  {
+    title: "Every answer cites the course",
+    detail:
+      "Students can click through to the exact slide or page, so trust never depends on vibes.",
+  },
+  {
+    title: "Professors set rules the AI can't break",
+    detail:
+      "Integrity mode, citation policy, and assessment boundaries are enforced on every reply.",
+  },
+];
+
+export function CourseAssistantMockup({
+  className,
+  annotated = false,
+}: {
+  className?: string;
+  /** Render numbered pins on the three panels plus a legend strip below, turning the mockup into a guided tour. */
+  annotated?: boolean;
+}) {
   return (
     <div className={cn("mx-auto max-w-6xl", className)}>
       <div className="overflow-hidden rounded-2xl border border-border-gray bg-bg-deep shadow-[0_24px_80px_-24px_rgba(0,0,0,0.7),0_12px_40px_-24px_rgba(139,92,246,0.25)]">
@@ -458,7 +458,8 @@ export function CourseAssistantMockup({ className }: { className?: string }) {
         </div>
         <div className="grid lg:grid-cols-[260px_minmax(0,1fr)_280px]">
           <aside className="border-b border-border-gray bg-bg-surface/70 p-4 lg:border-b-0 lg:border-r">
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+            <p className="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+              {annotated && <AnnotationPin number={1} />}
               Course Model
             </p>
             <div className="space-y-3">
@@ -485,7 +486,10 @@ export function CourseAssistantMockup({ className }: { className?: string }) {
                   The answer stays inside the course.
                 </h3>
               </div>
-              <StatusPill>Cites sources</StatusPill>
+              <span className="flex items-center gap-2">
+                {annotated && <AnnotationPin number={2} />}
+                <StatusPill>Cites sources</StatusPill>
+              </span>
             </div>
             <div className="space-y-4">
               <div className="ml-auto max-w-md rounded-lg border border-accent/20 bg-accent/5 px-4 py-3 text-sm leading-6 text-text-primary">
@@ -526,7 +530,8 @@ export function CourseAssistantMockup({ className }: { className?: string }) {
           </div>
 
           <aside className="border-t border-border-gray bg-bg-surface p-4 lg:border-l lg:border-t-0">
-            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+            <p className="mb-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+              {annotated && <AnnotationPin number={3} />}
               Faculty Controls
             </p>
             <div className="space-y-3">
@@ -545,6 +550,28 @@ export function CourseAssistantMockup({ className }: { className?: string }) {
           </aside>
         </div>
       </div>
+      {annotated && (
+        <ol className="mt-6 grid gap-3 text-left md:grid-cols-3">
+          {MOCKUP_ANNOTATIONS.map((item, index) => (
+            <li
+              key={item.title}
+              className="flex gap-3 rounded-xl border border-border-gray bg-bg-surface/60 p-4"
+            >
+              <span className="mt-0.5">
+                <AnnotationPin number={index + 1} />
+              </span>
+              <span>
+                <span className="block text-[13px] font-semibold leading-5 text-text-primary">
+                  {item.title}
+                </span>
+                <span className="mt-1 block text-xs leading-5 text-text-secondary">
+                  {item.detail}
+                </span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      )}
     </div>
   );
 }
@@ -746,24 +773,42 @@ export function CTABand({
   );
 }
 
+/**
+ * Side-by-side capability lists for the compare deep-dive pages. Competitor
+ * items that read as strengths (the first `leftStrengths`) get a neutral dot;
+ * the rest get an X — being honest about what alternatives do well makes the
+ * EdPilot column more credible, and the icons make the split scannable.
+ */
 export function ComparisonGrid({
   leftTitle,
   rightTitle,
   leftItems,
   rightItems,
+  leftStrengths = 2,
 }: {
   leftTitle: string;
   rightTitle: string;
   leftItems: string[];
   rightItems: string[];
+  leftStrengths?: number;
 }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <MarketingCard className="p-6">
         <h3 className="mb-4 text-base font-semibold text-text-primary">{leftTitle}</h3>
         <ul className="space-y-3 text-sm leading-6 text-text-secondary">
-          {leftItems.map((item) => (
-            <li key={item}>{item}</li>
+          {leftItems.map((item, index) => (
+            <li key={item} className="flex gap-3">
+              {index < leftStrengths ? (
+                <span
+                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-text-tertiary"
+                  aria-hidden="true"
+                />
+              ) : (
+                <XIcon className="mt-1 h-4 w-4 shrink-0 text-status-danger/70" aria-hidden="true" />
+              )}
+              <span className={cn(index < leftStrengths && "pl-1.5")}>{item}</span>
+            </li>
           ))}
         </ul>
       </MarketingCard>
@@ -771,7 +816,10 @@ export function ComparisonGrid({
         <h3 className="mb-4 text-base font-semibold text-accent">{rightTitle}</h3>
         <ul className="space-y-3 text-sm leading-6 text-text-primary">
           {rightItems.map((item) => (
-            <li key={item}>{item}</li>
+            <li key={item} className="flex gap-3">
+              <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+              <span>{item}</span>
+            </li>
           ))}
         </ul>
       </MarketingCard>
@@ -798,6 +846,7 @@ export function ComparisonDetail({
   competitorName,
   competitorItems,
   edpilotItems,
+  competitorStrengths = 2,
   sections,
   scenarios,
 }: {
@@ -807,6 +856,8 @@ export function ComparisonDetail({
   competitorName: string;
   competitorItems: string[];
   edpilotItems: string[];
+  /** How many leading competitorItems are genuine strengths (rendered neutrally instead of with an X). */
+  competitorStrengths?: number;
   sections: Array<{ title: string; body: ReactNode }>;
   scenarios?: Array<{ setup: string; oldWay: string; edpilot: string }>;
 }) {
@@ -864,6 +915,7 @@ export function ComparisonDetail({
             rightTitle="EdPilot"
             leftItems={competitorItems}
             rightItems={edpilotItems}
+            leftStrengths={competitorStrengths}
           />
         </Container>
       </Section>

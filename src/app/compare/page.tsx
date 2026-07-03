@@ -3,7 +3,6 @@ import {
   ArrowRight,
   Bot,
   Building2,
-  CheckCircle2,
   GraduationCap,
   Layers,
   ShieldCheck,
@@ -13,6 +12,7 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import type { Metadata } from "next";
 import {
   CTABand,
+  ComparisonMatrix,
   Container,
   FeatureCard,
   Hero,
@@ -26,7 +26,7 @@ import {
 export const metadata: Metadata = {
   title: "EdPilot Comparisons - How We Compare to Alternatives",
   description:
-    "See how EdPilot compares to general AI tools, tutoring platforms, LMS-native solutions, and custom in-house implementations for higher education.",
+    "See how EdPilot compares to ChatGPT, tutoring platforms, LMS-native AI, and custom in-house builds — capability by capability, for students, faculty, and institutions.",
   keywords:
     "EdPilot vs ChatGPT, instructor-controlled AI comparison, course-grounded AI, educational AI",
 };
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
 const comparisons = [
   {
     slug: "chatgpt",
-    title: "EdPilot vs. ChatGPT for Education",
-    subtitle: "Purpose-built university AI vs. general-purpose conversational AI",
+    title: "EdPilot vs. ChatGPT",
+    subtitle: "Purpose-built university AI vs. general-purpose chat",
     description:
       "When a student asks at midnight, does the answer know your course or just sound confident?",
     icon: Bot,
@@ -59,7 +59,7 @@ const comparisons = [
   },
   {
     slug: "custom-solutions",
-    title: "EdPilot vs. Custom In-House Solutions",
+    title: "EdPilot vs. Custom In-House Builds",
     subtitle: "Deployable platform vs. build-from-scratch infrastructure",
     description:
       "A prototype is easy. Governance, citations, audits, and support are the fun part.",
@@ -82,11 +82,33 @@ export default function ComparePage() {
           eyebrow="Compare"
           title="Pick the AI that knows"
           accent="the assignment."
-          description="Most AI tools can answer. EdPilot knows when it should answer, what it can cite, and which professor set the rules."
+          description="Every alternative can answer questions. Only one is grounded in your courses, governed by your faculty, and accountable to your institution. Here's the whole market on one table."
         />
 
-        <Section className="py-20 md:py-28">
+        <Section className="pb-20 pt-4 md:pb-28">
           <Container size="wide">
+            <SectionHeader
+              eyebrow="The decision matrix"
+              title="Nine capabilities. Five options. One honest table."
+              description="We marked the alternatives fairly — including the rows they win. Click any capability to see why it matters and what each option actually does."
+            />
+            <Reveal>
+              <ComparisonMatrix />
+            </Reveal>
+            <p className="mt-6 text-center text-sm text-text-secondary">
+              Weighing a build-vs-buy decision or a specific vendor? The deep dives below go
+              comparison by comparison.
+            </p>
+          </Container>
+        </Section>
+
+        <Section className="py-20 md:py-28" surface="panel">
+          <Container size="wide">
+            <SectionHeader
+              eyebrow="Deep dives"
+              title="The full case, alternative by alternative."
+              description="Each deep dive covers the real scenarios — exam week, rubric changes, procurement review — where the differences stop being theoretical."
+            />
             <div className="grid gap-4 md:grid-cols-2">
               {comparisons.map((comparison, index) => {
                 const Icon = comparison.icon;
@@ -104,7 +126,7 @@ export default function ComparePage() {
                             <IconChip icon={Icon} className="h-11 w-11 [&_svg]:h-5 [&_svg]:w-5" />
                             <div>
                               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
-                                Compare {String(index + 1).padStart(2, "0")}
+                                Deep dive {String(index + 1).padStart(2, "0")}
                               </p>
                               <h2 className="mt-2 text-xl font-semibold leading-tight tracking-[-0.02em] text-text-primary">
                                 {comparison.title}
@@ -121,30 +143,23 @@ export default function ComparePage() {
                           {comparison.description}
                         </p>
 
-                        <div className="mt-6 border-t border-border-gray pt-5">
-                          <div className="flex items-start gap-3">
-                            <CheckCircle2
-                              className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        <div className="mt-6 flex items-center justify-between gap-3 border-t border-border-gray pt-5">
+                          <div>
+                            <p className="text-sm font-semibold text-text-primary">
+                              {comparison.signal}
+                            </p>
+                            <p className="mt-1 text-[13px] leading-6 text-text-secondary">
+                              {comparison.subtitle}
+                            </p>
+                          </div>
+                          <span className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-border-gray bg-bg-deep px-3 py-2 text-sm font-semibold text-accent transition group-hover:border-accent/25 group-hover:bg-bg-surface">
+                            Read
+                            <ArrowRight
+                              className="h-4 w-4 transition-transform group-hover:translate-x-1"
                               aria-hidden="true"
                             />
-                            <div>
-                              <p className="text-sm font-semibold text-text-primary">
-                                {comparison.signal}
-                              </p>
-                              <p className="mt-1 text-[13px] leading-6 text-text-secondary">
-                                {comparison.subtitle}
-                              </p>
-                            </div>
-                          </div>
+                          </span>
                         </div>
-
-                        <span className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border-gray bg-bg-deep px-3 py-2 text-sm font-semibold text-accent transition group-hover:border-accent/25 group-hover:bg-bg-surface">
-                          Read comparison
-                          <ArrowRight
-                            className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                            aria-hidden="true"
-                          />
-                        </span>
                       </div>
                     </Link>
                   </Reveal>
@@ -154,7 +169,7 @@ export default function ComparePage() {
           </Container>
         </Section>
 
-        <Section className="py-20 md:py-28" surface="panel">
+        <Section className="py-20 md:py-28">
           <Container>
             <SectionHeader
               eyebrow="The short version"
@@ -201,10 +216,10 @@ export default function ComparePage() {
             <p className="mt-6 text-center text-sm text-text-secondary">
               Want the product tour before you book time?{" "}
               <Link
-                href="/products"
+                href="/how-it-works"
                 className="font-semibold text-accent hover:text-accent-soft focus-ring"
               >
-                Explore Products
+                See how it works
               </Link>
               . Already planning scope?{" "}
               <Link
