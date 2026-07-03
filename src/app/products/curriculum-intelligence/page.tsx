@@ -1,5 +1,5 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
+import type { Metadata } from "next";
+import Link from "next/link";
 import {
   ArrowRight,
   BarChart3,
@@ -21,8 +21,8 @@ import {
   Target,
   Users,
   Video,
-} from 'lucide-react'
-import { Button } from '@/components/ui/button'
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   CTABand,
   Container,
@@ -35,83 +35,83 @@ import {
   SectionHeader,
   StatusPill,
   TrustBar,
-} from '@/components/marketing'
-import { SIGN_UP_URL } from '@/lib/marketing'
+} from "@/components/marketing";
+import { SIGN_UP_URL } from "@/lib/marketing";
 
 export const metadata: Metadata = {
-  title: 'Curriculum Intelligence: The AI Teaching Assistant',
+  title: "Curriculum Intelligence: The AI Teaching Assistant",
   description:
-    'A teaching assistant that answers student questions using your course materials, your terminology, and your standards. Cites your readings, flags misconceptions, and follows the guardrails faculty set.',
+    "A teaching assistant that answers student questions using your course materials, your terminology, and your standards. Cites your readings, flags misconceptions, and follows the guardrails faculty set.",
   keywords:
-    'AI teaching assistant, curriculum intelligence, course-grounded AI, RAG for higher education, citations, academic integrity AI, Canvas integration',
-}
+    "AI teaching assistant, curriculum intelligence, course-grounded AI, RAG for higher education, citations, academic integrity AI, Canvas integration",
+};
 
 const products = [
   {
-    id: 'ai-teaching-assistant',
-    title: 'AI Teaching Assistant',
-    subtitle: 'Course-trained student support',
+    id: "ai-teaching-assistant",
+    title: "AI Teaching Assistant",
+    subtitle: "Course-trained student support",
     icon: Brain,
-    status: 'Live',
-    preview: 'Student chat with citations, hints, practice prompts, and assessment-safe refusals.',
+    status: "Live",
+    preview: "Student chat with citations, hints, practice prompts, and assessment-safe refusals.",
     description:
-      'A tutor that knows your course cold. Students get answers sourced from uploaded materials, with citations and hard stops where policy requires them.',
+      "A tutor that knows your course cold. Students get answers sourced from uploaded materials, with citations and hard stops where policy requires them.",
   },
   {
-    id: 'content-generation',
-    title: 'Content Generation',
-    subtitle: 'Curriculum-aligned material creation',
+    id: "content-generation",
+    title: "Content Generation",
+    subtitle: "Curriculum-aligned material creation",
     icon: FileEdit,
-    status: 'Beta',
+    status: "Beta",
     preview:
-      'Draft quiz, study guide, and rubric blocks generated from the same week of materials.',
+      "Draft quiz, study guide, and rubric blocks generated from the same week of materials.",
     description:
-      'Draft syllabi, quizzes, exams, assignments, and rubrics from existing materials. Faculty review everything before it reaches students.',
+      "Draft syllabi, quizzes, exams, assignments, and rubrics from existing materials. Faculty review everything before it reaches students.",
   },
   {
-    id: 'student-insights',
-    title: 'Student Performance Insights',
-    subtitle: 'Learning-objective-level analytics',
+    id: "student-insights",
+    title: "Student Performance Insights",
+    subtitle: "Learning-objective-level analytics",
     icon: BarChart3,
-    status: 'Beta',
-    preview: 'Misconception trends show which concepts need another pass before the exam.',
+    status: "Beta",
+    preview: "Misconception trends show which concepts need another pass before the exam.",
     description:
-      'See which objectives are not landing, identify students trending toward failure, and adjust before the exam confirms the problem.',
+      "See which objectives are not landing, identify students trending toward failure, and adjust before the exam confirms the problem.",
   },
   {
-    id: 'multimedia-generation',
-    title: 'Multimedia Generation',
-    subtitle: 'Structured visual teaching materials',
+    id: "multimedia-generation",
+    title: "Multimedia Generation",
+    subtitle: "Structured visual teaching materials",
     icon: Video,
-    status: 'Planned',
-    preview: 'Lecture notes become slide outlines and visual explainers for faculty review.',
+    status: "Planned",
+    preview: "Lecture notes become slide outlines and visual explainers for faculty review.",
     description:
-      'Turn lecture notes into slide decks, visual explainers, and short concept videos that reinforce the course rather than replace it.',
+      "Turn lecture notes into slide decks, visual explainers, and short concept videos that reinforce the course rather than replace it.",
   },
   {
-    id: 'ai-grader',
-    title: 'AI Grader',
-    subtitle: 'Rubric-enforced, instructor-controlled grading',
+    id: "ai-grader",
+    title: "AI Grader",
+    subtitle: "Rubric-enforced, instructor-controlled grading",
     icon: ClipboardCheck,
-    status: 'Planned',
-    preview: 'Rubric rows stay visible so instructors can review every score before release.',
+    status: "Planned",
+    preview: "Rubric rows stay visible so instructors can review every score before release.",
     description:
-      'Grade submissions against the same rubric every time. Faculty can review, edit, or override any grade before release.',
+      "Grade submissions against the same rubric every time. Faculty can review, edit, or override any grade before release.",
   },
-]
+];
 
 const courseModelInputs = [
-  { label: 'Syllabus', detail: 'Policies, outcomes, schedule', icon: FileStack },
-  { label: 'Lectures', detail: 'Slides, notes, transcripts', icon: MessageCircle },
-  { label: 'Readings', detail: 'Articles, chapters, cases', icon: BookOpen },
-  { label: 'Rubrics', detail: 'Criteria, weights, feedback', icon: ClipboardCheck },
-]
+  { label: "Syllabus", detail: "Policies, outcomes, schedule", icon: FileStack },
+  { label: "Lectures", detail: "Slides, notes, transcripts", icon: MessageCircle },
+  { label: "Readings", detail: "Articles, chapters, cases", icon: BookOpen },
+  { label: "Rubrics", detail: "Criteria, weights, feedback", icon: ClipboardCheck },
+];
 
 const courseModelSignals = [
-  { label: 'Objectives mapped', value: '42', icon: Target },
-  { label: 'Policies indexed', value: '12', icon: Shield },
-  { label: 'Rubrics active', value: '8', icon: Gauge },
-]
+  { label: "Objectives mapped", value: "42", icon: Target },
+  { label: "Policies indexed", value: "12", icon: Shield },
+  { label: "Rubrics active", value: "8", icon: Gauge },
+];
 
 export default function CurriculumIntelligencePage() {
   return (
@@ -122,8 +122,8 @@ export default function CurriculumIntelligencePage() {
         accent="Suite."
         description="Five tools that run from the same course model. Upload materials once; the tutor, grader, content generator, and analytics all reflect what you actually teach."
         actions={[
-          { label: 'Get Started Free', href: SIGN_UP_URL },
-          { label: 'Contact Sales', href: '/contact', variant: 'secondary' },
+          { label: "Get Started Free", href: SIGN_UP_URL },
+          { label: "Contact Sales", href: "/contact", variant: "secondary" },
         ]}
         className="pt-20"
       >
@@ -144,18 +144,18 @@ export default function CurriculumIntelligencePage() {
             items={[
               {
                 icon: Target,
-                label: 'Course-aware',
-                detail: 'Trained on your syllabus, readings, assignments, and rubrics.',
+                label: "Course-aware",
+                detail: "Trained on your syllabus, readings, assignments, and rubrics.",
               },
               {
                 icon: Shield,
-                label: 'Grounded answers',
-                detail: 'If it is not in the course materials, the system says so.',
+                label: "Grounded answers",
+                detail: "If it is not in the course materials, the system says so.",
               },
               {
                 icon: BookOpen,
-                label: 'Built for higher ed',
-                detail: 'Designed around learning objectives, rubrics, and faculty governance.',
+                label: "Built for higher ed",
+                detail: "Designed around learning objectives, rubrics, and faculty governance.",
               },
             ]}
           />
@@ -170,13 +170,12 @@ export default function CurriculumIntelligencePage() {
             description="The course model is the product center: it keeps student support, faculty workflows, and analytics aligned as materials change."
           />
           <div className="grid gap-5 lg:grid-cols-[0.9fr_1.25fr_0.9fr] lg:items-center">
-            <div className="grid gap-3">
+            <div className="grid content-start gap-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-tertiary">
+                1 · Faculty upload
+              </p>
               {courseModelInputs.map((input) => (
-                <MarketingCard
-                  key={input.label}
-                  interactive
-                  className="p-4 hover:border-accent/25"
-                >
+                <MarketingCard key={input.label} interactive className="p-4 hover:border-accent/25">
                   <div className="flex items-center gap-3">
                     <IconChip icon={input.icon} className="h-9 w-9" />
                     <div>
@@ -196,7 +195,7 @@ export default function CurriculumIntelligencePage() {
               <IconChip icon={Database} className="mx-auto h-16 w-16 [&_svg]:h-7 [&_svg]:w-7" />
               <div className="mt-6 text-center">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                  One Course Model
+                  2 · One Course Model
                 </p>
                 <h3 className="mt-3 text-2xl font-semibold tracking-[-0.025em] text-text-primary md:text-3xl">
                   Syllabus, lectures, readings, rubrics, policies, and outcomes stay synchronized.
@@ -215,9 +214,12 @@ export default function CurriculumIntelligencePage() {
               </div>
             </div>
 
-            <div className="grid gap-3">
+            <div className="grid content-start gap-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-tertiary">
+                3 · Every tool stays in sync
+              </p>
               {products.map((product) => {
-                const Icon = product.icon
+                const Icon = product.icon;
 
                 return (
                   <MarketingCard
@@ -233,7 +235,9 @@ export default function CurriculumIntelligencePage() {
                           <h3 className="text-sm font-semibold text-text-primary">
                             {product.title}
                           </h3>
-                          <StatusPill tone={product.status.toLowerCase() as 'live' | 'beta' | 'planned'}>
+                          <StatusPill
+                            tone={product.status.toLowerCase() as "live" | "beta" | "planned"}
+                          >
                             {product.status}
                           </StatusPill>
                         </div>
@@ -243,7 +247,7 @@ export default function CurriculumIntelligencePage() {
                       </div>
                     </div>
                   </MarketingCard>
-                )
+                );
               })}
             </div>
           </div>
@@ -259,7 +263,7 @@ export default function CurriculumIntelligencePage() {
           />
           <div className="grid gap-4 lg:grid-cols-2">
             {products.map((product) => {
-              const Icon = product.icon
+              const Icon = product.icon;
 
               return (
                 <div
@@ -276,9 +280,7 @@ export default function CurriculumIntelligencePage() {
                         <p className="mt-1 text-xs font-medium text-accent">{product.subtitle}</p>
                       </div>
                     </div>
-                    <StatusPill
-                      tone={product.status.toLowerCase() as 'live' | 'beta' | 'planned'}
-                    >
+                    <StatusPill tone={product.status.toLowerCase() as "live" | "beta" | "planned"}>
                       {product.status}
                     </StatusPill>
                   </div>
@@ -291,9 +293,9 @@ export default function CurriculumIntelligencePage() {
                     </p>
                     <div className="mt-3 flex items-start gap-3">
                       <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border-gray bg-bg-deep text-accent">
-                        {product.status === 'Live' ? (
+                        {product.status === "Live" ? (
                           <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
-                        ) : product.status === 'Beta' ? (
+                        ) : product.status === "Beta" ? (
                           <Sparkles className="h-4 w-4" aria-hidden="true" />
                         ) : (
                           <Layers3 className="h-4 w-4" aria-hidden="true" />
@@ -303,7 +305,7 @@ export default function CurriculumIntelligencePage() {
                     </div>
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         </Container>
@@ -335,12 +337,18 @@ export default function CurriculumIntelligencePage() {
             </FeatureCard>
           </div>
           <p className="mt-6 text-center text-sm text-text-secondary">
-            For setup details, visit{' '}
-            <Link href="/how-it-works" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+            For setup details, visit{" "}
+            <Link
+              href="/how-it-works"
+              className="font-semibold text-accent hover:text-accent-soft focus-ring"
+            >
               How It Works
             </Link>
-            . For rollout cost, see{' '}
-            <Link href="/pricing" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+            . For rollout cost, see{" "}
+            <Link
+              href="/pricing"
+              className="font-semibold text-accent hover:text-accent-soft focus-ring"
+            >
               Pricing
             </Link>
             .
@@ -352,11 +360,10 @@ export default function CurriculumIntelligencePage() {
         title="See it running on your course materials."
         description="We will build a live demo from your syllabus. No generic demo, just your course and your content."
         actions={[
-          { label: 'Contact Sales', href: '/contact' },
-          { label: 'Get Started Free', href: SIGN_UP_URL, variant: 'secondary' },
+          { label: "Contact Sales", href: "/contact" },
+          { label: "Get Started Free", href: SIGN_UP_URL, variant: "secondary" },
         ]}
       />
-
     </PageShell>
-  )
+  );
 }

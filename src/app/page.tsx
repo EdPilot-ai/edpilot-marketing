@@ -111,7 +111,7 @@ export default function HomePage() {
         ]}
         note="Free for professors to pilot · Set up in minutes · No IT project required"
       >
-        <CourseAssistantMockup className="mt-14" />
+        <CourseAssistantMockup className="mt-14" annotated />
         <TrustStrip
           className="mt-12"
           items={[
@@ -201,6 +201,12 @@ export default function HomePage() {
           />
           <Reveal>
             <StatBand items={productFacts} className="mt-12" />
+          </Reveal>
+          <Reveal className="mt-8 text-center">
+            <TextLink href="/how-it-works">
+              Step through a real governed answer
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </TextLink>
           </Reveal>
         </Container>
       </Section>
