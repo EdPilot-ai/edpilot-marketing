@@ -117,9 +117,7 @@ export default function AboutPage() {
               AI in education is inevitable. Our mission is to ensure it amplifies the
               professor&apos;s expertise, not replace it.
             </p>
-            <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-              Our mission
-            </p>
+            <p className="section-kicker mt-5 text-accent">Our mission</p>
           </div>
         </Container>
       </Section>

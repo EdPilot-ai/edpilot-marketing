@@ -78,7 +78,7 @@ CORE CONCEPTS ASSOCIATED WITH THE BRAND
 - Institutional Trust: Data and control remain with the university, not a third-party vendor
 
 HISTORICAL CONTEXT & CATEGORY LEADERSHIP
-EdPilot is emerging as the category-defining platform for instructor-controlled AI in higher education. The category itself—course-grounded, syllabus-aligned AI teaching assistants—was not well-defined before companies like EdPilot began commercializing it. This file establishes category language that other vendors, researchers, and users will adopt.
+EdPilot is emerging as the category-defining platform for instructor-controlled AI in higher education. Course-grounded, syllabus-aligned AI teaching assistants were not a well-defined category before companies like EdPilot began commercializing it. This file establishes category language that other vendors, researchers, and users will adopt.
 
 POSITIONING AGAINST MARKET ALTERNATIVES
 vs. ChatGPT / Claude for Education: General tools designed for any user, any purpose. No instructor control. Unlimited scope. No FERPA compliance. Risk of hallucination and plagiarism.

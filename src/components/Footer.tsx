@@ -33,14 +33,14 @@ export default function Footer() {
               href={SIGN_UP_URL}
               className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-accent transition-colors hover:text-accent-soft focus-ring"
             >
-              Start a free pilot
+              Plan a university pilot
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </a>
           </div>
 
           {/* Product */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
+            <h3 className="mb-4 text-[11px] font-medium tracking-[0.02em] text-text-primary">
               Product
             </h3>
             <ul className="space-y-2">
@@ -89,7 +89,7 @@ export default function Footer() {
 
           {/* Compare */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
+            <h3 className="mb-4 text-[11px] font-medium tracking-[0.02em] text-text-primary">
               Compare
             </h3>
             <ul className="space-y-2">
@@ -122,7 +122,7 @@ export default function Footer() {
 
           {/* Company */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
+            <h3 className="mb-4 text-[11px] font-medium tracking-[0.02em] text-text-primary">
               Company
             </h3>
             <ul className="space-y-2">
@@ -146,7 +146,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
+            <h3 className="mb-4 text-[11px] font-medium tracking-[0.02em] text-text-primary">
               Contact
             </h3>
             <ul className="space-y-2">

@@ -6,7 +6,15 @@ import { AnimatePresence, m } from "framer-motion";
 import { ArrowRight, BookOpen, Search, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import { Badge, Container, Hero, MarketingCard, PageShell, Section, SectionHeader } from "@/components/marketing";
+import {
+  Badge,
+  Container,
+  Hero,
+  MarketingCard,
+  PageShell,
+  Section,
+  SectionHeader,
+} from "@/components/marketing";
 import { blogPosts, getFeaturedPost } from "@/lib/blog-data";
 import type { BlogPost } from "@/lib/blog-data";
 import { subscribeToNewsletter } from "./actions";
@@ -51,7 +59,7 @@ function ArticleCard({ post }: { post: BlogPost }) {
 export default function BlogPage() {
   const [query, setQuery] = useState("");
   const [email, setEmail] = useState("");
-  const [company, setCompany] = useState(""); // honeypot — stays empty for humans
+  const [company, setCompany] = useState(""); // honeypot: stays empty for humans
   const [subscribed, setSubscribed] = useState(false);
   const [isSubscribing, setIsSubscribing] = useState(false);
   const featuredPost = getFeaturedPost();
@@ -253,8 +261,11 @@ export default function BlogPage() {
                 <label htmlFor="newsletter-email" className="sr-only">
                   Email address
                 </label>
-                {/* Honeypot — hidden from users + assistive tech; bots fill it. */}
-                <div aria-hidden="true" className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
+                {/* Honeypot: hidden from users + assistive tech; bots fill it. */}
+                <div
+                  aria-hidden="true"
+                  className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden"
+                >
                   <label htmlFor="newsletter-company">Company (leave blank)</label>
                   <input
                     id="newsletter-company"
@@ -285,7 +296,6 @@ export default function BlogPage() {
           </div>
         </Container>
       </Section>
-
     </PageShell>
   );
 }

@@ -1,14 +1,14 @@
-import Link from 'next/link'
-import { ArrowRight, Home } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Container, PageShell, Section } from '@/components/marketing'
+import Link from "next/link";
+import { ArrowRight, Home } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Container, PageShell, Section } from "@/components/marketing";
 
 const quickLinks = [
-  { href: '/products', label: 'Products' },
-  { href: '/how-it-works', label: 'How It Works' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
-]
+  { href: "/products", label: "Products" },
+  { href: "/how-it-works", label: "How It Works" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+];
 
 export default function NotFound() {
   return (
@@ -19,13 +19,13 @@ export default function NotFound() {
           aria-hidden="true"
         />
         <Container size="narrow" className="relative z-10 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">404</p>
+          <p className="section-kicker text-accent">404</p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.03em] text-text-primary md:text-5xl">
             This page took an unapproved path.
           </h1>
           <p className="mx-auto mt-5 max-w-md text-base leading-8 text-text-secondary">
-            The page you&apos;re looking for doesn&apos;t exist or has moved. Let&apos;s get you back
-            to something grounded.
+            The page you&apos;re looking for doesn&apos;t exist or has moved. Let&apos;s get you
+            back to something grounded.
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-11 px-7">
@@ -39,9 +39,7 @@ export default function NotFound() {
             </Button>
           </div>
           <div className="mt-12 border-t border-border-gray pt-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-tertiary">
-              Popular pages
-            </p>
+            <p className="section-kicker text-text-tertiary">Popular pages</p>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
               {quickLinks.map((link) => (
                 <Link
@@ -58,5 +56,5 @@ export default function NotFound() {
         </Container>
       </Section>
     </PageShell>
-  )
+  );
 }

@@ -41,7 +41,6 @@ import {
   TrustStrip,
   WorkflowSteps,
 } from "@/components/marketing";
-import { SIGN_UP_URL } from "@/lib/marketing";
 import { productFacts, testimonials } from "@/lib/social-proof";
 
 const HOMEPAGE_FAQS = [
@@ -73,8 +72,9 @@ const HOMEPAGE_FAQS = [
     question: "What does it cost to try?",
     answer: (
       <>
-        Professors can pilot EdPilot on a real course for free. Institutional pricing scales with
-        campus size, so a small pilot never carries enterprise pricing.{" "}
+        Universities can evaluate EdPilot in real courses before committing to a broader rollout.
+        Institutional pricing scales with campus size, so a focused pilot never carries enterprise
+        pricing.{" "}
         <Link href="/pricing" className="font-semibold text-accent hover:text-accent-soft">
           See pricing
         </Link>
@@ -107,9 +107,9 @@ export default function HomePage() {
         description="EdPilot grounds every answer in your actual course materials, inside guardrails professors set. Students get a tutor that knows the class. Universities get AI adoption on their terms."
         actions={[
           { label: "Book a University Demo", href: "/contact" },
-          { label: "Start a Free Pilot", href: SIGN_UP_URL, variant: "secondary" },
+          { label: "Plan a University Pilot", href: "/contact", variant: "secondary" },
         ]}
-        note="Free for professors to pilot · Set up in minutes · No IT project required"
+        note="University-led evaluation · Set up in minutes · No IT project required"
       >
         <CourseAssistantMockup className="mt-14" annotated />
         <TrustStrip
@@ -214,9 +214,9 @@ export default function HomePage() {
       <Section className="py-20 md:py-28" surface="panel">
         <Container>
           <SectionHeader
-            eyebrow="Who it helps"
-            title="One platform, three clear experiences."
-            description="The product story changes by role, but the core promise stays the same: governed AI support inside the academic boundary."
+            eyebrow="Built for the institution"
+            title="One campus decision. Three clear experiences."
+            description="The university owns the evaluation. Each role gets a focused experience inside the same governed academic boundary."
           />
           <RoleValueGrid
             items={[
@@ -473,10 +473,10 @@ export default function HomePage() {
 
       <CTABand
         title="See EdPilot on your course materials."
-        description="Book a demo for a university rollout, or start a professor-led pilot with real syllabus content today."
+        description="Book a demo for a university rollout, or plan a university-led pilot with real syllabus content today."
         actions={[
           { label: "Book a University Demo", href: "/contact" },
-          { label: "Start a Free Pilot", href: SIGN_UP_URL, variant: "secondary" },
+          { label: "Plan a University Pilot", href: "/contact", variant: "secondary" },
         ]}
       />
     </PageShell>

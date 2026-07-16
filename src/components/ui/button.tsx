@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  // Base: font-medium (500) instead of font-semibold — less heavy for button labels.
+  // Base: font-medium (500) instead of font-semibold, for less-heavy button labels.
   // tracking-[0.01em]: slight positive tracking improves legibility on small caps.
   // active:scale/translate: tactile press feedback without layout disruption.
   // transition-all at 150ms covers color, shadow, scale, translate in one declaration.
@@ -23,7 +23,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Primary — edpilot violet. Bright at rest, deeper on hover, with an
+        // Primary edpilot violet. Bright at rest, deeper on hover, with an
         // inset hairline + soft violet glow so it reads as the page's one
         // unmistakable action.
         default:

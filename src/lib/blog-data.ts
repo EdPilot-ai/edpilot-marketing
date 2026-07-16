@@ -1,31 +1,31 @@
 export type BlogCategory =
-  | 'AI in Education'
-  | 'Academic Policy'
-  | 'Faculty Perspectives'
-  | 'Future of Universities'
-  | 'Product Updates'
+  | "AI in Education"
+  | "Academic Policy"
+  | "Faculty Perspectives"
+  | "Future of Universities"
+  | "Product Updates";
 
 export interface BlogPost {
-  slug: string
-  title: string
-  excerpt: string
-  content: string
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
   author: {
-    name: string
-    title: string
-  }
-  category: BlogCategory
-  readingTime: number // in minutes
-  featured?: boolean
+    name: string;
+    title: string;
+  };
+  category: BlogCategory;
+  readingTime: number; // in minutes
+  featured?: boolean;
 }
 
 export const blogPosts: BlogPost[] = [
-  // ─── Article 1 — Featured ───────────────────────────────────────────────────
+  // ─── Article 1: Featured ───────────────────────────────────────────────────
   {
-    slug: 'students-already-using-ai-universities-need-to-catch-up',
-    title: 'Students Are Already Using AI. Universities Need to Catch Up.',
+    slug: "students-already-using-ai-universities-need-to-catch-up",
+    title: "Students Are Already Using AI. Universities Need to Catch Up.",
     excerpt:
-      'The policy debate inside most universities is still about whether to allow AI. Students resolved that question on their own a couple of years ago.',
+      "The policy debate inside most universities is still about whether to allow AI. Students resolved that question on their own a couple of years ago.",
     content: `
 ## The Decision Was Made Without You
 
@@ -60,17 +60,17 @@ When AI is grounded in course materials (the actual syllabus, readings, and lect
 The tools exist. The question is whether universities will build the infrastructure to use them well, or continue debating a policy question that students have already moved past.
     `.trim(),
     author: {
-      name: 'David Laszczkowski',
-      title: 'Co-Founder, EdPilot',
+      name: "David Laszczkowski",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'AI in Education',
+    category: "AI in Education",
     readingTime: 5,
     featured: true,
   },
 
   // ─── Article 2 ──────────────────────────────────────────────────────────────
   {
-    slug: 'what-instructor-controlled-ai-actually-means',
+    slug: "what-instructor-controlled-ai-actually-means",
     title: 'What Does "Instructor-Controlled AI" Actually Mean?',
     excerpt:
       'The phrase gets used a lot. Most explanations stop at "faculty set the rules." That\'s not wrong, but it leaves out the part that actually matters.',
@@ -122,19 +122,19 @@ When the AI they're using is grounded in their actual course materials, its expl
 Instructor control, done right, makes AI more useful for students, not less.
     `.trim(),
     author: {
-      name: 'Kelly Wen',
-      title: 'Co-Founder, EdPilot',
+      name: "Kelly Wen",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Faculty Perspectives',
+    category: "Faculty Perspectives",
     readingTime: 6,
   },
 
   // ─── Article 3 ──────────────────────────────────────────────────────────────
   {
-    slug: 'universities-ai-without-compromising-integrity',
-    title: 'How Universities Can Use AI Without Compromising Academic Integrity',
+    slug: "universities-ai-without-compromising-integrity",
+    title: "How Universities Can Use AI Without Compromising Academic Integrity",
     excerpt:
-      'The worry that AI destroys academic integrity is understandable but imprecise. Unstructured AI use creates integrity risks. Structured AI use, governed by faculty, creates a different set of conditions entirely.',
+      "The worry that AI destroys academic integrity is understandable but imprecise. Unstructured AI use creates integrity risks. Structured AI use, governed by faculty, creates a different set of conditions entirely.",
     content: `
 ## The Concern Is Legitimate. The Framing Isn't.
 
@@ -177,19 +177,19 @@ Ultimately, integrity isn't a technology problem. It's a governance problem. The
 Faculty control over AI systems, visibility into how they're used, and assessment design that requires course-specific reasoning are the levers that matter. Technology alone doesn't solve this. Technology governed well by the people who understand what learning is supposed to accomplish can make meaningful progress.
     `.trim(),
     author: {
-      name: 'Kelly Wen',
-      title: 'Co-Founder, EdPilot',
+      name: "Kelly Wen",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Academic Policy',
+    category: "Academic Policy",
     readingTime: 6,
   },
 
   // ─── Article 4 ──────────────────────────────────────────────────────────────
   {
-    slug: 'problem-with-general-purpose-ai-in-higher-education',
-    title: 'The Problem With General-Purpose AI in Higher Education',
+    slug: "problem-with-general-purpose-ai-in-higher-education",
+    title: "The Problem With General-Purpose AI in Higher Education",
     excerpt:
-      'ChatGPT was not built for universities. It was built to be useful to everyone, which means it was built to be optimized for no one in particular, and that design choice has real consequences in academic settings.',
+      "ChatGPT was not built for universities. It was built to be useful to everyone, which means it was built to be optimized for no one in particular, and that design choice has real consequences in academic settings.",
     content: `
 ## Built for Everyone, Optimized for No One
 
@@ -226,19 +226,19 @@ The answer isn't to pretend general-purpose AI doesn't exist or to try to ban it
 General-purpose AI isn't going away. The question is whether universities will remain dependent on it, or build something designed for the context they're actually operating in.
     `.trim(),
     author: {
-      name: 'David Laszczkowski',
-      title: 'Co-Founder, EdPilot',
+      name: "David Laszczkowski",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'AI in Education',
+    category: "AI in Education",
     readingTime: 5,
   },
 
   // ─── Article 5 ──────────────────────────────────────────────────────────────
   {
-    slug: 'ai-is-the-new-calculator',
-    title: 'AI Is the New Calculator. Universities That Ignore That Will Struggle.',
+    slug: "ai-is-the-new-calculator",
+    title: "AI Is the New Calculator. Universities That Ignore That Will Struggle.",
     excerpt:
-      'When calculators became cheap and common, universities didn\'t ban arithmetic. They redesigned what they were trying to teach. The same logic applies now, and the institutions that understand that will be better positioned.',
+      "When calculators became cheap and common, universities didn't ban arithmetic. They redesigned what they were trying to teach. The same logic applies now, and the institutions that understand that will be better positioned.",
     content: `
 ## We've Done This Before
 
@@ -275,19 +275,19 @@ Right now, students at most universities are using AI extensively with no instit
 The first step is building the infrastructure to change that: giving faculty actual control over the AI environment their students interact with, and giving institutions visibility into what's actually happening. That's the foundation everything else builds on.
     `.trim(),
     author: {
-      name: 'David Laszczkowski',
-      title: 'Co-Founder, EdPilot',
+      name: "David Laszczkowski",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Future of Universities',
+    category: "Future of Universities",
     readingTime: 5,
   },
 
   // ─── Article 6 ──────────────────────────────────────────────────────────────
   {
-    slug: 'future-of-office-hours-ai-assistance',
-    title: 'The Future of Office Hours',
+    slug: "future-of-office-hours-ai-assistance",
+    title: "The Future of Office Hours",
     excerpt:
-      'Most students who are confused at 11pm on a Tuesday don\'t have a good option. Office hours ended six hours ago. The TA is also studying. The textbook already didn\'t help. This is a solvable problem.',
+      "Most students who are confused at 11pm on a Tuesday don't have a good option. Office hours ended six hours ago. The TA is also studying. The textbook already didn't help. This is a solvable problem.",
     content: `
 ## The Gap Nobody Talks About
 
@@ -324,19 +324,19 @@ What AI-supported study addresses is the specific problem of students having now
 For most students at most institutions, that's the gap that most needs filling.
     `.trim(),
     author: {
-      name: 'Kelly Wen',
-      title: 'Co-Founder, EdPilot',
+      name: "Kelly Wen",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Faculty Perspectives',
+    category: "Faculty Perspectives",
     readingTime: 5,
   },
 
   // ─── Article 7 ──────────────────────────────────────────────────────────────
   {
-    slug: 'from-syllabus-to-intelligence',
-    title: 'From Syllabus to Intelligence: How Curriculum-Grounded AI Works',
+    slug: "from-syllabus-to-intelligence",
+    title: "From Syllabus to Intelligence: How Curriculum-Grounded AI Works",
     excerpt:
-      'The concept sounds straightforward: AI that knows your course materials. The implementation involves a series of choices that determine whether the result is actually useful or just a fancier version of the same problem.',
+      "The concept sounds straightforward: AI that knows your course materials. The implementation involves a series of choices that determine whether the result is actually useful or just a fancier version of the same problem.",
     content: `
 ## The Concept Is Simple. The Implementation Isn't.
 
@@ -381,19 +381,19 @@ The value of grounding AI in course materials compounds when faculty can see how
 That feedback loop, from student interactions to faculty insight about the course, is one of the most practically useful things a curriculum-grounded AI can provide. It turns individual student interactions into aggregate data about where the course is working and where it isn't.
     `.trim(),
     author: {
-      name: 'David Laszczkowski',
-      title: 'Co-Founder, EdPilot',
+      name: "David Laszczkowski",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'AI in Education',
+    category: "AI in Education",
     readingTime: 6,
   },
 
   // ─── Article 8 ──────────────────────────────────────────────────────────────
   {
-    slug: 'hidden-risks-of-public-ai-tools-for-students',
-    title: 'The Hidden Risks of Letting Students Use Public AI Tools',
+    slug: "hidden-risks-of-public-ai-tools-for-students",
+    title: "The Hidden Risks of Letting Students Use Public AI Tools",
     excerpt:
-      'The obvious risks get discussed. The subtler ones, the ones that compound quietly over a semester, are harder to see and do more lasting damage to actual learning.',
+      "The obvious risks get discussed. The subtler ones, the ones that compound quietly over a semester, are harder to see and do more lasting damage to actual learning.",
     content: `
 ## The Risks You've Already Heard About
 
@@ -440,19 +440,19 @@ An institution that provides students with curriculum-grounded AI (AI that facul
 The risks of public AI use in higher education are real. They're also mostly avoidable, given the right infrastructure.
     `.trim(),
     author: {
-      name: 'Kelly Wen',
-      title: 'Co-Founder, EdPilot',
+      name: "Kelly Wen",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Academic Policy',
+    category: "Academic Policy",
     readingTime: 6,
   },
 
   // ─── Article 9 ──────────────────────────────────────────────────────────────
   {
-    slug: 'ai-literacy-core-university-skill',
-    title: 'AI Literacy Is Becoming a Core University Skill. Most Programs Aren\'t Teaching It.',
+    slug: "ai-literacy-core-university-skill",
+    title: "AI Literacy Is Becoming a Core University Skill. Most Programs Aren't Teaching It.",
     excerpt:
-      'Understanding how to work with AI, which means knowing its limits, evaluating its outputs, and applying it appropriately, is quickly becoming table stakes for professional competence in most fields.',
+      "Understanding how to work with AI, which means knowing its limits, evaluating its outputs, and applying it appropriately, is quickly becoming table stakes for professional competence in most fields.",
     content: `
 ## The New Research Skill
 
@@ -491,19 +491,19 @@ Faculty who are using AI tools in their own research can incorporate reflection 
 None of this requires a new major or a major curriculum revision. It requires faculty who are thinking carefully about how they're preparing students for a world in which AI is a constant in professional and intellectual work, and building that preparation into what they already do.
     `.trim(),
     author: {
-      name: 'David Laszczkowski',
-      title: 'Co-Founder, EdPilot',
+      name: "David Laszczkowski",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Future of Universities',
+    category: "Future of Universities",
     readingTime: 6,
   },
 
   // ─── Article 10 ─────────────────────────────────────────────────────────────
   {
-    slug: 'why-universities-need-their-own-ai-infrastructure',
-    title: 'Why Universities Need Their Own AI Infrastructure',
+    slug: "why-universities-need-their-own-ai-infrastructure",
+    title: "Why Universities Need Their Own AI Infrastructure",
     excerpt:
-      'Right now, most universities\' AI strategy is "allow students to use whatever they find." That\'s not a strategy. It\'s an absence of one, and the costs of that absence are accumulating.',
+      "Right now, most universities' AI strategy is \"allow students to use whatever they find.\" That's not a strategy. It's an absence of one, and the costs of that absence are accumulating.",
     content: `
 ## The Default Strategy Isn't Working
 
@@ -548,19 +548,20 @@ Give a professor a tool to upload their course materials and configure how the A
 Universities that run those pilots now will have real data and real experience to draw on when the infrastructure question becomes unavoidable. That point is coming regardless of what institutions decide in the meantime.
     `.trim(),
     author: {
-      name: 'David Laszczkowski',
-      title: 'Co-Founder, EdPilot',
+      name: "David Laszczkowski",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Academic Policy',
+    category: "Academic Policy",
     readingTime: 6,
   },
 
   // ─── Article 11 ─────────────────────────────────────────────────────────────
   {
-    slug: 'faculty-should-lead-the-ai-revolution',
-    title: 'Faculty Should Lead the AI Revolution in Education. Most Aren\'t Being Given the Chance.',
+    slug: "faculty-should-lead-the-ai-revolution",
+    title:
+      "Faculty Should Lead the AI Revolution in Education. Most Aren't Being Given the Chance.",
     excerpt:
-      'The people who understand pedagogy, disciplinary standards, and what students actually need to learn are being excluded from the decisions that will shape how AI operates in their classrooms.',
+      "The people who understand pedagogy, disciplinary standards, and what students actually need to learn are being excluded from the decisions that will shape how AI operates in their classrooms.",
     content: `
 ## The Decision Is Being Made Elsewhere
 
@@ -597,19 +598,19 @@ If faculty are going to lead, they need tools that make faculty governance techn
 That infrastructure is buildable. The question is whether institutions prioritize building it.
     `.trim(),
     author: {
-      name: 'Kelly Wen',
-      title: 'Co-Founder, EdPilot',
+      name: "Kelly Wen",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Faculty Perspectives',
+    category: "Faculty Perspectives",
     readingTime: 5,
   },
 
   // ─── Article 12 ─────────────────────────────────────────────────────────────
   {
-    slug: 'ai-policy-playbook-for-universities',
-    title: 'The AI Policy Playbook for Universities',
+    slug: "ai-policy-playbook-for-universities",
+    title: "The AI Policy Playbook for Universities",
     excerpt:
-      'Most university AI policies were drafted in a hurry, by people who were primarily thinking about risk. A policy that starts with what you\'re trying to accomplish educationally produces something more useful.',
+      "Most university AI policies were drafted in a hurry, by people who were primarily thinking about risk. A policy that starts with what you're trying to accomplish educationally produces something more useful.",
     content: `
 ## Start With What You're Trying to Accomplish
 
@@ -654,19 +655,19 @@ A well-designed AI policy doesn't just mitigate risk. It creates conditions in w
 That foundation makes the educational case for AI possible: structured tools that extend what faculty can teach, that support students outside of office hours, that give faculty feedback about where their courses are working. None of that happens without a governance framework that makes it safe to try.
     `.trim(),
     author: {
-      name: 'Kelly Wen',
-      title: 'Co-Founder, EdPilot',
+      name: "Kelly Wen",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Academic Policy',
+    category: "Academic Policy",
     readingTime: 6,
   },
 
   // ─── Article 13 ─────────────────────────────────────────────────────────────
   {
-    slug: 'ai-improve-learning-without-replacing-professors',
-    title: 'How AI Can Improve Learning Without Replacing Professors',
+    slug: "ai-improve-learning-without-replacing-professors",
+    title: "How AI Can Improve Learning Without Replacing Professors",
     excerpt:
-      'The replacement fear keeps coming up, and it keeps distracting from the more interesting question: what can AI do that creates space for professors to do the things only professors can do?',
+      "The replacement fear keeps coming up, and it keeps distracting from the more interesting question: what can AI do that creates space for professors to do the things only professors can do?",
     content: `
 ## The Fear That Keeps Getting in the Way
 
@@ -703,19 +704,19 @@ That's not a technology-utopia argument. It's a resource-allocation argument. Pr
 The fear of replacement makes sense as a response to a technology that's trying to do everything. It makes less sense as a response to a technology that's specifically designed to extend faculty reach rather than circumvent faculty judgment.
     `.trim(),
     author: {
-      name: 'David Laszczkowski',
-      title: 'Co-Founder, EdPilot',
+      name: "David Laszczkowski",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Faculty Perspectives',
+    category: "Faculty Perspectives",
     readingTime: 5,
   },
 
   // ─── Article 14 ─────────────────────────────────────────────────────────────
   {
-    slug: 'what-happens-when-every-student-has-an-ai-tutor',
-    title: 'What Happens When Every Student Has an AI Tutor?',
+    slug: "what-happens-when-every-student-has-an-ai-tutor",
+    title: "What Happens When Every Student Has an AI Tutor?",
     excerpt:
-      'Access to one-on-one tutoring has always been one of the most powerful predictors of learning outcomes. It\'s also always been unevenly distributed. AI changes both of those facts simultaneously.',
+      "Access to one-on-one tutoring has always been one of the most powerful predictors of learning outcomes. It's also always been unevenly distributed. AI changes both of those facts simultaneously.",
     content: `
 ## The Access Problem AI Is Actually Solving
 
@@ -754,19 +755,19 @@ This is already happening in fields that have experimented with flipped classroo
 The professors who adapt to this most effectively will be the ones who think clearly about what their class time is for and design accordingly, not assuming it needs to do the same things it did before, but asking what it can accomplish that AI-supported study can't.
     `.trim(),
     author: {
-      name: 'Kelly Wen',
-      title: 'Co-Founder, EdPilot',
+      name: "Kelly Wen",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Future of Universities',
+    category: "Future of Universities",
     readingTime: 6,
   },
 
   // ─── Article 15 ─────────────────────────────────────────────────────────────
   {
-    slug: 'ai-native-universities',
-    title: 'The Next Generation of Learning Platforms: What AI-Native Universities Will Look Like',
+    slug: "ai-native-universities",
+    title: "The Next Generation of Learning Platforms: What AI-Native Universities Will Look Like",
     excerpt:
-      'The AI-native university isn\'t one where AI has been added to existing processes. It\'s one where the learning environment was designed from the start with AI as a component, and the two are quite different.',
+      "The AI-native university isn't one where AI has been added to existing processes. It's one where the learning environment was designed from the start with AI as a component, and the two are quite different.",
     content: `
 ## The Difference Between "AI-Added" and "AI-Native"
 
@@ -809,40 +810,36 @@ What takes time is the institutional adaptation: the curriculum review cycles, t
 The alternative is continuing to improvise: adapting existing structures to a thing they weren't designed for, with diminishing returns as AI capabilities continue to advance. At some point, the cost of that ongoing improvisation exceeds the cost of building something designed to work.
     `.trim(),
     author: {
-      name: 'David Laszczkowski',
-      title: 'Co-Founder, EdPilot',
+      name: "David Laszczkowski",
+      title: "Co-Founder, EdPilot",
     },
-    category: 'Future of Universities',
+    category: "Future of Universities",
     readingTime: 6,
   },
-]
+];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
-  return blogPosts.find((post) => post.slug === slug)
+  return blogPosts.find((post) => post.slug === slug);
 }
 
 export function getFeaturedPost(): BlogPost {
-  return blogPosts.find((post) => post.featured) ?? blogPosts[0]
+  return blogPosts.find((post) => post.featured) ?? blogPosts[0];
 }
 
 export function getRelatedPosts(slug: string, limit = 3): BlogPost[] {
-  const current = getBlogPost(slug)
-  if (!current) return blogPosts.slice(0, limit)
+  const current = getBlogPost(slug);
+  if (!current) return blogPosts.slice(0, limit);
 
-  const sameCategory = blogPosts.filter(
-    (p) => p.slug !== slug && p.category === current.category
-  )
-  const others = blogPosts.filter(
-    (p) => p.slug !== slug && p.category !== current.category
-  )
+  const sameCategory = blogPosts.filter((p) => p.slug !== slug && p.category === current.category);
+  const others = blogPosts.filter((p) => p.slug !== slug && p.category !== current.category);
 
-  return [...sameCategory, ...others].slice(0, limit)
+  return [...sameCategory, ...others].slice(0, limit);
 }
 
 export const ALL_CATEGORIES: BlogCategory[] = [
-  'AI in Education',
-  'Academic Policy',
-  'Faculty Perspectives',
-  'Future of Universities',
-  'Product Updates',
-]
+  "AI in Education",
+  "Academic Policy",
+  "Faculty Perspectives",
+  "Future of Universities",
+  "Product Updates",
+];

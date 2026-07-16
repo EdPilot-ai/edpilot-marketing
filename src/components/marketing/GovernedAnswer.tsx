@@ -1,17 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import {
-  ArrowRight,
-  BarChart3,
-  BookOpenCheck,
-  MessageSquare,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowRight, BarChart3, BookOpenCheck, MessageSquare, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * "What happens when a student asks" — the anatomy of one governed answer.
+ * "What happens when a student asks": the anatomy of one governed answer.
  *
  * This is the walkthrough that makes EdPilot's three pillars concrete instead
  * of abstract: faculty rules (governance), course sources (grounding), and
@@ -31,7 +25,7 @@ const STAGES = [
     tag: "Any hour",
     summary: "Plain-language questions, inside the course workspace.",
     detail:
-      "It's 11pm before the quiz and office hours are long over. The student asks the way they'd ask a TA — no prompt engineering, no personal ChatGPT account, nothing leaving the course.",
+      "It's 11pm before the quiz and office hours are long over. The student asks the way they'd ask a TA, with no prompt engineering, personal ChatGPT account, or information leaving the course.",
   },
   {
     id: "rules",
@@ -40,7 +34,7 @@ const STAGES = [
     tag: "Governance",
     summary: "Faculty-set guardrails run before a single word is written.",
     detail:
-      "The professor decided how this assistant behaves: guide on graded work instead of solving it, stay inside course scope, always cite. EdPilot enforces those rules on every reply — the AI works for the professor, not around them.",
+      "The professor decided how this assistant behaves: guide on graded work instead of solving it, stay inside course scope, always cite. EdPilot enforces those rules on every reply. The AI works for the professor, not around them.",
   },
   {
     id: "sources",
@@ -49,7 +43,7 @@ const STAGES = [
     tag: "Grounding",
     summary: "Built only from what the professor uploaded, with citations.",
     detail:
-      "No web-scale guessing. The answer is assembled from this course's slides, readings, and handouts, and each claim links back to the exact source — so students can verify instead of trust.",
+      "No web-scale guessing. The answer is assembled from this course's slides, readings, and handouts, and each claim links back to the exact source so students can verify instead of trust.",
   },
   {
     id: "signal",
@@ -58,7 +52,7 @@ const STAGES = [
     tag: "Visibility",
     summary: "Every question becomes an early-warning learning signal.",
     detail:
-      "Questions roll up into anonymous topic trends on the professor's dashboard. When 23 students hit the same wall in the same week, the professor finds out now — not from the exam grades.",
+      "Questions roll up into anonymous topic trends on the professor's dashboard. When 23 students hit the same wall in the same week, the professor finds out now, not from the exam grades.",
   },
 ] as const;
 
@@ -94,7 +88,7 @@ export function GovernedAnswerWalkthrough({ className }: { className?: string })
 
   return (
     <div className={cn("grid gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]", className)}>
-      {/* Stage selector — an accordion-style stepper. */}
+      {/* Stage selector: an accordion-style stepper. */}
       <ol className="flex flex-col gap-2.5">
         {STAGES.map((item, index) => {
           const Icon = item.icon;
@@ -151,7 +145,10 @@ export function GovernedAnswerWalkthrough({ className }: { className?: string })
                     )}
                   </span>
                   <Icon
-                    className={cn("h-4 w-4 shrink-0", isActive ? "text-accent" : "text-text-tertiary")}
+                    className={cn(
+                      "h-4 w-4 shrink-0",
+                      isActive ? "text-accent" : "text-text-tertiary",
+                    )}
                     aria-hidden="true"
                   />
                 </span>
@@ -187,15 +184,19 @@ export function GovernedAnswerWalkthrough({ className }: { className?: string })
       <div className="overflow-hidden rounded-2xl border border-border-gray bg-bg-deep shadow-2xl">
         <div className="flex items-center justify-between gap-3 border-b border-border-gray bg-bg-surface px-4 py-3">
           <div className="flex items-center gap-2 text-[11px] font-medium text-text-tertiary">
-            <span className="rounded-md border border-border-gray bg-bg-deep px-2 py-1">CS 201</span>
+            <span className="rounded-md border border-border-gray bg-bg-deep px-2 py-1">
+              CS 201
+            </span>
             <span>Data Structures</span>
           </div>
-          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
-            11:04 PM · Tuesday
-          </span>
+          <span className="section-kicker text-text-tertiary">11:04 PM · Tuesday</span>
         </div>
         <div className="space-y-3.5 p-4 md:p-5" aria-hidden="true">
-          <Region active={stage === 0} dimmed={stage !== 0} className="ml-auto max-w-[85%] border-accent/20 bg-accent/5 px-4 py-3">
+          <Region
+            active={stage === 0}
+            dimmed={stage !== 0}
+            className="ml-auto max-w-[85%] border-accent/20 bg-accent/5 px-4 py-3"
+          >
             <p className="text-sm leading-6 text-text-primary">
               When should I use recursion instead of a loop? I keep getting it wrong on the practice
               problems.
@@ -203,7 +204,7 @@ export function GovernedAnswerWalkthrough({ className }: { className?: string })
           </Region>
 
           <Region active={stage === 1} dimmed={stage !== 1} className="bg-bg-surface/60 px-4 py-3">
-            <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+            <p className="section-kicker flex items-center gap-2 text-text-tertiary">
               <ShieldCheck className="h-3.5 w-3.5 text-accent" />
               Prof. Okafor&apos;s rules for this course
             </p>
@@ -224,8 +225,8 @@ export function GovernedAnswerWalkthrough({ className }: { className?: string })
           <Region active={stage === 2} dimmed={stage !== 2} className="bg-bg-surface px-4 py-4">
             <p className="text-sm leading-7 text-text-secondary">
               Think about the shape of the problem. In Lecture 7, recursion is the tool when a
-              problem contains smaller copies of itself — like traversing the tree from Lab 3. A
-              loop fits when you&apos;re repeating the same flat step. Try re-doing practice problem 4:
+              problem contains smaller copies of itself, like traversing the tree from Lab 3. A loop
+              fits when you&apos;re repeating the same flat step. Try re-doing practice problem 4:
               does the problem shrink toward a base case?
             </p>
             <div className="mt-3.5 grid gap-2 sm:grid-cols-2">
@@ -246,7 +247,7 @@ export function GovernedAnswerWalkthrough({ className }: { className?: string })
           <Region active={stage === 3} dimmed={stage !== 3} className="bg-bg-surface/60 px-4 py-3">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+                <p className="section-kicker flex items-center gap-2 text-text-tertiary">
                   <BarChart3 className="h-3.5 w-3.5 text-accent" />
                   Learning signal → professor dashboard
                 </p>

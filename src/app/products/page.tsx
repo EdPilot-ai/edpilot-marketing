@@ -203,15 +203,12 @@ export default function ProductsPage() {
       </Section>
 
       <Section className="py-20 md:py-28" surface="deep">
-        <div className="cta-gradient pointer-events-none absolute inset-0" aria-hidden="true" />
-        <Container className="relative z-10">
+        <Container>
           <div className="surface-gradient-featured overflow-hidden rounded-lg border border-accent/25 shadow-2xl">
             <div className="grid gap-0 md:grid-cols-[1.05fr_0.95fr]">
               <div className="p-7 md:p-10">
                 <IconChip icon={Route} className="mb-6 h-12 w-12" />
-                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                  Institution path
-                </p>
+                <p className="section-kicker mb-3 text-accent">Institution path</p>
                 <h2 className="max-w-xl text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary md:text-4xl">
                   Built to graduate from pilot to institution.
                 </h2>
@@ -316,7 +313,7 @@ export default function ProductsPage() {
                   <span className="min-w-0 flex-1 truncate text-sm font-medium text-text-secondary">
                     {suite.title}
                   </span>
-                  <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
+                  <span className="shrink-0 text-[10px] font-medium tracking-[0.01em] text-text-tertiary">
                     Planned
                   </span>
                 </div>

@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
  * (every capability expandable to a "why it matters" note plus per-column
  * detail) and an EdPilot-vs-one-alternative card view on mobile, where the
  * alternative is chosen with a segmented control. Status is never conveyed
- * by color alone — each cell pairs a distinct icon shape with sr-only text.
+ * by color alone; each cell pairs a distinct icon shape with sr-only text.
  */
 
 type Status = "yes" | "partial" | "no";
@@ -54,7 +54,7 @@ const GROUPS: Array<{ title: string; rows: Row[] }> = [
       },
       {
         capability: "Citations on every answer",
-        why: "Citations turn 'trust me' into 'check for yourself' — the difference between a study tool and a rumor mill.",
+        why: "Citations turn 'trust me' into 'check for yourself.' That is the difference between a study tool and a rumor mill.",
         cells: {
           edpilot: {
             status: "yes",
@@ -66,7 +66,7 @@ const GROUPS: Array<{ title: string; rows: Row[] }> = [
           },
           tutoring: { status: "no", note: "The tutor's word is the source." },
           lms: { status: "partial", note: "Varies by vendor and content type." },
-          custom: { status: "partial", note: "Possible — you own the citation pipeline forever." },
+          custom: { status: "partial", note: "Possible. You own the citation pipeline forever." },
         },
       },
       {
@@ -80,7 +80,7 @@ const GROUPS: Array<{ title: string; rows: Row[] }> = [
           chatgpt: { status: "no", note: "Will happily produce the entire assignment." },
           tutoring: { status: "partial", note: "Depends entirely on the individual tutor." },
           lms: { status: "partial", note: "Blunt on/off toggles at best." },
-          custom: { status: "partial", note: "You design — and police — the policy yourself." },
+          custom: { status: "partial", note: "You design and police the policy yourself." },
         },
       },
     ],
@@ -110,7 +110,7 @@ const GROUPS: Array<{ title: string; rows: Row[] }> = [
       },
       {
         capability: "Visibility into where students struggle",
-        why: "The most valuable output isn't the answer — it's knowing that 23 students hit the same wall before the exam does.",
+        why: "The most valuable output is not the answer. It is knowing that 23 students hit the same wall before the exam does.",
         cells: {
           edpilot: {
             status: "yes",
@@ -127,7 +127,7 @@ const GROUPS: Array<{ title: string; rows: Row[] }> = [
       },
       {
         capability: "Follows the course when it changes",
-        why: "Courses are living things — a new rubric or reordered week should change what the AI says the same day.",
+        why: "Courses are living things. A new rubric or reordered week should change what the AI says the same day.",
         cells: {
           edpilot: {
             status: "yes",
@@ -172,7 +172,7 @@ const GROUPS: Array<{ title: string; rows: Row[] }> = [
             status: "yes",
             note: "Browser-based. Admin sign-up to teaching faculty in days.",
           },
-          chatgpt: { status: "yes", note: "Nothing to deploy — and nothing governed." },
+          chatgpt: { status: "yes", note: "Nothing to deploy, and nothing governed." },
           tutoring: { status: "yes", note: "Students sign up alone, which is the problem." },
           lms: { status: "no", note: "Procurement, then the vendor's rollout schedule." },
           custom: { status: "no", note: "Quarters of engineering before day one." },
@@ -180,13 +180,13 @@ const GROUPS: Array<{ title: string; rows: Row[] }> = [
       },
       {
         capability: "Independent of your LMS vendor",
-        why: "Your AI strategy shouldn't wait politely for one vendor's roadmap — or be repriced at their next contract renewal.",
+        why: "Your AI strategy should not wait politely for one vendor's roadmap or be repriced at the next contract renewal.",
         cells: {
           edpilot: { status: "yes", note: "Syncs with Canvas today; works with no LMS at all." },
           chatgpt: { status: "yes", note: "Independent, but also unaccountable." },
           tutoring: { status: "yes", note: "Independent of the LMS and of the institution." },
           lms: { status: "no", note: "Locked to one vendor's roadmap and pricing." },
-          custom: { status: "yes", note: "Independent — and entirely yours to maintain." },
+          custom: { status: "yes", note: "Independent and entirely yours to maintain." },
         },
       },
     ],
@@ -283,9 +283,7 @@ export function ComparisonMatrix({ className }: { className?: string }) {
         <div className="space-y-6">
           {GROUPS.map((group) => (
             <div key={group.title}>
-              <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-tertiary">
-                {group.title}
-              </p>
+              <p className="section-kicker mb-2.5 text-text-tertiary">{group.title}</p>
               <div className="shadow-card divide-y divide-border-gray overflow-hidden rounded-xl border border-border-gray bg-bg-surface">
                 {group.rows.map((row) => {
                   const isOpen = expanded === row.capability;
@@ -310,9 +308,7 @@ export function ComparisonMatrix({ className }: { className?: string }) {
                       </button>
                       <div className="grid grid-cols-2 gap-2 px-4 pb-4">
                         <div className="rounded-lg border border-accent/20 bg-accent/5 p-3">
-                          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
-                            EdPilot
-                          </p>
+                          <p className="section-kicker mb-2 text-accent">EdPilot</p>
                           <StatusIcon status={row.cells.edpilot.status} />
                           {isOpen && (
                             <p className="mt-2 text-xs leading-5 text-text-secondary">
@@ -321,7 +317,7 @@ export function ComparisonMatrix({ className }: { className?: string }) {
                           )}
                         </div>
                         <div className="rounded-lg border border-border-gray bg-bg-deep p-3">
-                          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+                          <p className="section-kicker mb-2 text-text-tertiary">
                             {ALTERNATIVES.find((a) => a.id === alternative)?.label}
                           </p>
                           <StatusIcon status={row.cells[alternative].status} />
@@ -379,7 +375,7 @@ export function ComparisonMatrix({ className }: { className?: string }) {
                 <th
                   colSpan={COLUMNS.length + 1}
                   scope="colgroup"
-                  className="bg-bg-deep/60 px-5 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-text-tertiary"
+                  className="bg-bg-deep/60 px-5 py-2.5 text-left text-[11px] font-medium tracking-[0.01em] text-text-tertiary"
                 >
                   {group.title}
                 </th>

@@ -31,7 +31,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const mobileMenuId = "primary-mobile-menu";
 
-  // Close the mobile menu on Escape — standard disclosure keyboard behavior.
+  // Close the mobile menu on Escape: standard disclosure keyboard behavior.
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (event: KeyboardEvent) => {

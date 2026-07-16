@@ -14,7 +14,9 @@ type Action = {
 
 export function PageShell({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("min-h-screen bg-bg-page text-text-primary", className)}>{children}</div>
+    <div className={cn("marketing-canvas min-h-screen bg-bg-page text-text-primary", className)}>
+      {children}
+    </div>
   );
 }
 
@@ -33,16 +35,12 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "relative overflow-hidden border-border-gray",
+        "section-frame relative border-border-gray",
         surface === "panel" && "border-y bg-bg-surface",
         surface === "deep" && "border-y bg-bg-deep",
         className,
       )}
     >
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
-        aria-hidden="true"
-      />
       {children}
     </section>
   );
@@ -60,7 +58,7 @@ export function Container({
   return (
     <div
       className={cn(
-        "container mx-auto px-6",
+        "container mx-auto px-6 md:px-8",
         size === "narrow" && "max-w-3xl",
         size === "default" && "max-w-5xl",
         size === "wide" && "max-w-6xl",
@@ -88,27 +86,23 @@ export function SectionHeader({
   return (
     <Reveal
       className={cn(
-        "mb-12",
+        "mb-12 md:mb-16",
         align === "center" && "mx-auto max-w-3xl text-center",
         align === "left" && "max-w-2xl",
         className,
       )}
     >
-      {eyebrow && (
-        <p
-          className={cn(
-            "mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent",
-            align === "center" && "text-center",
-          )}
-        >
-          {eyebrow}
-        </p>
-      )}
-      <h2 className="font-display text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] text-text-primary md:text-[2.6rem]">
+      {eyebrow && <p className="section-kicker mb-5">{eyebrow}</p>}
+      <h2 className="font-display text-[2rem] font-semibold leading-[1.06] tracking-[-0.04em] text-text-primary md:text-[3.15rem]">
         {title}
       </h2>
       {description && (
-        <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-text-secondary md:text-base md:leading-8">
+        <p
+          className={cn(
+            "mt-5 max-w-2xl text-[15px] leading-7 text-text-secondary md:text-base md:leading-8",
+            align === "center" && "mx-auto",
+          )}
+        >
           {description}
         </p>
       )}
@@ -117,20 +111,14 @@ export function SectionHeader({
 }
 
 export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <p
-      className={cn("text-[11px] font-semibold uppercase tracking-[0.2em] text-accent", className)}
-    >
-      {children}
-    </p>
-  );
+  return <p className={cn("section-kicker", className)}>{children}</p>;
 }
 
 export function Badge({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <span
       className={cn(
-        "inline-flex rounded-md border border-accent/15 bg-accent/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent",
+        "inline-flex rounded-md border border-accent/15 bg-accent/5 px-2.5 py-1 text-[11px] font-medium tracking-[0.01em] text-accent",
         className,
       )}
     >
@@ -184,13 +172,9 @@ export function Hero({
   align?: "left" | "center";
 }) {
   return (
-    <Section className={cn("pb-16 pt-20 md:pb-24 md:pt-28", className)}>
+    <Section className={cn("pt-24 pb-16 md:pt-36 md:pb-28", className)}>
       <div
-        className="hero-aurora pointer-events-none absolute inset-x-0 top-0 h-[560px]"
-        aria-hidden="true"
-      />
-      <div
-        className="bg-grid-faint pointer-events-none absolute inset-x-0 top-0 h-[560px]"
+        className="hero-glow pointer-events-none absolute inset-x-0 top-0 h-[640px]"
         aria-hidden="true"
       />
       <Container size="wide" className="relative z-10">
@@ -200,21 +184,15 @@ export function Hero({
             align === "left" && "max-w-3xl",
           )}
         >
-          {eyebrow && (
-            <p className={cn("animate-fade-up mb-5 flex", align === "center" && "justify-center")}>
-              <span className="inline-flex items-center rounded-full border border-accent/20 bg-accent/[0.07] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-soft">
-                {eyebrow}
-              </span>
-            </p>
-          )}
-          <h1 className="animate-fade-up anim-delay-1 font-display text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.03em] text-text-primary sm:text-5xl md:text-[4rem] md:tracking-[-0.035em]">
+          {eyebrow && <p className="section-kicker animate-fade-up mb-5">{eyebrow}</p>}
+          <h1 className="animate-fade-up anim-delay-1 font-display text-[2.55rem] font-semibold leading-[1.03] tracking-[-0.045em] text-text-primary sm:text-[3.65rem] md:text-[4.6rem] md:tracking-[-0.05em]">
             {title}
-            {accent && <span className="text-gradient-accent"> {accent}</span>}
+            {accent && <span className="text-accent"> {accent}</span>}
           </h1>
           {description && (
             <p
               className={cn(
-                "animate-fade-up anim-delay-2 mt-6 text-base leading-8 text-text-secondary md:text-[1.0625rem] md:leading-8",
+                "animate-fade-up anim-delay-2 mt-7 text-base leading-8 text-text-secondary md:text-[1.0625rem] md:leading-8",
                 align === "center" && "mx-auto max-w-2xl",
               )}
             >
@@ -224,7 +202,7 @@ export function Hero({
           {actions && actions.length > 0 && (
             <div
               className={cn(
-                "animate-fade-up anim-delay-3 mt-9 flex flex-col gap-3 sm:flex-row",
+                "animate-fade-up anim-delay-3 mt-10 flex flex-col gap-3 sm:flex-row",
                 align === "center" && "items-center justify-center",
                 align === "left" && "items-stretch sm:items-center",
               )}
@@ -235,6 +213,7 @@ export function Hero({
                   asChild
                   size="lg"
                   variant={action.variant === "secondary" ? "outline" : "default"}
+                  className="h-11 px-7"
                 >
                   <Link href={action.href}>
                     {action.label}
@@ -255,7 +234,7 @@ export function Hero({
             </p>
           )}
         </div>
-        {children && <div className="animate-fade-up anim-delay-4">{children}</div>}
+        {children}
       </Container>
     </Section>
   );
@@ -265,7 +244,7 @@ export function IconChip({ icon: Icon, className }: { icon: ElementType; classNa
   return (
     <div
       className={cn(
-        "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent/15 bg-accent/5 text-accent",
+        "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-gray bg-bg-deep text-accent",
         className,
       )}
     >
@@ -292,12 +271,12 @@ export function MarketingCard({
   return (
     <Component
       className={cn(
-        "shadow-card rounded-xl border border-border-gray p-5",
+        "card-premium rounded-xl border border-border-gray p-5",
         surface === "surface" && "bg-bg-surface",
         surface === "deep" && "bg-bg-deep",
         featured && "surface-gradient-featured border-accent/20",
         interactive &&
-          "hover:shadow-card-hover transition duration-200 hover:-translate-y-0.5 hover:border-accent/25 hover:bg-bg-elevated",
+          "card-interactive hover:-translate-y-px hover:border-accent/35 hover:bg-bg-elevated",
         className,
       )}
     >
@@ -370,9 +349,7 @@ export function TrustBar({
           <div className="flex items-start gap-3">
             {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
             <div className={cn("min-w-0 flex-1", !item.icon && "text-center")}>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-primary">
-                {item.label}
-              </p>
+              <p className="section-kicker text-text-primary">{item.label}</p>
               <p className="mt-2 text-xs leading-5 text-text-secondary">{item.detail}</p>
             </div>
           </div>
@@ -392,7 +369,7 @@ export function StatusPill({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-md border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]",
+        "inline-flex items-center rounded-md border px-2.5 py-1 text-[11px] font-medium tracking-[0.01em]",
         tone === "live" && "border-status-success/20 bg-status-success/5 text-status-success-soft",
         tone === "beta" && "border-status-warning/20 bg-status-warning/5 text-status-warning-soft",
         tone === "planned" && "border-border-gray bg-bg-deep text-text-tertiary",
@@ -418,7 +395,7 @@ const MOCKUP_ANNOTATIONS = [
   {
     title: "The AI only knows what the professor uploads",
     detail:
-      "Syllabus, slides, and rubrics become the assistant's entire world — not the open internet.",
+      "Syllabus, slides, and rubrics become the assistant's entire world, not the open internet.",
   },
   {
     title: "Every answer cites the course",
@@ -442,7 +419,7 @@ export function CourseAssistantMockup({
 }) {
   return (
     <div className={cn("mx-auto max-w-6xl", className)}>
-      <div className="overflow-hidden rounded-2xl border border-border-gray bg-bg-deep shadow-[0_24px_80px_-24px_rgba(0,0,0,0.7),0_12px_40px_-24px_rgba(139,92,246,0.25)]">
+      <div className="showcase-surface overflow-hidden rounded-xl border border-border-gray bg-bg-deep">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-gray bg-bg-surface px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-window-close" />
@@ -458,7 +435,7 @@ export function CourseAssistantMockup({
         </div>
         <div className="grid lg:grid-cols-[260px_minmax(0,1fr)_280px]">
           <aside className="border-b border-border-gray bg-bg-surface/70 p-4 lg:border-b-0 lg:border-r">
-            <p className="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+            <p className="section-kicker mb-3 flex items-center gap-2 text-text-tertiary">
               {annotated && <AnnotationPin number={1} />}
               Course Model
             </p>
@@ -479,9 +456,7 @@ export function CourseAssistantMockup({
           <div className="min-w-0 p-4 md:p-6">
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-                  Student Workspace
-                </p>
+                <p className="section-kicker text-accent">Student Workspace</p>
                 <h3 className="mt-1 text-lg font-semibold tracking-[-0.02em] text-text-primary">
                   The answer stays inside the course.
                 </h3>
@@ -530,7 +505,7 @@ export function CourseAssistantMockup({
           </div>
 
           <aside className="border-t border-border-gray bg-bg-surface p-4 lg:border-l lg:border-t-0">
-            <p className="mb-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+            <p className="section-kicker mb-4 flex items-center gap-2 text-text-tertiary">
               {annotated && <AnnotationPin number={3} />}
               Faculty Controls
             </p>
@@ -590,9 +565,7 @@ export function RoleValueGrid({
           <MarketingCard className="h-full p-6">
             <div className="flex items-center gap-3">
               {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                {item.role}
-              </p>
+              <p className="section-kicker text-accent">{item.role}</p>
             </div>
             <h3 className="mt-5 font-display text-xl font-semibold leading-7 tracking-[-0.02em] text-text-primary">
               {item.promise}
@@ -614,16 +587,12 @@ export function WorkflowSteps({
 }) {
   return (
     <div className={className}>
-      <div
-        className="accent-path-gradient mb-3 hidden h-px w-full opacity-30 md:block"
-        aria-hidden="true"
-      />
       <div className="grid gap-3 md:grid-cols-4">
         {steps.map((item, index) => (
           <Reveal key={item.step} delay={index * 0.08}>
             <MarketingCard surface="deep" className="relative h-full p-5 md:p-6">
               <div className="mb-5 flex items-center justify-between gap-3">
-                <span className="text-gradient-accent font-display text-2xl font-bold tracking-[-0.02em]">
+                <span className="font-display text-xs font-bold text-text-tertiary">
                   {item.step}
                 </span>
                 {item.icon && <IconChip icon={item.icon} className="h-8 w-8" />}
@@ -677,7 +646,7 @@ export function SuiteMap({
   className?: string;
 }) {
   return (
-    <div className={cn("rounded-xl border border-border-gray bg-bg-deep p-5 md:p-7", className)}>
+    <div className={cn("rounded-lg border border-border-gray bg-bg-deep p-5 md:p-7", className)}>
       <div className="grid gap-4 lg:grid-cols-[1fr_220px_1fr] lg:items-center">
         <div className="grid gap-3">
           {items.slice(0, 3).map((item) => (
@@ -693,10 +662,8 @@ export function SuiteMap({
             </FeatureCard>
           ))}
         </div>
-        <div className="rounded-xl border border-accent/20 bg-accent/5 p-5 text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-            One Course Model
-          </p>
+        <div className="rounded-lg border border-accent/20 bg-accent/5 p-5 text-center">
+          <p className="section-kicker text-accent">One Course Model</p>
           <p className="mt-3 text-sm leading-6 text-text-primary">
             Syllabus, lectures, readings, rubrics, policies, and outcomes stay synchronized.
           </p>
@@ -731,20 +698,11 @@ export function CTABand({
 }) {
   return (
     <Section className="py-20 md:py-28" surface="deep">
-      <div className="cta-gradient pointer-events-none absolute inset-0" aria-hidden="true" />
       <Container className="relative z-10">
         <Reveal>
-          <div className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl border border-accent/20 bg-bg-surface/80 px-7 py-14 text-center shadow-2xl backdrop-blur md:px-12 md:py-16">
-            <div
-              className="hero-aurora pointer-events-none absolute inset-x-0 top-0 h-full"
-              aria-hidden="true"
-            />
-            <div
-              className="bg-grid-faint pointer-events-none absolute inset-x-0 top-0 h-full"
-              aria-hidden="true"
-            />
-            <div className="relative z-10">
-              <h2 className="font-display text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] text-text-primary md:text-[2.6rem]">
+          <div className="cta-signal mx-auto max-w-3xl rounded-xl border border-border-gray px-7 py-12 text-center md:px-12">
+            <div>
+              <h2 className="font-display text-[2.1rem] font-semibold leading-[1.08] tracking-[-0.035em] text-text-primary md:text-[3rem]">
                 {title}
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-text-secondary md:text-base">
@@ -776,7 +734,7 @@ export function CTABand({
 /**
  * Side-by-side capability lists for the compare deep-dive pages. Competitor
  * items that read as strengths (the first `leftStrengths`) get a neutral dot;
- * the rest get an X — being honest about what alternatives do well makes the
+ * the rest get an X. Being honest about what alternatives do well makes the
  * EdPilot column more credible, and the icons make the split scannable.
  */
 export function ComparisonGrid({
@@ -971,7 +929,7 @@ export function ProsePage({
 }
 
 /**
- * Accessible FAQ accordion built on native <details>/<summary> — keyboard and
+ * Accessible FAQ accordion built on native <details>/<summary>; keyboard and
  * screen-reader support come from the platform, works with JavaScript
  * disabled, and every answer stays in the server-rendered HTML for SEO.
  */

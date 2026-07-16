@@ -1,22 +1,22 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import Link from 'next/link'
-import { Home, RotateCcw } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Container, PageShell, Section } from '@/components/marketing'
+import { useEffect } from "react";
+import Link from "next/link";
+import { Home, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Container, PageShell, Section } from "@/components/marketing";
 
 export default function Error({
   error,
   reset,
 }: {
-  error: Error & { digest?: string }
-  reset: () => void
+  error: Error & { digest?: string };
+  reset: () => void;
 }) {
   useEffect(() => {
     // Surface the error for monitoring without exposing internals to the user.
-    console.error(error)
-  }, [error])
+    console.error(error);
+  }, [error]);
 
   return (
     <PageShell>
@@ -26,9 +26,7 @@ export default function Error({
           aria-hidden="true"
         />
         <Container size="narrow" className="relative z-10 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">
-            Something went wrong
-          </p>
+          <p className="section-kicker text-accent">Something went wrong</p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.03em] text-text-primary md:text-5xl">
             We hit an unexpected error.
           </h1>
@@ -54,5 +52,5 @@ export default function Error({
         </Container>
       </Section>
     </PageShell>
-  )
+  );
 }

@@ -19,7 +19,7 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-// Display face for headlines — the same family the product app uses, so the
+// Display face for headlines: the same family the product app uses, so the
 // marketing site and app.edpilot.ai read as one brand.
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
