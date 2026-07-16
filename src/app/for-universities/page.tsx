@@ -1,5 +1,5 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
+import type { Metadata } from "next";
+import Link from "next/link";
 import {
   BarChart3,
   Building2,
@@ -12,8 +12,8 @@ import {
   ShieldCheck,
   TrendingUp,
   Users,
-} from 'lucide-react'
-import { BreadcrumbSchema } from '@/components/StructuredData'
+} from "lucide-react";
+import { BreadcrumbSchema } from "@/components/StructuredData";
 import {
   CTABand,
   Container,
@@ -24,98 +24,103 @@ import {
   Section,
   SectionHeader,
   StatBand,
-} from '@/components/marketing'
-import { SIGN_UP_URL } from '@/lib/marketing'
-import { productFacts } from '@/lib/social-proof'
+} from "@/components/marketing";
+import { productFacts } from "@/lib/social-proof";
 
 export const metadata: Metadata = {
-  title: 'For University Leaders: Govern campus AI without inheriting the risk',
+  title: "For University Leaders: Govern campus AI without inheriting the risk",
   description:
-    'Students are already using AI on your courses. EdPilot gives administrators a governed path to campus AI: faculty control, FERPA-aligned data boundaries, adoption visibility, and a rollout that needs no IT project.',
+    "Students are already using AI on your courses. EdPilot gives administrators a governed path to campus AI: faculty control, FERPA-aligned data boundaries, adoption visibility, and a rollout that needs no IT project.",
   keywords:
-    'university AI policy, campus AI governance, FERPA AI, higher education AI administration, institutional AI adoption, provost AI strategy, shadow AI',
-}
+    "university AI policy, campus AI governance, FERPA AI, higher education AI administration, institutional AI adoption, provost AI strategy, shadow AI",
+};
 
 const risks = [
   {
     icon: EyeOff,
-    title: 'No visibility',
+    title: "No visibility",
     description:
-      'Generic chatbots leave no trail. You can’t see what students are asking, what they’re being told, or where it contradicts the course.',
+      "Generic chatbots leave no trail. You can’t see what students are asking, what they’re being told, or where it contradicts the course.",
   },
   {
     icon: Scale,
-    title: 'No governance',
+    title: "No governance",
     description:
-      'Tools adopted classroom-by-classroom mean no consistent policy, no data boundary, and nobody who can answer for it in a review.',
+      "Tools adopted classroom-by-classroom mean no consistent policy, no data boundary, and nobody who can answer for it in a review.",
   },
   {
     icon: Lock,
-    title: 'Unmanaged data',
+    title: "Unmanaged data",
     description:
-      'Student questions and course content flow into consumer tools with terms your institution never approved.',
+      "Student questions and course content flow into consumer tools with terms your institution never approved.",
   },
-]
+];
 
 const shifts = [
   {
     icon: ShieldCheck,
-    title: 'Faculty set the rules',
+    title: "Faculty set the rules",
     description:
-      'Each instructor defines what the assistant knows, how it responds, and where it stops. Governance lives with the course, not a vendor default.',
+      "Each instructor defines what the assistant knows, how it responds, and where it stops. Governance lives with the course, not a vendor default.",
   },
   {
     icon: Eye,
-    title: 'You get visibility',
+    title: "You get visibility",
     description:
-      'See adoption across departments, where students are confused, and where misuse is attempted, before it becomes an integrity case.',
+      "See adoption across departments, where students are confused, and where misuse is attempted, before it becomes an integrity case.",
   },
   {
     icon: BarChart3,
-    title: 'AI becomes a decision, not a leak',
+    title: "AI becomes a decision, not a leak",
     description:
-      'Course-grounded, cited answers replace ungoverned chatbots. Campus AI becomes something you chose and can stand behind.',
+      "Course-grounded, cited answers replace ungoverned chatbots. Campus AI becomes something you chose and can stand behind.",
   },
-]
+];
 
 const signoff = [
   {
     icon: Lock,
-    label: 'FERPA-aligned by design',
-    detail: 'Built around institution-bound course and student data, with public model training off the table.',
+    label: "FERPA-aligned by design",
+    detail:
+      "Built around institution-bound course and student data, with public model training off the table.",
   },
   {
     icon: Building2,
-    label: 'Scoped by institution and course',
-    detail: 'Course materials, student interactions, and deployments stay walled off by institution and course.',
+    label: "Scoped by institution and course",
+    detail:
+      "Course materials, student interactions, and deployments stay walled off by institution and course.",
   },
   {
     icon: FileCheck2,
-    label: 'Procurement-ready answers',
-    detail: 'Clear posture on data handling, retention, accessibility, and LMS status for IT, legal, and privacy review.',
+    label: "Procurement-ready answers",
+    detail:
+      "Clear posture on data handling, retention, accessibility, and LMS status for IT, legal, and privacy review.",
   },
   {
     icon: Users,
-    label: 'Faculty ownership',
-    detail: 'Instructors keep control of course content and AI behavior instead of handing it to a generic layer.',
+    label: "Faculty ownership",
+    detail:
+      "Instructors keep control of course content and AI behavior instead of handing it to a generic layer.",
   },
   {
     icon: TrendingUp,
-    label: 'Adoption you can measure',
-    detail: 'Department-level visibility into where the assistant is used and where students need more support.',
+    label: "Adoption you can measure",
+    detail:
+      "Department-level visibility into where the assistant is used and where students need more support.",
   },
   {
     icon: GraduationCap,
-    label: 'Integrity controls',
-    detail: 'Assessment and homework requests are routed toward hints, practice, or refusal, never completion.',
+    label: "Integrity controls",
+    detail:
+      "Assessment and homework requests are routed toward hints, practice, or refusal, never completion.",
   },
-]
+];
 
 export default function ForUniversitiesPage() {
   const breadcrumbItems = [
-    { name: 'EdPilot', url: 'https://edpilot.ai' },
-    { name: 'For Universities', url: 'https://edpilot.ai/for-universities' },
-  ]
+    { name: "EdPilot", url: "https://edpilot.ai" },
+    { name: "For Universities", url: "https://edpilot.ai/for-universities" },
+  ];
 
   return (
     <PageShell>
@@ -127,8 +132,8 @@ export default function ForUniversitiesPage() {
         accent="Not by accident."
         description="Your students are already using AI on your courses. EdPilot gives administrators a governed path to campus AI: faculty-controlled, FERPA-aligned, and ready for the people who have to sign off."
         actions={[
-          { label: 'Book University Demo', href: '/contact' },
-          { label: 'See Pricing', href: '/pricing', variant: 'secondary' },
+          { label: "Book University Demo", href: "/contact" },
+          { label: "See Pricing", href: "/pricing", variant: "secondary" },
         ]}
       />
 
@@ -171,8 +176,11 @@ export default function ForUniversitiesPage() {
             ))}
           </div>
           <p className="mt-6 text-center text-sm text-text-secondary">
-            Want to see the product behind the governance model?{' '}
-            <Link href="/products" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+            Want to see the product behind the governance model?{" "}
+            <Link
+              href="/products"
+              className="font-semibold text-accent hover:text-accent-soft focus-ring"
+            >
               Explore the product suite
             </Link>
             .
@@ -191,8 +199,11 @@ export default function ForUniversitiesPage() {
               institution, and faculty are teaching with course-grounded AI the same week.
             </p>
             <p className="mt-4 text-sm text-text-secondary">
-              See the launch path on{' '}
-              <Link href="/how-it-works" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+              See the launch path on{" "}
+              <Link
+                href="/how-it-works"
+                className="font-semibold text-accent hover:text-accent-soft focus-ring"
+              >
                 How It Works
               </Link>
               .
@@ -211,12 +222,18 @@ export default function ForUniversitiesPage() {
           />
           <ProofPanel items={signoff} />
           <p className="mt-6 text-center text-sm text-text-secondary">
-            Have a security or procurement review coming up?{' '}
-            <Link href="/contact" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+            Have a security or procurement review coming up?{" "}
+            <Link
+              href="/contact"
+              className="font-semibold text-accent hover:text-accent-soft focus-ring"
+            >
               Talk to our team
-            </Link>{' '}
-            and we&apos;ll walk through our data handling and controls. Comparing options first?{' '}
-            <Link href="/compare" className="font-semibold text-accent hover:text-accent-soft focus-ring">
+            </Link>{" "}
+            and we&apos;ll walk through our data handling and controls. Comparing options first?{" "}
+            <Link
+              href="/compare"
+              className="font-semibold text-accent hover:text-accent-soft focus-ring"
+            >
               See how EdPilot compares
             </Link>
             .
@@ -226,12 +243,12 @@ export default function ForUniversitiesPage() {
 
       <CTABand
         title="Give your campus a governed path to AI."
-        description="Book a walkthrough for university leadership, or start a professor-led pilot on real course materials. No commitment required."
+        description="Book a walkthrough for university leadership, or plan a university-led pilot on real course materials. No commitment required."
         actions={[
-          { label: 'Book University Demo', href: '/contact' },
-          { label: 'Start a Professor Pilot', href: SIGN_UP_URL, variant: 'secondary' },
+          { label: "Book University Demo", href: "/contact" },
+          { label: "Plan a University Pilot", href: "/contact", variant: "secondary" },
         ]}
       />
     </PageShell>
-  )
+  );
 }

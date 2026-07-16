@@ -26,7 +26,7 @@ import {
 export const metadata: Metadata = {
   title: "EdPilot Comparisons - How We Compare to Alternatives",
   description:
-    "See how EdPilot compares to ChatGPT, tutoring platforms, LMS-native AI, and custom in-house builds — capability by capability, for students, faculty, and institutions.",
+    "See how EdPilot compares to ChatGPT, tutoring platforms, LMS-native AI, and custom in-house builds, capability by capability, for students, faculty, and institutions.",
   keywords:
     "EdPilot vs ChatGPT, instructor-controlled AI comparison, course-grounded AI, educational AI",
 };
@@ -90,7 +90,7 @@ export default function ComparePage() {
             <SectionHeader
               eyebrow="The decision matrix"
               title="Nine capabilities. Five options. One honest table."
-              description="We marked the alternatives fairly — including the rows they win. Click any capability to see why it matters and what each option actually does."
+              description="We marked the alternatives fairly, including the rows they win. Click any capability to see why it matters and what each option actually does."
             />
             <Reveal>
               <ComparisonMatrix />
@@ -107,7 +107,7 @@ export default function ComparePage() {
             <SectionHeader
               eyebrow="Deep dives"
               title="The full case, alternative by alternative."
-              description="Each deep dive covers the real scenarios — exam week, rubric changes, procurement review — where the differences stop being theoretical."
+              description="Each deep dive covers the real scenarios: exam week, rubric changes, and procurement review, where the differences stop being theoretical."
             />
             <div className="grid gap-4 md:grid-cols-2">
               {comparisons.map((comparison, index) => {
@@ -125,7 +125,7 @@ export default function ComparePage() {
                           <div className="flex items-start gap-4">
                             <IconChip icon={Icon} className="h-11 w-11 [&_svg]:h-5 [&_svg]:w-5" />
                             <div>
-                              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
+                              <p className="section-kicker text-accent">
                                 Deep dive {String(index + 1).padStart(2, "0")}
                               </p>
                               <h2 className="mt-2 text-xl font-semibold leading-tight tracking-[-0.02em] text-text-primary">

@@ -33,7 +33,7 @@ import { SIGN_UP_URL } from "@/lib/marketing";
 export const metadata: Metadata = {
   title: "How It Works: The Whole Product in Minutes",
   description:
-    "Watch one governed answer happen — faculty rules, course-grounded citations, and learning signals — then see how a university launches EdPilot in days: admin signs up, EdPilot verifies, professors teach the same week.",
+    "Watch one governed answer happen with faculty rules, course-grounded citations, and learning signals. Then see how a university launches EdPilot in days: an admin signs up, EdPilot verifies, and professors teach the same week.",
   keywords:
     "how EdPilot works, EdPilot setup, self-serve university AI, course-grounded AI walkthrough, Canvas integration, FERPA AI teaching assistant",
 };
@@ -148,7 +148,7 @@ export default function HowItWorksPage() {
           <SectionHeader
             eyebrow="Step by step"
             title="What happens when a student asks a question."
-            description="This is the entire product in one interaction. Step through the four stages — the same answer is on the right, and each stage lights up the part it controls."
+            description="This is the entire product in one interaction. Step through the four stages. The same answer is on the right, and each stage highlights the part it controls."
           />
           <Reveal>
             <GovernedAnswerWalkthrough />
@@ -157,15 +157,12 @@ export default function HowItWorksPage() {
       </Section>
 
       <Section id="self-serve-setup" className="py-16 md:py-24" surface="panel">
-        <div className="launch-gradient pointer-events-none absolute inset-0" aria-hidden="true" />
-        <Container size="wide" className="relative z-10">
+        <Container size="wide">
           <div className="grid gap-10 lg:grid-cols-[0.58fr_1.42fr] lg:items-start">
             <div className="lg:sticky lg:top-28">
               <div className="surface-gradient-panel overflow-hidden rounded-lg border border-border-gray shadow-2xl">
                 <div className="border-b border-border-gray p-6 md:p-7">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                    Interactive setup
-                  </p>
+                  <p className="section-kicker text-accent">Interactive setup</p>
                   <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary">
                     Click through the launch path.
                   </h2>
@@ -264,9 +261,7 @@ export default function HowItWorksPage() {
           <div className="overflow-hidden rounded-lg border border-border-gray bg-bg-deep shadow-2xl">
             <div className="grid gap-px bg-border-gray lg:grid-cols-[0.88fr_1.12fr]">
               <div className="surface-gradient-featured p-7 md:p-9">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                  Safe by design
-                </p>
+                <p className="section-kicker text-accent">Safe by design</p>
                 <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary md:text-4xl">
                   Fast to launch, careful with data.
                 </h2>
@@ -293,9 +288,7 @@ export default function HowItWorksPage() {
                     <div className="flex items-start gap-4">
                       <IconChip icon={item.icon} className="h-10 w-10" />
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-primary">
-                          {item.label}
-                        </p>
+                        <p className="section-kicker text-text-primary">{item.label}</p>
                         <p className="mt-2 text-sm leading-6 text-text-secondary">{item.detail}</p>
                       </div>
                     </div>

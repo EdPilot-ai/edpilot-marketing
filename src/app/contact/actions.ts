@@ -25,7 +25,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function sendContactMessage(data: ContactFormData) {
   try {
-    // Honeypot tripped — pretend success so bots don't learn they were caught.
+    // Honeypot tripped: pretend success so bots don't learn they were caught.
     if (data.company && data.company.trim() !== "") {
       return { success: true, message: "Message sent successfully" };
     }
@@ -77,7 +77,7 @@ export async function sendContactMessage(data: ContactFormData) {
   } catch (error) {
     // Log server-side without exposing internals to the client. A thrown error
     // here means the submission was NOT stored (e.g. missing DATABASE_URL in
-    // production), so never report success — point the visitor at email so a
+    // production), so never report success. Point the visitor at email so a
     // real lead is not lost.
     console.error(
       "[Contact] Error processing contact form:",

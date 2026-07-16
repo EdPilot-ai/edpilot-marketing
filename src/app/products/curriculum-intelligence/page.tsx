@@ -171,9 +171,7 @@ export default function CurriculumIntelligencePage() {
           />
           <div className="grid gap-5 lg:grid-cols-[0.9fr_1.25fr_0.9fr] lg:items-center">
             <div className="grid content-start gap-3">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-tertiary">
-                1 · Faculty upload
-              </p>
+              <p className="section-kicker text-text-tertiary">1 · Faculty upload</p>
               {courseModelInputs.map((input) => (
                 <MarketingCard key={input.label} interactive className="p-4 hover:border-accent/25">
                   <div className="flex items-center gap-3">
@@ -194,9 +192,7 @@ export default function CurriculumIntelligencePage() {
               />
               <IconChip icon={Database} className="mx-auto h-16 w-16 [&_svg]:h-7 [&_svg]:w-7" />
               <div className="mt-6 text-center">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                  2 · One Course Model
-                </p>
+                <p className="section-kicker text-accent">2 · One Course Model</p>
                 <h3 className="mt-3 text-2xl font-semibold tracking-[-0.025em] text-text-primary md:text-3xl">
                   Syllabus, lectures, readings, rubrics, policies, and outcomes stay synchronized.
                 </h3>
@@ -206,18 +202,14 @@ export default function CurriculumIntelligencePage() {
                   <div key={signal.label} className="border-t border-border-gray pt-4 text-center">
                     <signal.icon className="mx-auto h-4 w-4 text-accent" aria-hidden="true" />
                     <p className="mt-2 text-xl font-semibold text-text-primary">{signal.value}</p>
-                    <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-text-tertiary">
-                      {signal.label}
-                    </p>
+                    <p className="section-kicker mt-1 text-text-tertiary">{signal.label}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="grid content-start gap-3">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-tertiary">
-                3 · Every tool stays in sync
-              </p>
+              <p className="section-kicker text-text-tertiary">3 · Every tool stays in sync</p>
               {products.map((product) => {
                 const Icon = product.icon;
 
@@ -288,9 +280,7 @@ export default function CurriculumIntelligencePage() {
                     {product.description}
                   </p>
                   <div className="mt-6 border-t border-border-gray pt-5">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
-                      Example Interface
-                    </p>
+                    <p className="section-kicker text-text-tertiary">Example Interface</p>
                     <div className="mt-3 flex items-start gap-3">
                       <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border-gray bg-bg-deep text-accent">
                         {product.status === "Live" ? (

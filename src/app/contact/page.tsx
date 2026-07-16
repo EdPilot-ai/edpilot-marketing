@@ -42,15 +42,15 @@ const initialFormData = {
   timeline: "",
   courseCount: "",
   message: "",
-  company: "", // honeypot — stays empty for humans
+  company: "", // honeypot: stays empty for humans
 };
 
 const intentOptions = [
   { value: "book-demo", label: "Book a university demo", detail: "For teams evaluating rollout." },
   {
     value: "start-pilot",
-    label: "Start a professor pilot",
-    detail: "For a real course-material test.",
+    label: "Plan a university pilot",
+    detail: "For a university-owned course-material evaluation.",
   },
   {
     value: "security-procurement",
@@ -302,7 +302,7 @@ export default function ContactPage() {
     event.preventDefault();
 
     // The native inputs enforce their own `required`, but the custom selects
-    // are not native form controls — validate them on the client so the user
+    // are not native form controls, so validate them on the client so the user
     // gets inline feedback instead of a round-trip rejection toast.
     const nextErrors: Record<string, boolean> = {};
     if (!formData.intent) nextErrors.intent = true;
@@ -361,7 +361,7 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Tell us what you want to launch."
         accent="We will route the rest."
-        description="Demo, professor pilot, security review, or procurement question: send the context once and we will come back with the right next step."
+        description="Demo, university pilot, security review, or procurement question: send the context once and we will come back with the right next step."
         actions={[
           { label: "Start the Form", href: "#contact-form" },
           { label: "Email Support", href: `mailto:${SUPPORT_EMAIL}`, variant: "secondary" },
@@ -384,8 +384,8 @@ export default function ContactPage() {
                 icon: Rocket,
                 title: "Start a pilot",
                 description:
-                  "For professors who want to test EdPilot with real course materials and faculty controls.",
-                meta: "Course sample",
+                  "For university teams who want to evaluate EdPilot with real course materials and faculty controls.",
+                meta: "University pilot",
               },
               {
                 icon: HelpCircle,
@@ -401,7 +401,7 @@ export default function ContactPage() {
               >
                 <div className="mb-5 flex items-start justify-between gap-4">
                   <IconChip icon={item.icon} className="h-10 w-10" />
-                  <span className="rounded-md border border-border-gray bg-bg-deep px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-tertiary">
+                  <span className="rounded-md border border-border-gray bg-bg-deep px-2.5 py-1 text-[10px] font-medium tracking-[0.01em] text-text-tertiary">
                     {item.meta}
                   </span>
                 </div>
@@ -451,7 +451,7 @@ export default function ContactPage() {
                         <item.icon className="h-4 w-4" aria-hidden="true" />
                       </div>
                       <div>
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
+                        <p className="section-kicker text-accent">
                           Step {String(index + 1).padStart(2, "0")}
                         </p>
                         <h3 className="mt-1 text-sm font-semibold text-text-primary">
@@ -493,7 +493,7 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Honeypot — hidden from users + assistive tech; bots fill it. */}
+                  {/* Honeypot: hidden from users + assistive tech; bots fill it. */}
                   <div
                     aria-hidden="true"
                     className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden"

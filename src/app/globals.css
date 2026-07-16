@@ -13,59 +13,59 @@
     --bg-page: #141416;
 
     /* Card/Surface - Slightly Lifted (design-system canonical) */
-    --bg-surface: #18181B;
+    --bg-surface: #18181b;
 
-    /* Surface elevated — hover fills, inputs on cards */
+    /* Surface elevated: hover fills, inputs on cards */
     --bg-elevated: #222228;
 
-    /* Deepest surface — recessed panels, rails, inset wells (below bg-page) */
-    --bg-deep: #0F0F12;
+    /* Deepest surface: recessed panels, rails, inset wells (below bg-page) */
+    --bg-deep: #0f0f12;
 
     /* Borders/Dividers - Subtle (design-system canonical) */
-    --border-gray: #27272A;
+    --border-gray: #27272a;
 
     /* Text Primary - Warm Off-White */
-    --text-primary: #EDEDEF;
+    --text-primary: #ededef;
 
-    /* Text Secondary - Muted — raised from #8B8B96 (~4.3:1) to #9D9DA8 (~5.1:1) for WCAG 1.4.3 AA */
-    --text-secondary: #9D9DA8;
+    /* Text Secondary - Muted: raised from #8B8B96 (~4.3:1) to #9D9DA8 (~5.1:1) for WCAG 1.4.3 AA */
+    --text-secondary: #9d9da8;
 
     /* Accent Primary - Refined Violet */
-    --accent-hex: #8B5CF6;
+    --accent-hex: #8b5cf6;
 
-    /* Accent soft — used for hover text where the interaction intentionally lightens */
-    --accent-soft-hex: #A78BFA;
+    /* Accent soft: used for hover text where the interaction intentionally lightens */
+    --accent-soft-hex: #a78bfa;
 
     /* Accent Hover - Deeper Violet */
-    --accent-hover-hex: #7C3AED;
-    --accent-press-hex: #6D28D9;
+    --accent-hover-hex: #7c3aed;
+    --accent-press-hex: #6d28d9;
 
-    /* Brand mark facets — asset-only violets used by the canonical logo */
-    --brand-mark-wing-light: #C4B5FD;
-    --brand-mark-fuse: #4C1D95;
-    --brand-mark-fuse-deep: #2E1065;
+    /* Brand mark facets: asset-only violets used by the canonical logo */
+    --brand-mark-wing-light: #c4b5fd;
+    --brand-mark-fuse: #4c1d95;
+    --brand-mark-fuse-deep: #2e1065;
 
     /* Semantic non-palette colors that appear as state or brand affordances */
-    --brand-linkedin: #0A66C2;
-    --status-success: #22C55E;
-    --status-success-soft: #86EFAC;
-    --status-info: #38BDF8;
-    --status-warning: #FBBF24;
-    --status-warning-soft: #FDE68A;
-    --status-danger: #F87171;
-    --window-close: #FF5F57;
-    --window-minimize: #FEBC2E;
-    --window-maximize: #28C840;
+    --brand-linkedin: #0a66c2;
+    --status-success: #22c55e;
+    --status-success-soft: #86efac;
+    --status-info: #38bdf8;
+    --status-warning: #fbbf24;
+    --status-warning-soft: #fde68a;
+    --status-danger: #f87171;
+    --window-close: #ff5f57;
+    --window-minimize: #febc2e;
+    --window-maximize: #28c840;
 
-    /* Professor workspace tokens — used by the class-page sidebar/topbar.
+    /* Professor workspace tokens: used by the class-page sidebar/topbar.
        These intentionally run slightly darker than the main dashboard so
        the workspace rail reads as chrome, not content. */
-    --ws-rail: #0F0F12;
-    --ws-rail-border: #27272A;
+    --ws-rail: #0f0f12;
+    --ws-rail-border: #27272a;
     --ws-rail-hover: #131316;
-    --ws-rail-active: #18181B;
-    --text-muted: #6c6c78;
-    --text-faint: #3d3d45;
+    --ws-rail-active: #18181b;
+    --text-muted: #85858f;
+    --text-faint: #484850;
 
     /* shadcn/ui variables (mapped to our colors) */
     --background: 240 6% 8%;
@@ -79,7 +79,7 @@
     --secondary: 240 4% 12%;
     --secondary-foreground: 240 5% 92%;
     --muted: 240 4% 12%;
-    /* Raised from 58% to 65% lightness to achieve ~5:1 contrast against --card (#1C1C1F) — WCAG 1.4.3 AA */
+    /* Raised from 58% to 65% lightness to achieve ~5:1 contrast against --card (#1C1C1F), for WCAG 1.4.3 AA */
     --muted-foreground: 240 5% 65%;
     --accent: 263 70% 60%;
     --accent-foreground: 240 5% 92%;
@@ -89,7 +89,7 @@
     --input: 240 5% 18%;
     --ring: 263 70% 60%;
     /* 12px base radius (rounded-lg). Cards use xl (16px), hero surfaces 2xl
-       (20px) — softer, more contemporary shape language than the old 8px. */
+       (20px), for softer, more contemporary shape language than the old 8px. */
     --radius: 0.75rem;
   }
 }
@@ -109,7 +109,7 @@
   }
 
   /*
-   * Themeable color overrides — re-point the Tailwind color utilities at the
+   * Themeable color overrides: re-point the Tailwind color utilities at the
    * CSS custom properties so they respond to prefers-contrast (high-contrast)
    * theming, which Tailwind's static-hex utilities can't do on their own.
    *
@@ -260,42 +260,27 @@
 }
 
 @layer components {
+  .marketing-canvas {
+    background: var(--bg-page);
+  }
+
+  .section-kicker {
+    color: var(--accent-soft-hex);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.015em;
+    line-height: 1.35;
+  }
+
   .hero-glow {
-    background: radial-gradient(ellipse at top, rgb(139 92 246 / 0.10), rgb(20 20 22 / 0) 62%);
-  }
-
-  /* Layered aurora — violet core with a cooler sky edge, anchored to the top
-     of the hero. Kept below 0.16 alpha so text contrast is never affected. */
-  .hero-aurora {
-    background:
-      radial-gradient(38% 42% at 24% 8%, rgb(139 92 246 / 0.14), transparent 70%),
-      radial-gradient(30% 36% at 76% 4%, rgb(56 189 248 / 0.08), transparent 70%),
-      radial-gradient(60% 55% at 50% 0%, rgb(139 92 246 / 0.09), transparent 75%);
-  }
-
-  /* Faint blueprint grid, masked so it dissolves before content density
-     picks up. Reads as "engineered", not decorative. */
-  .bg-grid-faint {
-    background-image:
-      linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 0%, black 25%, transparent 78%);
-    mask-image: radial-gradient(ellipse 85% 65% at 50% 0%, black 25%, transparent 78%);
-  }
-
-  /* Headline accent: lavender to violet, clipped to text. Used for the
-     emphasized phrase inside Hero headlines. */
-  .text-gradient-accent {
-    background: linear-gradient(120deg, #c4b5fd 10%, #a78bfa 45%, #8b5cf6 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    background: radial-gradient(ellipse 52% 36% at 50% 0%, rgb(139 92 246 / 0.12), transparent 76%);
   }
 
   /* Violet-tinted resting/hover shadows for interactive cards. */
   .shadow-card {
-    box-shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 1px 2px rgb(0 0 0 / 0.4);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.03) inset,
+      0 1px 2px rgb(0 0 0 / 0.4);
   }
 
   .shadow-card-hover {
@@ -303,6 +288,32 @@
       0 1px 0 rgb(255 255 255 / 0.04) inset,
       0 12px 32px -12px rgb(0 0 0 / 0.6),
       0 8px 24px -16px rgb(139 92 246 / 0.25);
+  }
+
+  .card-premium {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.035),
+      0 12px 30px rgb(0 0 0 / 0.06);
+  }
+
+  .card-interactive {
+    transition:
+      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 180ms ease,
+      background-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .card-interactive:hover {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.055),
+      0 18px 36px rgb(0 0 0 / 0.14);
+  }
+
+  .showcase-surface {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.06),
+      0 22px 56px rgb(0 0 0 / 0.22);
   }
 
   .hero-glow-subtle {
@@ -318,36 +329,36 @@
   }
 
   .surface-gradient-featured {
-    background: linear-gradient(135deg, rgb(139 92 246 / 0.075), rgb(24 24 27 / 0.97) 48%, rgb(15 15 18));
+    background: linear-gradient(
+      135deg,
+      rgb(139 92 246 / 0.075),
+      rgb(24 24 27 / 0.97) 48%,
+      rgb(15 15 18)
+    );
   }
 
   .surface-gradient-proof {
     background: linear-gradient(135deg, rgb(255 255 255 / 0.035), rgb(15 15 18 / 0.96));
   }
 
-  .cta-gradient {
-    background: linear-gradient(180deg, rgb(15 15 18), rgb(18 16 24 / 0.88), rgb(15 15 18));
-  }
-
-  .launch-gradient {
-    background: linear-gradient(180deg, rgb(139 92 246 / 0.045), rgb(24 24 27 / 0) 46%);
+  .cta-signal {
+    background: rgb(24 24 27 / 0.96);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.045),
+      0 18px 48px rgb(0 0 0 / 0.18);
   }
 
   .accent-path-gradient {
-    background: linear-gradient(90deg, var(--accent-hex), var(--status-info), var(--status-success));
+    background: linear-gradient(
+      90deg,
+      var(--accent-hex),
+      var(--status-info),
+      var(--status-success)
+    );
   }
 
   .accent-path-gradient-short {
     background: linear-gradient(90deg, var(--accent-hex), var(--status-info));
-  }
-
-  .launchpad-border-gradient {
-    background: linear-gradient(
-      135deg,
-      rgb(139 92 246 / 0.78),
-      rgb(56 189 248 / 0.28),
-      rgb(34 197 94 / 0.24)
-    );
   }
 }
 
@@ -392,7 +403,7 @@ html {
 }
 
 /*
- * Hero entrance — CSS-only staggered fade-up so above-the-fold content
+ * Hero entrance: CSS-only staggered fade-up so above-the-fold content
  * animates without JavaScript (framer-motion reveals are reserved for
  * below-the-fold sections). `both` keeps elements hidden until their delay
  * elapses; the global prefers-reduced-motion rule above zeroes the duration.
@@ -412,11 +423,21 @@ html {
   animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.anim-delay-1 { animation-delay: 0.08s; }
-.anim-delay-2 { animation-delay: 0.16s; }
-.anim-delay-3 { animation-delay: 0.24s; }
-.anim-delay-4 { animation-delay: 0.32s; }
-.anim-delay-5 { animation-delay: 0.4s; }
+.anim-delay-1 {
+  animation-delay: 0.08s;
+}
+.anim-delay-2 {
+  animation-delay: 0.16s;
+}
+.anim-delay-3 {
+  animation-delay: 0.24s;
+}
+.anim-delay-4 {
+  animation-delay: 0.32s;
+}
+.anim-delay-5 {
+  animation-delay: 0.4s;
+}
 
 /* Gradient backgrounds */
 .gradient-accent {
@@ -430,7 +451,7 @@ html {
 }
 
 /*
- * WCAG 2.3.3 / DOJ Title II — Respect the user's motion preference.
+ * WCAG 2.3.3 / DOJ Title II: Respect the user's motion preference.
  * Framer Motion reads this at runtime; this CSS block ensures that
  * any non-Motion transitions/animations also pause.
  */
@@ -493,7 +514,7 @@ html {
 /*
  * SKELETON SYSTEM
  *
- * skeleton-shimmer: traveling highlight band — far more perceptible than
+ * skeleton-shimmer: traveling highlight band, far more perceptible than
  * flat animate-pulse on the dark #1C1C1F surface used across the dashboard.
  * The gradient travels left-to-right at 1.8s with ease-in-out so it feels
  * like motion, not noise.
@@ -509,20 +530,29 @@ html {
  */
 
 @keyframes skeleton-shimmer {
-  0%   { background-position: 200% center; }
-  100% { background-position: -200% center; }
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
 }
 
 @keyframes soft-pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 
 .skeleton-shimmer {
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.04) 0%,
-    rgba(255, 255, 255, 0.10) 40%,
+    rgba(255, 255, 255, 0.1) 40%,
     rgba(255, 255, 255, 0.04) 80%
   );
   background-size: 200% 100%;
@@ -544,7 +574,9 @@ html {
 }
 .card-lift:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .focus-ring {
@@ -560,7 +592,7 @@ html {
  *
  * streaming-fadein: applied to each new word-batch span in StreamingMessage.
  * Very short (160ms) so it reads as "appearing" rather than "animating".
- * Opacity-only — no transform — prevents any layout shift during streaming.
+ * Opacity-only, with no transform, prevents any layout shift during streaming.
  *
  * streaming-cursor: a CSS-only blinking block cursor rendered via ::after.
  * Using pure CSS keeps the cursor independent of React's render cycle;
@@ -569,13 +601,22 @@ html {
  * ──────────────────────────────────────────────────────────────────────────*/
 
 @keyframes streaming-fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes streaming-cursor-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .streaming-new-words {
@@ -583,7 +624,7 @@ html {
   animation: streaming-fadein 200ms ease-out both;
 }
 
-/* Inline cursor — sits flush after the last rendered character */
+/* Inline cursor: sits flush after the last rendered character */
 .streaming-cursor {
   display: inline-block;
   width: 2px;
@@ -606,11 +647,11 @@ html {
 }
 
 /*
- * WCAG 1.4.11 / DOJ Title II — High-Contrast support.
+ * WCAG 1.4.11 / DOJ Title II: High-Contrast support.
  *
  * When the user's OS or browser reports prefers-contrast: more, we:
  *   1. Raise all CSS custom-property colors to pure-white text on
- *      near-black backgrounds (minimum 7:1 ratio — AAA level).
+ *      near-black backgrounds (minimum 7:1 ratio, AAA level).
  *   2. Replace semi-transparent Tailwind utility values with solid
  *      equivalents so borders and surfaces are always visible.
  *   3. Keep focus rings at 3px and force them to solid white/black
@@ -634,10 +675,10 @@ html {
     --bg-surface: #111111;
     --bg-deep: #0a0a0a;
 
-    /* Borders — fully opaque, visible */
+    /* Borders: fully opaque, visible */
     --border-gray: #888888;
 
-    /* Accent — shift to a brighter violet that clears 4.5:1 on black */
+    /* Accent: shift to a brighter violet that clears 4.5:1 on black */
     --accent: #c084fc;
     --accent-hover-hex: #a855f7;
     --accent-hex: #c084fc;
@@ -687,7 +728,7 @@ html {
     border-color: #777777 !important;
   }
 
-  /* Muted text — ensure visibility */
+  /* Muted text: ensure visibility */
   [class*="text-white/40"],
   [class*="text-white/30"] {
     color: #bbbbbb !important;
@@ -710,12 +751,12 @@ html {
     background: #1a1a1a !important;
   }
 
-  /* Progress bars — ensure fill color is visible against track */
+  /* Progress bars: ensure fill color is visible against track */
   [role="progressbar"] {
     outline: 1px solid #888888;
   }
 
-  /* Scrollbar — make it visible */
+  /* Scrollbar: make it visible */
   ::-webkit-scrollbar-thumb {
     background: #888888;
   }

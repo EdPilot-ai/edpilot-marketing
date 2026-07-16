@@ -1,10 +1,10 @@
-import { type NeonQueryFunction } from '@neondatabase/serverless'
-import { getSql } from '@/lib/db'
+import { type NeonQueryFunction } from "@neondatabase/serverless";
+import { getSql } from "@/lib/db";
 
 /**
  * Newsletter subscriber storage backed by Vercel Postgres (Neon).
  */
-let schemaReady: Promise<void> | null = null
+let schemaReady: Promise<void> | null = null;
 
 /**
  * Create the subscribers table on first use. Cached for the lifetime of the
@@ -21,14 +21,14 @@ function ensureSchema(sql: NeonQueryFunction<false, false>): Promise<void> {
         subscribed_at TIMESTAMPTZ NOT NULL DEFAULT now(),
         unsubscribed_at TIMESTAMPTZ
       )
-    `.then(() => undefined)
+    `.then(() => undefined);
 
     // If the DDL fails, clear the cache so a later request can retry.
     schemaReady.catch(() => {
-      schemaReady = null
-    })
+      schemaReady = null;
+    });
   }
-  return schemaReady
+  return schemaReady;
 }
 
 /**
@@ -45,25 +45,25 @@ export async function saveNewsletterSubscriber(
   email: string,
   source: string,
 ): Promise<{ stored: boolean }> {
-  const sql = getSql()
+  const sql = getSql();
 
   if (!sql) {
     // No database configured. In production this is a misconfiguration we must
-    // surface — never pretend a subscription was stored when it wasn't.
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error('DATABASE_URL is not configured')
+    // surface: never pretend a subscription was stored when it wasn't.
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("DATABASE_URL is not configured");
     }
     // Development: allow the happy path so the UI can be tested without a DB.
-    console.warn('[Newsletter] No DATABASE_URL set; skipping storage (development mode).')
-    return { stored: false }
+    console.warn("[Newsletter] No DATABASE_URL set; skipping storage (development mode).");
+    return { stored: false };
   }
 
-  await ensureSchema(sql)
+  await ensureSchema(sql);
   await sql`
     INSERT INTO newsletter_subscribers (email, source)
     VALUES (${email}, ${source})
     ON CONFLICT (email) DO NOTHING
-  `
+  `;
 
-  return { stored: true }
+  return { stored: true };
 }

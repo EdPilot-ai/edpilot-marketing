@@ -4,7 +4,7 @@ import type { Testimonial } from "@/lib/social-proof";
 
 /**
  * A row of headline numbers. Pass only TRUE product facts (see
- * lib/social-proof.ts) — this is honest proof that doesn't require a customer
+ * lib/social-proof.ts); this is honest proof that doesn't require a customer
  * reference.
  */
 export function StatBand({
@@ -24,12 +24,10 @@ export function StatBand({
       {items.map((item) => (
         <div key={item.label} className="bg-bg-deep p-6 text-center md:p-7">
           <dt className="sr-only">{item.label}</dt>
-          <dd className="text-gradient-accent font-display text-3xl font-semibold tracking-[-0.03em] md:text-4xl">
+          <dd className="font-display text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">
             {item.value}
           </dd>
-          <p className="mt-2.5 text-[11px] font-medium uppercase leading-5 tracking-[0.14em] text-text-tertiary">
-            {item.label}
-          </p>
+          <p className="section-kicker mt-2.5 leading-5 text-text-tertiary">{item.label}</p>
         </div>
       ))}
     </dl>
@@ -37,7 +35,7 @@ export function StatBand({
 }
 
 /**
- * An honest horizontal strip of positioning statements — used in place of
+ * An honest horizontal strip of positioning statements, used in place of
  * customer logos until real ones exist. These are claims about how the product
  * is built, not fabricated social proof.
  */
@@ -50,10 +48,7 @@ export function TrustStrip({ items, className }: { items: string[]; className?: 
       )}
     >
       {items.map((item) => (
-        <span
-          key={item}
-          className="text-xs font-semibold uppercase tracking-[0.16em] text-text-tertiary"
-        >
+        <span key={item} className="section-kicker text-text-tertiary">
           {item}
         </span>
       ))}

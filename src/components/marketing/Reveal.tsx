@@ -10,7 +10,7 @@ import type { ReactNode } from "react";
  * provider in the root layout, and `MotionConfig reducedMotion="user"` turns
  * the whole thing off for users who prefer reduced motion.
  *
- * Above-the-fold hero content deliberately does NOT use this — it animates
+ * Above-the-fold hero content deliberately does NOT use this; it animates
  * with the CSS-only `animate-fade-up` utility so first paint never depends
  * on JavaScript.
  */

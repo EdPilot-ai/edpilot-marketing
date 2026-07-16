@@ -1,25 +1,25 @@
-import { type NeonQueryFunction } from '@neondatabase/serverless'
-import { getSql } from '@/lib/db'
+import { type NeonQueryFunction } from "@neondatabase/serverless";
+import { getSql } from "@/lib/db";
 
 /**
  * Contact form submission storage backed by Vercel Postgres (Neon).
  */
 export interface ContactSubmissionRecord {
-  firstName: string
-  lastName: string
-  email: string
-  role: string
-  intent: string
-  institution: string
-  department: string
-  lms: string
-  timeline: string
-  courseCount: string
-  message: string
-  source: string
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  intent: string;
+  institution: string;
+  department: string;
+  lms: string;
+  timeline: string;
+  courseCount: string;
+  message: string;
+  source: string;
 }
 
-let schemaReady: Promise<void> | null = null
+let schemaReady: Promise<void> | null = null;
 
 /**
  * Create the submissions table on first use. Cached for the lifetime of the
@@ -45,14 +45,14 @@ function ensureSchema(sql: NeonQueryFunction<false, false>): Promise<void> {
         source TEXT,
         submitted_at TIMESTAMPTZ NOT NULL DEFAULT now()
       )
-    `.then(() => undefined)
+    `.then(() => undefined);
 
     // If the DDL fails, clear the cache so a later request can retry.
     schemaReady.catch(() => {
-      schemaReady = null
-    })
+      schemaReady = null;
+    });
   }
-  return schemaReady
+  return schemaReady;
 }
 
 /**
@@ -67,20 +67,20 @@ function ensureSchema(sql: NeonQueryFunction<false, false>): Promise<void> {
 export async function saveContactSubmission(
   record: ContactSubmissionRecord,
 ): Promise<{ stored: boolean }> {
-  const sql = getSql()
+  const sql = getSql();
 
   if (!sql) {
     // No database configured. In production this is a misconfiguration we must
-    // surface — never tell the visitor the message was delivered when it wasn't.
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error('DATABASE_URL is not configured')
+    // surface: never tell the visitor the message was delivered when it wasn't.
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("DATABASE_URL is not configured");
     }
     // Development: allow the happy path so the UI can be tested without a DB.
-    console.warn('[Contact] No DATABASE_URL set; skipping storage (development mode).')
-    return { stored: false }
+    console.warn("[Contact] No DATABASE_URL set; skipping storage (development mode).");
+    return { stored: false };
   }
 
-  await ensureSchema(sql)
+  await ensureSchema(sql);
   await sql`
     INSERT INTO contact_submissions (
       first_name, last_name, email, role, intent, institution,
@@ -91,7 +91,7 @@ export async function saveContactSubmission(
       ${record.intent}, ${record.institution}, ${record.department}, ${record.lms},
       ${record.timeline}, ${record.courseCount}, ${record.message}, ${record.source}
     )
-  `
+  `;
 
-  return { stored: true }
+  return { stored: true };
 }

@@ -1,5 +1,5 @@
 /**
- * BrandMark — design-system canonical EdPilot logo.
+ * BrandMark: design-system canonical EdPilot logo.
  *
  * A three-facet paper-airplane dart pointing up-right:
  *   • Top wing in violet gradient catching light
@@ -7,32 +7,32 @@
  *   • Hairline spine reads as the paper fold
  *
  * Use this everywhere the brand mark appears (Navbar, Footer, auth pages,
- * empty states). Do NOT inline a fresh SVG — it'll drift from the system.
+ * empty states). Do NOT inline a fresh SVG; it'll drift from the system.
  *
  * The component generates unique gradient IDs per instance so multiple
  * BrandMarks on one page don't collide.
  */
 
-import { useId } from 'react'
-import { designTokens } from '@/lib/design-tokens'
+import { useId } from "react";
+import { designTokens } from "@/lib/design-tokens";
 
-type Variant = 'gradient' | 'mono'
+type Variant = "gradient" | "mono";
 
 export function BrandMark({
   size = 28,
-  variant = 'gradient',
+  variant = "gradient",
   className,
 }: {
   /** Width in px. Height is derived from the 100×90 viewBox. */
-  size?: number
+  size?: number;
   /** `gradient` for normal use, `mono` (currentColor) for stamps on tiles. */
-  variant?: Variant
-  className?: string
+  variant?: Variant;
+  className?: string;
 }) {
-  const id = useId().replace(/:/g, '')
-  const height = (size * 90) / 100
+  const id = useId().replace(/:/g, "");
+  const height = (size * 90) / 100;
 
-  if (variant === 'mono') {
+  if (variant === "mono") {
     return (
       <svg
         width={size}
@@ -54,7 +54,7 @@ export function BrandMark({
           fill="none"
         />
       </svg>
-    )
+    );
   }
 
   return (
@@ -89,5 +89,5 @@ export function BrandMark({
         fill="none"
       />
     </svg>
-  )
+  );
 }
