@@ -1,7 +1,7 @@
 "use server";
 
 import { SUPPORT_EMAIL } from "@/lib/marketing";
-import { saveContactSubmission } from "@/lib/contact-store";
+import { submitContactIntake } from "@/lib/contact-intake";
 
 interface ContactFormData {
   firstName: string;
@@ -55,7 +55,7 @@ export async function sendContactMessage(data: ContactFormData) {
       return { success: false, error: `Message must be ${MAX_MESSAGE_LENGTH} characters or fewer` };
     }
 
-    await saveContactSubmission({
+    await submitContactIntake({
       firstName,
       lastName,
       email,
@@ -68,6 +68,7 @@ export async function sendContactMessage(data: ContactFormData) {
       courseCount,
       message,
       source: "edpilot-marketing",
+      submittedAt: new Date().toISOString(),
     });
 
     return {
@@ -76,9 +77,8 @@ export async function sendContactMessage(data: ContactFormData) {
     };
   } catch (error) {
     // Log server-side without exposing internals to the client. A thrown error
-    // here means the submission was NOT stored (e.g. missing DATABASE_URL in
-    // production), so never report success. Point the visitor at email so a
-    // real lead is not lost.
+    // here means contact-intake did not confirm durable storage, so never report
+    // success. Point the visitor at email so a real lead is not lost.
     console.error(
       "[Contact] Error processing contact form:",
       error instanceof Error ? error.message : String(error),
