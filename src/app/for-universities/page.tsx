@@ -15,17 +15,22 @@ import {
 } from "lucide-react";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import {
+  ActionControls,
   CTABand,
   Container,
+  EvaluatingStrip,
   FeatureCard,
   Hero,
+  MarketingCard,
   PageShell,
   ProofPanel,
+  Reveal,
   Section,
   SectionHeader,
   StatBand,
 } from "@/components/marketing";
-import { productFacts } from "@/lib/social-proof";
+import { evaluatingInstitutions, productFacts } from "@/lib/social-proof";
+import { SIGN_UP_URL } from "@/lib/marketing";
 
 export const metadata: Metadata = {
   title: "For University Leaders: Govern campus AI without inheriting the risk",
@@ -132,10 +137,16 @@ export default function ForUniversitiesPage() {
         accent="Not by accident."
         description="Your students are already using AI on your courses. EdPilot gives administrators a governed path to campus AI: faculty-controlled, FERPA-aligned, and ready for the people who have to sign off."
         actions={[
-          { label: "Book University Demo", href: "/contact" },
-          { label: "See Pricing", href: "/pricing", variant: "secondary" },
+          { label: "Plan a University Pilot", href: SIGN_UP_URL },
+          {
+            label: "Prefer a walkthrough first? Book a demo",
+            href: "/contact",
+            variant: "link",
+          },
         ]}
-      />
+      >
+        <EvaluatingStrip institutions={evaluatingInstitutions} className="mt-14" />
+      </Hero>
 
       <Section className="py-20 md:py-28">
         <Container>
@@ -154,6 +165,72 @@ export default function ForUniversitiesPage() {
               />
             ))}
           </div>
+        </Container>
+      </Section>
+
+      <Section className="py-20 md:py-28" surface="deep">
+        <Container>
+          <SectionHeader
+            eyebrow="The cost of inaction"
+            title="The cost of ungoverned AI, in numbers."
+            description="These are third-party findings, not our marketing math. Each one is a bill your institution is already paying, just not on a line item you can see."
+          />
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              {
+                kind: "Integrity workload",
+                stat: "75%",
+                claim:
+                  "of faculty have already encountered generative-AI plagiarism. Every case is hours of review, documentation, and meetings.",
+                source: "Frontiers in Education, 2025",
+              },
+              {
+                kind: "Faculty time",
+                stat: "Half",
+                claim:
+                  "of students already ask AI questions like a tutor. Those questions are being answered somewhere, just not by anything your faculty can see.",
+                source: "Inside Higher Ed, 2025",
+              },
+              {
+                kind: "Policy exposure",
+                stat: "38%",
+                claim:
+                  "of students say their institution provides AI tools. The other 62% are using consumer tools on your coursework, with terms you never approved.",
+                source: "HEPI, 2026",
+              },
+            ].map((block, index) => (
+              <Reveal key={block.kind} delay={index * 0.08} className="h-full">
+                <MarketingCard surface="surface" className="flex h-full flex-col p-6 md:p-7">
+                  <p className="section-kicker text-accent">{block.kind}</p>
+                  <p className="mt-4 font-display text-4xl font-semibold tracking-[-0.03em] text-text-primary md:text-5xl">
+                    {block.stat}
+                  </p>
+                  <p className="mt-4 flex-1 text-sm leading-7 text-text-secondary">{block.claim}</p>
+                  <p className="mt-4 border-t border-border-gray pt-3 text-[11px] leading-4 text-text-tertiary">
+                    {block.source}
+                  </p>
+                </MarketingCard>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-10 text-center">
+            <p className="mx-auto max-w-2xl text-[15px] leading-7 text-text-secondary md:text-base">
+              EdPilot turns that leak into a decision you own, in the same week, not next semester.
+            </p>
+            <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <ActionControls
+                actions={[
+                  { label: "Plan a University Pilot", href: SIGN_UP_URL },
+                  {
+                    label: "Prefer a walkthrough first? Book a demo",
+                    href: "/contact",
+                    variant: "link",
+                  },
+                ]}
+                buttonClassName="h-11 px-7"
+              />
+            </div>
+          </Reveal>
         </Container>
       </Section>
 
@@ -243,10 +320,14 @@ export default function ForUniversitiesPage() {
 
       <CTABand
         title="Give your campus a governed path to AI."
-        description="Book a walkthrough for university leadership, or plan a university-led pilot on real course materials. No commitment required."
+        description="Plan a university-led pilot on real course materials, or book a walkthrough for university leadership. No commitment required."
         actions={[
-          { label: "Book University Demo", href: "/contact" },
-          { label: "Plan a University Pilot", href: "/contact", variant: "secondary" },
+          { label: "Plan a University Pilot", href: SIGN_UP_URL },
+          {
+            label: "Prefer a walkthrough first? Book a demo",
+            href: "/contact",
+            variant: "link",
+          },
         ]}
       />
     </PageShell>

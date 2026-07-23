@@ -9,8 +9,60 @@ import { SIGN_UP_URL } from "@/lib/marketing";
 type Action = {
   label: string;
   href: string;
-  variant?: "primary" | "secondary";
+  /**
+   * primary   → filled violet button; the one clear action at a decision point.
+   * secondary → outline button.
+   * link      → quiet inline text link with an arrow, used to demote a second
+   *             CTA (e.g. "Book a demo") beneath a single primary action.
+   */
+  variant?: "primary" | "secondary" | "link";
 };
+
+/**
+ * Shared renderer for a row of CTAs. Keeps Hero, CTABand, and any inline
+ * section CTA in lockstep so the "one primary button + quiet secondary link"
+ * hierarchy is consistent site-wide. Wrap in a flex row at the call site.
+ */
+export function ActionControls({
+  actions,
+  buttonClassName,
+}: {
+  actions: Action[];
+  buttonClassName?: string;
+}) {
+  return (
+    <>
+      {actions.map((action) =>
+        action.variant === "link" ? (
+          <Link
+            key={action.href + action.label}
+            href={action.href}
+            className="group inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg px-2 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary focus-ring"
+          >
+            {action.label}
+            <ArrowRight
+              className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </Link>
+        ) : (
+          <Button
+            key={action.href + action.label}
+            asChild
+            size="lg"
+            variant={action.variant === "secondary" ? "outline" : "default"}
+            className={buttonClassName}
+          >
+            <Link href={action.href}>
+              {action.label}
+              {action.variant !== "secondary" && <ArrowRight aria-hidden="true" />}
+            </Link>
+          </Button>
+        ),
+      )}
+    </>
+  );
+}
 
 export function PageShell({ children, className }: { children: ReactNode; className?: string }) {
   return (
@@ -207,20 +259,7 @@ export function Hero({
                 align === "left" && "items-stretch sm:items-center",
               )}
             >
-              {actions.map((action) => (
-                <Button
-                  key={action.href + action.label}
-                  asChild
-                  size="lg"
-                  variant={action.variant === "secondary" ? "outline" : "default"}
-                  className="h-11 px-7"
-                >
-                  <Link href={action.href}>
-                    {action.label}
-                    {action.variant !== "secondary" && <ArrowRight aria-hidden="true" />}
-                  </Link>
-                </Button>
-              ))}
+              <ActionControls actions={actions} buttonClassName="h-11 px-7" />
             </div>
           )}
           {note && (
@@ -709,19 +748,7 @@ export function CTABand({
                 {description}
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                {actions.map((action) => (
-                  <Button
-                    key={action.href + action.label}
-                    asChild
-                    size="lg"
-                    variant={action.variant === "secondary" ? "outline" : "default"}
-                  >
-                    <Link href={action.href}>
-                      {action.label}
-                      {action.variant !== "secondary" && <ArrowRight aria-hidden="true" />}
-                    </Link>
-                  </Button>
-                ))}
+                <ActionControls actions={actions} />
               </div>
             </div>
           </div>

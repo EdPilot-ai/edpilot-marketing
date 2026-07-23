@@ -1,17 +1,28 @@
-import { Quote } from "lucide-react";
+import type { ElementType } from "react";
+import Image from "next/image";
+import {
+  Accessibility,
+  BadgeCheck,
+  Building2,
+  KeyRound,
+  Lock,
+  Quote,
+  ShieldCheck,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { Testimonial } from "@/lib/social-proof";
+import type { EvaluatingInstitution, ProcurementBadge, Testimonial } from "@/lib/social-proof";
 
 /**
- * A row of headline numbers. Pass only TRUE product facts (see
- * lib/social-proof.ts); this is honest proof that doesn't require a customer
- * reference.
+ * A row of headline numbers. Pass product facts (value + label) or sourced
+ * third-party evidence (value + label + source). When `source` is present it
+ * renders as a small citation caption under the claim — that inline attribution
+ * is what makes an external statistic defensible, so never drop it.
  */
 export function StatBand({
   items,
   className,
 }: {
-  items: Array<{ value: string; label: string }>;
+  items: Array<{ value: string; label: string; source?: string }>;
   className?: string;
 }) {
   return (
@@ -22,15 +33,133 @@ export function StatBand({
       )}
     >
       {items.map((item) => (
-        <div key={item.label} className="bg-bg-deep p-6 text-center md:p-7">
-          <dt className="sr-only">{item.label}</dt>
+        <div key={item.label} className="flex flex-col bg-bg-deep p-6 text-center md:p-7">
+          <dt className="sr-only">
+            {item.label}
+            {item.source ? ` — source: ${item.source}` : ""}
+          </dt>
           <dd className="font-display text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">
             {item.value}
           </dd>
-          <p className="section-kicker mt-2.5 leading-5 text-text-tertiary">{item.label}</p>
+          {item.source ? (
+            <>
+              <p className="mt-2.5 text-[13px] leading-5 text-text-secondary">{item.label}</p>
+              <p className="mt-auto pt-3 text-[11px] leading-4 text-text-tertiary">{item.source}</p>
+            </>
+          ) : (
+            <p className="section-kicker mt-2.5 leading-5 text-text-tertiary">{item.label}</p>
+          )}
         </div>
       ))}
     </dl>
+  );
+}
+
+const BADGE_ICONS: Record<string, ElementType> = {
+  ferpa: ShieldCheck,
+  "no-train": Lock,
+  scoped: Building2,
+  wcag: Accessibility,
+  encryption: KeyRound,
+  soc2: BadgeCheck,
+};
+
+/**
+ * Compact security & procurement pills. Enabled badges render in the accent
+ * style; a badge that is not yet enabled but carries a `note` (e.g. SOC 2
+ * "in progress") renders in a muted pending style so nothing overstates a claim.
+ * Badges that are neither enabled nor noted are omitted entirely.
+ */
+export function ProcurementBadges({
+  badges,
+  className,
+}: {
+  badges: ProcurementBadge[];
+  className?: string;
+}) {
+  const shown = badges.filter((badge) => badge.enabled || badge.note);
+  if (shown.length === 0) return null;
+
+  return (
+    <ul className={cn("flex flex-wrap items-center justify-center gap-2.5", className)}>
+      {shown.map((badge) => {
+        const Icon = BADGE_ICONS[badge.id] ?? ShieldCheck;
+        const pending = !badge.enabled;
+        return (
+          <li key={badge.id}>
+            <span
+              className={cn(
+                "inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[13px] font-medium leading-5",
+                pending
+                  ? "border-border-gray bg-bg-deep text-text-tertiary"
+                  : "border-accent/20 bg-accent/[0.06] text-text-secondary",
+              )}
+            >
+              <Icon
+                className={cn(
+                  "h-3.5 w-3.5 shrink-0",
+                  pending ? "text-text-tertiary" : "text-accent",
+                )}
+                aria-hidden="true"
+              />
+              {badge.label}
+              {badge.note && <span className="text-text-tertiary">· {badge.note}</span>}
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+/**
+ * Honest "who is evaluating us" strip. Shows anonymized institutional
+ * descriptors (no client names are approved for display yet). When an entry
+ * gains a real `logo` + `name`, it upgrades to a logo automatically — no
+ * restructuring needed. Renders nothing when the list is empty.
+ */
+export function EvaluatingStrip({
+  institutions,
+  label = "Universities currently evaluating EdPilot",
+  className,
+}: {
+  institutions: EvaluatingInstitution[];
+  label?: string;
+  className?: string;
+}) {
+  if (!institutions || institutions.length === 0) return null;
+
+  return (
+    <div className={cn("text-center", className)}>
+      <p className="section-kicker text-text-tertiary">{label}</p>
+      <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
+        {institutions.map((inst) => (
+          <li
+            key={`${inst.type}-${inst.scale}`}
+            className="flex max-w-[15rem] flex-col items-center text-center"
+          >
+            {inst.logo ? (
+              // TODO(ASSET): approved institution logo, swapped in when permitted.
+              <Image
+                src={inst.logo}
+                alt={inst.name ?? inst.type}
+                width={160}
+                height={40}
+                className="h-9 w-auto opacity-70 grayscale transition group-hover:opacity-100"
+              />
+            ) : (
+              <>
+                <span className="text-sm font-medium text-text-secondary">
+                  {inst.type}
+                  <span className="text-text-tertiary"> · {inst.scale}</span>
+                </span>
+                <span className="mt-1 text-xs leading-5 text-text-tertiary">{inst.stage}</span>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
