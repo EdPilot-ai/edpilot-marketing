@@ -37,16 +37,29 @@ const founders = [
   {
     name: "David Laszczkowski",
     title: "Co-Founder",
+    // TODO(CONFIRM): replace with David's verified one-line higher-ed background.
+    background: "Builds EdPilot's course-grounded AI platform end to end.",
     image: "/founders/david-laszczkowski.jpg",
     linkedin: "https://www.linkedin.com/in/david-laszczkowski-70139a19b/",
   },
   {
     name: "Kelly Wen",
     title: "Co-Founder",
+    // TODO(CONFIRM): replace with Kelly's verified one-line higher-ed background.
+    background: "Came up through higher education and its AI problem firsthand.",
     image: "/founders/kelly-wen.jpg",
     linkedin: "https://www.linkedin.com/in/drkwen/",
   },
 ];
+
+type Advisor = { name: string; title: string; background?: string; image?: string };
+
+/**
+ * Faculty advisors. Intentionally empty: the section renders nothing while
+ * there are none, so no placeholder people appear for advisors who don't exist.
+ * TODO(ASSET): add { name, title, background, image? } once advisors are confirmed.
+ */
+const advisors: Advisor[] = [];
 
 export default function AboutPage() {
   return (
@@ -185,6 +198,11 @@ export default function AboutPage() {
                   />
                   <h3 className="text-base font-semibold text-text-primary">{founder.name}</h3>
                   <p className="mt-1 text-sm font-medium text-accent">{founder.title}</p>
+                  {founder.background && (
+                    <p className="mx-auto mt-3 max-w-xs text-[13px] leading-6 text-text-secondary">
+                      {founder.background}
+                    </p>
+                  )}
                   <a
                     href={founder.linkedin}
                     target="_blank"
@@ -197,6 +215,36 @@ export default function AboutPage() {
               </Reveal>
             ))}
           </div>
+
+          {advisors.length > 0 && (
+            <div className="mt-14">
+              <p className="section-kicker mb-6 text-center text-text-tertiary">Faculty advisors</p>
+              <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+                {advisors.map((advisor, index) => (
+                  <Reveal key={advisor.name} delay={index * 0.08} className="h-full">
+                    <MarketingCard surface="deep" className="h-full p-6 text-center">
+                      {advisor.image && (
+                        <Image
+                          src={advisor.image}
+                          alt={`${advisor.name}, ${advisor.title}`}
+                          width={96}
+                          height={96}
+                          className="mx-auto mb-4 h-24 w-24 rounded-lg border border-border-gray object-cover"
+                        />
+                      )}
+                      <h3 className="text-sm font-semibold text-text-primary">{advisor.name}</h3>
+                      <p className="mt-1 text-xs font-medium text-accent">{advisor.title}</p>
+                      {advisor.background && (
+                        <p className="mx-auto mt-3 max-w-xs text-[13px] leading-6 text-text-secondary">
+                          {advisor.background}
+                        </p>
+                      )}
+                    </MarketingCard>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          )}
         </Container>
       </Section>
 

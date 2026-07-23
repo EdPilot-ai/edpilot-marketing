@@ -10,10 +10,13 @@ import {
   Hero,
   MarketingCard,
   PageShell,
+  ProcurementBadges,
   Reveal,
   Section,
   SectionHeader,
 } from "@/components/marketing";
+import { procurementBadges } from "@/lib/social-proof";
+import { SIGN_UP_URL } from "@/lib/marketing";
 
 export const metadata: Metadata = {
   title: "Pricing: University pilots and institutional rollout",
@@ -48,7 +51,7 @@ const tiers: Tier[] = [
       "Student learning signals and answer-level citations",
       "No long-term commitment while you evaluate fit",
     ],
-    cta: { label: "Plan a University Pilot", href: "/contact" },
+    cta: { label: "Plan a University Pilot", href: SIGN_UP_URL },
     featured: true,
   },
   {
@@ -84,7 +87,7 @@ export default function PricingPage() {
         accent="where it is."
         description="Every university engagement starts with a scoped evaluation. Once value is proven, pricing scales with the courses, faculty, and governance your campus needs."
         actions={[
-          { label: "Plan a University Pilot", href: "/contact" },
+          { label: "Plan a University Pilot", href: SIGN_UP_URL },
           { label: "Explore the Product", href: "/products", variant: "secondary" },
         ]}
         className="pb-12 md:pb-16"
@@ -92,6 +95,9 @@ export default function PricingPage() {
 
       <Section className="py-16 md:py-20">
         <Container size="wide">
+          <Reveal className="mb-10">
+            <ProcurementBadges badges={procurementBadges} />
+          </Reveal>
           <div className="mx-auto grid max-w-4xl items-stretch gap-4 md:grid-cols-2">
             {tiers.map((tier, index) => (
               <Reveal key={tier.name} delay={index * 0.08} className="h-full">
@@ -219,7 +225,7 @@ export default function PricingPage() {
         title="Find out what EdPilot would cost your campus."
         description="Plan a university pilot with real course materials, or talk to our team about an institutional rollout and we’ll scope pricing to your scale."
         actions={[
-          { label: "Plan a University Pilot", href: "/contact" },
+          { label: "Plan a University Pilot", href: SIGN_UP_URL },
           { label: "Talk to Our Team", href: "/contact", variant: "secondary" },
         ]}
       />

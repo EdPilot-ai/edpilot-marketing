@@ -26,10 +26,12 @@ import {
   CheckList,
   Container,
   CourseAssistantMockup,
+  EvaluatingStrip,
   FAQList,
   FeatureCard,
   Hero,
   PageShell,
+  ProcurementBadges,
   ProofPanel,
   Reveal,
   RoleValueGrid,
@@ -41,7 +43,14 @@ import {
   TrustStrip,
   WorkflowSteps,
 } from "@/components/marketing";
-import { productFacts, testimonials } from "@/lib/social-proof";
+import {
+  evaluatingInstitutions,
+  evidenceStats,
+  procurementBadges,
+  productFacts,
+  testimonials,
+} from "@/lib/social-proof";
+import { SIGN_UP_URL } from "@/lib/marketing";
 
 const HOMEPAGE_FAQS = [
   {
@@ -106,8 +115,12 @@ export default function HomePage() {
         accent="your faculty controls."
         description="EdPilot grounds every answer in your actual course materials, inside guardrails professors set. Students get a tutor that knows the class. Universities get AI adoption on their terms."
         actions={[
-          { label: "Book a University Demo", href: "/contact" },
-          { label: "Plan a University Pilot", href: "/contact", variant: "secondary" },
+          { label: "Plan a University Pilot", href: SIGN_UP_URL },
+          {
+            label: "Prefer a walkthrough first? Book a demo",
+            href: "/contact",
+            variant: "link",
+          },
         ]}
         note="University-led evaluation · Set up in minutes · No IT project required"
       >
@@ -157,6 +170,15 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+          <Reveal>
+            <StatBand items={evidenceStats} className="mt-12" />
+          </Reveal>
+          <Reveal className="mx-auto mt-8 max-w-2xl text-center">
+            <p className="text-[15px] leading-7 text-text-secondary md:text-base">
+              The question is no longer whether students use AI on your courses. It&apos;s whether
+              the institution can see it, shape it, and answer for it.
+            </p>
+          </Reveal>
         </Container>
       </Section>
 
@@ -243,6 +265,14 @@ export default function HomePage() {
               },
             ]}
           />
+        </Container>
+      </Section>
+
+      <Section className="py-16 md:py-20">
+        <Container size="wide">
+          <Reveal>
+            <EvaluatingStrip institutions={evaluatingInstitutions} />
+          </Reveal>
         </Container>
       </Section>
 
@@ -438,6 +468,9 @@ export default function HomePage() {
               ]}
             />
           </Reveal>
+          <Reveal className="mt-8">
+            <ProcurementBadges badges={procurementBadges} />
+          </Reveal>
           <Reveal className="mt-8 text-center">
             <TextLink href="/for-universities">
               See the answers we prepare for IT, legal, and procurement
@@ -473,10 +506,14 @@ export default function HomePage() {
 
       <CTABand
         title="See EdPilot on your course materials."
-        description="Book a demo for a university rollout, or plan a university-led pilot with real syllabus content today."
+        description="Plan a university-led pilot with real syllabus content, or book a demo for a broader rollout."
         actions={[
-          { label: "Book a University Demo", href: "/contact" },
-          { label: "Plan a University Pilot", href: "/contact", variant: "secondary" },
+          { label: "Plan a University Pilot", href: SIGN_UP_URL },
+          {
+            label: "Prefer a walkthrough first? Book a demo",
+            href: "/contact",
+            variant: "link",
+          },
         ]}
       />
     </PageShell>
