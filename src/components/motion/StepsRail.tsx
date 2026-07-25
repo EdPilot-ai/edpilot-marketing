@@ -24,7 +24,7 @@ export function StepsRail({ steps, className }: { steps: number; className?: str
     <div className={className} aria-hidden="true">
       <div className="relative h-5">
         <div
-          className="absolute top-1/2 h-px -translate-y-1/2 bg-accent/25"
+          className="absolute top-1/2 h-px -translate-y-1/2 bg-accent/45"
           style={{ left: `${first}%`, width: `${last - first}%` }}
         />
         {centers.map((cx) => (
