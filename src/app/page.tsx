@@ -52,6 +52,8 @@ import {
   productFacts,
   testimonials,
 } from "@/lib/social-proof";
+import { MockupTilt } from "@/components/motion/MockupTilt";
+import { ParallaxY } from "@/components/motion/ParallaxY";
 import { SIGN_UP_URL } from "@/lib/marketing";
 
 const HOMEPAGE_FAQS = [
@@ -115,6 +117,7 @@ export default function HomePage() {
         eyebrow="AI built for higher education"
         title="The AI teaching assistant"
         accent="your faculty controls."
+        scrambleAccent
         description="EdPilot grounds every answer in your actual course materials, inside guardrails professors set. Students get a tutor that knows the class. Universities get AI adoption on their terms."
         actions={[
           { label: "Plan a University Pilot", href: SIGN_UP_URL },
@@ -126,7 +129,11 @@ export default function HomePage() {
         ]}
         note="University-led evaluation · Set up in minutes · No IT project required"
       >
-        <CourseAssistantMockup className="mt-14" annotated />
+        <ParallaxY amount={18} className="mt-14">
+          <MockupTilt>
+            <CourseAssistantMockup annotated />
+          </MockupTilt>
+        </ParallaxY>
         <TrustStrip
           className="mt-12"
           items={[
@@ -195,11 +202,13 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={0.08}>
               {/* TODO(ASSET): campus / lecture-hall photography. */}
-              <ImagePlaceholder
-                alt="Students in a university lecture hall following a lecture with laptops open"
-                label="Campus lecture hall"
-                aspect="4/3"
-              />
+              <ParallaxY amount={22}>
+                <ImagePlaceholder
+                  alt="Students in a university lecture hall following a lecture with laptops open"
+                  label="Campus lecture hall"
+                  aspect="4/3"
+                />
+              </ParallaxY>
             </Reveal>
           </div>
         </Container>

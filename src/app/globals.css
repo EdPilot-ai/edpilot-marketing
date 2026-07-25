@@ -283,6 +283,107 @@
     background: radial-gradient(ellipse 52% 36% at 50% 0%, rgb(139 92 246 / 0.12), transparent 76%);
   }
 
+  /*
+   * T12: ambient aurora behind the hero — two oversized radial blobs on a
+   * slow transform-only drift (~22–26s alternate loop). No filter blur (the
+   * gradient falloff does the softening), no layout properties, so the loop
+   * costs the compositor almost nothing. The global prefers-reduced-motion
+   * block collapses the animation to its static first frame.
+   */
+  .hero-aurora::before,
+  .hero-aurora::after {
+    content: "";
+    position: absolute;
+    border-radius: 9999px;
+  }
+
+  .hero-aurora::before {
+    left: -12%;
+    top: -24%;
+    width: 56%;
+    height: 62%;
+    background: radial-gradient(closest-side, rgb(139 92 246 / 0.09), transparent 72%);
+    animation: aurora-drift-a 22s ease-in-out infinite alternate;
+  }
+
+  .hero-aurora::after {
+    right: -10%;
+    top: -14%;
+    width: 46%;
+    height: 56%;
+    background: radial-gradient(closest-side, rgb(56 189 248 / 0.05), transparent 72%);
+    animation: aurora-drift-b 26s ease-in-out infinite alternate;
+  }
+
+  @keyframes aurora-drift-a {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(11%, 9%, 0) scale(1.14);
+    }
+  }
+
+  @keyframes aurora-drift-b {
+    from {
+      transform: translate3d(0, 0, 0) scale(1.08);
+    }
+    to {
+      transform: translate3d(-9%, 12%, 0) scale(1);
+    }
+  }
+
+  /*
+   * T12: staggered pop-in for the mockup annotation pins. Delays are tuned
+   * to land just after the hero headline finishes its fade-up, so the tour
+   * reads as one choreographed entrance. The global reduced-motion block
+   * collapses duration + delay, leaving the pins instantly visible.
+   */
+  @keyframes pin-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-pin-pop {
+    animation: pin-pop 0.45s cubic-bezier(0.34, 1.35, 0.64, 1) 0.45s both;
+  }
+
+  .pin-delay-2 {
+    animation-delay: 0.58s;
+  }
+
+  .pin-delay-3 {
+    animation-delay: 0.71s;
+  }
+
+  /*
+   * T16: animated underline for text links — a 1px bar that grows from the
+   * left on hover/focus instead of the browser's binary underline. Uses
+   * background-size (paint-only, no layout) and inherits currentColor, so it
+   * follows the link's hover color automatically.
+   */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    padding-bottom: 2px;
+    transition:
+      background-size 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 180ms ease;
+  }
+
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
   /* Violet-tinted resting/hover shadows for interactive cards. */
   .shadow-card {
     box-shadow:
@@ -558,6 +659,24 @@ html {
    */
   [data-reveal] {
     opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /*
+   * P2 SVG line-draw moments (StepsRail, MisconceptionSparkline) animate
+   * stroke-dash via Framer JS, which the animation-duration rule above
+   * cannot reach — pin them fully drawn instead.
+   */
+  [data-draw] {
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  /* P2 scroll parallax binds transform to a scroll-driven motion value
+     (not an animation), so it needs its own static pin. */
+  [data-parallax] {
     transform: none !important;
   }
 }

@@ -24,6 +24,7 @@ import {
   SectionHeader,
   TrustBar,
 } from "@/components/marketing";
+import { ParallaxY } from "@/components/motion/ParallaxY";
 import { SIGN_UP_URL } from "@/lib/marketing";
 
 export const metadata: Metadata = {
@@ -136,11 +137,13 @@ export default function AboutPage() {
             </div>
             <Reveal>
               {/* TODO(ASSET): faculty-at-desk / classroom photography. */}
-              <ImagePlaceholder
-                alt="Faculty member preparing course materials at a desk in a classroom"
-                label="Faculty at desk"
-                aspect="4/3"
-              />
+              <ParallaxY amount={22}>
+                <ImagePlaceholder
+                  alt="Faculty member preparing course materials at a desk in a classroom"
+                  label="Faculty at desk"
+                  aspect="4/3"
+                />
+              </ParallaxY>
             </Reveal>
           </div>
         </Container>
