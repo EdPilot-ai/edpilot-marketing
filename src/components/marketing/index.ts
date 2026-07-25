@@ -1,4 +1,5 @@
 export * from "./Marketing";
+export * from "./Provenance";
 export * from "./SocialProof";
 export * from "./Reveal";
 export * from "./GovernedAnswer";

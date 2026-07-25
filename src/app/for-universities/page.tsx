@@ -26,6 +26,7 @@ import {
   Reveal,
   Section,
   SectionHeader,
+  SourceLine,
   StatBand,
 } from "@/components/marketing";
 import { CountUp } from "@/components/motion/CountUp";
@@ -206,9 +207,7 @@ export default function ForUniversitiesPage() {
                     <CountUp value={block.stat} />
                   </p>
                   <p className="mt-4 flex-1 text-sm leading-7 text-text-secondary">{block.claim}</p>
-                  <p className="mt-4 border-t border-border-gray pt-3 text-[11px] leading-4 text-text-tertiary">
-                    {block.source}
-                  </p>
+                  <SourceLine className="mt-4">{block.source}</SourceLine>
                 </MarketingCard>
               </Reveal>
             ))}

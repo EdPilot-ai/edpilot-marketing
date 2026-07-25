@@ -2,8 +2,12 @@ import Link from "next/link";
 import type { ElementType, ReactNode } from "react";
 import { ArrowRight, CheckCircle2, ChevronLeft, Plus, X as XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BeforeAfterAnswerCards, type AnswerScenario } from "@/components/marketing/BeforeAfterAnswerCards";
+import {
+  BeforeAfterAnswerCards,
+  type AnswerScenario,
+} from "@/components/marketing/BeforeAfterAnswerCards";
 import { ImagePlaceholder } from "@/components/marketing/ImagePlaceholder";
+import { CitationMark, SourceChip } from "@/components/marketing/Provenance";
 import { Reveal } from "@/components/marketing/Reveal";
 import { CursorGlow } from "@/components/motion/CursorGlow";
 import { Magnetic } from "@/components/motion/Magnetic";
@@ -256,12 +260,10 @@ export function Hero({
 }) {
   return (
     <Section className={cn("pt-24 pb-16 md:pt-36 md:pb-28", className)}>
-      <div
-        className="hero-glow pointer-events-none absolute inset-x-0 top-0 h-[640px]"
-        aria-hidden="true"
-      />
-      {/* T12: slow ambient aurora drifting behind the hero. Purely decorative,
-          transform/opacity-only CSS animation; the global reduced-motion rule
+      {/* The hero's single ambient system: the slow-drifting aurora. The old
+          static hero-glow used to stack a third radial gradient under it;
+          one decisive gradient reads more expensive than a pile. Purely
+          decorative, transform/opacity-only; the global reduced-motion rule
           collapses it to a static gradient. */}
       <div
         className="hero-aurora pointer-events-none absolute inset-x-0 top-0 h-[640px] overflow-hidden"
@@ -571,21 +573,17 @@ export function CourseAssistantMockup({
               </div>
               <div className="rounded-lg border border-border-gray bg-bg-surface px-4 py-4 text-sm leading-7 text-text-secondary">
                 Receptor desensitization means the cell responds less after repeated exposure to a
-                signal. In this course, Professor Rivera connects it to dosage planning: the same
-                signal can produce a weaker effect over time, so treatment has to account for
-                changing responsiveness.
+                signal.
+                <CitationMark index={1} /> In this course, Professor Rivera connects it to dosage
+                planning: the same signal can produce a weaker effect over time, so treatment has to
+                account for changing responsiveness.
+                <CitationMark index={2} />
                 <div className="mt-4 grid gap-2 sm:grid-cols-2">
                   {["Week 6 slides, frames 18-21", "Case note: beta blockers, p. 3"].map(
                     (source, index) => (
-                      <span
-                        key={source}
-                        className="inline-flex max-w-full items-center gap-2 rounded-md border border-accent/15 bg-accent/5 px-2.5 py-1.5 text-[11px] font-medium text-accent"
-                      >
-                        <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-accent/15 bg-bg-deep text-[10px]">
-                          {index + 1}
-                        </span>
-                        <span className="truncate">{source}</span>
-                      </span>
+                      <SourceChip key={source} index={index + 1}>
+                        {source}
+                      </SourceChip>
                     ),
                   )}
                 </div>
@@ -942,13 +940,21 @@ export function ComparisonDetail({
 }) {
   return (
     <PageShell>
+      {/* Compare pages speak the same CTA grammar as the rest of the site:
+          one primary pilot action, one quiet walkthrough alternative. The old
+          "Request Demo" / "Get Started Free" pair was off-grammar (and "free"
+          overstated the offer to a procurement reader). */}
       <Hero
         eyebrow={eyebrow}
         title={title}
         description={description}
         actions={[
-          { label: "Request Demo", href: "/contact" },
-          { label: "Get Started Free", href: SIGN_UP_URL, variant: "secondary" },
+          { label: "Plan a University Pilot", href: SIGN_UP_URL },
+          {
+            label: "Prefer a walkthrough first? Book a demo",
+            href: "/contact",
+            variant: "link",
+          },
         ]}
         className="pb-14 md:pb-20"
       >
@@ -982,28 +988,39 @@ export function ComparisonDetail({
         </Container>
       </Section>
 
+      {/* The closing argument reads as a numbered editorial sequence, not a
+          stack of identical cards — this page is where a skeptical buyer
+          decides, so it ends like an argument, not a brochure. */}
       <Section className="py-16 md:py-24">
         <Container size="narrow">
-          <div className="space-y-5">
-            {sections.map((section) => (
-              <MarketingCard key={section.title} className="p-6">
-                <h2 className="text-xl font-semibold tracking-[-0.02em] text-text-primary">
-                  {section.title}
-                </h2>
-                <div className="mt-3 text-sm leading-7 text-text-secondary">{section.body}</div>
-              </MarketingCard>
+          <ol className="space-y-0">
+            {sections.map((section, index) => (
+              <li
+                key={section.title}
+                className="grid gap-4 border-t border-border-gray py-8 first:border-t-0 first:pt-0 last:pb-0 md:grid-cols-[72px_minmax(0,1fr)] md:gap-6"
+              >
+                <span
+                  aria-hidden="true"
+                  className="text-text-faint font-display text-3xl font-semibold tabular-nums tracking-[-0.03em]"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h2 className="text-xl font-semibold tracking-[-0.02em] text-text-primary">
+                    {section.title}
+                  </h2>
+                  <div className="mt-3 text-sm leading-7 text-text-secondary">{section.body}</div>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </Container>
       </Section>
 
       <CTABand
         title="Bring institutional control to AI-assisted learning."
         description="See how EdPilot grounds AI in your courses, your policies, and your faculty governance."
-        actions={[
-          { label: "Request Demo", href: "/contact" },
-          { label: "Get Started Free", href: SIGN_UP_URL, variant: "secondary" },
-        ]}
+        actions={[{ label: "Plan a University Pilot", href: SIGN_UP_URL }]}
       />
     </PageShell>
   );
