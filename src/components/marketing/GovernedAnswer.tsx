@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight, BarChart3, BookOpenCheck, MessageSquare, ShieldCheck } from "lucide-react";
+import { SourceChip } from "@/components/marketing/Provenance";
 import { cn } from "@/lib/utils";
 
 /**
@@ -231,15 +232,9 @@ export function GovernedAnswerWalkthrough({ className }: { className?: string })
             </p>
             <div className="mt-3.5 grid gap-2 sm:grid-cols-2">
               {["Lecture 7 slides, 12–18", "Lab 3 handout, p. 2"].map((source, index) => (
-                <span
-                  key={source}
-                  className="inline-flex max-w-full items-center gap-2 rounded-md border border-accent/15 bg-accent/5 px-2.5 py-1.5 text-[11px] font-medium text-accent"
-                >
-                  <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-accent/15 bg-bg-deep text-[10px]">
-                    {index + 1}
-                  </span>
-                  <span className="truncate">{source}</span>
-                </span>
+                <SourceChip key={source} index={index + 1}>
+                  {source}
+                </SourceChip>
               ))}
             </div>
           </Region>

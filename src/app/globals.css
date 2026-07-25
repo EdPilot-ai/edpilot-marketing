@@ -297,12 +297,15 @@
     border-radius: 9999px;
   }
 
+  /* Now the hero's ONLY ambient gradient (the static hero-glow no longer
+     stacks beneath it). Both blobs stay in the violet family — depth comes
+     from luminance and drift, not a second hue competing with the accent. */
   .hero-aurora::before {
     left: -12%;
     top: -24%;
     width: 56%;
     height: 62%;
-    background: radial-gradient(closest-side, rgb(139 92 246 / 0.09), transparent 72%);
+    background: radial-gradient(closest-side, rgb(139 92 246 / 0.11), transparent 72%);
     animation: aurora-drift-a 22s ease-in-out infinite alternate;
   }
 
@@ -311,7 +314,7 @@
     top: -14%;
     width: 46%;
     height: 56%;
-    background: radial-gradient(closest-side, rgb(56 189 248 / 0.05), transparent 72%);
+    background: radial-gradient(closest-side, rgb(129 140 248 / 0.06), transparent 72%);
     animation: aurora-drift-b 26s ease-in-out infinite alternate;
   }
 

@@ -1,3 +1,4 @@
+import { SourceChip } from "@/components/marketing/Provenance";
 import { Reveal } from "@/components/marketing/Reveal";
 import { cn } from "@/lib/utils";
 
@@ -56,18 +57,9 @@ export function BeforeAfterAnswerCards({
                 {scenario.citations && scenario.citations.length > 0 && (
                   <div className="mt-3.5 flex flex-wrap gap-2">
                     {scenario.citations.map((source, sourceIndex) => (
-                      <span
-                        key={source}
-                        className="inline-flex max-w-full items-center gap-2 rounded-md border border-accent/15 bg-accent/5 px-2.5 py-1.5 text-[11px] font-medium text-accent"
-                      >
-                        <span
-                          className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-accent/15 bg-bg-deep text-[10px]"
-                          aria-hidden="true"
-                        >
-                          {sourceIndex + 1}
-                        </span>
-                        <span className="truncate">{source}</span>
-                      </span>
+                      <SourceChip key={source} index={sourceIndex + 1}>
+                        {source}
+                      </SourceChip>
                     ))}
                   </div>
                 )}

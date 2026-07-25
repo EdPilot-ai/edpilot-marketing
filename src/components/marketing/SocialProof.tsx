@@ -9,6 +9,7 @@ import {
   Quote,
   ShieldCheck,
 } from "lucide-react";
+import { SourceLine } from "@/components/marketing/Provenance";
 import { CountUp } from "@/components/motion/CountUp";
 import { cn } from "@/lib/utils";
 import type { EvaluatingInstitution, ProcurementBadge, Testimonial } from "@/lib/social-proof";
@@ -44,8 +45,8 @@ export function StatBand({
           </dd>
           {item.source ? (
             <>
-              <p className="mt-2.5 text-[13px] leading-5 text-text-secondary">{item.label}</p>
-              <p className="mt-auto pt-3 text-[11px] leading-4 text-text-tertiary">{item.source}</p>
+              <p className="mt-2.5 pb-3 text-[13px] leading-5 text-text-secondary">{item.label}</p>
+              <SourceLine className="mt-auto text-left">{item.source}</SourceLine>
             </>
           ) : (
             <p className="section-kicker mt-2.5 leading-5 text-text-tertiary">{item.label}</p>
