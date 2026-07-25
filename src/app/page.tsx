@@ -33,7 +33,6 @@ import {
   ImagePlaceholder,
   MisconceptionSparkline,
   PageShell,
-  ProcurementBadges,
   ProofPanel,
   Reveal,
   RoleValueGrid,
@@ -42,13 +41,11 @@ import {
   StatBand,
   Testimonials,
   TextLink,
-  TrustStrip,
   WorkflowSteps,
 } from "@/components/marketing";
 import {
   evaluatingInstitutions,
   evidenceStats,
-  procurementBadges,
   productFacts,
   testimonials,
 } from "@/lib/social-proof";
@@ -129,21 +126,15 @@ export default function HomePage() {
         ]}
         note="University-led evaluation · Set up in minutes · No IT project required"
       >
+        {/* The mockup is the hero's credibility: a governed, cited answer a
+            professor would recognize. The old TrustStrip of unsourced posture
+            pills is gone — every claim it made is proven by a real module
+            further down (FERPA/security panel, integrations, citations). */}
         <ParallaxY amount={18} className="mt-14">
           <MockupTilt>
             <CourseAssistantMockup annotated />
           </MockupTilt>
         </ParallaxY>
-        <TrustStrip
-          className="mt-12"
-          items={[
-            "Built for higher education",
-            "Faculty-governed by design",
-            "FERPA-conscious",
-            "Canvas-integrated",
-            "Citations on every answer",
-          ]}
-        />
       </Hero>
 
       <Section className="py-16 md:py-24" surface="panel">
@@ -475,32 +466,37 @@ export default function HomePage() {
             title="Prepared for the questions buyers actually ask."
             description="EdPilot makes the academic, privacy, and implementation posture visible before a pilot turns into a procurement surprise."
           />
+          {/* The one place the homepage makes posture claims. This panel
+              absorbed the old ProcurementBadges pill row — encryption, WCAG,
+              and SOC 2 status now live in the tiles — so FERPA is stated
+              exactly once on this page and legal still has a single data
+              source to review (the copy below mirrors lib/social-proof.ts). */}
           <Reveal>
             <ProofPanel
               items={[
                 {
                   icon: Lock,
-                  label: "FERPA posture",
+                  label: "FERPA & student data",
                   detail:
-                    "Built around institution-bound course and student data, with public model training off the table.",
+                    "Handling built around institution-bound course and student data. Student records never train public models.",
                 },
                 {
                   icon: Database,
                   label: "Data boundaries",
                   detail:
-                    "Course materials, student interactions, and deployments are scoped by institution and course.",
+                    "Course materials, interactions, and deployments are scoped by institution and course, encrypted in transit and at rest.",
                 },
                 {
                   icon: FileText,
-                  label: "Procurement-ready notes",
+                  label: "Compliance status",
                   detail:
-                    "Clear answers for data handling, accessibility, LMS status, retention, and pilot rollout.",
+                    "SOC 2 Type II audit in progress. Procurement-ready notes cover data handling, LMS status, retention, and rollout.",
                 },
                 {
                   icon: CheckCircle2,
-                  label: "Accessible by design",
+                  label: "WCAG 2.2 AA accessibility",
                   detail:
-                    "Interaction patterns and content flows are designed with accessibility review in mind.",
+                    "Interaction patterns and content flows are designed and reviewed against WCAG 2.2 AA.",
                 },
                 {
                   icon: Users,
@@ -516,9 +512,6 @@ export default function HomePage() {
                 },
               ]}
             />
-          </Reveal>
-          <Reveal className="mt-8">
-            <ProcurementBadges badges={procurementBadges} />
           </Reveal>
           <Reveal className="mt-8 text-center">
             <TextLink href="/for-universities">
@@ -559,18 +552,14 @@ export default function HomePage() {
         </Container>
       </Section>
 
+      {/* The closing band restates the page's single primary action and
+          nothing else — the walkthrough alternative already had its moment
+          in the hero, and a decisive close converts better than a hedged one. */}
       <CTABand
         surface="navy"
         title="See EdPilot on your course materials."
-        description="Plan a university-led pilot with real syllabus content, or book a demo for a broader rollout."
-        actions={[
-          { label: "Plan a University Pilot", href: SIGN_UP_URL },
-          {
-            label: "Prefer a walkthrough first? Book a demo",
-            href: "/contact",
-            variant: "link",
-          },
-        ]}
+        description="Plan a university-led pilot with real syllabus content. Set up in minutes, evaluated on your terms."
+        actions={[{ label: "Plan a University Pilot", href: SIGN_UP_URL }]}
       />
     </PageShell>
   );

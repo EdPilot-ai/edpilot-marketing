@@ -169,23 +169,6 @@ export function EvaluatingStrip({
  * customer logos until real ones exist. These are claims about how the product
  * is built, not fabricated social proof.
  */
-export function TrustStrip({ items, className }: { items: string[]; className?: string }) {
-  return (
-    <div
-      className={cn(
-        "flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center",
-        className,
-      )}
-    >
-      {items.map((item) => (
-        <span key={item} className="section-kicker text-text-tertiary">
-          {item}
-        </span>
-      ))}
-    </div>
-  );
-}
-
 /**
  * Renders real testimonials. Returns null when there are none, so the live
  * site never shows placeholder quotes.

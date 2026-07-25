@@ -115,6 +115,10 @@ export type ProcurementBadge = {
  * TODO(CONFIRM): SOC 2 is disabled until an audit is actually underway/complete.
  * Flip `enabled: true` only when true; keep the "in progress" note honest, or
  * remove the entry entirely if it should not be shown.
+ *
+ * NOTE: the homepage security panel (src/app/page.tsx, "Compliance status" and
+ * neighboring ProofPanel tiles) states these same claims in prose — if legal
+ * toggles or rewords a badge here, update that panel's copy in the same change.
  */
 export const procurementBadges: ProcurementBadge[] = [
   { id: "ferpa", label: "FERPA-aligned data handling", enabled: true },
