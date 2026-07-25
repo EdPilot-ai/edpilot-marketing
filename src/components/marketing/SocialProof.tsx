@@ -27,26 +27,50 @@ export function StatBand({
   items: Array<{ value: string; label: string; source?: string }>;
   className?: string;
 }) {
+  const hasSources = items.some((item) => item.source);
+
   return (
     <dl
       className={cn(
         "shadow-card grid gap-px overflow-hidden rounded-xl border border-border-gray bg-border-gray sm:grid-cols-2 lg:grid-cols-4",
+        // Sourced stats share row tracks via subgrid, so the number, the claim
+        // and the citation each sit on one line across all four cards. Without
+        // it a claim that wraps to three lines drags its own citation rule out
+        // of alignment with its neighbours, which reads as sloppy on a section
+        // whose whole job is looking defensible.
+        hasSources && "lg:grid-rows-[auto_1fr_auto] lg:gap-y-0",
         className,
       )}
     >
       {items.map((item) => (
-        <div key={item.label} className="flex flex-col bg-bg-deep p-6 text-center md:p-7">
+        <div
+          key={item.label}
+          className={cn(
+            "bg-bg-deep p-6 text-center md:p-7",
+            hasSources
+              ? "grid grid-rows-[auto_1fr_auto] gap-y-3 lg:row-span-3 lg:grid-rows-subgrid"
+              : "flex flex-col",
+          )}
+        >
+          {/* Absolutely positioned, so it never claims a subgrid row. */}
           <dt className="sr-only">
             {item.label}
             {item.source ? ` — source: ${item.source}` : ""}
           </dt>
-          <dd className="font-display text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">
+          <dd
+            className={cn(
+              "font-display font-semibold tracking-[-0.03em] text-text-primary",
+              // Values like "Same week" are words, not figures — keeping them on
+              // one line stops a single card growing taller than the rest.
+              "whitespace-nowrap text-3xl md:text-[2rem]",
+            )}
+          >
             <CountUp value={item.value} />
           </dd>
           {item.source ? (
             <>
-              <p className="mt-2.5 pb-3 text-[13px] leading-5 text-text-secondary">{item.label}</p>
-              <SourceLine className="mt-auto text-left">{item.source}</SourceLine>
+              <p className="text-[13px] leading-5 text-text-secondary">{item.label}</p>
+              <SourceLine className="text-left">{item.source}</SourceLine>
             </>
           ) : (
             <p className="section-kicker mt-2.5 leading-5 text-text-tertiary">{item.label}</p>

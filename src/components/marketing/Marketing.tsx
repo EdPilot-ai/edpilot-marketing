@@ -172,14 +172,26 @@ export function SectionHeader({
         className,
       )}
     >
-      {eyebrow && <p className="section-kicker mb-5">{eyebrow}</p>}
-      <h2 className="font-display text-[2rem] font-semibold leading-[1.06] tracking-[-0.04em] text-text-primary md:text-[3.15rem]">
+      {/* The eyebrow reads as a deliberate marker rather than a stray line of
+          purple text: a hairline chip with a single accent dot, which also
+          gives the heading something to sit against. */}
+      {eyebrow && (
+        <div className={cn("mb-6 flex", align === "center" && "justify-center")}>
+          <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] py-1 pl-2.5 pr-3">
+            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent" />
+            <span className="section-kicker">{eyebrow}</span>
+          </span>
+        </div>
+      )}
+      {/* `text-balance` evens the line lengths so a big headline never leaves a
+          single orphaned word on its last line. */}
+      <h2 className="text-balance font-display text-[2rem] font-semibold leading-[1.05] tracking-[-0.04em] text-text-primary md:text-[3.15rem]">
         {title}
       </h2>
       {description && (
         <p
           className={cn(
-            "mt-5 max-w-2xl text-[15px] leading-7 text-text-secondary md:text-base md:leading-8",
+            "mt-5 max-w-2xl text-pretty text-[15px] leading-7 text-text-secondary md:text-base md:leading-8",
             align === "center" && "mx-auto",
           )}
         >
@@ -660,9 +672,9 @@ export function RoleValueGrid({
     promise: string;
     detail: string;
     icon?: ElementType;
-    /** Optional contextual imagery slot rendered at the top of the card
-        (placeholder block until real assets land — see ImagePlaceholder). */
-    image?: { alt: string; label: string; src?: string };
+    /** A rendered preview of the surface this role actually uses. Showing the
+        product beats a placeholder block standing in for absent photography. */
+    preview?: ReactNode;
   }>;
   className?: string;
 }) {
@@ -671,16 +683,7 @@ export function RoleValueGrid({
       {items.map((item, index) => (
         <Reveal key={item.role} delay={index * 0.08}>
           <MarketingCard className="h-full p-6">
-            {item.image && (
-              <ImagePlaceholder
-                src={item.image.src}
-                alt={item.image.alt}
-                label={item.image.label}
-                aspect="16/9"
-                sizes="(min-width: 768px) 33vw, 100vw"
-                className="mb-5"
-              />
-            )}
+            {item.preview && <div className="mb-5">{item.preview}</div>}
             <div className="flex items-center gap-3">
               {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
               <p className="section-kicker text-accent">{item.role}</p>

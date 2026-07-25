@@ -666,7 +666,7 @@ html {
   }
 
   /*
-   * P2 SVG line-draw moments (StepsRail, MisconceptionSparkline) animate
+   * P2 SVG line-draw moments animate
    * stroke-dash via Framer JS, which the animation-duration rule above
    * cannot reach — pin them fully drawn instead.
    */

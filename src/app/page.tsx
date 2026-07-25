@@ -22,17 +22,18 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
+  AdminPreview,
   CTABand,
   CheckList,
   Container,
   CourseAssistantMockup,
-  EvaluatingStrip,
   FAQList,
   FeatureCard,
+  GovernanceContrastPreview,
   Hero,
-  ImagePlaceholder,
-  MisconceptionSparkline,
   PageShell,
+  ProfessorPreview,
+  StudentPreview,
   ProofPanel,
   Reveal,
   RoleValueGrid,
@@ -43,12 +44,7 @@ import {
   TextLink,
   WorkflowSteps,
 } from "@/components/marketing";
-import {
-  evaluatingInstitutions,
-  evidenceStats,
-  productFacts,
-  testimonials,
-} from "@/lib/social-proof";
+import { evidenceStats, productFacts, testimonials } from "@/lib/social-proof";
 import { MockupTilt } from "@/components/motion/MockupTilt";
 import { ParallaxY } from "@/components/motion/ParallaxY";
 import { SIGN_UP_URL } from "@/lib/marketing";
@@ -192,13 +188,12 @@ export default function HomePage() {
               </div>
             </Reveal>
             <Reveal delay={0.08}>
-              {/* TODO(ASSET): campus / lecture-hall photography. */}
+              {/* Was a placeholder block standing in for lecture-hall
+                  photography. The section's claim is about governance, so it
+                  argues the point instead: the same question, ungoverned and
+                  grounded. */}
               <ParallaxY amount={22}>
-                <ImagePlaceholder
-                  alt="Students in a university lecture hall following a lecture with laptops open"
-                  label="Campus lecture hall"
-                  aspect="4/3"
-                />
+                <GovernanceContrastPreview />
               </ParallaxY>
             </Reveal>
           </div>
@@ -271,11 +266,7 @@ export default function HomePage() {
                 promise: "A governed path for campus AI adoption.",
                 detail:
                   "Pilot course-grounded AI with privacy posture, rollout controls, and faculty ownership built into the experience.",
-                // TODO(ASSET): admin dashboard photography/illustration.
-                image: {
-                  alt: "University administrator reviewing an AI governance dashboard",
-                  label: "Admin dashboard",
-                },
+                preview: <AdminPreview />,
               },
               {
                 icon: BookOpen,
@@ -283,11 +274,7 @@ export default function HomePage() {
                 promise: "Fewer repetitive questions, more useful signals.",
                 detail:
                   "Set the knowledge boundary, review source-backed answers, and see where students are struggling before office hours fill up.",
-                // TODO(ASSET): professor-at-desk photography/illustration.
-                image: {
-                  alt: "Professor reviewing student question patterns for a course",
-                  label: "Professor view",
-                },
+                preview: <ProfessorPreview />,
               },
               {
                 icon: Sparkles,
@@ -295,22 +282,10 @@ export default function HomePage() {
                 promise: "24/7 help that speaks the language of the class.",
                 detail:
                   "Get explanations, practice prompts, and citations from the actual syllabus, slides, readings, and rubrics.",
-                // TODO(ASSET): student-with-laptop photography/illustration.
-                image: {
-                  alt: "Student studying with a course-grounded AI assistant on a laptop",
-                  label: "Student laptop",
-                },
+                preview: <StudentPreview />,
               },
             ]}
           />
-        </Container>
-      </Section>
-
-      <Section className="py-16 md:py-20">
-        <Container size="wide">
-          <Reveal>
-            <EvaluatingStrip institutions={evaluatingInstitutions} />
-          </Reveal>
         </Container>
       </Section>
 
@@ -362,9 +337,7 @@ export default function HomePage() {
                   title="Insight-rich"
                   description="Show where students are confused before confusion becomes an exam result."
                   className="h-full"
-                >
-                  <MisconceptionSparkline className="mt-4" />
-                </FeatureCard>
+                />
               </Reveal>
             </div>
           </div>
