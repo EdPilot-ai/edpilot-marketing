@@ -5,6 +5,10 @@ import { Button } from "@/components/ui/button";
 import { BeforeAfterAnswerCards, type AnswerScenario } from "@/components/marketing/BeforeAfterAnswerCards";
 import { ImagePlaceholder } from "@/components/marketing/ImagePlaceholder";
 import { Reveal } from "@/components/marketing/Reveal";
+import { CursorGlow } from "@/components/motion/CursorGlow";
+import { Magnetic } from "@/components/motion/Magnetic";
+import { ScrambleText } from "@/components/motion/ScrambleText";
+import { StepsRail } from "@/components/motion/StepsRail";
 import { cn } from "@/lib/utils";
 import { SIGN_UP_URL } from "@/lib/marketing";
 
@@ -39,7 +43,7 @@ export function ActionControls({
           <Link
             key={action.href + action.label}
             href={action.href}
-            className="group inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg px-2 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary focus-ring"
+            className="group link-underline inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg px-2 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary focus-ring"
           >
             {action.label}
             <ArrowRight
@@ -47,19 +51,27 @@ export function ActionControls({
               aria-hidden="true"
             />
           </Link>
-        ) : (
+        ) : action.variant === "secondary" ? (
           <Button
             key={action.href + action.label}
             asChild
             size="lg"
-            variant={action.variant === "secondary" ? "outline" : "default"}
+            variant="outline"
             className={buttonClassName}
           >
-            <Link href={action.href}>
-              {action.label}
-              {action.variant !== "secondary" && <ArrowRight aria-hidden="true" />}
-            </Link>
+            <Link href={action.href}>{action.label}</Link>
           </Button>
+        ) : (
+          // Primary CTAs get the subtle magnetic hover (T16); the wrapper is a
+          // plain fragment on touch/reduced-motion, so layout never changes.
+          <Magnetic key={action.href + action.label} className="inline-flex">
+            <Button asChild size="lg" variant="default" className={buttonClassName}>
+              <Link href={action.href}>
+                {action.label}
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </Button>
+          </Magnetic>
         ),
       )}
     </>
@@ -204,7 +216,7 @@ export function TextLink({
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md text-sm font-semibold text-accent transition-colors hover:text-accent-soft focus-ring",
+        "link-underline inline-flex items-center gap-1.5 rounded-md text-sm font-semibold text-accent transition-colors hover:text-accent-soft focus-ring",
         className,
       )}
     >
@@ -223,6 +235,7 @@ export function Hero({
   children,
   className,
   align = "center",
+  scrambleAccent = false,
 }: {
   eyebrow?: string;
   title: ReactNode;
@@ -234,11 +247,24 @@ export function Hero({
   children?: ReactNode;
   className?: string;
   align?: "left" | "center";
+  /**
+   * T17: opt the accent phrase into the one-shot scramble-in. Deliberately
+   * opt-in and used exactly once (homepage hero) — it is the site's single
+   * signature text moment, so it must not become a default.
+   */
+  scrambleAccent?: boolean;
 }) {
   return (
     <Section className={cn("pt-24 pb-16 md:pt-36 md:pb-28", className)}>
       <div
         className="hero-glow pointer-events-none absolute inset-x-0 top-0 h-[640px]"
+        aria-hidden="true"
+      />
+      {/* T12: slow ambient aurora drifting behind the hero. Purely decorative,
+          transform/opacity-only CSS animation; the global reduced-motion rule
+          collapses it to a static gradient. */}
+      <div
+        className="hero-aurora pointer-events-none absolute inset-x-0 top-0 h-[640px] overflow-hidden"
         aria-hidden="true"
       />
       <Container size="wide" className="relative z-10">
@@ -251,7 +277,16 @@ export function Hero({
           {eyebrow && <p className="section-kicker animate-fade-up mb-5">{eyebrow}</p>}
           <h1 className="animate-fade-up anim-delay-1 font-display text-[2.55rem] font-semibold leading-[1.03] tracking-[-0.045em] text-text-primary sm:text-[3.65rem] md:text-[4.6rem] md:tracking-[-0.05em]">
             {title}
-            {accent && <span className="text-accent"> {accent}</span>}
+            {accent && (
+              <span className="text-accent">
+                {" "}
+                {scrambleAccent && typeof accent === "string" ? (
+                  <ScrambleText text={accent} />
+                ) : (
+                  accent
+                )}
+              </span>
+            )}
           </h1>
           {description && (
             <p
@@ -325,12 +360,15 @@ export function MarketingCard({
         "card-premium rounded-xl border border-border-gray p-5",
         surface === "surface" && "bg-bg-surface",
         surface === "deep" && "bg-bg-deep",
-        featured && "surface-gradient-featured border-accent/20",
+        featured && "surface-gradient-featured relative overflow-hidden border-accent/20",
         interactive &&
           "card-interactive hover:-translate-y-px hover:border-accent/35 hover:bg-bg-elevated",
         className,
       )}
     >
+      {/* T16: cursor-following glow on featured cards only. Renders null on
+          touch/reduced-motion, so it never affects those users or SSR. */}
+      {featured && <CursorGlow />}
       {children}
     </Component>
   );
@@ -434,7 +472,11 @@ export function StatusPill({
 function AnnotationPin({ number }: { number: number }) {
   return (
     <span
-      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-[11px] font-bold text-white shadow-[0_0_0_3px_rgba(139,92,246,0.2)]"
+      className={cn(
+        "animate-pin-pop flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-[11px] font-bold text-white shadow-[0_0_0_3px_rgba(139,92,246,0.2)]",
+        number === 2 && "pin-delay-2",
+        number === 3 && "pin-delay-3",
+      )}
       aria-hidden="true"
     >
       {number}
@@ -471,7 +513,10 @@ export function CourseAssistantMockup({
   return (
     <div className={cn("mx-auto max-w-6xl", className)}>
       <div className="showcase-surface overflow-hidden rounded-xl border border-border-gray bg-bg-deep">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-gray bg-bg-surface px-4 py-3">
+        <div
+          className="flex flex-wrap items-center justify-between gap-3 border-b border-border-gray bg-bg-surface px-4 py-3"
+          data-tilt-depth="0.5"
+        >
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-window-close" />
             <span className="h-2.5 w-2.5 rounded-full bg-window-minimize" />
@@ -485,7 +530,10 @@ export function CourseAssistantMockup({
           </div>
         </div>
         <div className="grid lg:grid-cols-[260px_minmax(0,1fr)_280px]">
-          <aside className="border-b border-border-gray bg-bg-surface/70 p-4 lg:border-b-0 lg:border-r">
+          <aside
+            className="border-b border-border-gray bg-bg-surface/70 p-4 lg:border-b-0 lg:border-r"
+            data-tilt-depth="0.8"
+          >
             <p className="section-kicker mb-3 flex items-center gap-2 text-text-tertiary">
               {annotated && <AnnotationPin number={1} />}
               Course Model
@@ -504,7 +552,7 @@ export function CourseAssistantMockup({
             </div>
           </aside>
 
-          <div className="min-w-0 p-4 md:p-6">
+          <div className="min-w-0 p-4 md:p-6" data-tilt-depth="1.2">
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="section-kicker text-accent">Student Workspace</p>
@@ -555,7 +603,10 @@ export function CourseAssistantMockup({
             </div>
           </div>
 
-          <aside className="border-t border-border-gray bg-bg-surface p-4 lg:border-l lg:border-t-0">
+          <aside
+            className="border-t border-border-gray bg-bg-surface p-4 lg:border-l lg:border-t-0"
+            data-tilt-depth="0.8"
+          >
             <p className="section-kicker mb-4 flex items-center gap-2 text-text-tertiary">
               {annotated && <AnnotationPin number={3} />}
               Faculty Controls
@@ -656,6 +707,9 @@ export function WorkflowSteps({
 }) {
   return (
     <div className={className}>
+      {/* T15: connective progress rail that draws in on scroll. Desktop only;
+          decorative — the numbered cards carry the sequence semantically. */}
+      <StepsRail steps={steps.length} className="mb-4 hidden md:block" />
       <div className="grid gap-3 md:grid-cols-4">
         {steps.map((item, index) => (
           <Reveal key={item.step} delay={index * 0.08}>
@@ -823,7 +877,7 @@ export function ComparisonGrid({
         <h3 className="mb-4 text-base font-semibold text-text-primary">{leftTitle}</h3>
         <ul className="space-y-3 text-sm leading-6 text-text-secondary">
           {leftItems.map((item, index) => (
-            <li key={item} className="flex gap-3">
+            <li key={index} className="flex gap-3">
               {index < leftStrengths ? (
                 <span
                   className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-text-tertiary"

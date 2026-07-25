@@ -9,6 +9,7 @@ import {
   Quote,
   ShieldCheck,
 } from "lucide-react";
+import { CountUp } from "@/components/motion/CountUp";
 import { cn } from "@/lib/utils";
 import type { EvaluatingInstitution, ProcurementBadge, Testimonial } from "@/lib/social-proof";
 
@@ -39,7 +40,7 @@ export function StatBand({
             {item.source ? ` — source: ${item.source}` : ""}
           </dt>
           <dd className="font-display text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">
-            {item.value}
+            <CountUp value={item.value} />
           </dd>
           {item.source ? (
             <>

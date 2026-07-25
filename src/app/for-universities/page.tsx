@@ -29,6 +29,7 @@ import {
   SectionHeader,
   StatBand,
 } from "@/components/marketing";
+import { CountUp } from "@/components/motion/CountUp";
 import { evaluatingInstitutions, productFacts } from "@/lib/social-proof";
 import { SIGN_UP_URL } from "@/lib/marketing";
 
@@ -203,7 +204,7 @@ export default function ForUniversitiesPage() {
                 <MarketingCard surface="surface" className="flex h-full flex-col p-6 md:p-7">
                   <p className="section-kicker text-accent">{block.kind}</p>
                   <p className="mt-4 font-display text-4xl font-semibold tracking-[-0.03em] text-text-primary md:text-5xl">
-                    {block.stat}
+                    <CountUp value={block.stat} />
                   </p>
                   <p className="mt-4 flex-1 text-sm leading-7 text-text-secondary">{block.claim}</p>
                   <p className="mt-4 border-t border-border-gray pt-3 text-[11px] leading-4 text-text-tertiary">
