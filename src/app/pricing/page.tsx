@@ -86,12 +86,10 @@ export default function PricingPage() {
         title="Pricing that meets your campus"
         accent="where it is."
         description="Every university engagement starts with a scoped evaluation. Once value is proven, pricing scales with the courses, faculty, and governance your campus needs."
-        actions={[
-          { label: "Plan a University Pilot", href: SIGN_UP_URL },
-          { label: "Explore the Product", href: "/products", variant: "secondary" },
-        ]}
         className="pb-12 md:pb-16"
       />
+      {/* No hero CTA here on purpose: the two tier cards directly below are
+          this page's actions, and a button above them just competes. */}
 
       <Section className="py-16 md:py-20">
         <Container size="wide">
@@ -221,13 +219,12 @@ export default function PricingPage() {
         </Container>
       </Section>
 
+      {/* Primary only: the rollout path already has its own CTA on the
+          Campus Rollout tier card above. */}
       <CTABand
         title="Find out what EdPilot would cost your campus."
-        description="Plan a university pilot with real course materials, or talk to our team about an institutional rollout and we’ll scope pricing to your scale."
-        actions={[
-          { label: "Plan a University Pilot", href: SIGN_UP_URL },
-          { label: "Talk to Our Team", href: "/contact", variant: "secondary" },
-        ]}
+        description="Plan a university pilot with real course materials and we’ll scope pricing to your scale."
+        actions={[{ label: "Plan a University Pilot", href: SIGN_UP_URL }]}
       />
     </PageShell>
   );

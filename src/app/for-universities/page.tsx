@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import {
-  ActionControls,
   CTABand,
   Container,
   EvaluatingStrip,
@@ -214,23 +213,12 @@ export default function ForUniversitiesPage() {
               </Reveal>
             ))}
           </div>
+          {/* No mid-page CTA repeat: the hero already offered both paths and
+              the closing band restates the primary. Let the evidence breathe. */}
           <Reveal className="mt-10 text-center">
             <p className="mx-auto max-w-2xl text-[15px] leading-7 text-text-secondary md:text-base">
               EdPilot turns that leak into a decision you own, in the same week, not next semester.
             </p>
-            <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <ActionControls
-                actions={[
-                  { label: "Plan a University Pilot", href: SIGN_UP_URL },
-                  {
-                    label: "Prefer a walkthrough first? Book a demo",
-                    href: "/contact",
-                    variant: "link",
-                  },
-                ]}
-                buttonClassName="h-11 px-7"
-              />
-            </div>
           </Reveal>
         </Container>
       </Section>
@@ -321,15 +309,8 @@ export default function ForUniversitiesPage() {
 
       <CTABand
         title="Give your campus a governed path to AI."
-        description="Plan a university-led pilot on real course materials, or book a walkthrough for university leadership. No commitment required."
-        actions={[
-          { label: "Plan a University Pilot", href: SIGN_UP_URL },
-          {
-            label: "Prefer a walkthrough first? Book a demo",
-            href: "/contact",
-            variant: "link",
-          },
-        ]}
+        description="Plan a university-led pilot on real course materials. No commitment required while you evaluate."
+        actions={[{ label: "Plan a University Pilot", href: SIGN_UP_URL }]}
       />
     </PageShell>
   );
