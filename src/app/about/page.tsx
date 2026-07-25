@@ -16,6 +16,7 @@ import {
   Container,
   FeatureCard,
   Hero,
+  ImagePlaceholder,
   MarketingCard,
   PageShell,
   Reveal,
@@ -82,7 +83,7 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container>
           <SectionHeader
             eyebrow="How we are different"
@@ -123,19 +124,29 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      <Section className="py-16" surface="deep">
-        <Container size="narrow">
-          <div className="border-l-2 border-accent pl-7">
-            <p className="text-xl font-medium leading-9 text-text-primary md:text-2xl">
-              AI in education is inevitable. Our mission is to ensure it amplifies the
-              professor&apos;s expertise, not replace it.
-            </p>
-            <p className="section-kicker mt-5 text-accent">Our mission</p>
+      <Section className="py-16 md:py-20" surface="deep">
+        <Container>
+          <div className="grid gap-10 md:grid-cols-[1.05fr_0.95fr] md:items-center">
+            <div className="border-l-2 border-accent pl-7">
+              <p className="text-xl font-medium leading-9 text-text-primary md:text-2xl">
+                AI in education is inevitable. Our mission is to ensure it amplifies the
+                professor&apos;s expertise, not replace it.
+              </p>
+              <p className="section-kicker mt-5 text-accent">Our mission</p>
+            </div>
+            <Reveal>
+              {/* TODO(ASSET): faculty-at-desk / classroom photography. */}
+              <ImagePlaceholder
+                alt="Faculty member preparing course materials at a desk in a classroom"
+                label="Faculty at desk"
+                aspect="4/3"
+              />
+            </Reveal>
           </div>
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container>
           <SectionHeader eyebrow="Principles" title="How we build" />
           <div className="grid gap-4 md:grid-cols-2">
@@ -178,7 +189,7 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28" surface="panel">
+      <Section className="py-16 md:py-24" surface="panel">
         <Container>
           <SectionHeader
             eyebrow="The team"

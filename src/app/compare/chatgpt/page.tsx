@@ -44,16 +44,19 @@ export default function ChatGPTComparisonPage() {
             setup: 'A student asks, “What will be on the midterm?”',
             oldWay: 'ChatGPT invents a confident study plan from thin air.',
             edpilot: 'EdPilot points to the actual review sheet, covered topics, and faculty-approved limits.',
+            citations: ['Week 7 review sheet', 'Syllabus: assessment policy'],
           },
           {
             setup: 'A student asks for help on a graded assignment.',
             oldWay: 'The line between coaching and completion gets blurry fast.',
             edpilot: 'EdPilot nudges, questions, and explains without handing over the submission.',
+            citations: ['Assignment brief, Week 8', 'Rubric: criterion 2'],
           },
           {
             setup: 'A professor asks, “Where did that answer come from?”',
             oldWay: 'Good luck reverse-engineering the magic.',
             edpilot: 'The answer cites course materials by design.',
+            citations: ['Week 6 slides, frames 18–21', 'Case note: beta blockers, p. 3'],
           },
         ]}
         sections={[

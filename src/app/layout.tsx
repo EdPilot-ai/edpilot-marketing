@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { MotionProvider } from "@/components/MotionProvider";
+import { PrintExpander } from "@/components/PrintExpander";
 import { OrganizationSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
 import "./globals.css";
 
@@ -96,6 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <MotionProvider>{children}</MotionProvider>
         </main>
         <Footer />
+        <PrintExpander />
         <Toaster position="bottom-right" />
         <Analytics />
         <SpeedInsights />

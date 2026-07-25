@@ -30,6 +30,8 @@ import {
   FAQList,
   FeatureCard,
   Hero,
+  ImagePlaceholder,
+  MisconceptionSparkline,
   PageShell,
   ProcurementBadges,
   ProofPanel,
@@ -137,7 +139,7 @@ export default function HomePage() {
         />
       </Hero>
 
-      <Section className="py-20 md:py-28" surface="panel">
+      <Section className="py-16 md:py-24" surface="panel">
         <Container>
           <SectionHeader
             eyebrow="The problem"
@@ -173,16 +175,37 @@ export default function HomePage() {
           <Reveal>
             <StatBand items={evidenceStats} className="mt-12" />
           </Reveal>
-          <Reveal className="mx-auto mt-8 max-w-2xl text-center">
-            <p className="text-[15px] leading-7 text-text-secondary md:text-base">
-              The question is no longer whether students use AI on your courses. It&apos;s whether
-              the institution can see it, shape it, and answer for it.
-            </p>
-          </Reveal>
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      {/* Split imagery band (T8): the P0 evidence line carries into a
+          text-left / image-right layout so no more than two consecutive
+          sections share the centered-header skeleton. */}
+      <Section className="py-16 md:py-24">
+        <Container>
+          <div className="grid gap-10 md:grid-cols-2 md:items-center">
+            <Reveal>
+              <div>
+                <p className="section-kicker mb-5">The stakes</p>
+                <p className="font-display text-[1.65rem] font-medium leading-[1.3] tracking-[-0.02em] text-text-primary md:text-[2rem]">
+                  The question is no longer whether students use AI on your courses. It&apos;s
+                  whether the institution can see it, shape it, and answer for it.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.08}>
+              {/* TODO(ASSET): campus / lecture-hall photography. */}
+              <ImagePlaceholder
+                alt="Students in a university lecture hall following a lecture with laptops open"
+                label="Campus lecture hall"
+                aspect="4/3"
+              />
+            </Reveal>
+          </div>
+        </Container>
+      </Section>
+
+      <Section className="py-16 md:py-24">
         <Container>
           <SectionHeader
             eyebrow="How it works"
@@ -233,7 +256,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28" surface="panel">
+      <Section className="py-16 md:py-24" surface="light">
         <Container>
           <SectionHeader
             eyebrow="Built for the institution"
@@ -248,6 +271,11 @@ export default function HomePage() {
                 promise: "A governed path for campus AI adoption.",
                 detail:
                   "Pilot course-grounded AI with privacy posture, rollout controls, and faculty ownership built into the experience.",
+                // TODO(ASSET): admin dashboard photography/illustration.
+                image: {
+                  alt: "University administrator reviewing an AI governance dashboard",
+                  label: "Admin dashboard",
+                },
               },
               {
                 icon: BookOpen,
@@ -255,6 +283,11 @@ export default function HomePage() {
                 promise: "Fewer repetitive questions, more useful signals.",
                 detail:
                   "Set the knowledge boundary, review source-backed answers, and see where students are struggling before office hours fill up.",
+                // TODO(ASSET): professor-at-desk photography/illustration.
+                image: {
+                  alt: "Professor reviewing student question patterns for a course",
+                  label: "Professor view",
+                },
               },
               {
                 icon: Sparkles,
@@ -262,6 +295,11 @@ export default function HomePage() {
                 promise: "24/7 help that speaks the language of the class.",
                 detail:
                   "Get explanations, practice prompts, and citations from the actual syllabus, slides, readings, and rubrics.",
+                // TODO(ASSET): student-with-laptop photography/illustration.
+                image: {
+                  alt: "Student studying with a course-grounded AI assistant on a laptop",
+                  label: "Student laptop",
+                },
               },
             ]}
           />
@@ -276,7 +314,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container>
           <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr] md:items-center">
             <div>
@@ -324,14 +362,16 @@ export default function HomePage() {
                   title="Insight-rich"
                   description="Show where students are confused before confusion becomes an exam result."
                   className="h-full"
-                />
+                >
+                  <MisconceptionSparkline className="mt-4" />
+                </FeatureCard>
               </Reveal>
             </div>
           </div>
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28" surface="panel">
+      <Section className="py-16 md:py-24" surface="panel">
         <Container>
           <div className="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:items-start">
             <SectionHeader
@@ -363,7 +403,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container>
           <SectionHeader
             eyebrow="Integrations"
@@ -419,7 +459,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28" surface="panel">
+      <Section className="py-16 md:py-24" surface="panel">
         <Container>
           <SectionHeader
             eyebrow="Security & privacy"
@@ -481,15 +521,21 @@ export default function HomePage() {
       </Section>
 
       {testimonials.length > 0 && (
-        <Section className="py-20 md:py-28">
+        <Section className="py-16 md:py-24">
           <Container>
-            <SectionHeader eyebrow="What educators say" title="Trusted in real classrooms." />
+            {/* Left-aligned header breaks what would otherwise be a run of
+                three consecutive centered-header sections (T9). */}
+            <SectionHeader
+              align="left"
+              eyebrow="What educators say"
+              title="Trusted in real classrooms."
+            />
             <Testimonials quotes={testimonials} />
           </Container>
         </Section>
       )}
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container size="narrow">
           <SectionHeader eyebrow="Questions" title="What people ask before they pilot." />
           <Reveal>
@@ -505,6 +551,7 @@ export default function HomePage() {
       </Section>
 
       <CTABand
+        surface="navy"
         title="See EdPilot on your course materials."
         description="Plan a university-led pilot with real syllabus content, or book a demo for a broader rollout."
         actions={[

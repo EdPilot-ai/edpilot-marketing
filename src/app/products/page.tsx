@@ -139,7 +139,7 @@ export default function ProductsPage() {
         ]}
       />
 
-      <Section className="py-20 md:py-28" surface="panel">
+      <Section className="py-16 md:py-24" surface="panel">
         <Container size="wide">
           <SectionHeader
             eyebrow="Available now"
@@ -202,7 +202,7 @@ export default function ProductsPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28" surface="deep">
+      <Section className="py-16 md:py-24" surface="deep">
         <Container>
           <div className="surface-gradient-featured overflow-hidden rounded-lg border border-accent/25 shadow-2xl">
             <div className="grid gap-0 md:grid-cols-[1.05fr_0.95fr]">
@@ -290,7 +290,7 @@ export default function ProductsPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container size="wide">
           <SectionHeader
             eyebrow="The wider platform, over time"

@@ -13,6 +13,14 @@ import type { ReactNode } from "react";
  * Above-the-fold hero content deliberately does NOT use this; it animates
  * with the CSS-only `animate-fade-up` utility so first paint never depends
  * on JavaScript.
+ *
+ * Reduced motion: `MotionConfig reducedMotion="user"` stops transform
+ * animation but Framer still animates opacity, which would gate content
+ * behind whileInView. A `[data-reveal]` rule inside the global
+ * prefers-reduced-motion media block (globals.css) pins opacity:1 /
+ * transform:none with !important, so reduced-motion users get the final
+ * visible state instantly — no scroll, no JS timing. (Kept in CSS rather
+ * than branching here so the SSR markup never diverges from hydration.)
  */
 export function Reveal({
   children,
