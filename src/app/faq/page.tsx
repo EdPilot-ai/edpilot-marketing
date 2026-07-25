@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ChevronDown,
   CreditCard,
@@ -161,6 +161,20 @@ const faqs: FAQItem[] = [
 
 export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
+  // Print legibility (T11): the accordion renders answers conditionally, so
+  // expand everything while printing and restore the prior state afterwards.
+  const [printAll, setPrintAll] = useState(false)
+
+  useEffect(() => {
+    const onBeforePrint = () => setPrintAll(true)
+    const onAfterPrint = () => setPrintAll(false)
+    window.addEventListener('beforeprint', onBeforePrint)
+    window.addEventListener('afterprint', onAfterPrint)
+    return () => {
+      window.removeEventListener('beforeprint', onBeforePrint)
+      window.removeEventListener('afterprint', onAfterPrint)
+    }
+  }, [])
 
   const groupedFAQs = faqCategories.map((category) => ({
     ...category,
@@ -201,7 +215,7 @@ export default function FAQPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container size="narrow">
           <SectionHeader
             eyebrow="Answers"
@@ -220,7 +234,7 @@ export default function FAQPage() {
                 <div className="space-y-2">
                   {category.questions.map((faq, index) => {
                     const globalIndex = categoryIndex * 100 + index
-                    const isOpen = openIndex === globalIndex
+                    const isOpen = openIndex === globalIndex || printAll
 
                     return (
                       <div

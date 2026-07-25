@@ -162,7 +162,7 @@ export default function CurriculumIntelligencePage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container size="wide">
           <SectionHeader
             eyebrow="Course model"
@@ -246,7 +246,7 @@ export default function CurriculumIntelligencePage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28" surface="panel">
+      <Section className="py-16 md:py-24" surface="panel">
         <Container size="wide">
           <SectionHeader
             eyebrow="Product moments"
@@ -301,7 +301,7 @@ export default function CurriculumIntelligencePage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container>
           <SectionHeader
             eyebrow="Compliance & Integrations"

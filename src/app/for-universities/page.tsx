@@ -148,7 +148,7 @@ export default function ForUniversitiesPage() {
         <EvaluatingStrip institutions={evaluatingInstitutions} className="mt-14" />
       </Hero>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container>
           <SectionHeader
             eyebrow="The exposure you can't see"
@@ -168,7 +168,7 @@ export default function ForUniversitiesPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28" surface="deep">
+      <Section className="py-16 md:py-24" surface="deep">
         <Container>
           <SectionHeader
             eyebrow="The cost of inaction"
@@ -234,7 +234,7 @@ export default function ForUniversitiesPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28" surface="panel">
+      <Section className="py-16 md:py-24" surface="panel">
         <Container>
           <SectionHeader
             eyebrow="What changes when AI is governed"
@@ -290,7 +290,7 @@ export default function ForUniversitiesPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container>
           <SectionHeader
             eyebrow="Built for the people who sign off"

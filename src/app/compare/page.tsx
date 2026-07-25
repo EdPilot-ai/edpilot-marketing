@@ -102,7 +102,7 @@ export default function ComparePage() {
           </Container>
         </Section>
 
-        <Section className="py-20 md:py-28" surface="panel">
+        <Section className="py-16 md:py-24" surface="panel">
           <Container size="wide">
             <SectionHeader
               eyebrow="Deep dives"
@@ -169,7 +169,7 @@ export default function ComparePage() {
           </Container>
         </Section>
 
-        <Section className="py-20 md:py-28">
+        <Section className="py-16 md:py-24">
           <Container>
             <SectionHeader
               eyebrow="The short version"

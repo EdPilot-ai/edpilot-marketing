@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { ElementType, ReactNode } from "react";
 import { ArrowRight, CheckCircle2, ChevronLeft, Plus, X as XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BeforeAfterAnswerCards, type AnswerScenario } from "@/components/marketing/BeforeAfterAnswerCards";
+import { ImagePlaceholder } from "@/components/marketing/ImagePlaceholder";
 import { Reveal } from "@/components/marketing/Reveal";
 import { cn } from "@/lib/utils";
 import { SIGN_UP_URL } from "@/lib/marketing";
@@ -80,7 +82,15 @@ export function Section({
 }: {
   children: ReactNode;
   className?: string;
-  surface?: "page" | "panel" | "deep";
+  /**
+   * page  → flat page background.
+   * panel → lifted band with hairline borders.
+   * deep  → recessed band (below page background).
+   * light → warm off-white band that breaks the dark rhythm; locally remaps
+   *         the text/border/card tokens so content stays AA on off-white.
+   * navy  → deep institutional navy + violet glow, for the closing CTA.
+   */
+  surface?: "page" | "panel" | "deep" | "light" | "navy";
   id?: string;
 }) {
   return (
@@ -90,6 +100,8 @@ export function Section({
         "section-frame relative border-border-gray",
         surface === "panel" && "border-y bg-bg-surface",
         surface === "deep" && "border-y bg-bg-deep",
+        surface === "light" && "border-y surface-light",
+        surface === "navy" && "border-y surface-navy",
         className,
       )}
     >
@@ -594,7 +606,15 @@ export function RoleValueGrid({
   items,
   className,
 }: {
-  items: Array<{ role: string; promise: string; detail: string; icon?: ElementType }>;
+  items: Array<{
+    role: string;
+    promise: string;
+    detail: string;
+    icon?: ElementType;
+    /** Optional contextual imagery slot rendered at the top of the card
+        (placeholder block until real assets land — see ImagePlaceholder). */
+    image?: { alt: string; label: string; src?: string };
+  }>;
   className?: string;
 }) {
   return (
@@ -602,6 +622,16 @@ export function RoleValueGrid({
       {items.map((item, index) => (
         <Reveal key={item.role} delay={index * 0.08}>
           <MarketingCard className="h-full p-6">
+            {item.image && (
+              <ImagePlaceholder
+                src={item.image.src}
+                alt={item.image.alt}
+                label={item.image.label}
+                aspect="16/9"
+                sizes="(min-width: 768px) 33vw, 100vw"
+                className="mb-5"
+              />
+            )}
             <div className="flex items-center gap-3">
               {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
               <p className="section-kicker text-accent">{item.role}</p>
@@ -730,13 +760,23 @@ export function CTABand({
   title,
   description,
   actions,
+  surface = "deep",
 }: {
   title: ReactNode;
   description: ReactNode;
   actions: Action[];
+  /**
+   * deep → default recessed band with a low-opacity violet texture rising
+   *        from the bottom edge (CSS-only, no image request).
+   * navy → institutional navy + violet glow variant, for the page-closing CTA.
+   */
+  surface?: "deep" | "navy";
 }) {
   return (
-    <Section className="py-20 md:py-28" surface="deep">
+    <Section className="py-20 md:py-28" surface={surface}>
+      {surface === "deep" && (
+        <div className="cta-texture pointer-events-none absolute inset-0" aria-hidden="true" />
+      )}
       <Container className="relative z-10">
         <Reveal>
           <div className="cta-signal mx-auto max-w-3xl rounded-xl border border-border-gray px-7 py-12 text-center md:px-12">
@@ -844,7 +884,7 @@ export function ComparisonDetail({
   /** How many leading competitorItems are genuine strengths (rendered neutrally instead of with an X). */
   competitorStrengths?: number;
   sections: Array<{ title: string; body: ReactNode }>;
-  scenarios?: Array<{ setup: string; oldWay: string; edpilot: string }>;
+  scenarios?: AnswerScenario[];
 }) {
   return (
     <PageShell>
@@ -871,24 +911,7 @@ export function ComparisonDetail({
               title="Where the difference becomes obvious."
               description="The best comparison is not a feature checklist. It is what happens on a Tuesday night before an exam."
             />
-            <div className="grid gap-4 md:grid-cols-3">
-              {scenarios.map((scenario) => (
-                <MarketingCard key={scenario.setup} className="p-5">
-                  <p className="text-sm font-semibold leading-6 text-text-primary">
-                    {scenario.setup}
-                  </p>
-                  <div className="mt-4 space-y-3 text-[13px] leading-6">
-                    <p className="rounded-lg border border-border-gray bg-bg-deep p-3 text-text-secondary">
-                      <span className="font-semibold text-text-tertiary">Old way:</span>{" "}
-                      {scenario.oldWay}
-                    </p>
-                    <p className="rounded-lg border border-accent/20 bg-accent/5 p-3 text-text-primary">
-                      <span className="font-semibold text-accent">EdPilot:</span> {scenario.edpilot}
-                    </p>
-                  </div>
-                </MarketingCard>
-              ))}
-            </div>
+            <BeforeAfterAnswerCards scenarios={scenarios} competitorName={competitorName} />
           </Container>
         </Section>
       )}
@@ -905,7 +928,7 @@ export function ComparisonDetail({
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container size="narrow">
           <div className="space-y-5">
             {sections.map((section) => (

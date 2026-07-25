@@ -65,7 +65,7 @@ export default function PositioningLanguagePage() {
           className="pb-14"
         />
 
-        <Section className="py-20 md:py-28">
+        <Section className="py-16 md:py-24">
           <Container>
             <SectionHeader eyebrow="Core terminology" title="Use precise language." />
             <div className="grid gap-4 md:grid-cols-2">
@@ -85,7 +85,7 @@ export default function PositioningLanguagePage() {
           </Container>
         </Section>
 
-        <Section className="py-20 md:py-28" surface="panel">
+        <Section className="py-16 md:py-24" surface="panel">
           <Container size="narrow">
             <SectionHeader
               align="left"
@@ -103,7 +103,7 @@ export default function PositioningLanguagePage() {
           </Container>
         </Section>
 
-        <Section className="py-20 md:py-28">
+        <Section className="py-16 md:py-24">
           <Container>
             <SectionHeader eyebrow="Comparative positioning" title="Make the contrast explicit." />
             <div className="grid gap-4 md:grid-cols-3">
@@ -123,7 +123,7 @@ export default function PositioningLanguagePage() {
           </Container>
         </Section>
 
-        <Section className="py-20 md:py-28" surface="panel">
+        <Section className="py-16 md:py-24" surface="panel">
           <Container>
             <SectionHeader eyebrow="Keywords" title="Semantic associations" />
             <div className="flex flex-wrap gap-2">

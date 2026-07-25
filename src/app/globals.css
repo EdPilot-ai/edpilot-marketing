@@ -36,6 +36,13 @@
     /* Accent soft: used for hover text where the interaction intentionally lightens */
     --accent-soft-hex: #a78bfa;
 
+    /* Accent for small TEXT only (kickers, inline labels, badges): one step
+       lighter than --accent-hex because #8b5cf6 measures 4.35:1 on --bg-page
+       (below the 4.5:1 WCAG AA floor for small text). #9470f7 clears 5:1 on
+       page/surface/deep. Filled buttons keep --accent-hex as background,
+       where white text already measures ~5.7:1. */
+    --accent-text-hex: #9470f7;
+
     /* Accent Hover - Deeper Violet */
     --accent-hover-hex: #7c3aed;
     --accent-press-hex: #6d28d9;
@@ -167,7 +174,7 @@
   }
 
   html .text-accent {
-    color: var(--accent-hex);
+    color: var(--accent-text-hex);
   }
 
   html .text-accent-soft {
@@ -348,6 +355,71 @@
       0 18px 48px rgb(0 0 0 / 0.18);
   }
 
+  /*
+   * Section surface variants (P1 visual rhythm).
+   *
+   * surface-light: warm off-white band that breaks the all-dark page rhythm.
+   * The base tokens are light-on-dark and would vanish on off-white, so the
+   * variant locally re-points the CSS custom properties — every themeable
+   * utility (text-text-*, bg-bg-*, border-border-gray, section-kicker, cards)
+   * inside the section remaps automatically. Measured on #F7F5F2:
+   * primary 15.8:1, secondary 8.0:1, tertiary 5.5:1, accent text 5.2:1 (AA).
+   */
+  .surface-light {
+    background-color: #f7f5f2;
+    color: #1b1b1f;
+    --bg-page: #f7f5f2;
+    --bg-surface: #ffffff;
+    --bg-elevated: #efece7;
+    --bg-deep: #f1ede6;
+    --border-gray: #e1dcd2;
+    --text-primary: #1b1b1f;
+    --text-secondary: #4a4a55;
+    --text-muted: #62626e;
+    --text-faint: #8f8f99;
+    --accent-text-hex: #7c3aed;
+    --accent-soft-hex: #7c3aed;
+  }
+
+  /* Card shadows tuned for the light ground (the dark-theme inset hairline
+     is invisible on white; the drop shadow does the lifting instead). */
+  .surface-light .card-premium {
+    box-shadow:
+      0 1px 2px rgb(27 27 31 / 0.05),
+      0 14px 32px rgb(27 27 31 / 0.07);
+  }
+
+  .surface-light .card-interactive:hover {
+    box-shadow:
+      0 1px 2px rgb(27 27 31 / 0.06),
+      0 20px 40px rgb(27 27 31 / 0.1);
+  }
+
+  /* surface-navy: deep institutional navy + the existing violet glow, used
+     for the closing CTA so the page ends on a distinct, intentional note.
+     Base dark tokens stay in force (all >= 4.5:1 on #101828). */
+  .surface-navy {
+    background:
+      radial-gradient(ellipse 62% 55% at 50% 0%, rgb(139 92 246 / 0.16), transparent 72%),
+      linear-gradient(180deg, #101828 0%, #0d1322 100%);
+  }
+
+  /* CSS-only texture for the deepest flat-black zones (T10): a low-opacity
+     violet glow rising from the bottom edge, no image request, far below the
+     luminance needed to disturb text contrast. */
+  .cta-texture {
+    background: radial-gradient(ellipse 55% 65% at 50% 100%, rgb(139 92 246 / 0.08), transparent 72%);
+  }
+
+  /* Placeholder art block for imagery slots (T8): holds the final aspect
+     ratio so there is no CLS when the real asset replaces it, and inherits
+     the scoped surface tokens so it adapts on light sections. */
+  .image-placeholder {
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 30%, rgb(139 92 246 / 0.1), transparent 75%),
+      linear-gradient(160deg, var(--bg-elevated), var(--bg-deep));
+  }
+
   .accent-path-gradient {
     background: linear-gradient(
       90deg,
@@ -476,6 +548,17 @@ html {
   .animate-fade-up {
     animation-duration: 0.01ms !important;
     animation-delay: 0ms !important;
+  }
+
+  /*
+   * Reveal gates content behind whileInView with an SSR inline opacity:0.
+   * Framer's reducedMotion="user" stops transforms but still animates
+   * opacity, so this pins scroll-revealed content to its final visible
+   * state for reduced-motion users — nothing waits on scroll or JS.
+   */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -682,6 +765,7 @@ html {
     --accent: #c084fc;
     --accent-hover-hex: #a855f7;
     --accent-hex: #c084fc;
+    --accent-text-hex: #c084fc;
 
     /* shadcn tokens */
     --background: 0 0% 0%;
@@ -838,5 +922,112 @@ html {
     background: var(--bg-surface);
     color: var(--accent-hex);
     padding: 0.1rem 0.32rem;
+  }
+}
+
+/*
+ * PRINT STYLESHEET (T11)
+ *
+ * Makes /for-universities, /pricing, and /faq (and the rest of the site)
+ * legible on white paper:
+ *   1. Re-point the themeable tokens to dark ink on white — the html-scoped
+ *      utility overrides above consume the vars, so most text follows.
+ *   2. Strip backgrounds, glows, and shadows (browsers drop them anyway,
+ *      which would otherwise leave white button text on white paper).
+ *   3. Pin scroll-reveal / hero-entrance elements visible: below-the-fold
+ *      [data-reveal] nodes still carry inline opacity:0 at print time.
+ *   4. Hide site chrome (sticky header repeats on every printed page).
+ * FAQ answers inside closed <details> are opened for print by the small
+ * beforeprint listener in PrintExpander (layout) — CSS alone cannot.
+ */
+@media print {
+  :root {
+    --bg-page: #ffffff;
+    --bg-surface: #ffffff;
+    --bg-deep: #ffffff;
+    --bg-elevated: #ffffff;
+    --border-gray: #c9c9d1;
+    --text-primary: #17171a;
+    --text-secondary: #3d3d46;
+    --text-muted: #55555f;
+    --text-faint: #6d6d77;
+    --accent-hex: #6d28d9;
+    --accent-text-hex: #6d28d9;
+    --accent-soft-hex: #6d28d9;
+    --accent-hover-hex: #6d28d9;
+    --status-success: #15803d;
+    --status-success-soft: #15803d;
+    --status-warning-soft: #92600a;
+    --status-danger: #b91c1c;
+  }
+
+  html,
+  body,
+  .marketing-canvas,
+  section,
+  .surface-light,
+  .surface-navy {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #17171a;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    background-image: none !important;
+  }
+
+  /* Surfaces that carried dark fills: drop the fill, keep a hairline. */
+  [class*="bg-bg-"],
+  [class*="bg-accent"],
+  .cta-signal,
+  .surface-gradient,
+  .surface-gradient-panel,
+  .surface-gradient-featured,
+  .surface-gradient-proof {
+    background-color: transparent !important;
+  }
+
+  /* White button label text would vanish once the violet fill is gone. */
+  .text-white {
+    color: #6d28d9 !important;
+  }
+
+  [class*="bg-accent"] {
+    border: 1.5px solid #6d28d9 !important;
+  }
+
+  [class*="border-"] {
+    border-color: #c9c9d1 !important;
+  }
+
+  /* Site chrome: the sticky header repeats on every page; footer nav is noise. */
+  header,
+  footer {
+    display: none !important;
+  }
+
+  /* Scroll-gated content must be visible on paper. */
+  [data-reveal],
+  .animate-fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Keep cards, FAQ entries, and figures on one page where possible. */
+  .card-premium,
+  details,
+  figure {
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
   }
 }

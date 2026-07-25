@@ -208,7 +208,7 @@ export default function HowItWorksPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container size="wide">
           <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
             <SectionHeader
@@ -235,7 +235,7 @@ export default function HowItWorksPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28" surface="panel">
+      <Section className="py-16 md:py-24" surface="panel">
         <Container size="wide">
           <SectionHeader
             eyebrow="Who does what"
@@ -256,7 +256,7 @@ export default function HowItWorksPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28">
+      <Section className="py-16 md:py-24">
         <Container size="wide">
           <div className="overflow-hidden rounded-lg border border-border-gray bg-bg-deep shadow-2xl">
             <div className="grid gap-px bg-border-gray lg:grid-cols-[0.88fr_1.12fr]">

@@ -171,7 +171,7 @@ export default function PricingPage() {
         </Container>
       </Section>
 
-      <Section className="py-20 md:py-28" surface="panel">
+      <Section className="py-16 md:py-24" surface="panel">
         <Container>
           <SectionHeader
             eyebrow="How institutional pricing works"
