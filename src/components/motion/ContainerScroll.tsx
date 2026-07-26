@@ -2,6 +2,7 @@
 
 import { useRef, type ReactNode } from "react";
 import { m, useScroll, useTransform } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 /**
  * Scroll-linked "screen" reveal for the hero mockup: it sits tilted back like a
@@ -31,7 +32,7 @@ export function ContainerScroll({
   children,
   className,
   /** Starting tilt in degrees. */
-  tilt = 16,
+  tilt = 10,
   /** Starting scale, so the screen also settles forward as it flattens. */
   from = 0.94,
 }: {
@@ -54,10 +55,17 @@ export function ContainerScroll({
   const scale = useTransform(scrollYProgress, [0, 1], [from, 1]);
 
   return (
-    <div ref={ref} className={className} style={{ perspective: 1400 }}>
+    // `overflow-x: clip` is load-bearing, not tidiness. A perspective
+    // projection makes the near edge of a rotated element render wider than
+    // its layout box — at a 10deg tilt this hero measured 879px inside a 696px
+    // column, which propagated all the way to the document and put a
+    // horizontal scrollbar on the page at tablet widths. Clip contains the
+    // projection; `clip` rather than `hidden` so no scroll container is
+    // created and `position: sticky` elsewhere keeps working.
+    <div ref={ref} className={cn("[overflow-x:clip]", className)} style={{ perspective: 2200 }}>
       <m.div
         data-draw=""
-        style={{ rotateX, scale, transformOrigin: "50% 0%", willChange: "transform" }}
+        style={{ rotateX, scale, transformOrigin: "50% 50%", willChange: "transform" }}
       >
         {children}
       </m.div>
