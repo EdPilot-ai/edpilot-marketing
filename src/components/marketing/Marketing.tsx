@@ -172,14 +172,14 @@ export function SectionHeader({
         className,
       )}
     >
-      {/* The eyebrow reads as a deliberate marker rather than a stray line of
-          purple text: a hairline chip with a single accent dot, which also
-          gives the heading something to sit against. */}
+      {/* Editorial, not a badge. A dot-in-a-pill is the default every template
+          reaches for and it reads as generic; a single accent rule with a
+          quiet, wide-tracked label sets the heading without decorating it. */}
       {eyebrow && (
-        <div className={cn("mb-6 flex", align === "center" && "justify-center")}>
-          <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] py-1 pl-2.5 pr-3">
-            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent" />
-            <span className="section-kicker">{eyebrow}</span>
+        <div className={cn("mb-5 flex items-center gap-3", align === "center" && "justify-center")}>
+          <span aria-hidden="true" className="h-px w-7 bg-accent/70" />
+          <span className="text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-text-tertiary">
+            {eyebrow}
           </span>
         </div>
       )}

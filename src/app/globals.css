@@ -499,13 +499,16 @@
       0 20px 40px rgb(27 27 31 / 0.1);
   }
 
-  /* surface-navy: deep institutional navy + the existing violet glow, used
-     for the closing CTA so the page ends on a distinct, intentional note.
-     Base dark tokens stay in force (all >= 4.5:1 on #101828). */
+  /* surface-navy: the closing band. Was a true institutional navy (#101828),
+     which read as a different palette next to the neutral page (#141416) and
+     the violet accent — the blue cast was the only cool hue on the page. Now a
+     violet-tinted deep neutral: still a distinct note to end on, but built from
+     the accent already in use rather than a fourth colour family.
+     Base dark tokens stay in force (all >= 4.5:1 on #16141d). */
   .surface-navy {
     background:
-      radial-gradient(ellipse 62% 55% at 50% 0%, rgb(139 92 246 / 0.16), transparent 72%),
-      linear-gradient(180deg, #101828 0%, #0d1322 100%);
+      radial-gradient(ellipse 62% 55% at 50% 0%, rgb(139 92 246 / 0.2), transparent 72%),
+      linear-gradient(180deg, #16141d 0%, #0d0c12 100%);
   }
 
   /* CSS-only texture for the deepest flat-black zones (T10): a low-opacity

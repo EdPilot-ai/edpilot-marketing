@@ -45,6 +45,7 @@ import {
   WorkflowSteps,
 } from "@/components/marketing";
 import { evidenceStats, productFacts, testimonials } from "@/lib/social-proof";
+import { ContainerScroll } from "@/components/motion/ContainerScroll";
 import { MockupTilt } from "@/components/motion/MockupTilt";
 import { ParallaxY } from "@/components/motion/ParallaxY";
 import { SIGN_UP_URL } from "@/lib/marketing";
@@ -126,11 +127,13 @@ export default function HomePage() {
             professor would recognize. The old TrustStrip of unsourced posture
             pills is gone — every claim it made is proven by a real module
             further down (FERPA/security panel, integrations, citations). */}
-        <ParallaxY amount={18} className="mt-14">
+        {/* Replaces the plain vertical parallax: both were scroll-driven, and
+            stacking two would just fight over the same Y. */}
+        <ContainerScroll className="mt-14">
           <MockupTilt>
             <CourseAssistantMockup annotated />
           </MockupTilt>
-        </ParallaxY>
+        </ContainerScroll>
       </Hero>
 
       <Section className="py-16 md:py-24" surface="panel">
@@ -180,7 +183,14 @@ export default function HomePage() {
           <div className="grid gap-10 md:grid-cols-2 md:items-center">
             <Reveal>
               <div>
-                <p className="section-kicker mb-5">The stakes</p>
+                {/* Matches SectionHeader's eyebrow so this hand-rolled block
+                    does not drift from the rest of the page. */}
+                <div className="mb-5 flex items-center gap-3">
+                  <span aria-hidden="true" className="h-px w-7 bg-accent/70" />
+                  <span className="text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-text-tertiary">
+                    The stakes
+                  </span>
+                </div>
                 <p className="font-display text-[1.65rem] font-medium leading-[1.3] tracking-[-0.02em] text-text-primary md:text-[2rem]">
                   The question is no longer whether students use AI on your courses. It&apos;s
                   whether the institution can see it, shape it, and answer for it.
