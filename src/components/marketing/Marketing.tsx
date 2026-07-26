@@ -6,7 +6,6 @@ import {
   BeforeAfterAnswerCards,
   type AnswerScenario,
 } from "@/components/marketing/BeforeAfterAnswerCards";
-import { ImagePlaceholder } from "@/components/marketing/ImagePlaceholder";
 import { CitationMark, SourceChip } from "@/components/marketing/Provenance";
 import { Reveal } from "@/components/marketing/Reveal";
 import { CursorGlow } from "@/components/motion/CursorGlow";
@@ -172,16 +171,10 @@ export function SectionHeader({
         className,
       )}
     >
-      {/* Editorial, not a badge. A dot-in-a-pill is the default every template
-          reaches for and it reads as generic; a single accent rule with a
-          quiet, wide-tracked label sets the heading without decorating it. */}
       {eyebrow && (
-        <div className={cn("mb-5 flex items-center gap-3", align === "center" && "justify-center")}>
-          <span aria-hidden="true" className="h-px w-7 bg-accent/70" />
-          <span className="text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-text-tertiary">
-            {eyebrow}
-          </span>
-        </div>
+        <SectionEyebrow align={align} className="mb-5">
+          {eyebrow}
+        </SectionEyebrow>
       )}
       {/* `text-balance` evens the line lengths so a big headline never leaves a
           single orphaned word on its last line. */}
@@ -199,6 +192,41 @@ export function SectionHeader({
         </p>
       )}
     </Reveal>
+  );
+}
+
+/**
+ * The label that introduces a section, above its heading.
+ *
+ * Editorial, not a badge: a dot-in-a-pill is the default every template
+ * reaches for, which is exactly what makes it read as generated. A single
+ * accent rule beside a quiet, wide-tracked label sets the heading without
+ * decorating it — the colour lives in the rule, not the words.
+ *
+ * Exported so the handful of sections that build their own header markup
+ * (rather than using `SectionHeader`) stay identical to the rest of the site.
+ * Deliberately NOT for labels *inside* a card — step numbers, timestamps,
+ * pricing tiers and the like keep `section-kicker`, where a leading rule
+ * would read as a stray mark.
+ */
+export function SectionEyebrow({
+  children,
+  align = "left",
+  className,
+}: {
+  children: ReactNode;
+  align?: "left" | "center";
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn("flex items-center gap-3", align === "center" && "justify-center", className)}
+    >
+      <span aria-hidden="true" className="h-px w-7 shrink-0 bg-accent/70" />
+      <span className="text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-text-tertiary">
+        {children}
+      </span>
+    </div>
   );
 }
 
@@ -288,7 +316,14 @@ export function Hero({
             align === "left" && "max-w-3xl",
           )}
         >
-          {eyebrow && <p className="section-kicker animate-fade-up mb-5">{eyebrow}</p>}
+          {/* Same marker as every section eyebrow below it — the hero is the
+              first one a visitor reads, so it sets the convention rather than
+              being the one place that breaks it. */}
+          {eyebrow && (
+            <SectionEyebrow align="center" className="animate-fade-up mb-5">
+              {eyebrow}
+            </SectionEyebrow>
+          )}
           <h1 className="animate-fade-up anim-delay-1 font-display text-[2.55rem] font-semibold leading-[1.03] tracking-[-0.045em] text-text-primary sm:text-[3.65rem] md:text-[4.6rem] md:tracking-[-0.05em]">
             {title}
             {accent && (

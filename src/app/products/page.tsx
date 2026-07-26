@@ -28,6 +28,7 @@ import {
   PageShell,
   Reveal,
   Section,
+  SectionEyebrow,
   SectionHeader,
   StatusPill,
 } from "@/components/marketing";
@@ -208,7 +209,7 @@ export default function ProductsPage() {
             <div className="grid gap-0 md:grid-cols-[1.05fr_0.95fr]">
               <div className="p-7 md:p-10">
                 <IconChip icon={Route} className="mb-6 h-12 w-12" />
-                <p className="section-kicker mb-3 text-accent">Institution path</p>
+                <SectionEyebrow className="mb-3">Institution path</SectionEyebrow>
                 <h2 className="max-w-xl text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary md:text-4xl">
                   Built to graduate from pilot to institution.
                 </h2>

@@ -16,11 +16,11 @@ import {
   Container,
   FeatureCard,
   Hero,
-  ImagePlaceholder,
   MarketingCard,
   PageShell,
   Reveal,
   Section,
+  SectionEyebrow,
   SectionHeader,
   TrustBar,
 } from "@/components/marketing";
@@ -127,25 +127,20 @@ export default function AboutPage() {
 
       <Section className="py-16 md:py-20" surface="deep">
         <Container>
-          <div className="grid gap-10 md:grid-cols-[1.05fr_0.95fr] md:items-center">
-            <div className="border-l-2 border-accent pl-7">
-              <p className="text-xl font-medium leading-9 text-text-primary md:text-2xl">
-                AI in education is inevitable. Our mission is to ensure it amplifies the
-                professor&apos;s expertise, not replace it.
-              </p>
-              <p className="section-kicker mt-5 text-accent">Our mission</p>
-            </div>
-            <Reveal>
-              {/* TODO(ASSET): faculty-at-desk / classroom photography. */}
-              <ParallaxY amount={22}>
-                <ImagePlaceholder
-                  alt="Faculty member preparing course materials at a desk in a classroom"
-                  label="Faculty at desk"
-                  aspect="4/3"
-                />
-              </ParallaxY>
-            </Reveal>
-          </div>
+          {/* Was a two-column split with an empty placeholder block standing in
+              for photography that does not exist. The statement is the point of
+              the section, so it now carries the full measure as a pull-quote
+              rather than sharing space with a grey rectangle. */}
+          <Reveal className="mx-auto max-w-3xl text-center">
+            <SectionEyebrow align="center" className="mb-6">
+              Our mission
+            </SectionEyebrow>
+            <p className="text-balance font-display text-[1.65rem] font-medium leading-[1.35] tracking-[-0.02em] text-text-primary md:text-[2.15rem]">
+              AI in education is inevitable. Our mission is to ensure it amplifies the
+              professor&apos;s expertise, not replace it.
+            </p>
+            <span aria-hidden="true" className="mx-auto mt-8 block h-px w-12 bg-accent/70" />
+          </Reveal>
         </Container>
       </Section>
 
@@ -232,7 +227,9 @@ export default function AboutPage() {
 
           {advisors.length > 0 && (
             <div className="mt-14">
-              <p className="section-kicker mb-6 text-center text-text-tertiary">Faculty advisors</p>
+              <SectionEyebrow align="center" className="mb-6">
+                Faculty advisors
+              </SectionEyebrow>
               <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
                 {advisors.map((advisor, index) => (
                   <Reveal key={advisor.name} delay={index * 0.08} className="h-full">

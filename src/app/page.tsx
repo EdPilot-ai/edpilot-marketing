@@ -33,13 +33,14 @@ import {
   Hero,
   PageShell,
   ProfessorPreview,
-  StudentPreview,
   ProofPanel,
   Reveal,
   RoleValueGrid,
   Section,
+  SectionEyebrow,
   SectionHeader,
   StatBand,
+  StudentPreview,
   Testimonials,
   TextLink,
   WorkflowSteps,
@@ -183,14 +184,7 @@ export default function HomePage() {
           <div className="grid gap-10 md:grid-cols-2 md:items-center">
             <Reveal>
               <div>
-                {/* Matches SectionHeader's eyebrow so this hand-rolled block
-                    does not drift from the rest of the page. */}
-                <div className="mb-5 flex items-center gap-3">
-                  <span aria-hidden="true" className="h-px w-7 bg-accent/70" />
-                  <span className="text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-text-tertiary">
-                    The stakes
-                  </span>
-                </div>
+                <SectionEyebrow className="mb-5">The stakes</SectionEyebrow>
                 <p className="font-display text-[1.65rem] font-medium leading-[1.3] tracking-[-0.02em] text-text-primary md:text-[2rem]">
                   The question is no longer whether students use AI on your courses. It&apos;s
                   whether the institution can see it, shape it, and answer for it.

@@ -1,5 +1,4 @@
 import type { ElementType } from "react";
-import Image from "next/image";
 import {
   Accessibility,
   BadgeCheck,
@@ -12,7 +11,7 @@ import {
 import { SourceLine } from "@/components/marketing/Provenance";
 import { CountUp } from "@/components/motion/CountUp";
 import { cn } from "@/lib/utils";
-import type { EvaluatingInstitution, ProcurementBadge, Testimonial } from "@/lib/social-proof";
+import type { ProcurementBadge, Testimonial } from "@/lib/social-proof";
 
 /**
  * A row of headline numbers. Pass product facts (value + label) or sourced
@@ -135,57 +134,6 @@ export function ProcurementBadges({
         );
       })}
     </ul>
-  );
-}
-
-/**
- * Honest "who is evaluating us" strip. Shows anonymized institutional
- * descriptors (no client names are approved for display yet). When an entry
- * gains a real `logo` + `name`, it upgrades to a logo automatically — no
- * restructuring needed. Renders nothing when the list is empty.
- */
-export function EvaluatingStrip({
-  institutions,
-  label = "Universities currently evaluating EdPilot",
-  className,
-}: {
-  institutions: EvaluatingInstitution[];
-  label?: string;
-  className?: string;
-}) {
-  if (!institutions || institutions.length === 0) return null;
-
-  return (
-    <div className={cn("text-center", className)}>
-      <p className="section-kicker text-text-tertiary">{label}</p>
-      <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
-        {institutions.map((inst) => (
-          <li
-            key={`${inst.type}-${inst.scale}`}
-            className="flex max-w-[15rem] flex-col items-center text-center"
-          >
-            {inst.logo ? (
-              // TODO(ASSET): approved institution logo, swapped in when permitted.
-              <Image
-                src={inst.logo}
-                alt={inst.name ?? inst.type}
-                width={160}
-                height={40}
-                className="h-9 w-auto opacity-70 grayscale transition group-hover:opacity-100"
-              />
-            ) : (
-              <>
-                <span className="text-sm font-medium text-text-secondary">
-                  {inst.type}
-                  <span className="text-text-tertiary"> · {inst.scale}</span>
-                </span>
-                <span className="mt-1 text-xs leading-5 text-text-tertiary">{inst.stage}</span>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
 
