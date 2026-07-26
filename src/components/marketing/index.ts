@@ -5,5 +5,10 @@ export * from "./Reveal";
 export * from "./GovernedAnswer";
 export * from "./ComparisonMatrix";
 export * from "./ImagePlaceholder";
-export * from "./MisconceptionSparkline";
 export * from "./BeforeAfterAnswerCards";
+export {
+  AdminPreview,
+  ProfessorPreview,
+  StudentPreview,
+  GovernanceContrastPreview,
+} from "./ProductPreviews";

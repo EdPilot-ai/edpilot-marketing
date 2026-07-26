@@ -6,7 +6,6 @@ import {
   BeforeAfterAnswerCards,
   type AnswerScenario,
 } from "@/components/marketing/BeforeAfterAnswerCards";
-import { ImagePlaceholder } from "@/components/marketing/ImagePlaceholder";
 import { CitationMark, SourceChip } from "@/components/marketing/Provenance";
 import { Reveal } from "@/components/marketing/Reveal";
 import { CursorGlow } from "@/components/motion/CursorGlow";
@@ -172,14 +171,20 @@ export function SectionHeader({
         className,
       )}
     >
-      {eyebrow && <p className="section-kicker mb-5">{eyebrow}</p>}
-      <h2 className="font-display text-[2rem] font-semibold leading-[1.06] tracking-[-0.04em] text-text-primary md:text-[3.15rem]">
+      {eyebrow && (
+        <SectionEyebrow align={align} className="mb-5">
+          {eyebrow}
+        </SectionEyebrow>
+      )}
+      {/* `text-balance` evens the line lengths so a big headline never leaves a
+          single orphaned word on its last line. */}
+      <h2 className="text-balance font-display text-[2rem] font-semibold leading-[1.05] tracking-[-0.04em] text-text-primary md:text-[3.15rem]">
         {title}
       </h2>
       {description && (
         <p
           className={cn(
-            "mt-5 max-w-2xl text-[15px] leading-7 text-text-secondary md:text-base md:leading-8",
+            "mt-5 max-w-2xl text-pretty text-[15px] leading-7 text-text-secondary md:text-base md:leading-8",
             align === "center" && "mx-auto",
           )}
         >
@@ -187,6 +192,41 @@ export function SectionHeader({
         </p>
       )}
     </Reveal>
+  );
+}
+
+/**
+ * The label that introduces a section, above its heading.
+ *
+ * Editorial, not a badge: a dot-in-a-pill is the default every template
+ * reaches for, which is exactly what makes it read as generated. A single
+ * accent rule beside a quiet, wide-tracked label sets the heading without
+ * decorating it — the colour lives in the rule, not the words.
+ *
+ * Exported so the handful of sections that build their own header markup
+ * (rather than using `SectionHeader`) stay identical to the rest of the site.
+ * Deliberately NOT for labels *inside* a card — step numbers, timestamps,
+ * pricing tiers and the like keep `section-kicker`, where a leading rule
+ * would read as a stray mark.
+ */
+export function SectionEyebrow({
+  children,
+  align = "left",
+  className,
+}: {
+  children: ReactNode;
+  align?: "left" | "center";
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn("flex items-center gap-3", align === "center" && "justify-center", className)}
+    >
+      <span aria-hidden="true" className="h-px w-7 shrink-0 bg-accent/70" />
+      <span className="text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-text-tertiary">
+        {children}
+      </span>
+    </div>
   );
 }
 
@@ -220,7 +260,11 @@ export function TextLink({
     <Link
       href={href}
       className={cn(
-        "link-underline inline-flex items-center gap-1.5 rounded-md text-sm font-semibold text-accent transition-colors hover:text-accent-soft focus-ring",
+        // `min-h-11` gives a 44px tap target. These are standalone section
+        // links ("Compare EdPilot to the alternatives"), not links inside a
+        // sentence, so they are held to target-size rules — at text height
+        // alone the hit area was 17px.
+        "link-underline inline-flex min-h-11 items-center gap-1.5 rounded-md text-sm font-semibold text-accent transition-colors hover:text-accent-soft focus-ring",
         className,
       )}
     >
@@ -276,7 +320,14 @@ export function Hero({
             align === "left" && "max-w-3xl",
           )}
         >
-          {eyebrow && <p className="section-kicker animate-fade-up mb-5">{eyebrow}</p>}
+          {/* Same marker as every section eyebrow below it — the hero is the
+              first one a visitor reads, so it sets the convention rather than
+              being the one place that breaks it. */}
+          {eyebrow && (
+            <SectionEyebrow align="center" className="animate-fade-up mb-5">
+              {eyebrow}
+            </SectionEyebrow>
+          )}
           <h1 className="animate-fade-up anim-delay-1 font-display text-[2.55rem] font-semibold leading-[1.03] tracking-[-0.045em] text-text-primary sm:text-[3.65rem] md:text-[4.6rem] md:tracking-[-0.05em]">
             {title}
             {accent && (
@@ -660,9 +711,9 @@ export function RoleValueGrid({
     promise: string;
     detail: string;
     icon?: ElementType;
-    /** Optional contextual imagery slot rendered at the top of the card
-        (placeholder block until real assets land — see ImagePlaceholder). */
-    image?: { alt: string; label: string; src?: string };
+    /** A rendered preview of the surface this role actually uses. Showing the
+        product beats a placeholder block standing in for absent photography. */
+    preview?: ReactNode;
   }>;
   className?: string;
 }) {
@@ -671,16 +722,7 @@ export function RoleValueGrid({
       {items.map((item, index) => (
         <Reveal key={item.role} delay={index * 0.08}>
           <MarketingCard className="h-full p-6">
-            {item.image && (
-              <ImagePlaceholder
-                src={item.image.src}
-                alt={item.image.alt}
-                label={item.image.label}
-                aspect="16/9"
-                sizes="(min-width: 768px) 33vw, 100vw"
-                className="mb-5"
-              />
-            )}
+            {item.preview && <div className="mb-5">{item.preview}</div>}
             <div className="flex items-center gap-3">
               {item.icon && <IconChip icon={item.icon} className="h-9 w-9" />}
               <p className="section-kicker text-accent">{item.role}</p>

@@ -26,6 +26,7 @@ import {
   PageShell,
   Reveal,
   Section,
+  SectionEyebrow,
   SectionHeader,
 } from "@/components/marketing";
 import { SIGN_UP_URL } from "@/lib/marketing";
@@ -162,7 +163,7 @@ export default function HowItWorksPage() {
             <div className="lg:sticky lg:top-28">
               <div className="surface-gradient-panel overflow-hidden rounded-lg border border-border-gray shadow-2xl">
                 <div className="border-b border-border-gray p-6 md:p-7">
-                  <p className="section-kicker text-accent">Interactive setup</p>
+                  <SectionEyebrow>Interactive setup</SectionEyebrow>
                   <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary">
                     Click through the launch path.
                   </h2>
@@ -261,7 +262,7 @@ export default function HowItWorksPage() {
           <div className="overflow-hidden rounded-lg border border-border-gray bg-bg-deep shadow-2xl">
             <div className="grid gap-px bg-border-gray lg:grid-cols-[0.88fr_1.12fr]">
               <div className="surface-gradient-featured p-7 md:p-9">
-                <p className="section-kicker text-accent">Safe by design</p>
+                <SectionEyebrow>Safe by design</SectionEyebrow>
                 <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.025em] text-text-primary md:text-4xl">
                   Fast to launch, careful with data.
                 </h2>

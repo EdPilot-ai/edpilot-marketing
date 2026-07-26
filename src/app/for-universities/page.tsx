@@ -17,7 +17,6 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import {
   CTABand,
   Container,
-  EvaluatingStrip,
   FeatureCard,
   Hero,
   MarketingCard,
@@ -30,7 +29,7 @@ import {
   StatBand,
 } from "@/components/marketing";
 import { CountUp } from "@/components/motion/CountUp";
-import { evaluatingInstitutions, productFacts } from "@/lib/social-proof";
+import { productFacts } from "@/lib/social-proof";
 import { SIGN_UP_URL } from "@/lib/marketing";
 
 export const metadata: Metadata = {
@@ -145,9 +144,7 @@ export default function ForUniversitiesPage() {
             variant: "link",
           },
         ]}
-      >
-        <EvaluatingStrip institutions={evaluatingInstitutions} className="mt-14" />
-      </Hero>
+      />
 
       <Section className="py-16 md:py-24">
         <Container>

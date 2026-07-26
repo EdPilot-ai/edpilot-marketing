@@ -70,34 +70,6 @@ export const evidenceStats: EvidenceStat[] = [
   },
 ];
 
-export type EvaluatingInstitution = {
-  /** Anonymized descriptor, e.g. "Public R1". */
-  type: string;
-  /** Scale descriptor, e.g. "14,000 students" or "3 campuses". */
-  scale: string;
-  /** Where they are in evaluation, e.g. "piloting 3 courses". */
-  stage: string;
-  /** TODO(ASSET): drop in a real logo path + name once permission is granted;
-   *  when set, the strip renders the logo instead of the anonymized descriptor. */
-  logo?: string;
-  name?: string;
-};
-
-/**
- * Universities currently evaluating EdPilot. Anonymized on purpose: no client
- * names are approved for display yet, so we show honest institutional
- * descriptors instead of fabricated logos. This is a real pipeline described
- * generically, not invented social proof.
- *
- * TODO(ASSET): replace individual entries with { logo, name } once an
- * institution grants permission — the component upgrades automatically.
- */
-export const evaluatingInstitutions: EvaluatingInstitution[] = [
-  { type: "Public R1", scale: "14,000 students", stage: "piloting 3 courses" },
-  { type: "Private liberal-arts college", scale: "2,100 students", stage: "faculty-led pilot" },
-  { type: "Community college district", scale: "3 campuses", stage: "IT review underway" },
-];
-
 export type ProcurementBadge = {
   /** Stable id — the component maps this to an icon. */
   id: string;

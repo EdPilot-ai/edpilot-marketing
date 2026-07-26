@@ -1,5 +1,4 @@
 import type { ElementType } from "react";
-import Image from "next/image";
 import {
   Accessibility,
   BadgeCheck,
@@ -12,7 +11,7 @@ import {
 import { SourceLine } from "@/components/marketing/Provenance";
 import { CountUp } from "@/components/motion/CountUp";
 import { cn } from "@/lib/utils";
-import type { EvaluatingInstitution, ProcurementBadge, Testimonial } from "@/lib/social-proof";
+import type { ProcurementBadge, Testimonial } from "@/lib/social-proof";
 
 /**
  * A row of headline numbers. Pass product facts (value + label) or sourced
@@ -27,26 +26,50 @@ export function StatBand({
   items: Array<{ value: string; label: string; source?: string }>;
   className?: string;
 }) {
+  const hasSources = items.some((item) => item.source);
+
   return (
     <dl
       className={cn(
         "shadow-card grid gap-px overflow-hidden rounded-xl border border-border-gray bg-border-gray sm:grid-cols-2 lg:grid-cols-4",
+        // Sourced stats share row tracks via subgrid, so the number, the claim
+        // and the citation each sit on one line across all four cards. Without
+        // it a claim that wraps to three lines drags its own citation rule out
+        // of alignment with its neighbours, which reads as sloppy on a section
+        // whose whole job is looking defensible.
+        hasSources && "lg:grid-rows-[auto_1fr_auto] lg:gap-y-0",
         className,
       )}
     >
       {items.map((item) => (
-        <div key={item.label} className="flex flex-col bg-bg-deep p-6 text-center md:p-7">
+        <div
+          key={item.label}
+          className={cn(
+            "bg-bg-deep p-6 text-center md:p-7",
+            hasSources
+              ? "grid grid-rows-[auto_1fr_auto] gap-y-3 lg:row-span-3 lg:grid-rows-subgrid"
+              : "flex flex-col",
+          )}
+        >
+          {/* Absolutely positioned, so it never claims a subgrid row. */}
           <dt className="sr-only">
             {item.label}
             {item.source ? ` — source: ${item.source}` : ""}
           </dt>
-          <dd className="font-display text-3xl font-semibold tracking-[-0.03em] text-text-primary md:text-4xl">
+          <dd
+            className={cn(
+              "font-display font-semibold tracking-[-0.03em] text-text-primary",
+              // Values like "Same week" are words, not figures — keeping them on
+              // one line stops a single card growing taller than the rest.
+              "whitespace-nowrap text-3xl md:text-[2rem]",
+            )}
+          >
             <CountUp value={item.value} />
           </dd>
           {item.source ? (
             <>
-              <p className="mt-2.5 pb-3 text-[13px] leading-5 text-text-secondary">{item.label}</p>
-              <SourceLine className="mt-auto text-left">{item.source}</SourceLine>
+              <p className="text-[13px] leading-5 text-text-secondary">{item.label}</p>
+              <SourceLine className="text-left">{item.source}</SourceLine>
             </>
           ) : (
             <p className="section-kicker mt-2.5 leading-5 text-text-tertiary">{item.label}</p>
@@ -111,57 +134,6 @@ export function ProcurementBadges({
         );
       })}
     </ul>
-  );
-}
-
-/**
- * Honest "who is evaluating us" strip. Shows anonymized institutional
- * descriptors (no client names are approved for display yet). When an entry
- * gains a real `logo` + `name`, it upgrades to a logo automatically — no
- * restructuring needed. Renders nothing when the list is empty.
- */
-export function EvaluatingStrip({
-  institutions,
-  label = "Universities currently evaluating EdPilot",
-  className,
-}: {
-  institutions: EvaluatingInstitution[];
-  label?: string;
-  className?: string;
-}) {
-  if (!institutions || institutions.length === 0) return null;
-
-  return (
-    <div className={cn("text-center", className)}>
-      <p className="section-kicker text-text-tertiary">{label}</p>
-      <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
-        {institutions.map((inst) => (
-          <li
-            key={`${inst.type}-${inst.scale}`}
-            className="flex max-w-[15rem] flex-col items-center text-center"
-          >
-            {inst.logo ? (
-              // TODO(ASSET): approved institution logo, swapped in when permitted.
-              <Image
-                src={inst.logo}
-                alt={inst.name ?? inst.type}
-                width={160}
-                height={40}
-                className="h-9 w-auto opacity-70 grayscale transition group-hover:opacity-100"
-              />
-            ) : (
-              <>
-                <span className="text-sm font-medium text-text-secondary">
-                  {inst.type}
-                  <span className="text-text-tertiary"> · {inst.scale}</span>
-                </span>
-                <span className="mt-1 text-xs leading-5 text-text-tertiary">{inst.stage}</span>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
 
