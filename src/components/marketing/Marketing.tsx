@@ -260,7 +260,11 @@ export function TextLink({
     <Link
       href={href}
       className={cn(
-        "link-underline inline-flex items-center gap-1.5 rounded-md text-sm font-semibold text-accent transition-colors hover:text-accent-soft focus-ring",
+        // `min-h-11` gives a 44px tap target. These are standalone section
+        // links ("Compare EdPilot to the alternatives"), not links inside a
+        // sentence, so they are held to target-size rules — at text height
+        // alone the hit area was 17px.
+        "link-underline inline-flex min-h-11 items-center gap-1.5 rounded-md text-sm font-semibold text-accent transition-colors hover:text-accent-soft focus-ring",
         className,
       )}
     >

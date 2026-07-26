@@ -10,12 +10,20 @@ export default function Footer() {
   return (
     <footer aria-label="Site footer" className="border-t border-border-gray bg-bg-deep">
       <Container size="wide" className="py-14">
-        <div className="grid gap-10 md:grid-cols-12">
+        {/*
+            The 12-column row only holds up once there is room for it. At the
+            md breakpoint exactly, eleven gap-10 gutters leave ~21px per column,
+            so a `col-span-2` link column is 83px — narrower than the word
+            "Accessibility", which overflowed and pushed the whole document to
+            790px wide on every page. Twelve columns now start at lg; below
+            that the links sit in a plain 2-up grid with room to breathe.
+          */}
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand */}
-          <div className="md:col-span-4">
+          <div className="sm:col-span-2 lg:col-span-4">
             <Link
               href="/"
-              className="group mb-4 inline-flex items-center gap-2.5 rounded-lg focus-ring"
+              className="group mb-4 inline-flex min-h-11 items-center gap-2.5 rounded-lg focus-ring"
             >
               <BrandMark
                 size={30}
@@ -39,7 +47,7 @@ export default function Footer() {
           </div>
 
           {/* Product */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <h3 className="mb-4 text-[11px] font-medium tracking-[0.02em] text-text-primary">
               Product
             </h3>
@@ -88,7 +96,7 @@ export default function Footer() {
           </div>
 
           {/* Compare */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <h3 className="mb-4 text-[11px] font-medium tracking-[0.02em] text-text-primary">
               Compare
             </h3>
@@ -121,7 +129,7 @@ export default function Footer() {
           </div>
 
           {/* Company */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <h3 className="mb-4 text-[11px] font-medium tracking-[0.02em] text-text-primary">
               Company
             </h3>
@@ -145,7 +153,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <h3 className="mb-4 text-[11px] font-medium tracking-[0.02em] text-text-primary">
               Contact
             </h3>
