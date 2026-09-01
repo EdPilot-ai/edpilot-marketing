@@ -3,9 +3,11 @@
 **Scope:** the public marketing site at `edpilot.ai` (this repository) and the boundary
 where it touches GCP.
 **Date:** 2026-09-01
-**Overall verdict:** **Medium risk before this change, Low risk after** — for the site
-itself. The GCP billing exposure is **unresolved and cannot be fixed from this
-repository**; see [GCP](#gcp-what-i-could-not-audit-and-what-you-must-do) below.
+**Overall verdict:** **Medium risk before this change, Low risk after** — for the code in
+this repository. Two things keep that from being the whole picture: the dependency tree
+carries six high-severity advisories that need one `npm audit fix` (finding 8), and the
+GCP billing exposure is **unresolved and cannot be fixed from this repository** — see
+[GCP](#gcp-what-i-could-not-audit-and-what-you-must-do) below.
 
 ---
 
@@ -21,6 +23,8 @@ The realistic threats are therefore narrow and specific:
 1. **Abuse of the two public server actions to run up a bill.** This was the real finding.
 2. **Missing browser-level hardening headers.**
 3. **Standing visitor PII in Postgres with no retention or deletion path.**
+4. **Known-vulnerable dependencies**, including three Next.js advisories that land on the
+   exact server-action surface finding 1 is about.
 
 There was no injection, XSS, SSRF, path traversal, secret leak, or authentication flaw.
 All page content is compiled-in constants; the blog renders from a TypeScript array, not
@@ -143,20 +147,64 @@ deletion request. Your privacy policy is a public commitment; a university procu
 reviewer will ask how a subscriber exercises it. This is a gap between the policy page and
 the implementation, and it will come up in a security questionnaire.
 
-### 8. No CI — LOW (fixed here)
+### 8. Six high-severity advisories in the dependency tree — HIGH (found by the new CI gate; the fix is one command, but see below)
+
+The `npm audit` gate added in this change failed on its first run. That is the gate working:
+these advisories are all present on `main` today. Three of them land **directly on the
+surface this audit is about**:
+
+| Advisory | Why it matters here |
+| --- | --- |
+| [Unauthenticated disclosure of internal Server Function endpoints](https://github.com/advisories/GHSA-955p-x3mx-jcvp) | The two forms in finding 1 *are* server functions. |
+| [Denial of Service in App Router using Server Actions](https://github.com/advisories/GHSA-m99w-x7hq-7vfj) | The same abuse path the rate limiter addresses, one layer lower. |
+| [Unbounded Server Action payload](https://github.com/advisories/GHSA-4c39-4ccg-62r3) | The 1 MB body ceiling finding 2 relies on. |
+
+Also flagged: `postcss` (XSS via unescaped `</style>`, arbitrary file read via
+attacker-controlled `sourceMappingURL`), `sharp` (inherited libvips CVEs), plus `js-yaml`,
+`nanoid`, and `brace-expansion`.
+
+**The fix is `npm audit fix`.** The site runs `next@16.2.10`; the advisories are fixed in
+`16.3.0`, and `package.json` already declares `^16.2.4`, which permits it — so **only the
+lockfile needs regenerating**, not the manifest.
+
+**Not fixed here, and this is a real gap in this PR:** the npm registry is blocked by
+network policy in the environment this audit ran in, so the lockfile could not be
+regenerated. Hand-editing `package-lock.json` is not a safe substitute and was not
+attempted. Run `npm audit fix` on a machine with registry access and push the lockfile;
+the `audit` job goes green on its own.
+
+### 9. Ten unused production dependencies — MEDIUM (flagged)
+
+Declared in `package.json` and never imported anywhere in `src/`:
+
+`gray-matter` · `next-mdx-remote` · `remark-gfm` · `rehype-slug` ·
+`rehype-autolink-headings` · `zod` · `@radix-ui/react-dialog` · `@radix-ui/react-tabs` ·
+`@radix-ui/react-tooltip` · `@radix-ui/react-separator`
+
+(Of the Radix packages only `react-slot` is actually used, by `button.tsx`.)
+
+Each is install-time script execution on every CI run and every deploy, and one more
+package that can be compromised upstream — for a marketing site that imports none of them.
+`gray-matter` is the direct source of the `js-yaml` advisory above, so dropping it removes
+that finding outright rather than patching it.
+
+Removing them also requires regenerating the lockfile, so it is blocked by the same
+network restriction as finding 8.
+
+### 10. No CI — LOW (fixed here)
 
 `.github/workflows/` contained only a `.gitkeep`. Nothing ran lint, typecheck, tests, or a
 dependency vulnerability scan on a pull request, so a vulnerable transitive dependency
 could land silently. **Fixed:** `.github/workflows/ci.yml`.
 
-### 9. `JSON.stringify` into a `<script>` tag — LOW (no action needed today)
+### 11. `JSON.stringify` into a `<script>` tag — LOW (no action needed today)
 
 `src/components/StructuredData.tsx` injects JSON-LD via `dangerouslySetInnerHTML` without
 escaping `<` or `&`. Every input is a compiled-in constant, so this is **not exploitable**.
 It is noted only because it becomes a real XSS sink the moment any of that schema data
 becomes dynamic. If that ever happens, escape `<`, `>`, and `&` before injection.
 
-### 10. `robots.txt` advertises paths that don't exist — INFORMATIONAL
+### 12. `robots.txt` advertises paths that don't exist — INFORMATIONAL
 
 `Disallow: /admin/`, `/api/`, `/.next/` — none of these exist in this repo. Harmless, but
 it invites scanners to try them. Cosmetic; left alone.
@@ -251,6 +299,8 @@ Shipped in this change:
 
 Yours to do, in priority order:
 
+- [ ] **Run `npm audit fix` and push the lockfile.** One command, clears six high advisories including three Next.js server-action ones. Blocked in the audit environment, not in yours.
+- [ ] **Drop the ten unused production dependencies** (finding 9) in the same pass.
 - [ ] **Wire a GCP budget to a billing-disable function.** Highest impact for your stated concern.
 - [ ] **Cap `--max-instances` on the contact-intake Cloud Run service.**
 - [ ] **Add Vercel Firewall rate limiting** on the two action paths.
@@ -268,10 +318,12 @@ Yours to do, in priority order:
 ## Verification note
 
 `npm ci` is blocked by the network egress policy in the environment where this audit was
-performed, so `npm run lint`, `npm test`, and a full `npm run build` **could not be run
-here**. What was verified: `next.config.mjs` loads and emits the expected header set, and
-the new and changed TypeScript files typecheck clean against a standalone compiler. The
-two pre-existing `schemaReady` narrowing warnings in `newsletter.ts` / `contact-store.ts`
-are artifacts of that standalone compiler being newer than the repo's pinned TypeScript;
-they are present on `main` and are not introduced by this change. **Run the full suite in
-CI before merging.**
+performed, so nothing could be executed locally. CI on PR #23 was the first real run:
+
+- **`verify` (lint, typecheck, tests, build): passing.**
+- **CodeQL: passing.**
+- **Vercel preview: deployed successfully**, which confirms the new CSP and header config
+  builds and serves.
+- **`audit`: failing**, on the six pre-existing advisories in finding 8. That failure is
+  the gate doing its job on a tree that was already vulnerable, and it clears with
+  `npm audit fix` run somewhere with registry access.
