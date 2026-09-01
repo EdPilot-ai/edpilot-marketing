@@ -22,3 +22,17 @@ export function getSql(): NeonQueryFunction<false, false> | null {
   }
   return sqlClient
 }
+
+/**
+ * Whether the app may issue DDL (CREATE TABLE IF NOT EXISTS) at runtime.
+ *
+ * Defaults to true so existing deployments keep working untouched. Turning it
+ * off is the least-privilege posture: run `db/schema.sql` once, revoke DDL
+ * from the application's database role, and set
+ * `MARKETING_DB_AUTO_MIGRATE=false`. After that a leaked or misused
+ * DATABASE_URL can only read and write rows in the two known tables — it
+ * cannot create, alter, or drop schema objects.
+ */
+export function runtimeMigrationsEnabled(): boolean {
+  return process.env.MARKETING_DB_AUTO_MIGRATE !== 'false'
+}

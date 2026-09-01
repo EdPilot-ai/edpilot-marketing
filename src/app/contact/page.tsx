@@ -29,6 +29,14 @@ import {
   SectionHeader,
 } from "@/components/marketing";
 import { SUPPORT_EMAIL } from "@/lib/marketing";
+import {
+  INTENT_OPTIONS as intentOptions,
+  LMS_OPTIONS as lmsOptions,
+  ROLE_OPTIONS as roleOptions,
+  TIMELINE_OPTIONS as timelineOptions,
+  CONTACT_FIELD_LIMITS,
+  type ContactSelectOption as SelectOption,
+} from "@/lib/contact-options";
 
 const initialFormData = {
   firstName: "",
@@ -43,53 +51,6 @@ const initialFormData = {
   courseCount: "",
   message: "",
   company: "", // honeypot: stays empty for humans
-};
-
-const intentOptions = [
-  { value: "book-demo", label: "Book a university demo", detail: "For teams evaluating rollout." },
-  {
-    value: "start-pilot",
-    label: "Plan a university pilot",
-    detail: "For a university-owned course-material evaluation.",
-  },
-  {
-    value: "security-procurement",
-    label: "Security or procurement",
-    detail: "For IT, legal, privacy, or accessibility questions.",
-  },
-  { value: "general-question", label: "General question", detail: "For anything else." },
-];
-
-const roleOptions = [
-  { value: "professor", label: "Professor / Instructor" },
-  { value: "department-head", label: "Department Head" },
-  { value: "administrator", label: "University Administrator" },
-  { value: "it-staff", label: "IT / LMS Staff" },
-  { value: "student", label: "Student" },
-  { value: "partner", label: "Partner / Vendor" },
-  { value: "other", label: "Other" },
-];
-
-const lmsOptions = [
-  { value: "canvas", label: "Canvas" },
-  { value: "blackboard", label: "Blackboard" },
-  { value: "moodle", label: "Moodle" },
-  { value: "brightspace", label: "D2L Brightspace" },
-  { value: "none", label: "Not sure / none" },
-  { value: "other", label: "Other" },
-];
-
-const timelineOptions = [
-  { value: "this-month", label: "This month" },
-  { value: "this-term", label: "This term" },
-  { value: "next-term", label: "Next term" },
-  { value: "exploring", label: "Just exploring" },
-];
-
-type SelectOption = {
-  value: string;
-  label: string;
-  detail?: string;
 };
 
 function CustomSelect({
@@ -535,6 +496,7 @@ export default function ContactPage() {
                         id="contact-first-name"
                         type="text"
                         name="firstName"
+                        maxLength={CONTACT_FIELD_LIMITS.firstName}
                         value={formData.firstName}
                         onChange={handleChange}
                         required
@@ -554,6 +516,7 @@ export default function ContactPage() {
                         id="contact-last-name"
                         type="text"
                         name="lastName"
+                        maxLength={CONTACT_FIELD_LIMITS.lastName}
                         value={formData.lastName}
                         onChange={handleChange}
                         required
@@ -576,6 +539,7 @@ export default function ContactPage() {
                         id="contact-email"
                         type="email"
                         name="email"
+                        maxLength={CONTACT_FIELD_LIMITS.email}
                         value={formData.email}
                         onChange={handleChange}
                         required
@@ -613,6 +577,7 @@ export default function ContactPage() {
                         id="contact-institution"
                         type="text"
                         name="institution"
+                        maxLength={CONTACT_FIELD_LIMITS.institution}
                         value={formData.institution}
                         onChange={handleChange}
                         required
@@ -631,6 +596,7 @@ export default function ContactPage() {
                         id="contact-department"
                         type="text"
                         name="department"
+                        maxLength={CONTACT_FIELD_LIMITS.department}
                         value={formData.department}
                         onChange={handleChange}
                         className={inputClass}
@@ -663,6 +629,7 @@ export default function ContactPage() {
                         id="contact-course-count"
                         type="text"
                         name="courseCount"
+                        maxLength={CONTACT_FIELD_LIMITS.courseCount}
                         value={formData.courseCount}
                         onChange={handleChange}
                         className={inputClass}
@@ -693,6 +660,7 @@ export default function ContactPage() {
                     <textarea
                       id="contact-message"
                       name="message"
+                      maxLength={CONTACT_FIELD_LIMITS.message}
                       value={formData.message}
                       onChange={handleChange}
                       required
