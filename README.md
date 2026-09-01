@@ -26,3 +26,22 @@ npm run dev
 ## Boundaries
 
 ESLint blocks AWS SDKs, auth libs, and any import path under `dashboard/`, `learn/`, `auth/`, or `api/`. Don't disable the rule — move the code to `edpilot-app` instead.
+
+## Security
+
+See [`docs/SECURITY-AUDIT.md`](docs/SECURITY-AUDIT.md) for the full review, including the
+GCP and Vercel billing controls that live outside this repo.
+
+The two server actions (`sendContactMessage`, `subscribeToNewsletter`) are unauthenticated
+public POST endpoints. Anything added to them must keep three properties:
+
+- **Throttle before doing downstream work.** `checkSubmissionAllowed` in `src/lib/rate-limit.ts`
+  runs first, so a flood costs nothing beyond the function invocation. It is a per-instance
+  backstop, not a substitute for edge rate limiting.
+- **Cap and validate every field server-side.** Limits and select allowlists live in
+  `src/lib/contact-options.ts` and are shared with the form, so the two can't drift.
+- **Fail closed.** Never report success to the visitor unless the submission was durably
+  accepted, and never return internal error detail to the client.
+
+Security response headers (CSP, HSTS, frame/MIME/referrer/permissions policy) are set for
+every route in `next.config.mjs`.
