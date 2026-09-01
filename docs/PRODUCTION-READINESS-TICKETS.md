@@ -9,6 +9,13 @@ documents and **must be reviewed by counsel before merge**; Kimi builds the stru
 mechanisms, a lawyer approves the words. Tickets 14–20 are engineering hardening and can run in
 parallel with the legal review.
 
+**Check this before starting Tickets 15, 16, 18, or 20.** The sibling branch
+`claude/web-app-security-audit-uw5qws` (commit `f5ab773`, unmerged at time of writing) already ships
+security headers with a CSP, a rate limiter with tests, a CI workflow, and changes to the contact
+storage path. Those four tickets are written to **reconcile with that branch, not to rebuild against
+it.** Read `git diff origin/main...origin/claude/web-app-security-audit-uw5qws` first. If it has
+merged, most of each ticket is already done and only the marked remainder applies.
+
 **Global rule for every ticket.** This repository is the public marketing site. It has no auth, no
 user accounts, and no product surface. `eslint.config.mjs` blocks imports from `dashboard/`,
 `learn/`, `auth/`, and `api/`, plus auth and AWS libraries. Do not disable that rule. If a change
@@ -481,6 +488,9 @@ for anyone to verify — open DevTools and read the policy.
   recipient is, how long it is retained, and the legal basis.
   - Contact form: enumerate all eleven fields from `ContactIntakeSubmission`. Name the recipient
     category (CRM/intake webhook). Ask a maintainer for the actual vendor name — do not guess.
+    **Confirm the destination against the code as it stands after Ticket 20 settles it** — the sibling
+    branch `claude/web-app-security-audit-uw5qws` is changing this path, and disclosing a destination
+    the code no longer uses would reproduce the exact defect this ticket fixes.
   - Newsletter: email address, source, subscription timestamp; stored in a managed Postgres database
     (Neon, hosted in the US).
   - Analytics: name Vercel Analytics and Vercel Speed Insights, state what they measure, and state
@@ -1053,17 +1063,24 @@ package.json. Summarize all changed files and do not push directly to main.
 
 ---
 
-### Ticket 15: Add security response headers and a Content-Security-Policy
+### Ticket 15: Land the security headers and CSP from the sibling branch
+
+> **Mostly already written.** `claude/web-app-security-audit-uw5qws` implements this in
+> `next.config.mjs`: a full header set plus a CSP enumerated from the site's real load behavior, with
+> `'unsafe-inline'` kept in `script-src` under a documented rationale (a nonce would force dynamic
+> rendering and lose static generation) and `preload` deliberately omitted from HSTS. **Do not write a
+> second implementation.** This ticket is: get that branch merged, then verify and close the gaps
+> below.
 
 #### Objective
-Ship the baseline response headers the site currently has none of.
+Get the baseline response headers onto `main`, verified against every route.
 
 #### Context
-`next.config.mjs` defines no `headers()` and there is no `middleware.ts`. The site ships with no CSP,
-no HSTS, no `X-Content-Type-Options`, no `frame-ancestors`, no `Referrer-Policy`, and no
-`Permissions-Policy`. `poweredByHeader: false` is the only hardening present. Separately,
-`src/app/accessibility/page.tsx:371-379` publicly describes a CSP configuration that does not exist —
-Ticket 11 removes that claim, and this ticket makes a version of it true.
+`next.config.mjs` on `main` defines no `headers()` and there is no `middleware.ts` — no CSP, no HSTS,
+no `X-Content-Type-Options`, no `frame-ancestors`, no `Referrer-Policy`, no `Permissions-Policy`.
+`poweredByHeader: false` is the only hardening present. Separately,
+`src/app/accessibility/page.tsx:371-379` publicly describes a CSP that does not exist — Ticket 11
+removes that claim, and the sibling branch makes a version of it true.
 
 #### Files/modules likely involved
 - `next.config.mjs`
@@ -1071,32 +1088,31 @@ Ticket 11 removes that claim, and this ticket makes a version of it true.
 - `src/app/accessibility/page.tsx` (coordinate with Ticket 11)
 
 #### Implementation requirements
-- Add a `headers()` function to `next.config.mjs` applying to all routes:
-  `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`,
-  `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`,
-  `X-Frame-Options: DENY`, and a `Permissions-Policy` denying camera, microphone, geolocation, and
-  interest-cohort.
-- Add a Content-Security-Policy. Enumerate what the site actually loads first: `next/font` (Inter,
-  Plus Jakarta Sans — self-hosted at build time, so no `fonts.gstatic.com` origin needed), Vercel
-  Analytics and Speed Insights endpoints, and the site's own assets. Do not copy a generic policy.
-- Start in `Content-Security-Policy-Report-Only` mode, verify zero violations across every route, then
-  switch to enforcing in a follow-up commit. Note this two-step in the PR.
-- Include `frame-ancestors 'none'`, `base-uri 'self'`, `object-src 'none'`, and `form-action 'self'`.
-- If `'unsafe-inline'` is unavoidable for scripts, document exactly why in a code comment and open a
-  follow-up for nonce-based CSP via middleware. Do not silently ship `'unsafe-inline'`.
-- Note the JSON-LD `<script type="application/ld+json">` blocks in `StructuredData.tsx` — they are
-  inline and must be accounted for in `script-src`.
+- Review and merge the sibling branch's `next.config.mjs` changes. Read the CSP rationale comment
+  before changing anything in it — the `'unsafe-inline'` decision is deliberate and reasoned, not an
+  oversight.
+- **Verify, do not assume.** Load every route against the policy and confirm zero console CSP
+  violations: `/`, `/pricing`, `/contact`, `/blog`, a blog post, `/compare` and all four detail
+  pages, `/faq`, `/about`, `/how-it-works`, `/products`, `/products/curriculum-intelligence`,
+  `/for-universities`, `/resources/positioning-language`, and all three legal pages.
+- Confirm the JSON-LD `<script type="application/ld+json">` blocks in `StructuredData.tsx` are
+  covered — they are inline and render site-wide from the root layout.
+- Confirm `next/font` (Inter, Plus Jakarta Sans) is genuinely self-hosted at build time and that no
+  `fonts.gstatic.com` origin is needed, rather than trusting the comment.
+- Extend the policy to cover any route added by Tickets 8, 9, and 12.
+- If any route violates, prefer `Content-Security-Policy-Report-Only` for one deploy over loosening
+  the policy to make a violation disappear.
 
 #### Do not touch
+- Do not rewrite the sibling branch's CSP from scratch, and do not remove its rationale comment.
 - Do not add middleware unless the nonce approach is chosen; a static header config is simpler and
   sufficient for a static marketing site.
 - Do not weaken the policy to make a third-party script work without first asking whether that script
   should be there.
 
 #### Acceptance criteria
-- All six header categories are present on every route.
-- CSP is enumerated from actual site behavior, not copied.
-- No console CSP violations on `/`, `/pricing`, `/contact`, `/blog`, `/compare`, or any legal page.
+- All header categories are present on every route, verified against a production build.
+- Zero console CSP violations across the full route list above.
 - Any `'unsafe-inline'` is documented with a reason and a follow-up.
 
 #### Tests required
@@ -1115,7 +1131,12 @@ package.json. Summarize all changed files and do not push directly to main.
 
 ---
 
-### Ticket 16: Rate limit both server actions
+### Ticket 16: Land the rate limiter, and close the gaps it leaves
+
+> **Mostly already written.** `claude/web-app-security-audit-uw5qws` adds `src/lib/rate-limit.ts`
+> (159 lines) with `src/lib/rate-limit.test.ts`, and wires both server actions to it. **Do not write a
+> second limiter.** Read that implementation first, then apply only the requirements below that it
+> does not already satisfy.
 
 #### Objective
 Stop unauthenticated abuse of the contact and newsletter endpoints.
@@ -1134,20 +1155,20 @@ partner endpoint, an unbounded insert path, and a way to flood the sales inbox.
 - `.env.example`
 
 #### Implementation requirements
-- Implement a rate limiter keyed on a hashed client IP (from the `x-forwarded-for` header via
-  `next/headers`), with an in-memory fallback and a documented path to a durable store. On serverless
-  the in-memory limiter is per-instance and therefore best-effort — state that limitation in a code
-  comment rather than implying stronger protection than exists.
-- Apply conservative limits: contact form 5 per IP per hour; newsletter 5 per IP per hour. Return the
-  same generic error shape as existing validation failures — never reveal that a limit was hit in a
-  way that helps an attacker tune.
-- Hash IPs before use as keys. Never log or store a raw IP.
-- Add a minimum-time-on-page check to complement the honeypot: reject submissions arriving under two
+Audit the sibling branch's limiter against each point below and implement only what is missing:
+
+- Keyed on a **hashed** client IP, with raw IPs never logged or stored.
+- The per-instance limitation of an in-memory limiter on serverless is stated in a code comment,
+  rather than implying stronger protection than exists.
+- Rate-limited responses are **indistinguishable** from ordinary validation failures — a distinct
+  error shape tells an attacker exactly where the threshold is.
+- A maximum length on **every** contact field, not just `message`. `institution`, `department`,
+  `timeline`, and the rest go straight into the webhook payload and the database.
+- A minimum-time-on-page check complementing the honeypot: reject submissions arriving under two
   seconds after form render, via a signed timestamp field.
-- **Exempt the unsubscribe route from Ticket 8** — CAN-SPAM requires one-click unsubscribe to work,
-  and a rate limit that blocks it creates a worse problem than it solves.
-- Add a maximum length check on every contact field, not just `message`. `institution`, `department`,
-  and the rest are currently unbounded and go straight into the webhook payload and the database.
+- **The unsubscribe route from Ticket 8 must be exempt.** CAN-SPAM requires one-click unsubscribe to
+  work; a limiter that blocks it creates a worse problem than it solves. That route does not exist on
+  the sibling branch yet, so this is guaranteed to be a gap — wire the exemption when Ticket 8 lands.
 
 #### Do not touch
 - The honeypot behavior — a tripped honeypot must keep returning a fake success.
@@ -1236,19 +1257,26 @@ package.json. Summarize all changed files and do not push directly to main.
 
 ---
 
-### Ticket 18: Stand up CI
+### Ticket 18: Extend the sibling branch's CI with accessibility and claim-integrity jobs
+
+> **The workflow already exists.** `claude/web-app-security-audit-uw5qws` adds `.github/workflows/ci.yml`
+> with a `verify` job (checkout, Node 22, `npm ci`, lint, type-check, test, build) and an `audit` job
+> (`npm audit --audit-level=high`), on `pull_request` and pushes to `main`, with
+> `permissions: contents: read`. **Extend that file. Do not create a competing workflow.**
 
 #### Objective
-Run lint, typecheck, tests, build, and an accessibility scan on every pull request.
+Add the two jobs the existing workflow is missing: accessibility, and claim integrity.
 
 #### Context
-`.github/workflows/` contains only `.gitkeep` — nothing runs on a PR. Meanwhile
-`src/app/accessibility/page.tsx:322-336` publicly claims axe-core runs on every pull request via
-GitHub Actions and gates merges to main. Ticket 11 removes that claim; this ticket makes a version of
-it true, after which Ticket 11's copy can describe what actually runs.
+On `main`, `.github/workflows/` contains only `.gitkeep`; the only PR checks are GitHub's
+default-setup CodeQL scans, configured in repo settings rather than by a committed workflow. The
+sibling branch fixes the lint/typecheck/test/build gap but has **no accessibility job** — so
+`src/app/accessibility/page.tsx:322-336`, which claims axe-core runs on every pull request and gates
+merges to main, stays false even after that branch merges. Ticket 11 removes the overstatement; this
+ticket makes a defensible version of it true.
 
 Note for context: `npm ci` failed during the audit with `403 Forbidden` on `zwitch@2.0.4` from a
-registry proxy. Verify a clean install succeeds in CI and investigate if it does not.
+registry proxy. Confirm a clean install succeeds in CI and investigate if it does not.
 
 #### Files/modules likely involved
 - New: `.github/workflows/ci.yml`
@@ -1257,30 +1285,34 @@ registry proxy. Verify a clean install succeeds in CI and investigate if it does
 - `docs/PRODUCTION-READINESS.md` (update the build-verification note)
 
 #### Implementation requirements
-- Create `.github/workflows/ci.yml` running on `pull_request` and on push to `main`, with Node 20+,
-  `npm ci`, then `npm run lint`, `npm run type-check`, `npm test`, and `npm run build` as separate
-  named steps so a failure is legible.
-- Add an accessibility job running axe-core against a production build of the public routes. Start it
-  as non-blocking, record the baseline, then make it blocking in a follow-up once the baseline is
-  clean. Do not claim a merge gate exists until it does.
-- Cache `~/.npm` keyed on `package-lock.json`.
-- Add a job that runs the claim-guard tests introduced by Tickets 1–6 and 11 as a distinct named step
-  ("claim integrity"), so a copy change that reintroduces a banned claim fails visibly rather than
-  being buried in a general test run.
-- Fix the `type-check` script if the TypeScript version pinned in `package.json` errors on
-  `tsconfig.json`'s `baseUrl` — the audit environment's global `tsc` reported `TS5101`, which may not
-  reproduce with the pinned 5.7.x. Verify against the pinned version before changing anything.
+- Add an **accessibility job** to the existing `ci.yml`, running axe-core against a production build
+  of the public routes. Start it non-blocking, record the baseline, then make it blocking in a
+  follow-up once the baseline is clean. Do not claim a merge gate exists until it does.
+- Add a **claim-integrity job** running the guard tests from Tickets 1–6 and 11 as its own named job,
+  so a copy change that reintroduces a banned claim fails visibly rather than being buried in a
+  general test run. This is the job that keeps the Tier 0 fixes from silently regressing.
+- Verify the existing jobs actually pass. `npm audit --audit-level=high` will fail the build on any
+  new high-severity advisory in the tree — confirm it is currently green, and if not, treat that as
+  its own finding rather than lowering the threshold.
+- Confirm `cache: npm` on `actions/setup-node` is doing what a `~/.npm` cache would; add an explicit
+  cache only if it is not.
+- Check the `type-check` script against the **pinned** TypeScript (5.7.x). The audit environment's
+  global `tsc` reported `TS5101` on `tsconfig.json`'s `baseUrl`, but that is a newer compiler and may
+  not reproduce. Verify before changing anything.
 - Add a status-badge line to `README.md`.
 
 #### Do not touch
+- Do not create a second workflow file, rename `ci.yml`, or restructure its existing jobs.
+- Do not remove the `audit` job or raise its `--audit-level` to make it pass.
 - Do not add deployment, release, or publish steps. This is CI only.
 - Do not add secrets. Every check must run without them.
 
 #### Acceptance criteria
-- A PR runs lint, typecheck, tests, build, claim integrity, and a11y.
-- Failures are attributable to a named step.
+- A PR runs lint, typecheck, tests, build, dependency audit, claim integrity, and a11y.
+- Failures are attributable to a named job.
 - The workflow runs green on the current `main`.
-- Ticket 11's accessibility copy can now describe what the workflow actually does.
+- Ticket 11's accessibility copy can now describe what the workflow actually does — including,
+  honestly, whether the a11y job blocks merges yet.
 
 #### Tests required
 - The workflow is itself the test. Verify by opening a draft PR and confirming all jobs run.
@@ -1383,10 +1415,13 @@ solicits "Send us your materials" with no upload terms.
 - `README.md`
 
 #### Implementation requirements
-- **Contact storage:** confirm the intended flow with a maintainer. Either wire `saveContactSubmission`
-  in as a durable fallback alongside the webhook, or delete `contact-store.ts` and remove
-  `contact_submissions` from `db/schema.sql`. Do not leave a documented table that nothing writes to.
-  Whatever is decided must match the Ticket 7 privacy disclosure exactly.
+- **Contact storage:** `claude/web-app-security-audit-uw5qws` also modifies `contact-store.ts`,
+  `contact/actions.ts`, and `db.ts` — check what it settled before deciding anything. Then confirm the
+  intended flow with a maintainer: either wire `saveContactSubmission` in as a durable fallback
+  alongside the webhook, or delete `contact-store.ts` and remove `contact_submissions` from
+  `db/schema.sql`. Do not leave a documented table that nothing writes to. Whatever is decided must
+  match the Ticket 7 privacy disclosure exactly — a notice naming the wrong destination is precisely
+  the defect Ticket 7 exists to fix.
 - **Dependencies:** confirm the five markdown packages are genuinely unused
   (`grep -rn "next-mdx-remote\|gray-matter\|remark-gfm\|rehype-" src/`), then remove them from
   `package.json` and regenerate `package-lock.json` with `npm install`. If a migration to MDX is

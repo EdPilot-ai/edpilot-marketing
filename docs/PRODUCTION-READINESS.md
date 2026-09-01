@@ -14,8 +14,13 @@ into a scoped engineering task.
 
 > **Build verification note:** `npm ci` could not complete in the audit environment — the registry
 > proxy returned `403 Forbidden` on `zwitch@2.0.4`, a transitive dependency. Lint, typecheck, tests,
-> and build were therefore **not** run. Ticket 18 covers standing CI up so this is answered
-> automatically on every PR.
+> and build were therefore **not** run. No finding below depends on them.
+>
+> **Repo state:** audited against `main` @ `d2fdbdf`. A sibling branch,
+> `claude/web-app-security-audit-uw5qws` (commit `f5ab773`, unmerged), already implements several
+> Tier 1 items — CI, security headers and a CSP, rate limiting, and contact-storage changes. Findings
+> P2, P3, P4, and P8 are stated against `main` and are **already addressed on that branch**; the
+> corresponding tickets say reconcile, not rebuild. Every Tier 0 finding is untouched by it.
 
 ---
 
@@ -94,10 +99,15 @@ by asking for the auditor's name and the report. If no audit is engaged, this li
   of **each release cycle**."
 - `:421-428` — "A VPAT® / Accessibility Conformance Report … is available to institutional
   procurement teams upon request."
-- `.github/workflows/` contains **only `.gitkeep`**. There is no CI in this repository. No axe-core,
-  no Pa11y, no merge gate.
-- `:371-379` describes "the current CSP includes `'unsafe-inline'` for scripts." There is no CSP —
-  `next.config.mjs` sets no headers and there is no middleware.
+- `.github/workflows/` on `main` contains **only `.gitkeep`**. The only checks running on a pull
+  request are GitHub's default-setup CodeQL scans, configured in repo settings rather than by a
+  committed workflow. There is no axe-core, no Pa11y, and no merge gate anywhere. (The sibling
+  branch's `ci.yml` adds lint, typecheck, test, build, and `npm audit` — but no accessibility job, so
+  this claim stays false even after it merges.)
+- `:371-379` describes "the current CSP includes `'unsafe-inline'` for scripts." On `main` there is
+  no CSP at all — `next.config.mjs` sets no headers and there is no middleware. The sibling branch
+  adds one that does keep `'unsafe-inline'` in `script-src`, with a documented rationale, so this
+  particular sentence becomes true once that branch lands. It is not true today.
 
 The statement also documents surfaces that do not exist on this site at all (XP progress bars, course
 leaderboards, session-timeout dialogs, a materials accessibility scanner), which means it cannot have
@@ -361,12 +371,17 @@ inner pages out of the index. **Launch blocker.**
 
 ### P2. No security headers at all
 
-`next.config.mjs` defines no `headers()` and there is no `middleware.ts`. The site ships with no
-Content-Security-Policy, no HSTS, no `X-Content-Type-Options`, no `frame-ancestors` /
+`next.config.mjs` on `main` defines no `headers()` and there is no `middleware.ts`. The site ships
+with no Content-Security-Policy, no HSTS, no `X-Content-Type-Options`, no `frame-ancestors` /
 `X-Frame-Options`, no `Referrer-Policy`, and no `Permissions-Policy`. `poweredByHeader: false` is the
 only hardening present.
 
 The accessibility statement (L4) already publicly describes a CSP configuration that does not exist.
+
+> **Already fixed on `claude/web-app-security-audit-uw5qws`.** That branch adds a full header set and
+> a CSP enumerated from the site's real load behavior, with `'unsafe-inline'` retained in `script-src`
+> under a documented rationale (a nonce would force dynamic rendering) and `preload` deliberately
+> omitted from HSTS. Reconcile with it rather than writing a second version.
 
 ### P3. No rate limiting on either server action
 
@@ -376,6 +391,9 @@ The accessibility statement (L4) already publicly describes a CSP configuration 
 call. Unthrottled, that is a request-amplification path against a partner endpoint, an unbounded
 insert path into `contact_submissions`, and a way to fill the sales inbox.
 
+> **Already fixed on `claude/web-app-security-audit-uw5qws`.** That branch adds `src/lib/rate-limit.ts`
+> with tests, and wires both actions to it. Reconcile rather than rebuild.
+
 ### P4. `src/lib/contact-store.ts` is dead code, and the schema documents a flow that does not run
 
 `saveContactSubmission` is fully implemented and `db/schema.sql:18-33` documents `contact_submissions`
@@ -383,6 +401,11 @@ as "Created automatically on first use via `src/lib/contact-store.ts`." Nothing 
 `contact/actions.ts` uses the webhook path instead. The documented data flow and the real one
 disagree, which matters directly for L7: the privacy notice has to describe where contact data
 actually goes.
+
+> **In flux.** `claude/web-app-security-audit-uw5qws` also modifies `contact-store.ts`,
+> `contact/actions.ts`, and `db.ts`. Settle which flow is canonical against that branch **before**
+> writing the L7 privacy disclosure — a notice describing the wrong destination is the exact defect
+> L7 exists to fix.
 
 ### P5. Metadata gaps below the root
 
@@ -409,9 +432,15 @@ preview's claims can be republished by answer engines after the production copy 
 
 ### P8. No CI
 
-`.github/workflows/` contains only `.gitkeep`. Nothing runs lint, typecheck, tests, or build on a pull
-request, while `src/app/accessibility/page.tsx:322-336` publicly claims CI accessibility gating is in
-place and blocks merges to main.
+`.github/workflows/` on `main` contains only `.gitkeep`. Nothing runs lint, typecheck, tests, or build
+on a pull request — the only checks are GitHub's default-setup CodeQL scans, configured in repo
+settings rather than by a committed workflow — while `src/app/accessibility/page.tsx:322-336`
+publicly claims CI accessibility gating is in place and blocks merges to main.
+
+> **Mostly fixed on `claude/web-app-security-audit-uw5qws`.** That branch's `ci.yml` runs lint,
+> typecheck, test, build, and `npm audit --audit-level=high` on every PR. It has **no accessibility
+> job**, so L4's axe-core and Pa11y claims stay false until one is added. Ticket 18 extends that
+> workflow rather than creating a competing one.
 
 ### P9. Unused dependency surface
 
